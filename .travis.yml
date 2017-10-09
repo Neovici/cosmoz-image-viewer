@@ -1,0 +1,23 @@
+language: node_js
+node_js: 6
+dist: trusty
+sudo: required
+addons:
+  firefox: latest
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
+cache:
+  yarn: true
+  directories:
+  - node_modules
+  - bower_components
+  - bower_components-1.x
+  - ".eslintcache"
+  - "$HOME/.cache/bower"
+before_script:
+- yarn run lint
+script:
+- xvfb-run yarn test

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>cosmoz-image-viewer demo</title>
+
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html" />
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html" />
+
+
+		<link rel="import" href="../cosmoz-image-viewer.html" />
+
+		<custom-style>
+			<style is="custom-style" include="demo-pages-shared-styles iron-flex">
+			</style>
+		</custom-style>
+
+	</head>
+	<body unresolved>
+		<div id="container" class="vertical-section-container centered">
+			<h3>Basic <code>cosmoz-image-viewer</code>.</h3>
+			<demo-snippet>
+				<template>
+					<dom-bind id="t">
+						<template>
+							<cosmoz-image-viewer id="viewer" images="[[ images ]]"></cosmoz-image-viewer>
+						</template>
+					</dom-bind>
+					<script>
+						window.addEventListener('WebComponentsReady', function () {
+							var t = document.querySelector('#t');
+							t.images = [
+								'images/stockholm.jpg',
+								'images/strasbourg.jpg'
+							];
+						});
+					</script>
+				</template>
+			</demo-snippet>
+		</div>
+		<script type="text/javascript">
+		(function () {
+			window.addEventListener('WebComponentsReady', function () {
+				// var viewer = document.querySelector('#viewer');
+				// viewer.images = [
+				// 	'images/stockholm.jpg',
+				// 	'images/strasbourg.jpg'
+				// ];
+			});
+		})();
+		</script>
+	</body>
+</html>

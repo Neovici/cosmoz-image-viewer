@@ -1,0 +1,90 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../cosmoz-behaviors/cosmoz-behaviors.html">
+<link rel="import" href="../cosmoz-i18next/cosmoz-i18next.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html" />
+<script src="../photoswipe/dist/photoswipe.min.js"></script>
+<script src="../photoswipe/dist/photoswipe-ui-default.min.js"></script>
+
+<dom-module id="cosmoz-image-viewer">
+	<template>
+		<style>
+			:host {
+				display: block;
+				position: relative;
+				min-height: 150px; /* FIXME: otherwise floats float out */
+				@apply --layout-vertical;
+			}
+
+			.floater {
+				opacity: 1;
+				position: absolute;
+				top: 10px;
+				@apply --layout-horizontal;
+				@apply --layout-center-center;
+				background-color: #fff;
+				border-radius: 50px;
+				border: solid 1px #a4abae;
+				color: #343434;
+				box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+				font-weight: normal;
+				z-index: 1;
+			}
+
+			.floater.left {
+				left: 10px;
+				@apply --layout-vertical;
+				padding: 8px 0;
+			}
+
+			.floater.right {
+				right: 25px;
+			}
+
+			.floater:hover {
+				opacity: 1;
+			}
+
+			.floater paper-icon-button {
+				height: 35px;
+				width: 35px;
+			}
+
+			.floater.left paper-icon-button {
+				height: 45px;
+				width: 45px;
+			}
+
+			.floater div {
+				margin: 0 10px;
+			}
+
+			#imageContainer {
+				overflow-y: auto;
+				will-change: transform;
+			}
+
+			#image {
+				width: 100%;
+			}
+		</style>
+		<div id="actionButtons" class="floater left">
+			<paper-icon-button on-click="showInvoiceImage" icon="zoom-in" title="[[ _('Zoom image', t) ]]"></paper-icon-button>
+			<paper-icon-button hidden$="[[ noDetach ]]" disabled$="[[ detached ]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]"></paper-icon-button>
+			<slot></slot>
+		</div>
+		<div class="floater right">
+			<paper-icon-button disabled$="[[ isFirst(currentImage, images) ]]" on-click="previousImage" icon="chevron-left"
+				 title="[[ _('Load previous image in list', t) ]]"></paper-icon-button>
+			<div>[[ concat(currentPage, ' / ', images.length) ]]</div>
+			<paper-icon-button disabled$="[[ isLast(currentImage, images) ]]" on-click="nextImage" icon="chevron-right"
+				title="[[ _('Load next image in list', t) ]]"></paper-icon-button>
+		</div>
+		<div id="imageContainer" on-scroll="scrollHandler">
+			<img id="image" src="[[ currentImage ]]" on-load="onImageLoad"/>
+		</div>
+	</template>
+	<script type="text/javascript" src="cosmoz-image-viewer.js"></script>
+</dom-module>
