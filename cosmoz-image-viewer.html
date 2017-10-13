@@ -5,8 +5,8 @@
 <link rel="import" href="../cosmoz-behaviors/cosmoz-behaviors.html">
 <link rel="import" href="../cosmoz-i18next/cosmoz-i18next.html">
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html" />
-<script src="../photoswipe/dist/photoswipe.min.js"></script>
-<script src="../photoswipe/dist/photoswipe-ui-default.min.js"></script>
+
+<link rel="import" href="photoswipe-boilerplate.html">
 
 <dom-module id="cosmoz-image-viewer">
 	<template>
@@ -70,6 +70,7 @@
 				width: 100%;
 			}
 		</style>
+		<photoswipe-boilerplate pswp="{{_pswp}}"></photoswipe-boilerplate>
 		<div id="actionButtons" class="floater left">
 			<paper-icon-button on-click="showInvoiceImage" icon="zoom-in" title="[[ _('Zoom image', t) ]]"></paper-icon-button>
 			<paper-icon-button hidden$="[[ noDetach ]]" disabled$="[[ detached ]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]"></paper-icon-button>

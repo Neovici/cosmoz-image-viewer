@@ -61,6 +61,9 @@
 			},
 			_scroller: {
 				type: Object
+			},
+			_pswp: {
+				type: Object
 			}
 		},
 		listeners: {
@@ -196,8 +199,7 @@
 					h: 1562
 				});
 			});
-
-			this.modalImageViewer(document.getElementById('pswp'), items, this.currentImageIndex);
+			this.modalImageViewer(this._pswp, items, this.currentImageIndex);
 		}
 	});
 }());
