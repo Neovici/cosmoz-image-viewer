@@ -137,7 +137,6 @@
 			}
 			w.document.body.innerHTML = '<div style="overflow-y: auto;"><img style="width: 100%" src="' + url + '"></div>';
 			w.document.title = this._('Cosmoz Image Viewer');
-			console.log(w);
 			w.addEventListener('beforeunload', function () {
 				this._setDetached(false);
 				this.notifyResize();
@@ -162,7 +161,8 @@
 				loadingIndicatorDelay: 0,
 				hideAnimationDuration: 0,
 				showAnimationDuration: 0,
-				showHideOpacity: false
+				showHideOpacity: false,
+				shareEl: false
 			}).init();
 		},
 
