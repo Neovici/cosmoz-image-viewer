@@ -125,7 +125,7 @@
 		},
 
 		detach: function () {
-			var url = this.currentImage,
+			var url = Polymer.ResolveUrl.resolveUrl(this.currentImage),
 				w = window.open(undefined, 'OCR', 'height=700,width=800');
 
 			if (url.indexOf('http') !== 0) {
