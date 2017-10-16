@@ -23,7 +23,7 @@
 				type: Number,
 				computed: '_computePage(currentImageIndex)'
 			},
-			detached: {
+			isDetached: {
 				type: Boolean,
 				value: false,
 				readOnly: true,
@@ -138,10 +138,10 @@
 			w.document.body.innerHTML = '<div style="overflow-y: auto;"><img style="width: 100%" src="' + url + '"></div>';
 			w.document.title = this._('Cosmoz Image Viewer');
 			w.addEventListener('beforeunload', function () {
-				this._setDetached(false);
+				this._setIsDetached(false);
 				this.notifyResize();
 			}.bind(this));
-			this._setDetached(true);
+			this._setIsDetached(true);
 			this._detachedWindow = w;
 			this.notifyResize();
 		},

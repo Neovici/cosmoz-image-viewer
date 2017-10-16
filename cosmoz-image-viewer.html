@@ -73,7 +73,7 @@
 		<photoswipe-boilerplate pswp="{{_pswp}}"></photoswipe-boilerplate>
 		<div id="actionButtons" class="floater left">
 			<paper-icon-button on-click="showInvoiceImage" icon="zoom-in" title="[[ _('Zoom image', t) ]]"></paper-icon-button>
-			<paper-icon-button hidden$="[[ noDetach ]]" disabled$="[[ detached ]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]"></paper-icon-button>
+			<paper-icon-button hidden$="[[ noDetach ]]" disabled$="[[ isDetached ]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]"></paper-icon-button>
 			<slot></slot>
 		</div>
 		<div class="floater right">
