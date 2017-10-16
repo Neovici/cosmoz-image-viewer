@@ -11,6 +11,10 @@
 		],
 		is: 'cosmoz-image-viewer',
 		properties: {
+			currentImagePath: {
+				type: String,
+				computed: '_computeCurrentImagePath(currentImage)'
+			},
 			currentImage: {
 				type: Object,
 				observer: '_currentImageChanged'
@@ -89,6 +93,10 @@
 			return index + 1;
 		},
 
+		_computeCurrentImagePath(currentImage) {
+			return this.resolveUrl(currentImage);
+		},
+
 		_detachedChanged: function (value) {
 			this.hidden = value;
 		},
@@ -128,7 +136,7 @@
 		},
 
 		detach: function () {
-			var url = Polymer.ResolveUrl.resolveUrl(this.currentImage),
+			var url = this.resolveUrl(this.currentImage),
 				w = window.open(undefined, 'OCR', 'height=700,width=800');
 
 			if (url.indexOf('http') !== 0) {
@@ -194,11 +202,11 @@
 			var items = [];
 			this.images.forEach(function (image) {
 				items.push({
-					src: image,
+					src: this._computeCurrentImagePath(image),
 					w: 1105,
 					h: 1562
 				});
-			});
+			}, this);
 			this.modalImageViewer(this._pswp, items, this.currentImageIndex);
 		}
 	});
