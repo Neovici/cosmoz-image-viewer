@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "main": "cosmoz-image-viewer.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#1.9",
+    "polymer": "Polymer/polymer#1.9 - 2",
     "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#1 - 2",
 	  "iron-flex-layout": "PolymerElements/iron-flex-layout#1 - 2",
 	  "iron-icons": "PolymerElements/iron-icons#1 - 2",
@@ -24,7 +24,7 @@
   "variants": {
     "1.x": {
   	  "dependencies": {
-        "polymer": "Polymer/polymer#1.9 - 2",
+        "polymer": "Polymer/polymer#1.9",
         "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#^2.0.0",
         "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.0",
         "iron-icons": "PolymerElements/iron-icons#^2.0.0",
@@ -38,7 +38,7 @@
         "iron-component-page": "PolymerElements/iron-component-page##^2.0.0",
         "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
         "iron-test-helpers": "polymerelements/iron-test-helpers##^2.0.0",
-        "web-component-tester": "^6.0.0",
+        "web-component-tester": "^4.0.0",
         "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
       },
 

@@ -25,31 +25,18 @@
 			<h3>Basic <code>cosmoz-image-viewer</code>.</h3>
 			<demo-snippet>
 				<template>
-					<dom-bind id="t">
-						<template>
-							<cosmoz-image-viewer id="viewer" images="[[ images ]]"></cosmoz-image-viewer>
-						</template>
-					</dom-bind>
-					<script>
-						window.addEventListener('WebComponentsReady', function () {
-							var t = document.querySelector('#t');
-							t.images = [
-								'images/stockholm.jpg',
-								'images/strasbourg.jpg'
-							];
-						});
-					</script>
+					<cosmoz-image-viewer></cosmoz-image-viewer>
 				</template>
 			</demo-snippet>
 		</div>
 		<script type="text/javascript">
 		(function () {
 			window.addEventListener('WebComponentsReady', function () {
-				// var viewer = document.querySelector('#viewer');
-				// viewer.images = [
-				// 	'images/stockholm.jpg',
-				// 	'images/strasbourg.jpg'
-				// ];
+				var viewer = document.querySelector('cosmoz-image-viewer');
+				viewer.images = [
+					'images/stockholm.jpg',
+					'images/strasbourg.jpg'
+				];
 			});
 		})();
 		</script>
