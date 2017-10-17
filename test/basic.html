@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+	<title>cosmoz-omnitable basic test</title>
+
+	<script src="../../web-component-tester/browser.js"></script>
+	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+	<link rel="import" href="../cosmoz-image-viewer.html">
+</head>
+<body>
+	<test-fixture id="cosmozImageViewer">
+		<template>
+			<cosmoz-image-viewer></cosmoz-image-viewer>
+		</template>
+	</test-fixture>
+
+
+	<script>
+	(function () {
+		'use strict';
+
+		suite('cosmoz-image-viewer', function () {
+			var imageViewer;
+	
+			setup(function () {
+				imageViewer = fixture('cosmozImageViewer');
+				imageViewer.images = [
+					'../demo/images/stockholm.jpg',
+					'../demo/images/strasbourg.jpg'
+				];
+			});
+
+			test('instantiating the element works', function () {
+				assert.equal(imageViewer.is, 'cosmoz-image-viewer');
+			});
+		});
+	}());
+
+	</script>
+</body>
+</html>

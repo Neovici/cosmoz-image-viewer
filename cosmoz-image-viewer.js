@@ -11,6 +11,10 @@
 		],
 		is: 'cosmoz-image-viewer',
 		properties: {
+			currentImagePath: {
+				type: String,
+				computed: '_computeCurrentImagePath(currentImage)'
+			},
 			currentImage: {
 				type: Object,
 				observer: '_currentImageChanged'
@@ -23,7 +27,7 @@
 				type: Number,
 				computed: '_computePage(currentImageIndex)'
 			},
-			detached: {
+			isDetached: {
 				type: Boolean,
 				value: false,
 				readOnly: true,
@@ -61,6 +65,9 @@
 			},
 			_scroller: {
 				type: Object
+			},
+			_pswp: {
+				type: Object
 			}
 		},
 		listeners: {
@@ -84,6 +91,10 @@
 
 		_computePage: function (index) {
 			return index + 1;
+		},
+
+		_computeCurrentImagePath(currentImage) {
+			return this.resolveUrl(currentImage);
 		},
 
 		_detachedChanged: function (value) {
@@ -125,7 +136,7 @@
 		},
 
 		detach: function () {
-			var url = this.currentImage,
+			var url = this.resolveUrl(this.currentImage),
 				w = window.open(undefined, 'OCR', 'height=700,width=800');
 
 			if (url.indexOf('http') !== 0) {
@@ -134,12 +145,11 @@
 			}
 			w.document.body.innerHTML = '<div style="overflow-y: auto;"><img style="width: 100%" src="' + url + '"></div>';
 			w.document.title = this._('Cosmoz Image Viewer');
-			console.log(w);
 			w.addEventListener('beforeunload', function () {
-				this._setDetached(false);
+				this._setIsDetached(false);
 				this.notifyResize();
 			}.bind(this));
-			this._setDetached(true);
+			this._setIsDetached(true);
 			this._detachedWindow = w;
 			this.notifyResize();
 		},
@@ -159,7 +169,8 @@
 				loadingIndicatorDelay: 0,
 				hideAnimationDuration: 0,
 				showAnimationDuration: 0,
-				showHideOpacity: false
+				showHideOpacity: false,
+				shareEl: false
 			}).init();
 		},
 
@@ -191,13 +202,12 @@
 			var items = [];
 			this.images.forEach(function (image) {
 				items.push({
-					src: image,
+					src: this._computeCurrentImagePath(image),
 					w: 1105,
 					h: 1562
 				});
-			});
-
-			this.modalImageViewer(document.getElementById('pswp'), items, this.currentImageIndex);
+			}, this);
+			this.modalImageViewer(this._pswp, items, this.currentImageIndex);
 		}
 	});
 }());
