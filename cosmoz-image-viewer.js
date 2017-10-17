@@ -137,14 +137,41 @@
 
 		detach: function () {
 			var url = this.resolveUrl(this.currentImage),
-				w = window.open(undefined, 'OCR', 'height=700,width=800');
+				w = window.open(undefined, 'OCR', 'height=700,width=800'),
+				wcUrl = this.resolveUrl('../webcomponentsjs/webcomponents-lite.js'),
+				swUrl = this.resolveUrl('cosmoz-swiper.html');
 
-			if (url.indexOf('http') !== 0) {
-				// url is relative
-				url = window.location.origin + '/' + url;
-			}
-			w.document.body.innerHTML = '<div style="overflow-y: auto;"><img style="width: 100%" src="' + url + '"></div>';
+			w.document.write(`
+				<html>
+					<head>
+						<title>cosmoz-tabs</title>
+						<script src="${wcUrl}"></script> 
+						<link rel="import" href="${swUrl}">
+						<style>
+							body {
+								background: black;
+								margin: 0;
+								padding: 0;
+							}
+						</style>
+					</head>
+					<body>
+						<cosmoz-swiper id="sw"></cosmoz-swiper>
+						<script>
+							(function () {
+								var sw = document.querySelector('#sw'),
+									event = new Event('loaded');
+								event.detail = sw;
+								this.dispatchEvent(event);
+							})();
+						</script>
+					</body>
+				</html>
+			`);
 			w.document.title = this._('Cosmoz Image Viewer');
+			w.addEventListener('loaded', (e) => {
+				e.detail.images = [url, url];
+			});
 			w.addEventListener('beforeunload', function () {
 				this._setIsDetached(false);
 				this.notifyResize();

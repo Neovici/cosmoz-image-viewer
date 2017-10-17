@@ -1,6 +1,8 @@
 <link rel="import" href="../polymer/polymer.html">
 
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
 
 <link rel="import" href="swiper-boilerplate.html">
 
@@ -59,7 +61,7 @@
         <div class="swiper-container gallery-top">
             <div class="swiper-wrapper">
                 <template is="dom-repeat" items="[[images]]" as="image">
-                    <img class="swiper-slide" src$="[[image]]">
+                    <img class="swiper-slide" src$="[[_getPath(image)]]">
                 </template>
             </div>
             <!-- Add Arrows -->
@@ -69,7 +71,7 @@
         <div class="swiper-container gallery-thumbs">
             <div class="swiper-wrapper">
                 <template is="dom-repeat" items="[[images]]" as="image">
-                    <img class="swiper-slide" src$="[[image]]">
+                    <img class="swiper-slide" src$="[[_getPath(image)]]">
                 </template>
             </div>
         </div>
@@ -91,14 +93,6 @@
         
         		images: {
         			type: Array,
-        			value() {
-        				return [
-        					'images/stockholm.jpg',
-        					'images/strasbourg.jpg',
-        					'images/stockholm.jpg',
-        					'images/strasbourg.jpg'
-        				];
-        			},
         			observer: '_imagesChanged'
         		}
         	},
@@ -107,9 +101,14 @@
         		this._destroySwiper();
         	},
         
+        	_getPath(image) {
+        		return this.resolveUrl(image);
+        	},
+        
         	_imagesChanged() {
         		this.async(() => {
                     // if sync, swiper.size is undefined
+                    // on updateSlides() function; line 1200 v4.0.1
         			this._initSwiper();
         		}, 1);
         	},
@@ -126,7 +125,7 @@
         
         	_initSwiper() {
         		this._destroySwiper();
-        		this.galleryTop = new window.Swiper(this.$$('.gallery-top'), {
+        		this.galleryTop = new Swiper(this.$$('.gallery-top'), {
         			spaceBetween: 10,
         			observeParents: true,
         			navigation: {
@@ -135,7 +134,7 @@
         			}
         		});
         
-        		this.galleryThumbs = new window.Swiper(this.$$('.gallery-thumbs'), {
+        		this.galleryThumbs = new Swiper(this.$$('.gallery-thumbs'), {
         			spaceBetween: 10,
         			centeredSlides: true,
         			slidesPerView: 'auto',
