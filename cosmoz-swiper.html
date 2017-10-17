@@ -1,5 +1,8 @@
 <link rel="import" href="../polymer/polymer.html">
 
+
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+
 <link rel="import" href="swiper-boilerplate.html">
 
 <dom-module id="cosmoz-swiper">
@@ -39,35 +42,38 @@
             .gallery-thumbs .swiper-slide-active {
                 opacity: 1;
             }
+            .swiper-button {
+                color: #fff;
+                height: 48px;
+                width: 48px;
+                margin-right: -12px;
+            }
+            .swiper-button-next {
+                margin-right: -12px;
+            }
+            .swiper-button-prev {
+                margin-left: -12px;
+            }
         </style>
 
         <!-- Swiper -->
         <div class="swiper-container gallery-top">
             <div class="swiper-wrapper">
-                <img class="swiper-slide" src="demo/images/strasbourg.jpg" alt="">
-                <img class="swiper-slide" src="demo/images/stockholm.jpg" alt="">
-                <img class="swiper-slide" src="demo/images/stockholm.jpg" alt="">
-                <img class="swiper-slide" src="demo/images/stockholm.jpg" alt="">
-                <img class="swiper-slide" src="demo/images/strasbourg.jpg" alt="">
-                <img class="swiper-slide" src="demo/images/stockholm.jpg" alt="">
-                <img class="swiper-slide" src="demo/images/stockholm.jpg" alt="">
+                <template is="dom-repeat" items="[[images]]" as="image">
+                    <img class="swiper-slide" src$="[[image]]">
+                </template>
             </div>
             <!-- Add Arrows -->
-            <div class="swiper-button-next swiper-button-white"></div>
-            <div class="swiper-button-prev swiper-button-white"></div>
+            <paper-icon-button class="swiper-button swiper-button-next" icon="icons:arrow-forward"></paper-icon-button>
+            <paper-icon-button class="swiper-button swiper-button-prev" icon="icons:arrow-back"></paper-icon-button>
         </div>
         <div class="swiper-container gallery-thumbs">
             <div class="swiper-wrapper">
-                <img class="swiper-slide" src="demo/images/strasbourg.jpg" alt="">
-                <img class="swiper-slide" src="demo/images/stockholm.jpg" alt="">
-                <img class="swiper-slide" src="demo/images/stockholm.jpg" alt="">
-                <img class="swiper-slide" src="demo/images/stockholm.jpg" alt="">
-                <img class="swiper-slide" src="demo/images/strasbourg.jpg" alt="">
-                <img class="swiper-slide" src="demo/images/stockholm.jpg" alt="">
-                <img class="swiper-slide" src="demo/images/stockholm.jpg" alt="">
+                <template is="dom-repeat" items="[[images]]" as="image">
+                    <img class="swiper-slide" src$="[[image]]">
+                </template>
             </div>
         </div>
-        
     </template>
 
     <script>
@@ -82,24 +88,34 @@
 
         		galleryThumbs: {
         			type: Object
+        		},
+        
+        		images: {
+        			type: Array,
+        			value() {
+        				return [
+        					'images/stockholm.jpg',
+        					'images/strasbourg.jpg',
+        					'images/stockholm.jpg',
+        					'images/strasbourg.jpg'
+        				];
+        			}
         		}
         	},
         
         	attached() {
-        		this.galleryTop = new Swiper(this.$$('.gallery-top'), {
+        		this.galleryTop = new window.Swiper(this.$$('.gallery-top'), {
         			spaceBetween: 10,
         			normalizeSlideIndex: false,
-        			navigation: {
-        				nextEl: this.$$('.swiper-button-next'),
-        				prevEl: this.$$('.swiper-button-prev'),
-        			},
+        			nextButton: this.$$('.swiper-button-next'),
+        			prevButton: this.$$('.swiper-button-prev'),
         			onSlideChangeStart: (swiper) => {
                         // controller.control doesn't seem to work
                         // thats why sync via events
         				this.galleryThumbs.slideTo(swiper.activeIndex);
         			}
         		});
-        		this.galleryThumbs = new Swiper(this.$$('.gallery-thumbs'), {
+        		this.galleryThumbs = new window.Swiper(this.$$('.gallery-thumbs'), {
         			spaceBetween: 10,
         			centeredSlides: true,
         			slidesPerView: 'auto',
