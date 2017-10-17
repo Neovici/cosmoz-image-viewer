@@ -13,6 +13,7 @@
 
 
 		<link rel="import" href="../cosmoz-image-viewer.html" />
+		<link rel="import" href="../cosmoz-swiper.html" />
 
 		<custom-style>
 			<style is="custom-style" include="demo-pages-shared-styles iron-flex">
@@ -23,20 +24,31 @@
 	<body unresolved>
 		<div id="container" class="vertical-section-container centered">
 			<h3>Basic <code>cosmoz-image-viewer</code>.</h3>
+
 			<demo-snippet>
 				<template>
-					<cosmoz-image-viewer></cosmoz-image-viewer>
+					<cosmoz-swiper></cosmoz-swiper>
+				</template>
+			</demo-snippet>
+			
+			<demo-snippet>
+				<template>
+					<cosmoz-image-viewer id="v1"></cosmoz-image-viewer>
+					<cosmoz-image-viewer id="v2"></cosmoz-image-viewer>
 				</template>
 			</demo-snippet>
 		</div>
 		<script type="text/javascript">
 		(function () {
 			window.addEventListener('WebComponentsReady', function () {
-				var viewer = document.querySelector('cosmoz-image-viewer');
-				viewer.images = [
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg'
-				];
+				var v1 = document.querySelector('#v1'),
+					v2 = document.querySelector('#v2'),
+					images = [
+						'demo/images/stockholm.jpg',
+						'demo/images/strasbourg.jpg'
+					];
+				v1.images = images;
+				v2.images = images;
 			});
 		})();
 		</script>
