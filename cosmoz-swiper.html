@@ -1,6 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
 
-
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 
 <link rel="import" href="swiper-boilerplate.html">
@@ -99,34 +98,53 @@
         					'images/stockholm.jpg',
         					'images/strasbourg.jpg'
         				];
-        			}
+        			},
+        			observer: '_imagesChanged'
         		}
         	},
         
-        	attached() {
+        	detached() {
+        		this._destroySwiper();
+        	},
+        
+        	_imagesChanged() {
+        		this.async(() => {
+                    // if sync, swiper.size is undefined
+        			this._initSwiper();
+        		}, 1);
+        	},
+        
+        	_destroySwiper() {
+        		if (this.galleryTop) {
+        			this.galleryTop.destroy();
+        		}
+
+        		if (this.galleryThumbs) {
+        			this.galleryThumbs.destroy();
+        		}
+        	},
+        
+        	_initSwiper() {
+        		this._destroySwiper();
         		this.galleryTop = new window.Swiper(this.$$('.gallery-top'), {
         			spaceBetween: 10,
-        			normalizeSlideIndex: false,
-        			nextButton: this.$$('.swiper-button-next'),
-        			prevButton: this.$$('.swiper-button-prev'),
-        			onSlideChangeStart: (swiper) => {
-                        // controller.control doesn't seem to work
-                        // thats why sync via events
-        				this.galleryThumbs.slideTo(swiper.activeIndex);
+        			observeParents: true,
+        			navigation: {
+        				nextEl: this.$$('.swiper-button-next'),
+        				prevEl: this.$$('.swiper-button-prev'),
         			}
         		});
+        
         		this.galleryThumbs = new window.Swiper(this.$$('.gallery-thumbs'), {
         			spaceBetween: 10,
         			centeredSlides: true,
         			slidesPerView: 'auto',
         			touchRatio: 0.2,
-        			slideToClickedSlide: true,
-        			onSlideChangeStart: (swiper) => {
-                        // controller.control doesn't seem to work
-                        // thats why sync via events
-        				this.galleryTop.slideTo(swiper.activeIndex);
-        			}
+        			slideToClickedSlide: true
         		});
+        
+        		this.galleryTop.controller.control = this.galleryThumbs;
+        		this.galleryThumbs.controller.control = this.galleryTop;
         	}
         });
     </script>
