@@ -150,8 +150,6 @@
 						<style>
 							body {
 								background: black;
-								margin: 0;
-								padding: 0;
 							}
 						</style>
 					</head>
@@ -170,7 +168,13 @@
 			`);
 			w.document.title = this._('Cosmoz Image Viewer');
 			w.addEventListener('loaded', (e) => {
-				e.detail.images = [url, url];
+				var imgs = [
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg'
+				];
+				e.detail.images = imgs.map(i => this.resolveUrl(i));
 			});
 			w.addEventListener('beforeunload', function () {
 				this._setIsDetached(false);
