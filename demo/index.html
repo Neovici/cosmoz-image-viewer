@@ -6,7 +6,7 @@
 
 		<title>cosmoz-image-viewer demo</title>
 
-		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>		
 
 		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html" />
 		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html" />
@@ -26,33 +26,22 @@
 			<h3>Basic <code>cosmoz-image-viewer</code>.</h3>
 
 			<demo-snippet>
-				<template>
-					<cosmoz-swiper id="sw"></cosmoz-swiper>
-				</template>
-			</demo-snippet>
-			
-			<demo-snippet>
-				<template>
-					<cosmoz-image-viewer id="v1"></cosmoz-image-viewer>
-					<cosmoz-image-viewer id="v2"></cosmoz-image-viewer>
+				<template is="dom-bind" class="scope">
+					<cosmoz-image-viewer images="[[images]]"></cosmoz-image-viewer>
+					<cosmoz-image-viewer images="[[images]]"></cosmoz-image-viewer>
 				</template>
 			</demo-snippet>
 		</div>
 		<script type="text/javascript">
 		(function () {
 			window.addEventListener('WebComponentsReady', function () {
-				var v1 = document.querySelector('#v1'),
-					v2 = document.querySelector('#v2'),
-					sw = document.querySelector('#sw'),
-					images = [
-						'demo/images/stockholm.jpg',
-						'demo/images/strasbourg.jpg',
-						'demo/images/stockholm.jpg',
-						'demo/images/strasbourg.jpg'
-					];
-				v1.images = images;
-				v2.images = images;
-				sw.images = images;
+				var images = [
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg'
+				];
+				document.querySelectorAll('.scope').forEach(s => s.set('images', images));
 			});
 		})();
 		</script>

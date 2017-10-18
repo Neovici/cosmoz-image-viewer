@@ -139,14 +139,20 @@
 			var url = this.resolveUrl(this.currentImage),
 				w = window.open(undefined, 'OCR', 'height=700,width=800'),
 				wcUrl = this.resolveUrl('../webcomponentsjs/webcomponents-lite.js'),
+				picUrl = this.resolveUrl('../paper-icon-button/paper-icon-button.html'),
+				iiUrl = this.resolveUrl('../iron-icons/iron-icons.html'),
+				polUrl = this.resolveUrl('../polymer/polymer.html'),
 				swUrl = this.resolveUrl('cosmoz-swiper.html');
 
 			w.document.write(`
 				<html>
 					<head>
-						<title>cosmoz-tabs</title>
+						<title>Image Viewer Detached</title>
 						<script src="${wcUrl}"></script> 
 						<link rel="import" href="${swUrl}">
+						<link rel="import" href="${picUrl}">
+						<link rel="import" href="${iiUrl}">
+						<link rel="import" href="${polUrl}">
 						<style>
 							body {
 								background: black;
@@ -169,12 +175,15 @@
 			w.document.title = this._('Cosmoz Image Viewer');
 			w.addEventListener('loaded', (e) => {
 				var imgs = [
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg'
-				];
-				e.detail.images = imgs.map(i => this.resolveUrl(i));
+						'demo/images/stockholm.jpg',
+						'demo/images/strasbourg.jpg',
+						'demo/images/stockholm.jpg',
+						'demo/images/strasbourg.jpg'
+					],
+					swiper = e.detail;
+				swiper.images = imgs.map(i => this.resolveUrl(i));
+				swiper.startIndex = this.currentImageIndex;
+				swiper.init();
 			});
 			w.addEventListener('beforeunload', function () {
 				this._setIsDetached(false);
