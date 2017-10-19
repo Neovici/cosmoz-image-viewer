@@ -136,22 +136,18 @@
 		},
 
 		detach: function () {
-			var url = this.resolveUrl(this.currentImage),
-				w = window.open(undefined, 'OCR', 'height=700,width=800'),
+			var w = window.open(undefined, 'OCR', 'height=700,width=800'),
 				wcUrl = this.resolveUrl('../webcomponentsjs/webcomponents-lite.js'),
-				picUrl = this.resolveUrl('../paper-icon-button/paper-icon-button.html'),
-				iiUrl = this.resolveUrl('../iron-icons/iron-icons.html'),
 				polUrl = this.resolveUrl('../polymer/polymer.html'),
 				swUrl = this.resolveUrl('cosmoz-swiper.html');
 
+			w.document.open();
 			w.document.write(`
 				<html>
 					<head>
 						<title>Image Viewer Detached</title>
 						<script src="${wcUrl}"></script> 
 						<link rel="import" href="${swUrl}">
-						<link rel="import" href="${picUrl}">
-						<link rel="import" href="${iiUrl}">
 						<link rel="import" href="${polUrl}">
 						<style>
 							body {
@@ -164,7 +160,7 @@
 						<script>
 							(function () {
 								var sw = document.querySelector('#sw'),
-									event = new Event('loaded');
+									event = new Event('ready');
 								event.detail = sw;
 								this.dispatchEvent(event);
 							})();
@@ -172,8 +168,9 @@
 					</body>
 				</html>
 			`);
+			w.document.close();
 			w.document.title = this._('Cosmoz Image Viewer');
-			w.addEventListener('loaded', (e) => {
+			w.addEventListener('ready', (e) => {
 				var imgs = [
 						'demo/images/stockholm.jpg',
 						'demo/images/strasbourg.jpg',
