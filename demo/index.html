@@ -24,11 +24,14 @@
 	<body unresolved>
 		<div id="container" class="vertical-section-container centered">
 			<h3>Basic <code>cosmoz-image-viewer</code>.</h3>
-
 			<demo-snippet>
-				<template is="dom-bind" class="scope">
-					<cosmoz-image-viewer images="[[images]]"></cosmoz-image-viewer>
-					<cosmoz-image-viewer images="[[images]]"></cosmoz-image-viewer>
+				<template>
+					<dom-bind class="scope">
+						<template is="dom-bind" class="scope">
+							<cosmoz-image-viewer images="[[images]]"></cosmoz-image-viewer>
+							<cosmoz-image-viewer images="[[images]]"></cosmoz-image-viewer>
+						</template>
+					</dom-bind>
 				</template>
 			</demo-snippet>
 		</div>
@@ -41,7 +44,10 @@
 					'demo/images/stockholm.jpg',
 					'demo/images/strasbourg.jpg'
 				];
-				document.querySelectorAll('.scope').forEach(s => s.set('images', images));
+
+				// dom-bind for Polymer 2
+				// template is="dom-bind" for Polymer 1
+				document.querySelectorAll('.scope').forEach(s => s.images = images);
 			});
 		})();
 		</script>
