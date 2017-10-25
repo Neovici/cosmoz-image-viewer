@@ -11,7 +11,8 @@
     "paper-icon-button": "PolymerElements/paper-icon-button#^2.0.1",
     "cosmoz-behaviors": "Neovici/cosmoz-behaviors#master",
     "cosmoz-i18next": "Neovici/cosmoz-i18next#master",
-    "photoswipe": "^4.1.2"
+    "photoswipe": "^4.1.2",
+    "iron-meta": "PolymerElements/iron-meta#^2.0.2"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#1 - 3",

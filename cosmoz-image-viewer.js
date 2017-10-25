@@ -57,9 +57,6 @@
 				type: String,
 				notify: true
 			},
-			_detachedWindow: {
-				type: Object
-			},
 			_imageContainerHeight: {
 				type: Number
 			},
@@ -128,21 +125,42 @@
 		},
 
 		attach: function () {
-			this._detachedWindow.close();
+			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
+				sharedWindowInstance = sharedWindow.byKey('detachedWindow');
+
+			if (sharedWindowInstance) {
+				sharedWindowInstance.close();
+			}
 		},
 
 		detach: function () {
-			var w = window.open(undefined, 'OCR', 'height=700,width=800'),
-				wcUrl = this.resolveUrl('../webcomponentsjs/webcomponents-lite.js'),
-				polUrl = this.resolveUrl('../polymer/polymer.html'),
-				swUrl = this.resolveUrl('cosmoz-swiper.html');
+			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
+				sharedWindowInstance = sharedWindow.byKey('detachedWindow'),
+				swiper,
+				wcUrl,
+				swUrl,
+				polUrl,
+				w;
+
+			if (sharedWindowInstance) {
+				window.open(undefined, 'OCR', 'height=700,width=800');
+				swiper = sharedWindowInstance.document.querySelector('#sw');
+				swiper.images = this.images.map(i => this.resolveUrl(i));
+				swiper.startIndex = this.currentImageIndex;
+				return;
+			}
+
+			w = window.open(undefined, 'OCR', 'height=700,width=800');
+			wcUrl = this.resolveUrl('../webcomponentsjs/webcomponents-lite.js');
+			polUrl = this.resolveUrl('../polymer/polymer.html');
+			swUrl = this.resolveUrl('cosmoz-swiper.html');
 
 			w.document.open();
 			w.document.write(`
 				<html>
 					<head>
 						<title>Image Viewer Detached</title>
-						<script src="${wcUrl}"></script> 
+						<script src="${wcUrl}"></script>
 						<link rel="import" href="${swUrl}">
 						<link rel="import" href="${polUrl}">
 						<style>
@@ -175,9 +193,10 @@
 			w.addEventListener('beforeunload', function () {
 				this._setIsDetached(false);
 				this.notifyResize();
+				sharedWindow.value = undefined;
 			}.bind(this));
 			this._setIsDetached(true);
-			this._detachedWindow = w;
+			sharedWindow.value = w;
 			this.notifyResize();
 		},
 
