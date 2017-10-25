@@ -13,7 +13,7 @@
 		properties: {
 			currentImagePath: {
 				type: String,
-				computed: '_computeCurrentImagePath(currentImage)'
+				computed: 'resolveUrl(currentImage)'
 			},
 			currentImage: {
 				type: Object,
@@ -93,10 +93,6 @@
 			return index + 1;
 		},
 
-		_computeCurrentImagePath(currentImage) {
-			return this.resolveUrl(currentImage);
-		},
-
 		_detachedChanged: function (value) {
 			this.hidden = value;
 		},
@@ -171,14 +167,8 @@
 			w.document.close();
 			w.document.title = this._('Cosmoz Image Viewer');
 			w.addEventListener('ready', (e) => {
-				var imgs = [
-						'demo/images/stockholm.jpg',
-						'demo/images/strasbourg.jpg',
-						'demo/images/stockholm.jpg',
-						'demo/images/strasbourg.jpg'
-					],
-					swiper = e.detail;
-				swiper.images = imgs.map(i => this.resolveUrl(i));
+				var swiper = e.detail;
+				swiper.images = this.images.map(i => this.resolveUrl(i));
 				swiper.startIndex = this.currentImageIndex;
 				swiper.init();
 			});
@@ -239,7 +229,7 @@
 			var items = [];
 			this.images.forEach(function (image) {
 				items.push({
-					src: this._computeCurrentImagePath(image),
+					src: this.resolveUrl(image),
 					w: 1105,
 					h: 1562
 				});
