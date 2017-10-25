@@ -13,47 +13,47 @@
         /*global PhotoSwipe, PhotoSwipeUI_Default*/
         Polymer({
         	is: 'cosmoz-swiper',
-        
+
         	properties: {
         		_pswp: {
         			type: Object
         		},
-        
+
         		images: {
         			type: Array,
         		},
-        
+
         		startIndex: {
         			type: Number,
         			value: 0
         		},
-        
+
         		photoSwipe: {
         			type: Object
         		}
         	},
-        
+
         	observers: [
         		'_debounceInit(images, _pswp, startIndex)'
         	],
             /**
              * Used to manually init this element.
-             * If element is opened in detached window attached() is not getting called.
+             * If element is opened in detached window, attached() is not getting called.
              * @return {undefined}
              */
         	init() {
         		this.$$('photoswipe-boilerplate').init();
         	},
-        
+
         	_debounceInit(images, _pswp, startIndex) {
         		this.debounce('init', () => this._init(images, _pswp, startIndex));
         	},
-        
+
         	_init(images, _pswp, startIndex) {
         		if (!images || !_pswp) {
         			return;
         		}
-        
+
         		var items = images.map(image => {
         			return {
         				src: this.resolveUrl(image),
@@ -61,19 +61,19 @@
         				h: 1562
         			};
         		}, this);
-        
+
         		this._initPhotoSwipe(this._pswp, items, startIndex);
         	},
-        
+
         	_initPhotoSwipe(element, items, startIndex) {
         		if (this.photoSwipe) {
         			var old = this.photoSwipe;
         			old.close();
         		}
         		this.photoSwipe = new PhotoSwipe(element, PhotoSwipeUI_Default, items, {
-        			index: startIndex || 0, // start at first slide
-        			history: false, // disables unique URL for each slide.
-        			preLoad: [1, 3], // Preloads one image before current image and three after.,
+        			index: startIndex || 0, // Start at first slide.
+        			history: false, // Disables unique URL for each slide.
+        			preLoad: [1, 3], // Preloads one image before current image and three after.
         			closeOnScroll: false,
         			pinchToClose: false,
         			closeOnVerticalDrag: false,

@@ -26,8 +26,8 @@
 			<h3>Basic <code>cosmoz-image-viewer</code>.</h3>
 			<demo-snippet>
 				<template>
-					<dom-bind class="scope">
-						<template is="dom-bind" class="scope">
+					<dom-bind class="scope"><!-- for Polymer 2 -->
+						<template is="dom-bind" class="scope"><!-- for Polymer 1 -->
 							<cosmoz-image-viewer images="[[images]]"></cosmoz-image-viewer>
 							<cosmoz-image-viewer images="[[images]]"></cosmoz-image-viewer>
 						</template>
@@ -44,9 +44,6 @@
 					'demo/images/stockholm.jpg',
 					'demo/images/strasbourg.jpg'
 				];
-
-				// dom-bind for Polymer 2
-				// template is="dom-bind" for Polymer 1
 				document.querySelectorAll('.scope').forEach(s => s.images = images);
 			});
 		})();
