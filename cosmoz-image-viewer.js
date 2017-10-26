@@ -136,10 +136,9 @@
 		detach: function () {
 			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
 				sharedWindowInstance = sharedWindow.byKey('detachedWindow'),
+				detachedContentUrl = this.resolveUrl('detached.html'),
 				swiper,
-				wcUrl,
-				swUrl,
-				polUrl,
+				rawFile,
 				w;
 
 			if (sharedWindowInstance) {
@@ -151,38 +150,20 @@
 			}
 
 			w = window.open(undefined, 'OCR', 'height=700,width=800');
-			wcUrl = this.resolveUrl('../webcomponentsjs/webcomponents-lite.js');
-			polUrl = this.resolveUrl('../polymer/polymer.html');
-			swUrl = this.resolveUrl('cosmoz-swiper.html');
 
-			w.document.open();
-			w.document.write(`
-				<html>
-					<head>
-						<title>Image Viewer Detached</title>
-						<script src="${wcUrl}"></script>
-						<link rel="import" href="${swUrl}">
-						<link rel="import" href="${polUrl}">
-						<style>
-							body {
-								background: black;
-							}
-						</style>
-					</head>
-					<body>
-						<cosmoz-swiper id="sw"></cosmoz-swiper>
-						<script>
-							(function () {
-								var sw = document.querySelector('#sw'),
-									event = new Event('ready');
-								event.detail = sw;
-								this.dispatchEvent(event);
-							})();
-						</script>
-					</body>
-				</html>
-			`);
-			w.document.close();
+			rawFile = new XMLHttpRequest();
+			rawFile.open('GET', detachedContentUrl, false);
+			rawFile.onreadystatechange = () => {
+				if (rawFile.readyState === 4) {
+					if (rawFile.status === 200 || rawFile.status === 0) {
+						w.document.open();
+						w.document.write(rawFile.responseText);
+						w.document.close();
+					}
+				}
+			};
+			rawFile.send(null);
+
 			w.document.title = this._('Cosmoz Image Viewer');
 			w.addEventListener('ready', (e) => {
 				var swiper = e.detail;

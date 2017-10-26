@@ -1,0 +1,24 @@
+<html>
+        <head>
+            <title>Image Viewer Detached</title>
+            <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+            <link rel="import" href="../cosmoz-swiper.html" />
+            <link rel="import" href="../../polymer/polymer.html" />
+            <style>
+                body {
+                    background: black;
+                }
+            </style>
+        </head>
+        <body>
+            <cosmoz-swiper id="sw"></cosmoz-swiper>
+            <script>
+                (function () {
+                	var sw = document.querySelector('#sw'),
+                		event = new Event('ready');
+                	event.detail = sw;
+                	this.dispatchEvent(event);
+                })();
+            </script>
+        </body>
+    </html>
