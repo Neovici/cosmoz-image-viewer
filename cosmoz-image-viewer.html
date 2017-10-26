@@ -78,10 +78,10 @@
 			<slot></slot>
 		</div>
 		<div class="floater right">
-			<paper-icon-button disabled$="[[ isFirst(currentImage, images) ]]" on-click="previousImage" icon="chevron-left"
+			<paper-icon-button disabled$="[[ isFirst(currentImageIndex, images) ]]" on-click="previousImage" icon="chevron-left"
 				 title="[[ _('Load previous image in list', t) ]]"></paper-icon-button>
 			<div>[[ concat(currentPage, ' / ', images.length) ]]</div>
-			<paper-icon-button disabled$="[[ isLast(currentImage, images) ]]" on-click="nextImage" icon="chevron-right"
+			<paper-icon-button disabled$="[[ isLast(currentImageIndex, images) ]]" on-click="nextImage" icon="chevron-right"
 				title="[[ _('Load next image in list', t) ]]"></paper-icon-button>
 		</div>
 		<div id="imageContainer" on-scroll="scrollHandler">

@@ -17,11 +17,11 @@
 			},
 			currentImage: {
 				type: Object,
+				computed: '_computeCurrentImage(currentImageIndex, images)',
 				observer: '_currentImageChanged'
 			},
 			currentImageIndex: {
-				type: Number,
-				computed: '_computeCurrentImageIndex(currentImage, images)'
+				type: Number
 			},
 			currentPage: {
 				type: Number,
@@ -74,8 +74,12 @@
 			'scrollToPercent(imageLoaded, scrollPercent, _imageContainerHeight)'
 		],
 
-		_computeCurrentImageIndex: function (item, array) {
-			return array.indexOf(item);
+		ready: function () {
+			this.set('_scroller', this.$.imageContainer);
+		},
+
+		_computeCurrentImage: function (index, array) {
+			return array[index];
 		},
 
 		_onResize: function () {
@@ -98,23 +102,23 @@
 			if (!newlist) {
 				return;
 			}
-			this.set('currentImage', newlist[0]);
+			this.currentImageIndex = 0;
 		},
 
-		isFirst: function (item, array) {
-			return array.indexOf(item) === 0;
+		isFirst(index) {
+			return index === 0 ? true : false;
 		},
 
-		isLast: function (item, array) {
-			return array.indexOf(item) === array.length - 1;
+		isLast(index, array) {
+			return array.length - 1 === index;
 		},
 
-		nextImage: function () {
-			this.set('currentImage', this.images[this.currentImageIndex + 1]);
+		nextImage() {
+			this.currentImageIndex += 1;
 		},
 
-		previousImage: function () {
-			this.set('currentImage', this.images[this.currentImageIndex - 1]);
+		previousImage() {
+			this.currentImageIndex -= 1;
 		},
 
 		onImageLoad: function () {
@@ -199,10 +203,6 @@
 				showHideOpacity: false,
 				shareEl: false
 			}).init();
-		},
-
-		ready: function () {
-			this.set('_scroller', this.$.imageContainer);
 		},
 
 		scrollHandler: function () {
