@@ -84,7 +84,7 @@
 			<paper-icon-button disabled$="[[ isLast(currentImageIndex, images) ]]" on-click="nextImage" icon="chevron-right"
 				title="[[ _('Load next image in list', t) ]]"></paper-icon-button>
 		</div>
-		<div id="imageContainer" on-scroll="scrollHandler">
+		<div id="imageContainer" on-track="trackHandler" on-scroll="scrollHandler">
 			<img id="image" src="[[ currentImagePath ]]" on-load="onImageLoad"/>
 		</div>
 		<iron-meta id="meta" type="cosmoz-image-viewer" key="detachedWindow"></iron-meta>
