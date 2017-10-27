@@ -117,7 +117,7 @@
 		},
 
 		_currentImageChanged: function () {
-			this.set('imageLoaded', this.$.image.complete);
+			// this.set('imageLoaded', this.$.image.complete);
 		},
 
 		_computePage: function (index) {

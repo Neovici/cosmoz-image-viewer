@@ -19,51 +19,7 @@
 			:host {
 				display: block;
 				position: relative;
-				min-height: 150px; /* FIXME: otherwise floats float out */
 				@apply --layout-vertical;
-			}
-
-			.floater {
-				opacity: 1;
-				position: absolute;
-				top: 10px;
-				@apply --layout-horizontal;
-				@apply --layout-center-center;
-				background-color: #fff;
-				border-radius: 50px;
-				border: solid 1px #a4abae;
-				color: #343434;
-				box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-				font-weight: normal;
-				z-index: 1;
-			}
-
-			.floater.left {
-				left: 10px;
-				@apply --layout-vertical;
-				padding: 8px 0;
-			}
-
-			.floater.right {
-				right: 25px;
-			}
-
-			.floater:hover {
-				opacity: 1;
-			}
-
-			.floater paper-icon-button {
-				height: 35px;
-				width: 35px;
-			}
-
-			.floater.left paper-icon-button {
-				height: 45px;
-				width: 45px;
-			}
-
-			.floater div {
-				margin: 0 10px;
 			}
 
 			#imageContainer {
@@ -71,42 +27,88 @@
 				will-change: transform;
 			}
 
-			#image {
-				width: 100%;
+			iron-image {
+				cursor: pointer;
+				flex: auto;
 			}
 
-			iron-image {
-				height: 100%;
-    			width: 100%;
+			#imageContainer:hover > .detach-btn {
+				opacity: 1;
 			}
+
+			.detach-btn {
+				position: absolute;
+				z-index: +1;
+				right: 12px;
+				top: 12px;
+				color:rgba(255, 255, 255, 0.87);
+				opacity: 0.1;
+				-webkit-transition: opacity .15s ease-in-out;
+				-moz-transition: opacity .15s ease-in-out;
+				-ms-transition: opacity .15s ease-in-out;
+				-o-transition: opacity .15s ease-in-out;
+				transition: opacity .15s ease-in-out;
+			}
+
+			skeleton-carousel {
+				--skeleton-carousel-nav: {
+					background-color: rgba(0, 0, 0, 0.44);
+					color: rgba(255, 255, 255, 0.87);
+					top: 50%;
+					position: fixed;
+				};
+
+				--skeleton-carousel-nav-disabled: {
+					/* otherwise fullscreen gets triggerd on tap */
+					pointer-events: all !important;
+				}
+
+				--skeleton-carousel-nav-next: {
+					right: 5%;
+				};
+
+				--skeleton-carousel-nav-prev: {
+					left: 5%;
+				};
+
+				--skeleton-carousel-dots: {
+					position: fixed;
+					bottom: 0;
+					background-color:rgba(128, 128, 128, 0.44);
+					border-radius: 16px;
+					height: 22px;
+					padding: 0 4px;
+				};
+
+				--skeleton-carousel-dot: {
+					height: 22px;
+					width: 22px;
+					padding: 0 4px;
+				}
+
+				--skeleton-carousel-dot-color: rgba(0, 0, 0, 0.87);
+
+				--skeleton-carousel-controls: {
+					padding: 0;
+				}
+			}
+
 		</style>
 		<photoswipe-boilerplate pswp="{{_pswp}}"></photoswipe-boilerplate>
 
-		<skeleton-carousel dots nav selected="{{selectedImageNumber}}">
-			<template is="dom-repeat" items="[[_resolvedImages]]" as="image" ignore>
-				<div>
-					<iron-image
-						placeholder="https://source.unsplash.com/category/nature/400x400"
-						data-src$="[[image]]"
-						sizing="contain"
-					></iron-image>
-				</div>
-			</template>
-		</skeleton-carousel>
-		<div id="actionButtons" class="floater left">
-			<paper-icon-button on-click="showInvoiceImage" icon="zoom-in" title="[[ _('Zoom image', t) ]]"></paper-icon-button>
-			<paper-icon-button hidden$="[[ noDetach ]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]"></paper-icon-button>
-			<slot></slot>
-		</div>
-		<div class="floater right">
-			<paper-icon-button disabled$="[[ isFirst(currentImageIndex, images) ]]" on-click="previousImage" icon="chevron-left"
-				title="[[ _('Load previous image in list', t) ]]"></paper-icon-button>
-			<div>[[ concat(currentPage, ' / ', images.length) ]]</div>
-			<paper-icon-button disabled$="[[ isLast(currentImageIndex, images) ]]" on-click="nextImage" icon="chevron-right"
-				title="[[ _('Load next image in list', t) ]]"></paper-icon-button>
-		</div>
 		<div id="imageContainer" on-scroll="scrollHandler">
-			<img id="image" src="[[ currentImagePath ]]" on-load="onImageLoad"/>
+			<paper-icon-button class="detach-btn" hidden$="[[ noDetach ]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]"></paper-icon-button>
+			<skeleton-carousel dots nav selected="{{selectedImageNumber}}">
+				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
+					<div>
+						<iron-image
+							on-click="showInvoiceImage"
+							placeholder="https://source.unsplash.com/category/nature/400x400"
+							data-src$="[[image]]">
+						</iron-image>
+					</div>
+				</template>
+			</skeleton-carousel>
 		</div>
 		<iron-meta id="meta" type="cosmoz-image-viewer" key="detachedWindow"></iron-meta>
 	</template>
