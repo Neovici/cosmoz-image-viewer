@@ -100,10 +100,8 @@
 			<paper-icon-button class="detach-btn" hidden$="[[ noDetach ]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]"></paper-icon-button>
 			<skeleton-carousel dots nav selected="{{selectedImageNumber}}">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
-					<div>
+					<div on-click="showInvoiceImage">
 						<iron-image
-							on-click="showInvoiceImage"
-							placeholder="https://source.unsplash.com/category/nature/400x400"
 							data-src$="[[image]]"
 							sizing="[[sizing]]">
 						</iron-image>

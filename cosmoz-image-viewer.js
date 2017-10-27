@@ -11,10 +11,6 @@
 		],
 		is: 'cosmoz-image-viewer',
 		properties: {
-			currentImagePath: {
-				type: String,
-				computed: 'resolveUrl(currentImage)'
-			},
 			currentImage: {
 				type: Object,
 				notify: true,
@@ -30,8 +26,7 @@
 			 */
 			selectedImageNumber: {
 				type: Number,
-				notify: true,
-				observer: '_selectedImageNumberChanged'
+				notify: true
 			},
 			currentPage: {
 				type: Number,
@@ -86,7 +81,8 @@
 			'iron-resize': '_onResize'
 		},
 		observers: [
-			'scrollToPercent(scrollPercent, _imageContainerHeight, _resolvedImages)'
+			'scrollToPercent(scrollPercent, _imageContainerHeight, _resolvedImages)',
+			'_selectedImageNumberChanged(selectedImageNumber, images)'
 		],
 
 		ready: function () {
@@ -104,10 +100,22 @@
 			return images.map(i => this.resolveUrl(i));
 		},
 
-		_selectedImageNumberChanged(imageNumber) {
+		_selectedImageNumberChanged(imageNumber, images) {
 			this.currentImageIndex = imageNumber - 1;
-			if (Polymer.Element && this.images && this.currentImageIndex === this.images.length - 1) {
+
+			if (!images || !Polymer.Element) {
+				return;
+			}
+			// If nav buttons get deactivated, a tap of them opens
+			// fullscreen photoSwipe on Polymer 2.
+			// CSS --skeleton-carousel-nav-disabled ... doesn't work here.
+			if (parseInt(imageNumber, 10) === this.images.length) {
 				this.$$('skeleton-carousel').$.next.style.pointerEvents = 'all';
+				return;
+			}
+
+			if (parseInt(imageNumber, 10) === 1) {
+				this.$$('skeleton-carousel').$.prev.style.pointerEvents = 'all';
 			}
 		},
 
@@ -206,15 +214,9 @@
 		},
 
 		modalImageViewer: function (element, items, index) {
-
-			// FIXME: PR for Photoswipe to detect if hash URL has '?' ?
-			if (window.location.hash.indexOf('?') === -1) {
-				window.history.replaceState(null, null, window.location.hash + '?');
-			}
-
 			new PhotoSwipe(element, PhotoSwipeUI_Default, items, {
 				index: index || 0, // start at first slide
-				history: true, // disables unique URL for each slide.
+				history: false, // disables unique URL for each slide.
 				preLoad: [1, 3], // Preloads one image before current image and three after.,
 				closeOnScroll: false,
 				loadingIndicatorDelay: 0,
