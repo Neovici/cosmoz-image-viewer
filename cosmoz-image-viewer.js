@@ -19,7 +19,6 @@
 				type: Object,
 				notify: true,
 				computed: '_computeCurrentImage(currentImageIndex, images)',
-				observer: '_currentImageChanged'
 			},
 			currentImageIndex: {
 				type: Number,
@@ -45,10 +44,6 @@
 				notify: true,
 				observer: '_detachedChanged'
 			},
-			imageLoaded: {
-				type: Boolean,
-				value: false
-			},
 			images: {
 				type: Array,
 				observer: '_imageListChanged'
@@ -72,6 +67,11 @@
 				type: String,
 				notify: true
 			},
+
+			sizing: {
+				type: String
+			},
+
 			_imageContainerHeight: {
 				type: Number
 			},
@@ -86,7 +86,7 @@
 			'iron-resize': '_onResize'
 		},
 		observers: [
-			'scrollToPercent(imageLoaded, scrollPercent, _imageContainerHeight)'
+			'scrollToPercent(scrollPercent, _imageContainerHeight, _resolvedImages)'
 		],
 
 		ready: function () {
@@ -106,6 +106,9 @@
 
 		_selectedImageNumberChanged(imageNumber) {
 			this.currentImageIndex = imageNumber - 1;
+			if (Polymer.Element && this.images && this.currentImageIndex === this.images.length - 1) {
+				this.$$('skeleton-carousel').$.next.style.pointerEvents = 'all';
+			}
 		},
 
 		_currentImageIndexChanged(index) {
@@ -114,10 +117,6 @@
 
 		_onResize: function () {
 			this.set('_imageContainerHeight', this._scroller.scrollHeight);
-		},
-
-		_currentImageChanged: function () {
-			// this.set('imageLoaded', this.$.image.complete);
 		},
 
 		_computePage: function (index) {
@@ -135,17 +134,6 @@
 			this.currentImageIndex = 0;
 		},
 
-		isFirst(index) {
-			return index === 0 ? true : false;
-		},
-
-		isLast(index, array) {
-			if (!array) {
-				return;
-			}
-			return array.length - 1 === index;
-		},
-
 		nextImage() {
 			if (this.currentImageIndex + 1 === this.images.length) {
 				return;
@@ -158,13 +146,6 @@
 				return;
 			}
 			this.currentImageIndex -= 1;
-		},
-
-		onImageLoad: function () {
-			// Give container time to reflow
-			this.async(function () {
-				this.set('imageLoaded', true);
-			}.bind(this), 100);
 		},
 
 		attach: function () {

@@ -54,14 +54,14 @@
 				--skeleton-carousel-nav: {
 					background-color: rgba(0, 0, 0, 0.44);
 					color: rgba(255, 255, 255, 0.87);
-					top: 50%;
-					position: fixed;
+					top: calc(50% - 11px);
+					position: absolute;
 				};
 
 				--skeleton-carousel-nav-disabled: {
 					/* otherwise fullscreen gets triggerd on tap */
 					pointer-events: all !important;
-				}
+				};
 
 				--skeleton-carousel-nav-next: {
 					right: 5%;
@@ -72,7 +72,7 @@
 				};
 
 				--skeleton-carousel-dots: {
-					position: fixed;
+					position: absolute;
 					bottom: 0;
 					background-color:rgba(128, 128, 128, 0.44);
 					border-radius: 16px;
@@ -104,7 +104,8 @@
 						<iron-image
 							on-click="showInvoiceImage"
 							placeholder="https://source.unsplash.com/category/nature/400x400"
-							data-src$="[[image]]">
+							data-src$="[[image]]"
+							sizing="[[sizing]]">
 						</iron-image>
 					</div>
 				</template>
