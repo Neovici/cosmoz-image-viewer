@@ -17,11 +17,22 @@
 			},
 			currentImage: {
 				type: Object,
+				notify: true,
 				computed: '_computeCurrentImage(currentImageIndex, images)',
 				observer: '_currentImageChanged'
 			},
 			currentImageIndex: {
-				type: Number
+				type: Number,
+				notify: true,
+				observer: '_currentImageIndexChanged'
+			},
+			/**
+			 * Like currentImageIndex + 1; Starts at 1 instead of 0.
+			 */
+			selectedImageNumber: {
+				type: Number,
+				notify: true,
+				observer: '_selectedImageNumberChanged'
 			},
 			currentPage: {
 				type: Number,
@@ -41,6 +52,10 @@
 			images: {
 				type: Array,
 				observer: '_imageListChanged'
+			},
+			_resolvedImages: {
+				type: Array,
+				computed: '_computeResolvedImages(images)'
 			},
 			/**
 			 * Disable button to detach image
@@ -78,124 +93,23 @@
 			this.set('_scroller', this.$.imageContainer);
 		},
 
-		attached() {
-			// Polymer.Gestures.addListener(this.$.imageContainer, 'track', e => this.trackHandler(e));
-		},
-
-		trackHandler(e) {
-			var target = this.$.image,
-				track = e.detail;
-			switch (track.state) {
-			case 'start':
-				this.message = 'Tracking started!';
-				this._trackStart(track, target);
-				break;
-			case 'track':
-				this.message = 'Tracking in progress... ' +
-			e.detail.x + ', ' + e.detail.y;
-				this._trackMove(track, target);
-				break;
-			case 'end':
-				this._trackEnd(track, target);
-				if (e.detail.dy > 10) {
-					// up swipe
-				}
-
-				if (e.detail.dy < -10) {
-					// down swipe
-				}
-
-				if (e.detail.dx > 10) {
-					// right swipe
-
-				}
-
-				if (e.detail.dx < -10) {
-					// left swipe
-
-				}
-				this.message = 'Tracking ended!';
-				break;
-			}
-			console.log(this.message);
-			e.stopPropagation();
-		},
-
-		_trackStart: function (event, target) {
-			// Save the width of the element, so that we don't trigger a style
-			// recalc every time we need it.
-			this._nodeWidth = target.offsetWidth;
-			target.style.transition = 'none';
-		  },
-
-		  _trackEnd: function (event, target) {
-			// The element is swiped away if it's moved halfway its total width.
-			this._swipeComplete = Math.abs(event.dx) > this._nodeWidth / 2;
-			this._direction = event.dx > 0;
-			this._swipeEnd(target);
-		  },
-
-		  _trackMove: function (event, target) {
-			this._animate(event.dx, target);
-		  },
-
-		_swipeEnd: function (target) {
-			// Restore the original transition;
-			target.style.transition = '300ms cubic-bezier(0.4, 0.0, 1, 1)';
-			if (this._swipeComplete) {
-			  // If the element is ready to be swiped away, then translate it to the full
-			  // transparency distance.
-			  var totalDistance = this._nodeWidth * this.widthRatio;
-			  this._animate(this._direction ? totalDistance : -totalDistance, target);
-			  this.async(() => {
-				this._animate(this._direction ? -totalDistance : totalDistance, target);
-				// this._animate(0, target);
-				this._direction ? this.nextImage() : this.previousImage();
-			  }, 500);
-
-			} else {
-			  this._animate(0, target);
-			}
-		  },
-
-		_animate: function (x, target) {
-			var direction = x > 0 ? 1 : -1;
-			this.opacityRate = 0.2;
-			this.widthRatio = 3;
-			this.swipeStyle = '';
-
-			// This is the total distance the animation will take place over.
-			var totalDistance = this._nodeWidth * this.widthRatio;
-			// Opacity distance overflow. `this._nodeWidth * this.opacityRate` is the
-			// total distance the element needs to travel to become completely
-			// transparent, and `x` is how much the element has already travelled.
-			var opaqueDistance = Math.max(0, Math.abs(x) - this._nodeWidth * this.opacityRate);
-			var opacity = Math.max(0, (totalDistance - opaqueDistance) / totalDistance);
-			target.style.opacity = opacity;
-			var translate,
-				rotate;
-			if (this.swipeStyle === 'horizontal') {
-			  translate = 'translate3d(' + x + 'px,' + 0 + 'px,0)';
-			  rotate = '';
-			} else {  // Default is assumed to be `curve`.
-			  // Assume the element will be completely transparent at 90 degrees, so
-			  // figure out the rotation and vertical displacement needed to
-			  // achieve that.
-			  var y = totalDistance - Math.sqrt(totalDistance * totalDistance - opaqueDistance * opaqueDistance);
-			  var deg = (1 - opacity) * direction * 90;
-			  translate = 'translate3d(' + x + 'px,' + y + 'px,0)';
-			  rotate = ' rotate(' + deg + 'deg)';
-			}
-			if (x === 0) {
-				target.style.transition = 'none';
-				target.style.transform = 'none';
+		_computeCurrentImage: function (index, array) {
+			if (!array) {
 				return;
 			}
-			this.transform(translate + rotate, target);
+			return array[index];
 		},
 
-		_computeCurrentImage: function (index, array) {
-			return array[index];
+		_computeResolvedImages(images) {
+			return images.map(i => this.resolveUrl(i));
+		},
+
+		_selectedImageNumberChanged(imageNumber) {
+			this.currentImageIndex = imageNumber - 1;
+		},
+
+		_currentImageIndexChanged(index) {
+			this.selectedImageNumber = index + 1;
 		},
 
 		_onResize: function () {
@@ -226,6 +140,9 @@
 		},
 
 		isLast(index, array) {
+			if (!array) {
+				return;
+			}
 			return array.length - 1 === index;
 		},
 
@@ -339,7 +256,7 @@
 		},
 
 		scrollToPercent: function (loaded, percent, height) {
-			if (!loaded) {
+			if (!loaded || !this._scroller) {
 				return;
 			}
 			var topPx = height * (percent / 100);

@@ -7,6 +7,10 @@
 <link rel="import" href="../cosmoz-i18next/cosmoz-i18next.html">
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html" />
 
+<link rel="import" href="../iron-image/iron-image.html">
+
+<link rel="import" href="../skeleton-carousel/skeleton-carousel.html">
+
 <link rel="import" href="photoswipe-boilerplate.html">
 
 <dom-module id="cosmoz-image-viewer">
@@ -70,8 +74,25 @@
 			#image {
 				width: 100%;
 			}
+
+			iron-image {
+				height: 100%;
+    			width: 100%;
+			}
 		</style>
 		<photoswipe-boilerplate pswp="{{_pswp}}"></photoswipe-boilerplate>
+
+		<skeleton-carousel dots nav selected="{{selectedImageNumber}}">
+			<template is="dom-repeat" items="[[_resolvedImages]]" as="image" ignore>
+				<div>
+					<iron-image
+						placeholder="https://source.unsplash.com/category/nature/400x400"
+						data-src$="[[image]]"
+						sizing="contain"
+					></iron-image>
+				</div>
+			</template>
+		</skeleton-carousel>
 		<div id="actionButtons" class="floater left">
 			<paper-icon-button on-click="showInvoiceImage" icon="zoom-in" title="[[ _('Zoom image', t) ]]"></paper-icon-button>
 			<paper-icon-button hidden$="[[ noDetach ]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]"></paper-icon-button>
@@ -79,12 +100,12 @@
 		</div>
 		<div class="floater right">
 			<paper-icon-button disabled$="[[ isFirst(currentImageIndex, images) ]]" on-click="previousImage" icon="chevron-left"
-				 title="[[ _('Load previous image in list', t) ]]"></paper-icon-button>
+				title="[[ _('Load previous image in list', t) ]]"></paper-icon-button>
 			<div>[[ concat(currentPage, ' / ', images.length) ]]</div>
 			<paper-icon-button disabled$="[[ isLast(currentImageIndex, images) ]]" on-click="nextImage" icon="chevron-right"
 				title="[[ _('Load next image in list', t) ]]"></paper-icon-button>
 		</div>
-		<div id="imageContainer" on-track="trackHandler" on-scroll="scrollHandler">
+		<div id="imageContainer" on-scroll="scrollHandler">
 			<img id="image" src="[[ currentImagePath ]]" on-load="onImageLoad"/>
 		</div>
 		<iron-meta id="meta" type="cosmoz-image-viewer" key="detachedWindow"></iron-meta>

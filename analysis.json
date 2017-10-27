@@ -1,3 +1,1268 @@
 {
-  "schema_version": "1.0.0"
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "",
+      "summary": "",
+      "path": "photoswipe-boilerplate.html",
+      "properties": [
+        {
+          "name": "pswp",
+          "type": "Object",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 82,
+              "column": 11
+            },
+            "end": {
+              "line": 85,
+              "column": 12
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "attached",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 88,
+              "column": 10
+            },
+            "end": {
+              "line": 90,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "init",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 92,
+              "column": 10
+            },
+            "end": {
+              "line": 94,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "params": []
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 78,
+          "column": 17
+        },
+        "end": {
+          "line": 95,
+          "column": 10
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [
+        {
+          "name": "pswp",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 82,
+              "column": 11
+            },
+            "end": {
+              "line": 85,
+              "column": 12
+            }
+          },
+          "metadata": {},
+          "type": "Object"
+        }
+      ],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "pswp-changed",
+          "description": "Fired when the `pswp` property changes.",
+          "metadata": {}
+        }
+      ],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "photoswipe-boilerplate"
+    },
+    {
+      "description": "",
+      "summary": "",
+      "path": "cosmoz-image-viewer.js",
+      "properties": [
+        {
+          "name": "currentImagePath",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 13,
+              "column": 3
+            },
+            "end": {
+              "line": 16,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "currentImage",
+          "type": "Object",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 17,
+              "column": 3
+            },
+            "end": {
+              "line": 21,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_currentImageChanged\"",
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "currentImageIndex",
+          "type": "number",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 22,
+              "column": 3
+            },
+            "end": {
+              "line": 24,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "currentPage",
+          "type": "number",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 25,
+              "column": 3
+            },
+            "end": {
+              "line": 28,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "isDetached",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 29,
+              "column": 3
+            },
+            "end": {
+              "line": 35,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_detachedChanged\"",
+              "readOnly": true
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "imageLoaded",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 36,
+              "column": 3
+            },
+            "end": {
+              "line": 39,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "images",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 40,
+              "column": 3
+            },
+            "end": {
+              "line": 43,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_imageListChanged\""
+            }
+          }
+        },
+        {
+          "name": "_resolvedImages",
+          "type": "Array",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 44,
+              "column": 3
+            },
+            "end": {
+              "line": 47,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "noDetach",
+          "type": "boolean",
+          "description": "Disable button to detach image",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 51,
+              "column": 3
+            },
+            "end": {
+              "line": 54,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "scrollPercent",
+          "type": "number",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 55,
+              "column": 3
+            },
+            "end": {
+              "line": 58,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          }
+        },
+        {
+          "name": "src",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 59,
+              "column": 3
+            },
+            "end": {
+              "line": 62,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          }
+        },
+        {
+          "name": "_imageContainerHeight",
+          "type": "number",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 63,
+              "column": 3
+            },
+            "end": {
+              "line": 65,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "_scroller",
+          "type": "Object",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 66,
+              "column": 3
+            },
+            "end": {
+              "line": 68,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "_pswp",
+          "type": "Object",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 69,
+              "column": 3
+            },
+            "end": {
+              "line": 71,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "ready",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 80,
+              "column": 2
+            },
+            "end": {
+              "line": 82,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_computeCurrentImage",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 84,
+              "column": 2
+            },
+            "end": {
+              "line": 86,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "index"
+            },
+            {
+              "name": "array"
+            }
+          ]
+        },
+        {
+          "name": "_computeResolvedImages",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 88,
+              "column": 2
+            },
+            "end": {
+              "line": 90,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "images"
+            }
+          ]
+        },
+        {
+          "name": "_onResize",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 92,
+              "column": 2
+            },
+            "end": {
+              "line": 94,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_currentImageChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 96,
+              "column": 2
+            },
+            "end": {
+              "line": 98,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_computePage",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 100,
+              "column": 2
+            },
+            "end": {
+              "line": 102,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "index"
+            }
+          ]
+        },
+        {
+          "name": "_detachedChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 104,
+              "column": 2
+            },
+            "end": {
+              "line": 106,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ]
+        },
+        {
+          "name": "_imageListChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 108,
+              "column": 2
+            },
+            "end": {
+              "line": 113,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "newlist"
+            }
+          ]
+        },
+        {
+          "name": "isFirst",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 115,
+              "column": 2
+            },
+            "end": {
+              "line": 117,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "index"
+            }
+          ]
+        },
+        {
+          "name": "isLast",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 119,
+              "column": 2
+            },
+            "end": {
+              "line": 121,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "index"
+            },
+            {
+              "name": "array"
+            }
+          ]
+        },
+        {
+          "name": "nextImage",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 123,
+              "column": 2
+            },
+            "end": {
+              "line": 128,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "previousImage",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 130,
+              "column": 2
+            },
+            "end": {
+              "line": 135,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "onImageLoad",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 137,
+              "column": 2
+            },
+            "end": {
+              "line": 142,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "attach",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 144,
+              "column": 2
+            },
+            "end": {
+              "line": 151,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "detach",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 153,
+              "column": 2
+            },
+            "end": {
+              "line": 199,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "modalImageViewer",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 201,
+              "column": 2
+            },
+            "end": {
+              "line": 219,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "element"
+            },
+            {
+              "name": "items"
+            },
+            {
+              "name": "index"
+            }
+          ]
+        },
+        {
+          "name": "scrollHandler",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 221,
+              "column": 2
+            },
+            "end": {
+              "line": 230,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "scrollToPercent",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 232,
+              "column": 2
+            },
+            "end": {
+              "line": 239,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "loaded"
+            },
+            {
+              "name": "percent"
+            },
+            {
+              "name": "height"
+            }
+          ]
+        },
+        {
+          "name": "showInvoiceImage",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 241,
+              "column": 2
+            },
+            "end": {
+              "line": 251,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": []
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 5,
+          "column": 9
+        },
+        "end": {
+          "line": 252,
+          "column": 2
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [
+        {
+          "name": "current-image-path",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 13,
+              "column": 3
+            },
+            "end": {
+              "line": 16,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "current-image",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 17,
+              "column": 3
+            },
+            "end": {
+              "line": 21,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "Object"
+        },
+        {
+          "name": "current-image-index",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 22,
+              "column": 3
+            },
+            "end": {
+              "line": 24,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "current-page",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 25,
+              "column": 3
+            },
+            "end": {
+              "line": 28,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "is-detached",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 29,
+              "column": 3
+            },
+            "end": {
+              "line": 35,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "image-loaded",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 36,
+              "column": 3
+            },
+            "end": {
+              "line": 39,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "images",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 40,
+              "column": 3
+            },
+            "end": {
+              "line": 43,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "no-detach",
+          "description": "Disable button to detach image",
+          "sourceRange": {
+            "start": {
+              "line": 51,
+              "column": 3
+            },
+            "end": {
+              "line": 54,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "scroll-percent",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 55,
+              "column": 3
+            },
+            "end": {
+              "line": 58,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "src",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 59,
+              "column": 3
+            },
+            "end": {
+              "line": 62,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        }
+      ],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "is-detached-changed",
+          "description": "Fired when the `isDetached` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "scroll-percent-changed",
+          "description": "Fired when the `scrollPercent` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "src-changed",
+          "description": "Fired when the `src` property changes.",
+          "metadata": {}
+        }
+      ],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [
+        {
+          "description": "",
+          "name": "",
+          "range": {
+            "file": "cosmoz-image-viewer.html",
+            "start": {
+              "line": 98,
+              "column": 3
+            },
+            "end": {
+              "line": 98,
+              "column": 16
+            }
+          }
+        }
+      ],
+      "tagname": "cosmoz-image-viewer"
+    },
+    {
+      "description": "global PhotoSwipe, PhotoSwipeUI_Default",
+      "summary": "",
+      "path": "cosmoz-swiper.html",
+      "properties": [
+        {
+          "name": "_pswp",
+          "type": "Object",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 15,
+              "column": 4
+            },
+            "end": {
+              "line": 17,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "images",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 19,
+              "column": 4
+            },
+            "end": {
+              "line": 21,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "startIndex",
+          "type": "number",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 23,
+              "column": 4
+            },
+            "end": {
+              "line": 26,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "0"
+        },
+        {
+          "name": "photoSwipe",
+          "type": "Object",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 28,
+              "column": 4
+            },
+            "end": {
+              "line": 30,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "init",
+          "description": "Used to manually init this element.\nIf element is opened in detached window, attached() is not getting called.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 41,
+              "column": 3
+            },
+            "end": {
+              "line": 43,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "_debounceInit",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 45,
+              "column": 3
+            },
+            "end": {
+              "line": 47,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "images"
+            },
+            {
+              "name": "_pswp"
+            },
+            {
+              "name": "startIndex"
+            }
+          ]
+        },
+        {
+          "name": "_init",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 49,
+              "column": 3
+            },
+            "end": {
+              "line": 63,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "images"
+            },
+            {
+              "name": "_pswp"
+            },
+            {
+              "name": "startIndex"
+            }
+          ]
+        },
+        {
+          "name": "_initPhotoSwipe",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 64,
+              "column": 3
+            },
+            "end": {
+              "line": 86,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "element"
+            },
+            {
+              "name": "items"
+            },
+            {
+              "name": "startIndex"
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 11,
+          "column": 10
+        },
+        "end": {
+          "line": 87,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [
+        {
+          "name": "images",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 19,
+              "column": 4
+            },
+            "end": {
+              "line": 21,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "start-index",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 23,
+              "column": 4
+            },
+            "end": {
+              "line": 26,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "photo-swipe",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 28,
+              "column": 4
+            },
+            "end": {
+              "line": 30,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "Object"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "cosmoz-swiper"
+    }
+  ]
 }
