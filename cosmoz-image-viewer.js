@@ -9,7 +9,9 @@
 			Cosmoz.TemplateHelperBehavior,
 			Cosmoz.TranslatableBehavior
 		],
+
 		is: 'cosmoz-image-viewer',
+
 		properties: {
 			currentImage: {
 				type: Object,
@@ -62,8 +64,17 @@
 				type: String,
 				notify: true
 			},
-
+			/**
+			 * Sizing of the image in the container.
+			 * Options are: null, cover, contain
+			 */
 			sizing: {
+				type: String
+			},
+			/**
+			 * Placeholder image showed while image is loading.
+			 */
+			placeholder: {
 				type: String
 			},
 
@@ -97,6 +108,9 @@
 		},
 
 		_computeResolvedImages(images) {
+			if (!images) {
+				return;
+			}
 			return images.map(i => this.resolveUrl(i));
 		},
 
@@ -247,7 +261,7 @@
 			this._scroller.scrollTop = topPx;
 		},
 
-		showInvoiceImage: function () {
+		enterFullscreen: function () {
 			var items = [];
 			this.images.forEach(function (image) {
 				items.push({

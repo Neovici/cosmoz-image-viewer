@@ -20,6 +20,7 @@
 				display: block;
 				position: relative;
 				@apply --layout-vertical;
+				--cosmoz-image-viewer-height: 300px;
 			}
 
 			#imageContainer {
@@ -34,6 +35,7 @@
 
 			#imageContainer:hover > .detach-btn {
 				opacity: 1;
+				background-color: rgba(0, 0, 0, 0.44);
 			}
 
 			.detach-btn {
@@ -42,6 +44,8 @@
 				right: 12px;
 				top: 12px;
 				color:rgba(255, 255, 255, 0.87);
+				background-color: rgba(0, 0, 0, 0.13);
+				border-radius: 20px;
 				opacity: 0.1;
 				-webkit-transition: opacity .15s ease-in-out;
 				-moz-transition: opacity .15s ease-in-out;
@@ -50,7 +54,15 @@
 				transition: opacity .15s ease-in-out;
 			}
 
-			skeleton-carousel {
+			@media (hover: none) {
+				.detach-btn {
+					opacity: 1;
+					background-color: rgba(0, 0, 0, 0.26);
+				}
+			}
+
+			#carousel {
+				min-height: var(--cosmoz-image-viewer-height);
 				--skeleton-carousel-nav: {
 					background-color: rgba(0, 0, 0, 0.44);
 					color: rgba(255, 255, 255, 0.87);
@@ -64,16 +76,16 @@
 				};
 
 				--skeleton-carousel-nav-next: {
-					right: 5%;
+					right: 12px;
 				};
 
 				--skeleton-carousel-nav-prev: {
-					left: 5%;
+					left: 12px;
 				};
 
 				--skeleton-carousel-dots: {
 					position: absolute;
-					bottom: 0;
+					bottom: 12px;
 					background-color:rgba(128, 128, 128, 0.44);
 					border-radius: 16px;
 					height: 22px;
@@ -98,18 +110,23 @@
 
 		<div id="imageContainer" on-scroll="scrollHandler">
 			<paper-icon-button class="detach-btn" hidden$="[[ noDetach ]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]"></paper-icon-button>
-			<skeleton-carousel dots nav selected="{{selectedImageNumber}}">
+			<skeleton-carousel id="carousel" dots nav selected="{{selectedImageNumber}}">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
-					<div on-click="showInvoiceImage">
+					<div on-click="enterFullscreen">
 						<iron-image
 							data-src$="[[image]]"
-							sizing="[[sizing]]">
+							placeholder="[[placeholder]]"
+							sizing="[[sizing]]"
+							preload
+							fade>
 						</iron-image>
 					</div>
 				</template>
 			</skeleton-carousel>
 		</div>
+
 		<iron-meta id="meta" type="cosmoz-image-viewer" key="detachedWindow"></iron-meta>
+
 	</template>
 	<script type="text/javascript" src="cosmoz-image-viewer.js"></script>
 </dom-module>
