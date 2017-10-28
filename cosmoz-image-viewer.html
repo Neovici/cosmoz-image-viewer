@@ -23,13 +23,16 @@
 				--cosmoz-image-viewer-height: 300px;
 			}
 
+			:host[fullscreen-overlay] .image {
+				cursor: pointer;
+			}
+
 			#imageContainer {
 				overflow-y: auto;
 				will-change: transform;
 			}
 
-			iron-image {
-				cursor: pointer;
+			.image {
 				flex: auto;
 			}
 
@@ -109,16 +112,28 @@
 		<photoswipe-boilerplate pswp="{{_pswp}}"></photoswipe-boilerplate>
 
 		<div id="imageContainer" on-scroll="scrollHandler">
-			<paper-icon-button class="detach-btn" hidden$="[[ noDetach ]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]"></paper-icon-button>
-			<skeleton-carousel id="carousel" dots nav selected="{{selectedImageNumber}}">
+			<paper-icon-button class="detach-btn"
+				hidden$="[[ noDetach ]]"
+				on-click="detach"
+				icon="launch"
+				title="[[ _('Detach image to separate window', t) ]]">
+			</paper-icon-button>
+			<skeleton-carousel id="carousel"
+				dots="[[dots]]"
+				nav="[[nav]]"
+				selected="{{selectedImageNumber}}"
+				on-total-changed="_checkCurrentImageLoaded"
+				on-selected-changed="_checkCurrentImageLoaded">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
 					<div on-click="enterFullscreen">
 						<iron-image
+							class="image"
 							data-src$="[[image]]"
 							placeholder="[[placeholder]]"
 							sizing="[[sizing]]"
 							preload
-							fade>
+							fade
+							on-loaded-changed="_imageLoaded">
 						</iron-image>
 					</div>
 				</template>

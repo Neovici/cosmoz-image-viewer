@@ -28,18 +28,16 @@
 				<template>
 					<dom-bind class="scope"><!-- for Polymer 2 -->
 						<template is="dom-bind" class="scope"><!-- for Polymer 1 -->
-							<style>
-								.small {
-									--cosmoz-image-viewer-height: 150px;
-								}
-							</style>
 							<cosmoz-image-viewer
 								selected-image-number="{{selectedImageNumber}}"
-								images="[[images]]">
+								images="[[images]]"
+								nav dots fullscreen-overlay>
 							</cosmoz-image-viewer>
 							<div style="height: 30px;"></div>
 							<cosmoz-image-viewer class="small"
+								height="100px"
 								no-detach
+								dots
 								sizing="contain"
 								selected-image-number="{{selectedImageNumber}}"
 								images="[[images]]">

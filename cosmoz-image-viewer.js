@@ -77,7 +77,40 @@
 			placeholder: {
 				type: String
 			},
-
+			/**
+			 * Height of the element.
+			 */
+			height: {
+				type: String,
+				value: '300px',
+				observer: '_heightValueChanged'
+			},
+			/**
+            * Show navigation next/prev buttons
+            */
+			nav: {
+				type: Boolean,
+				value: false,
+			},
+			/**
+			* Show navigation dots
+			*/
+			dots: {
+				type: Boolean,
+				value: false,
+			},
+			/**
+			* If true, fullscreen when click on image
+			*/
+			fullscreenOverlay: {
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
+			},
+			imageLoaded: {
+				type: Boolean,
+				value: false,
+			},
 			_imageContainerHeight: {
 				type: Number
 			},
@@ -92,12 +125,47 @@
 			'iron-resize': '_onResize'
 		},
 		observers: [
-			'scrollToPercent(scrollPercent, _imageContainerHeight, _resolvedImages)',
+			'scrollToPercent(imageLoaded, scrollPercent, _imageContainerHeight)',
 			'_selectedImageNumberChanged(selectedImageNumber, images)'
 		],
 
 		ready: function () {
 			this.set('_scroller', this.$.imageContainer);
+		},
+
+		_checkCurrentImageLoaded() {
+			// Wait for selected class to be set on div.
+			setTimeout(() => {
+				this._setImageLoaded();
+			}, 50);
+		},
+
+		_setImageLoaded() {
+			let selectedDiv,
+				ironImage;
+
+			selectedDiv = Array.from(this.$.carousel.children).find(child => {
+				return Array.from(child.classList).some(c => c === 'selected');
+			});
+
+			if (!selectedDiv) {
+				return;
+			}
+
+			ironImage = Array.from(selectedDiv.children).find(child => child.nodeName === 'IRON-IMAGE');
+			this.imageLoaded = ironImage.loaded;
+		},
+
+		_imageLoaded(e) {
+			let ironImage = e.currentTarget,
+				div = ironImage.parentNode;
+			if (Array.from(div.classList).indexOf('selected') > -1) {
+				this.imageLoaded = ironImage.loaded;
+			}
+		},
+
+		_heightValueChanged(height) {
+			this.updateStyles({'--cosmoz-image-viewer-height': height});
 		},
 
 		_computeCurrentImage: function (index, array) {
@@ -262,6 +330,9 @@
 		},
 
 		enterFullscreen: function () {
+			if (!this.fullscreenOverlay) {
+				return;
+			}
 			var items = [];
 			this.images.forEach(function (image) {
 				items.push({
