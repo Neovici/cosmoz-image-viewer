@@ -90,19 +90,26 @@
             */
 			nav: {
 				type: Boolean,
-				value: false,
+				value: false
 			},
 			/**
 			* Show navigation dots
 			*/
 			dots: {
 				type: Boolean,
-				value: false,
+				value: false
 			},
 			/**
-			* If true, fullscreen when click on image
+			* Loop through the images
 			*/
-			fullscreenOverlay: {
+			loop: {
+				type: Boolean,
+				value: false
+			},
+			/**
+			* If true, open fullscreen overlay when click on image
+			*/
+			fullscreen: {
 				type: Boolean,
 				value: false,
 				reflectToAttribute: true
@@ -119,7 +126,20 @@
 			},
 			_pswp: {
 				type: Object
-			}
+			},
+			/**
+			 * The selected slide in the carousel
+			 */
+			selectedItem: {
+				type: Object,
+				observer: '_selectedItemChanged'
+			},
+			_detachedWindowContent: {
+				type: String
+			},
+			_detachedContentUrl: {
+				type: String
+			},
 		},
 		listeners: {
 			'iron-resize': '_onResize'
@@ -129,34 +149,23 @@
 			'_selectedImageNumberChanged(selectedImageNumber, images)'
 		],
 
-		ready: function () {
+		ready() {
 			this.set('_scroller', this.$.imageContainer);
+			this._detachedContentUrl = this.resolveUrl('detached.html');
 		},
 
-		_checkCurrentImageLoaded() {
-			// Wait for selected class to be set on div.
-			setTimeout(() => {
-				this._setImageLoaded();
-			}, 50);
-		},
-
-		_setImageLoaded() {
-			let selectedDiv,
-				ironImage;
-
-			selectedDiv = Array.from(this.$.carousel.children).find(child => {
-				return Array.from(child.classList).some(c => c === 'selected');
-			});
-
-			if (!selectedDiv) {
+		_selectedItemChanged(selectedItem) {
+			if (!selectedItem) {
 				return;
 			}
-
-			ironImage = Array.from(selectedDiv.children).find(child => child.nodeName === 'IRON-IMAGE');
+			let ironImage = Array.from(selectedItem.children).find(child => child.nodeName === 'IRON-IMAGE');
+			if (!ironImage) {
+				return;
+			}
 			this.imageLoaded = ironImage.loaded;
 		},
 
-		_imageLoaded(e) {
+		_imageLoadedChanged(e) {
 			let ironImage = e.currentTarget,
 				div = ironImage.parentNode;
 			if (Array.from(div.classList).indexOf('selected') > -1) {
@@ -264,19 +273,8 @@
 			}
 
 			w = window.open(undefined, 'OCR', 'height=700,width=800');
-
-			rawFile = new XMLHttpRequest();
-			rawFile.open('GET', detachedContentUrl, false);
-			rawFile.onreadystatechange = () => {
-				if (rawFile.readyState === 4) {
-					if (rawFile.status === 200 || rawFile.status === 0) {
-						w.document.open();
-						w.document.write(rawFile.responseText);
-						w.document.close();
-					}
-				}
-			};
-			rawFile.send(null);
+			w.document.write(this._detachedWindowContent);
+			w.document.close();
 
 			w.document.title = this._('Cosmoz Image Viewer');
 			w.addEventListener('ready', (e) => {
@@ -329,10 +327,14 @@
 			this._scroller.scrollTop = topPx;
 		},
 
-		enterFullscreen: function () {
-			if (!this.fullscreenOverlay) {
+		_imageTapped() {
+			if (!this.fullscreen || !this.$.carousel.animationEnded) {
 				return;
 			}
+			this.enterFullscreen();
+		},
+
+		enterFullscreen() {
 			var items = [];
 			this.images.forEach(function (image) {
 				items.push({

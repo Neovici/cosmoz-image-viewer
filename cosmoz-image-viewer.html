@@ -9,6 +9,8 @@
 
 <link rel="import" href="../iron-image/iron-image.html">
 
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+
 <link rel="import" href="../skeleton-carousel/skeleton-carousel.html">
 
 <link rel="import" href="photoswipe-boilerplate.html">
@@ -21,9 +23,10 @@
 				position: relative;
 				@apply --layout-vertical;
 				--cosmoz-image-viewer-height: 300px;
+				height: 100%
 			}
 
-			:host[fullscreen-overlay] .image {
+			:host([fullscreen]) .image {
 				cursor: pointer;
 			}
 
@@ -50,11 +53,11 @@
 				background-color: rgba(0, 0, 0, 0.13);
 				border-radius: 20px;
 				opacity: 0.1;
-				-webkit-transition: opacity .15s ease-in-out;
-				-moz-transition: opacity .15s ease-in-out;
-				-ms-transition: opacity .15s ease-in-out;
-				-o-transition: opacity .15s ease-in-out;
-				transition: opacity .15s ease-in-out;
+				-webkit-transition: opacity .25s ease-in-out;
+				-moz-transition: opacity .25s ease-in-out;
+				-ms-transition: opacity .25s ease-in-out;
+				-o-transition: opacity .25s ease-in-out;
+				transition: opacity .25s ease-in-out;
 			}
 
 			@media (hover: none) {
@@ -88,11 +91,12 @@
 
 				--skeleton-carousel-dots: {
 					position: absolute;
-					bottom: 12px;
+					top: 21px;
 					background-color:rgba(128, 128, 128, 0.44);
 					border-radius: 16px;
 					height: 22px;
 					padding: 0 4px;
+					opacity: 0.67;
 				};
 
 				--skeleton-carousel-dot: {
@@ -119,13 +123,13 @@
 				title="[[ _('Detach image to separate window', t) ]]">
 			</paper-icon-button>
 			<skeleton-carousel id="carousel"
+				selected-item="{{selectedItem}}"
 				dots="[[dots]]"
 				nav="[[nav]]"
-				selected="{{selectedImageNumber}}"
-				on-total-changed="_checkCurrentImageLoaded"
-				on-selected-changed="_checkCurrentImageLoaded">
+				loop="[[loop]]"
+				selected="{{selectedImageNumber}}">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
-					<div on-click="enterFullscreen">
+					<div on-click="_imageTapped">
 						<iron-image
 							class="image"
 							data-src$="[[image]]"
@@ -133,12 +137,19 @@
 							sizing="[[sizing]]"
 							preload
 							fade
-							on-loaded-changed="_imageLoaded">
+							on-loaded-changed="_imageLoadedChanged">
 						</iron-image>
 					</div>
 				</template>
 			</skeleton-carousel>
 		</div>
+
+		<iron-ajax
+			auto
+			url="[[_detachedContentUrl]]"
+			handle-as="text"
+			last-response="{{_detachedWindowContent}}">
+		</iron-ajax>
 
 		<iron-meta id="meta" type="cosmoz-image-viewer" key="detachedWindow"></iron-meta>
 
