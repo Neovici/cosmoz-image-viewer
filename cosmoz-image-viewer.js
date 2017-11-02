@@ -158,11 +158,11 @@
 			if (!selectedItem) {
 				return;
 			}
-			let ironImage = Array.from(selectedItem.children).find(child => child.nodeName === 'IRON-IMAGE');
-			if (!ironImage) {
+			let img = Array.from(selectedItem.children).find(child => child.nodeName === 'IRON-IMAGE');
+			if (!img) {
 				return;
 			}
-			this.imageLoaded = ironImage.loaded;
+			this.imageLoaded = img.loaded;
 		},
 
 		_imageLoadedChanged(e) {
@@ -256,6 +256,27 @@
 			}
 		},
 
+		_resolvePathsInString(content) {
+			let resolvedContent = content;
+
+			// src
+			const srcs = content.match(/src\s*=\s*"([^"]+)"/g),
+				hrefs = content.match(/href\s*=\s*"([^"]+)"/g);
+
+			srcs.forEach(src => {
+				let raw = src.substring(5, src.length - 1);
+				resolvedContent = resolvedContent.replace(raw, this.resolveUrl(raw));
+			});
+
+			// href
+			hrefs.forEach(href => {
+				let raw = href.substring(6, href.length - 1);
+				resolvedContent = resolvedContent.replace(raw, this.resolveUrl(raw));
+			});
+
+			return resolvedContent;
+		},
+
 		detach: function () {
 			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
 				sharedWindowInstance = sharedWindow.byKey('detachedWindow'),
@@ -271,7 +292,7 @@
 			}
 
 			w = window.open(undefined, 'OCR', 'height=700,width=800');
-			w.document.write(this._detachedWindowContent);
+			w.document.write(this._resolvePathsInString(this._detachedWindowContent));
 			w.document.close();
 
 			w.document.title = this._('Cosmoz Image Viewer');
