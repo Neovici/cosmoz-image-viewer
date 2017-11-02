@@ -13,6 +13,7 @@
 
 
 		<link rel="import" href="../cosmoz-image-viewer.html" />
+		<link rel="import" href="../cosmoz-swiper.html" />
 
 		<custom-style>
 			<style is="custom-style" include="demo-pages-shared-styles iron-flex">
@@ -20,23 +21,43 @@
 		</custom-style>
 
 	</head>
-	<body unresolved>
+	<body>
 		<div id="container" class="vertical-section-container centered">
 			<h3>Basic <code>cosmoz-image-viewer</code>.</h3>
 			<demo-snippet>
 				<template>
-					<cosmoz-image-viewer></cosmoz-image-viewer>
+					<dom-bind class="scope"><!-- for Polymer 2 -->
+						<template is="dom-bind" class="scope"><!-- for Polymer 1 -->
+							<cosmoz-image-viewer
+								selected-image-number="{{selectedImageNumber}}"
+								images="[[images]]"
+								height="350px"
+								nav dots loop fullscreen>
+							</cosmoz-image-viewer>
+							<cosmoz-image-viewer
+								style="margin-top: 30px;"
+								height="100px"
+								no-detach
+								sizing="contain"
+								selected-image-number="{{selectedImageNumber}}"
+								images="[[images]]">
+							</cosmoz-image-viewer>
+						</template>
+					</dom-bind>
 				</template>
 			</demo-snippet>
 		</div>
+
 		<script type="text/javascript">
 		(function () {
 			window.addEventListener('WebComponentsReady', function () {
-				var viewer = document.querySelector('cosmoz-image-viewer');
-				viewer.images = [
+				var images = [
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
 					'demo/images/stockholm.jpg',
 					'demo/images/strasbourg.jpg'
 				];
+				document.querySelectorAll('.scope').forEach(s => s.images = images);
 			});
 		})();
 		</script>

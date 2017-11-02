@@ -9,19 +9,26 @@
 			Cosmoz.TemplateHelperBehavior,
 			Cosmoz.TranslatableBehavior
 		],
+
 		is: 'cosmoz-image-viewer',
+
 		properties: {
-			currentImagePath: {
-				type: String,
-				computed: '_computeCurrentImagePath(currentImage)'
-			},
 			currentImage: {
 				type: Object,
-				observer: '_currentImageChanged'
+				notify: true,
+				computed: '_computeCurrentImage(currentImageIndex, images)',
 			},
 			currentImageIndex: {
 				type: Number,
-				computed: '_computeCurrentImageIndex(currentImage, images)'
+				notify: true,
+				observer: '_currentImageIndexChanged'
+			},
+			/**
+			 * Like currentImageIndex + 1; Starts at 1 instead of 0.
+			 */
+			selectedImageNumber: {
+				type: Number,
+				notify: true
 			},
 			currentPage: {
 				type: Number,
@@ -34,13 +41,13 @@
 				notify: true,
 				observer: '_detachedChanged'
 			},
-			imageLoaded: {
-				type: Boolean,
-				value: false
-			},
 			images: {
 				type: Array,
 				observer: '_imageListChanged'
+			},
+			_resolvedImages: {
+				type: Array,
+				computed: '_computeResolvedImages(images)'
 			},
 			/**
 			 * Disable button to detach image
@@ -57,8 +64,59 @@
 				type: String,
 				notify: true
 			},
-			_detachedWindow: {
-				type: Object
+			/**
+			 * Sizing of the image in the container.
+			 * Options are: null, cover, contain
+			 */
+			sizing: {
+				type: String
+			},
+			/**
+			 * Placeholder image showed while image is loading.
+			 */
+			placeholder: {
+				type: String
+			},
+			/**
+			 * Height of the element.
+			 */
+			height: {
+				type: String,
+				value: '300px',
+				observer: '_heightValueChanged'
+			},
+			/**
+            * Show navigation next/prev buttons
+            */
+			nav: {
+				type: Boolean,
+				value: false
+			},
+			/**
+			* Show navigation dots
+			*/
+			dots: {
+				type: Boolean,
+				value: false
+			},
+			/**
+			* Loop through the images
+			*/
+			loop: {
+				type: Boolean,
+				value: false
+			},
+			/**
+			* If true, open fullscreen overlay when click on image
+			*/
+			fullscreen: {
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
+			},
+			imageLoaded: {
+				type: Boolean,
+				value: false,
 			},
 			_imageContainerHeight: {
 				type: Number
@@ -68,33 +126,100 @@
 			},
 			_pswp: {
 				type: Object
-			}
+			},
+			/**
+			 * The selected slide in the carousel
+			 */
+			selectedItem: {
+				type: Object,
+				observer: '_selectedItemChanged'
+			},
+			_detachedWindowContent: {
+				type: String
+			},
+			_detachedContentUrl: {
+				type: String
+			},
 		},
 		listeners: {
 			'iron-resize': '_onResize'
 		},
 		observers: [
-			'scrollToPercent(imageLoaded, scrollPercent, _imageContainerHeight)'
+			'scrollToPercent(imageLoaded, scrollPercent, _imageContainerHeight)',
+			'_selectedImageNumberChanged(selectedImageNumber, images)'
 		],
 
-		_computeCurrentImageIndex: function (item, array) {
-			return array.indexOf(item);
+		ready() {
+			this.set('_scroller', this.$.imageContainer);
+			this._detachedContentUrl = this.resolveUrl('detached.html');
+		},
+
+		_selectedItemChanged(selectedItem) {
+			if (!selectedItem) {
+				return;
+			}
+			let ironImage = Array.from(selectedItem.children).find(child => child.nodeName === 'IRON-IMAGE');
+			if (!ironImage) {
+				return;
+			}
+			this.imageLoaded = ironImage.loaded;
+		},
+
+		_imageLoadedChanged(e) {
+			let ironImage = e.currentTarget,
+				div = ironImage.parentNode;
+			if (Array.from(div.classList).indexOf('selected') > -1) {
+				this.imageLoaded = ironImage.loaded;
+			}
+		},
+
+		_heightValueChanged(height) {
+			this.updateStyles({'--cosmoz-image-viewer-height': height});
+		},
+
+		_computeCurrentImage: function (index, array) {
+			if (!array) {
+				return;
+			}
+			return array[index];
+		},
+
+		_computeResolvedImages(images) {
+			if (!images) {
+				return;
+			}
+			return images.map(i => this.resolveUrl(i));
+		},
+
+		_selectedImageNumberChanged(imageNumber, images) {
+			this.currentImageIndex = imageNumber - 1;
+
+			if (!images || !Polymer.Element) {
+				return;
+			}
+			// If nav buttons get deactivated, a tap of them opens
+			// fullscreen photoSwipe on Polymer 2.
+			// CSS --skeleton-carousel-nav-disabled ... doesn't work here.
+			if (parseInt(imageNumber, 10) === this.images.length) {
+				this.$$('skeleton-carousel').$.next.style.pointerEvents = 'all';
+				return;
+			}
+
+			if (parseInt(imageNumber, 10) === 1) {
+				this.$$('skeleton-carousel').$.prev.style.pointerEvents = 'all';
+			}
+		},
+
+		_currentImageIndexChanged(index) {
+			this.selectedImageNumber = index + 1;
 		},
 
 		_onResize: function () {
 			this.set('_imageContainerHeight', this._scroller.scrollHeight);
 		},
 
-		_currentImageChanged: function () {
-			this.set('imageLoaded', this.$.image.complete);
-		},
-
 		_computePage: function (index) {
 			return index + 1;
-		},
-
-		_computeCurrentImagePath(currentImage) {
-			return this.resolveUrl(currentImage);
 		},
 
 		_detachedChanged: function (value) {
@@ -105,65 +230,71 @@
 			if (!newlist) {
 				return;
 			}
-			this.set('currentImage', newlist[0]);
+			this.currentImageIndex = 0;
 		},
 
-		isFirst: function (item, array) {
-			return array.indexOf(item) === 0;
+		nextImage() {
+			if (this.currentImageIndex + 1 === this.images.length) {
+				return;
+			}
+			this.currentImageIndex += 1;
 		},
 
-		isLast: function (item, array) {
-			return array.indexOf(item) === array.length - 1;
-		},
-
-		nextImage: function () {
-			this.set('currentImage', this.images[this.currentImageIndex + 1]);
-		},
-
-		previousImage: function () {
-			this.set('currentImage', this.images[this.currentImageIndex - 1]);
-		},
-
-		onImageLoad: function () {
-			// Give container time to reflow
-			this.async(function () {
-				this.set('imageLoaded', true);
-			}.bind(this), 100);
+		previousImage() {
+			if (this.currentImageIndex === 0) {
+				return;
+			}
+			this.currentImageIndex -= 1;
 		},
 
 		attach: function () {
-			this._detachedWindow.close();
+			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
+				sharedWindowInstance = sharedWindow.byKey('detachedWindow');
+
+			if (sharedWindowInstance) {
+				sharedWindowInstance.close();
+			}
 		},
 
 		detach: function () {
-			var url = this.resolveUrl(this.currentImage),
-				w = window.open(undefined, 'OCR', 'height=700,width=800');
+			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
+				sharedWindowInstance = sharedWindow.byKey('detachedWindow'),
+				swiper,
+				w;
 
-			if (url.indexOf('http') !== 0) {
-				// url is relative
-				url = window.location.origin + '/' + url;
+			if (sharedWindowInstance) {
+				window.open(undefined, 'OCR', 'height=700,width=800');
+				swiper = sharedWindowInstance.document.querySelector('#sw');
+				swiper.images = this.images.map(i => this.resolveUrl(i));
+				swiper.startIndex = this.currentImageIndex;
+				return;
 			}
-			w.document.body.innerHTML = '<div style="overflow-y: auto;"><img style="width: 100%" src="' + url + '"></div>';
+
+			w = window.open(undefined, 'OCR', 'height=700,width=800');
+			w.document.write(this._detachedWindowContent);
+			w.document.close();
+
 			w.document.title = this._('Cosmoz Image Viewer');
+			w.addEventListener('ready', (e) => {
+				var swiper = e.detail;
+				swiper.images = this.images.map(i => this.resolveUrl(i));
+				swiper.startIndex = this.currentImageIndex;
+				swiper.init();
+			});
 			w.addEventListener('beforeunload', function () {
 				this._setIsDetached(false);
 				this.notifyResize();
+				sharedWindow.value = undefined;
 			}.bind(this));
 			this._setIsDetached(true);
-			this._detachedWindow = w;
+			sharedWindow.value = w;
 			this.notifyResize();
 		},
 
 		modalImageViewer: function (element, items, index) {
-
-			// FIXME: PR for Photoswipe to detect if hash URL has '?' ?
-			if (window.location.hash.indexOf('?') === -1) {
-				window.history.replaceState(null, null, window.location.hash + '?');
-			}
-
 			new PhotoSwipe(element, PhotoSwipeUI_Default, items, {
 				index: index || 0, // start at first slide
-				history: true, // disables unique URL for each slide.
+				history: false, // disables unique URL for each slide.
 				preLoad: [1, 3], // Preloads one image before current image and three after.,
 				closeOnScroll: false,
 				loadingIndicatorDelay: 0,
@@ -172,10 +303,6 @@
 				showHideOpacity: false,
 				shareEl: false
 			}).init();
-		},
-
-		ready: function () {
-			this.set('_scroller', this.$.imageContainer);
 		},
 
 		scrollHandler: function () {
@@ -190,7 +317,7 @@
 		},
 
 		scrollToPercent: function (loaded, percent, height) {
-			if (!loaded) {
+			if (!loaded || !this._scroller) {
 				return;
 			}
 			var topPx = height * (percent / 100);
@@ -198,11 +325,18 @@
 			this._scroller.scrollTop = topPx;
 		},
 
-		showInvoiceImage: function () {
+		_imageTapped() {
+			if (!this.fullscreen || !this.$.carousel.animationEnded) {
+				return;
+			}
+			this.enterFullscreen();
+		},
+
+		enterFullscreen() {
 			var items = [];
 			this.images.forEach(function (image) {
 				items.push({
-					src: this._computeCurrentImagePath(image),
+					src: this.resolveUrl(image),
 					w: 1105,
 					h: 1562
 				});

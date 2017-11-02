@@ -2,20 +2,22 @@
 <script src="../photoswipe/dist/photoswipe.min.js"></script>
 <script src="../photoswipe/dist/photoswipe-ui-default.min.js"></script>
 
+<link rel="import" href="photoswipe-style-default-skin.html">
+<link rel="import" href="photoswipe-style.html">
+
 <dom-module id="photoswipe-boilerplate">
-    <link rel="import" type="css" href="../photoswipe/dist/photoswipe.css">
-    <link rel="import" type="css" href="../photoswipe/dist/default-skin/default-skin.css">
 	<template>
+        <style include="photoswipe-style photoswipe-style-default-skin"></style>
         <!-- Root element of PhotoSwipe. Must have class pswp. -->
         <div id="pswp" class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-        <!-- Background of PhotoSwipe. 
+        <!-- Background of PhotoSwipe.
              It's a separate element as animating opacity is faster than rgba(). -->
         <div class="pswp__bg"></div>
-    
+
         <!-- Slides wrapper with overflow:hidden. -->
         <div class="pswp__scroll-wrap">
-    
-            <!-- Container that holds slides. 
+
+            <!-- Container that holds slides.
                 PhotoSwipe keeps only 3 of them in the DOM to save memory.
                 Don't modify these 3 pswp__item elements, data is added later on. -->
             <div class="pswp__container">
@@ -23,24 +25,24 @@
                 <div class="pswp__item"></div>
                 <div class="pswp__item"></div>
             </div>
-    
+
             <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
             <div class="pswp__ui pswp__ui--hidden">
-    
+
                 <div class="pswp__top-bar">
-    
+
                     <!--  Controls are self-explanatory. Order can be changed. -->
-    
+
                     <div class="pswp__counter"></div>
-    
+
                     <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-    
+
                     <button class="pswp__button pswp__button--share" title="Share"></button>
-    
+
                     <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-    
+
                     <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-    
+
                     <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
                     <!-- element will get class pswp__preloader--active when preloader is running -->
                     <div class="pswp__preloader">
@@ -51,23 +53,23 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                    <div class="pswp__share-tooltip"></div> 
+                    <div class="pswp__share-tooltip"></div>
                 </div>
-    
+
                 <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
                 </button>
-    
+
                 <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
                 </button>
-    
+
                 <div class="pswp__caption">
                     <div class="pswp__caption__center"></div>
                 </div>
-    
+
             </div>
-    
+
         </div>
     </div>
     </template>
@@ -76,15 +78,19 @@
         	'use strict';
         	Polymer({
         		is: 'photoswipe-boilerplate',
-        
+
         		properties: {
         			pswp: {
         				type: Object,
         				notify: true
         			}
         		},
-        
+
         		attached() {
+        			this.init();
+        		},
+
+        		init() {
         			this.pswp = this.$.pswp;
         		}
         	});

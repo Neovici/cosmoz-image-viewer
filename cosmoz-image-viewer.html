@@ -2,9 +2,16 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-meta/iron-meta.html">
 <link rel="import" href="../cosmoz-behaviors/cosmoz-behaviors.html">
 <link rel="import" href="../cosmoz-i18next/cosmoz-i18next.html">
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html" />
+
+<link rel="import" href="../iron-image/iron-image.html">
+
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+
+<link rel="import" href="../skeleton-carousel/skeleton-carousel.html">
 
 <link rel="import" href="photoswipe-boilerplate.html">
 
@@ -14,51 +21,13 @@
 			:host {
 				display: block;
 				position: relative;
-				min-height: 150px; /* FIXME: otherwise floats float out */
 				@apply --layout-vertical;
+				--cosmoz-image-viewer-height: 300px;
+				height: 100%
 			}
 
-			.floater {
-				opacity: 1;
-				position: absolute;
-				top: 10px;
-				@apply --layout-horizontal;
-				@apply --layout-center-center;
-				background-color: #fff;
-				border-radius: 50px;
-				border: solid 1px #a4abae;
-				color: #343434;
-				box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-				font-weight: normal;
-				z-index: 1;
-			}
-
-			.floater.left {
-				left: 10px;
-				@apply --layout-vertical;
-				padding: 8px 0;
-			}
-
-			.floater.right {
-				right: 25px;
-			}
-
-			.floater:hover {
-				opacity: 1;
-			}
-
-			.floater paper-icon-button {
-				height: 35px;
-				width: 35px;
-			}
-
-			.floater.left paper-icon-button {
-				height: 45px;
-				width: 45px;
-			}
-
-			.floater div {
-				margin: 0 10px;
+			:host([fullscreen]) .image {
+				cursor: pointer;
 			}
 
 			#imageContainer {
@@ -66,26 +35,124 @@
 				will-change: transform;
 			}
 
-			#image {
-				width: 100%;
+			.image {
+				flex: auto;
 			}
+
+			#imageContainer:hover > .detach-btn {
+				opacity: 1;
+				background-color: rgba(0, 0, 0, 0.44);
+			}
+
+			.detach-btn {
+				position: absolute;
+				z-index: +1;
+				right: 12px;
+				top: 12px;
+				color:rgba(255, 255, 255, 0.87);
+				background-color: rgba(0, 0, 0, 0.13);
+				border-radius: 20px;
+				opacity: 0.1;
+				-webkit-transition: opacity .25s ease-in-out;
+				-moz-transition: opacity .25s ease-in-out;
+				-ms-transition: opacity .25s ease-in-out;
+				-o-transition: opacity .25s ease-in-out;
+				transition: opacity .25s ease-in-out;
+			}
+
+			@media (hover: none) {
+				.detach-btn {
+					opacity: 1;
+					background-color: rgba(0, 0, 0, 0.26);
+				}
+			}
+
+			#carousel {
+				min-height: var(--cosmoz-image-viewer-height);
+				--skeleton-carousel-nav: {
+					background-color: rgba(0, 0, 0, 0.44);
+					color: rgba(255, 255, 255, 0.87);
+					top: calc(50% - 11px);
+					position: absolute;
+				};
+
+				--skeleton-carousel-nav-disabled: {
+					/* otherwise fullscreen gets triggerd on tap */
+					pointer-events: all !important;
+				};
+
+				--skeleton-carousel-nav-next: {
+					right: 12px;
+				};
+
+				--skeleton-carousel-nav-prev: {
+					left: 12px;
+				};
+
+				--skeleton-carousel-dots: {
+					position: absolute;
+					top: 21px;
+					background-color:rgba(128, 128, 128, 0.44);
+					border-radius: 16px;
+					height: 22px;
+					padding: 0 4px;
+					opacity: 0.67;
+				};
+
+				--skeleton-carousel-dot: {
+					height: 22px;
+					width: 22px;
+					padding: 0 4px;
+				}
+
+				--skeleton-carousel-dot-color: rgba(0, 0, 0, 0.87);
+
+				--skeleton-carousel-controls: {
+					padding: 0;
+				}
+			}
+
 		</style>
 		<photoswipe-boilerplate pswp="{{_pswp}}"></photoswipe-boilerplate>
-		<div id="actionButtons" class="floater left">
-			<paper-icon-button on-click="showInvoiceImage" icon="zoom-in" title="[[ _('Zoom image', t) ]]"></paper-icon-button>
-			<paper-icon-button hidden$="[[ noDetach ]]" disabled$="[[ isDetached ]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]"></paper-icon-button>
-			<slot></slot>
-		</div>
-		<div class="floater right">
-			<paper-icon-button disabled$="[[ isFirst(currentImage, images) ]]" on-click="previousImage" icon="chevron-left"
-				 title="[[ _('Load previous image in list', t) ]]"></paper-icon-button>
-			<div>[[ concat(currentPage, ' / ', images.length) ]]</div>
-			<paper-icon-button disabled$="[[ isLast(currentImage, images) ]]" on-click="nextImage" icon="chevron-right"
-				title="[[ _('Load next image in list', t) ]]"></paper-icon-button>
-		</div>
+
 		<div id="imageContainer" on-scroll="scrollHandler">
-			<img id="image" src="[[ currentImagePath ]]" on-load="onImageLoad"/>
+			<paper-icon-button class="detach-btn"
+				hidden$="[[ noDetach ]]"
+				on-click="detach"
+				icon="launch"
+				title="[[ _('Detach image to separate window', t) ]]">
+			</paper-icon-button>
+			<skeleton-carousel id="carousel"
+				selected-item="{{selectedItem}}"
+				dots="[[dots]]"
+				nav="[[nav]]"
+				loop="[[loop]]"
+				selected="{{selectedImageNumber}}">
+				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
+					<div on-click="_imageTapped">
+						<iron-image
+							class="image"
+							data-src$="[[image]]"
+							placeholder="[[placeholder]]"
+							sizing="[[sizing]]"
+							preload
+							fade
+							on-loaded-changed="_imageLoadedChanged">
+						</iron-image>
+					</div>
+				</template>
+			</skeleton-carousel>
 		</div>
+
+		<iron-ajax
+			auto
+			url="[[_detachedContentUrl]]"
+			handle-as="text"
+			last-response="{{_detachedWindowContent}}">
+		</iron-ajax>
+
+		<iron-meta id="meta" type="cosmoz-image-viewer" key="detachedWindow"></iron-meta>
+
 	</template>
 	<script type="text/javascript" src="cosmoz-image-viewer.js"></script>
 </dom-module>
