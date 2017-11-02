@@ -259,9 +259,7 @@
 		detach: function () {
 			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
 				sharedWindowInstance = sharedWindow.byKey('detachedWindow'),
-				detachedContentUrl = this.resolveUrl('detached.html'),
 				swiper,
-				rawFile,
 				w;
 
 			if (sharedWindowInstance) {
