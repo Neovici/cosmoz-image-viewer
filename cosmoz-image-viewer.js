@@ -285,28 +285,27 @@
 
 			if (sharedWindowInstance) {
 				window.open(undefined, 'OCR', 'height=700,width=800');
-				swiper = sharedWindowInstance.document.querySelector('#sw');
-				swiper.images = this.images.map(i => this.resolveUrl(i));
-				swiper.startIndex = this.currentImageIndex;
+				sharedWindowInstance.setImages(this.images.map(i => this.resolveUrl(i)), this.currentImageIndex);
 				return;
 			}
 
 			w = window.open(undefined, 'OCR', 'height=700,width=800');
-			w.document.write(this._resolvePathsInString(this._detachedWindowContent));
+			w.document.write(this._detachedWindowContent);
 			w.document.close();
-
 			w.document.title = this._('Cosmoz Image Viewer');
+
 			w.addEventListener('ready', (e) => {
-				var swiper = e.detail;
-				swiper.images = this.images.map(i => this.resolveUrl(i));
-				swiper.startIndex = this.currentImageIndex;
-				swiper.init();
+				e.currentTarget.setImages(this.images.map(i => this.resolveUrl(i)), this.currentImageIndex);
 			});
-			w.addEventListener('beforeunload', function () {
+
+			w.addEventListener('beforeunload', () => {
 				this._setIsDetached(false);
 				this.notifyResize();
 				sharedWindow.value = undefined;
-			}.bind(this));
+			});
+
+			// w.setImages(this.images.map(i => this.resolveUrl(i)));
+
 			this._setIsDetached(true);
 			sharedWindow.value = w;
 			this.notifyResize();
