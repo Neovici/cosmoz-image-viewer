@@ -1,24 +1,117 @@
 <html>
         <head>
             <title>Image Viewer Detached</title>
-            <script src="../webcomponentsjs/webcomponents.js"></script>
-            <link rel="import" href="../polymer/polymer.html" />
-            <link rel="import" href="cosmoz-swiper.html" />
+            <script src="https://use.fontawesome.com/12c353f065.js"></script>
             <style>
+                html,
                 body {
-                    background: black;
+                    margin: 0;
+                }
+
+                #image {
+                    overflow-y: auto;
+                    width: 100%;
+                }
+
+                .actions {
+                    position: fixed;
+                    left: 0;
+                    top: 0;
+                    background-color: rgba(0, 0, 0, 0.6);
+                    width: 100%;
+                    height: 64px;
+                    opacity: 0;
+                    display: flex;
+                    align-items: center;
+                    -webkit-transition: opacity .4s ease-in-out;
+                    -moz-transition: opacity .4s ease-in-out;
+                    -ms-transition: opacity .4s ease-in-out;
+                    -o-transition: opacity .4s ease-in-out;
+                    transition: opacity .4s ease-in-out;
+                    transition-delay: 6s;
+                }
+
+                .actions:hover {
+                    opacity: 1;
+                    transition-delay: 0s;
+                }
+
+                .fa {
+                    color: #fff;
+                    font-size: 1.2em;
+                    cursor: pointer;
+                }
+
+                .btn {
+                    font-size: 1.4em;
+                }
+
+                .space {
+                    width: 100%;
+                }
+
+                .action-box {
+                    padding: 0 48px;
+                    display: -ms-flexbox;
+                    display: -webkit-flex;
+                    display: flex;
+                    -ms-flex-direction: row;
+                    -webkit-flex-direction: row;
+                    flex-direction: row;
+                }
+                .action-box > * {
+                    padding-right: 24px;
                 }
             </style>
         </head>
         <body>
-            <cosmoz-swiper id="sw"></cosmoz-swiper>
+            <img id="image">
+            <div class="actions">
+                <div class="action-box">
+                    <i class="fa fa-chevron-circle-left btn" onclick="prev()" aria-hidden="true"></i>
+                    <i class="fa fa-chevron-circle-right btn" onclick="next()" aria-hidden="true"></i>
+                </div>
+                <span class="space"></span>
+                <div class="action-box">
+                    <a id="download">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                    </a>
+                    <i class="fa fa-print" onclick="print()" aria-hidden="true"></i>
+                </div>
+            </div>
             <script>
-                (function () {
-                	var sw = document.querySelector('#sw'),
-                		event = new Event('ready');
-                	event.detail = sw;
-                	this.dispatchEvent(event);
-                })();
+                var img,
+                	download,
+                	images,
+                	currentImageIndex = 0;
+
+                const load = () => {
+                		img = document.querySelector('#image');
+                		download = document.querySelector('#download');
+                		window.dispatchEvent(new Event('ready', { bubbles: true }));
+                	},
+                	next = () => {
+                		if (currentImageIndex === images.length - 1) {
+                			return;
+                		}
+                		currentImageIndex++;
+                		img.src = images[currentImageIndex];
+                	},
+                	prev = () => {
+                		if (currentImageIndex === 0) {
+                			return;
+                		}
+                		currentImageIndex--;
+                		img.src = images[currentImageIndex];
+                	};
+                window.onload = load;
+                window.setImages = (array, startIndex = 0) => {
+                	let imageUrl = array[startIndex];
+                	images = array;
+                	img.src = imageUrl;
+                	download.download = imageUrl.replace(/^.*[\\\/]/, '');
+                	download.href = imageUrl;
+                };
             </script>
         </body>
     </html>
