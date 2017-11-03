@@ -69,7 +69,8 @@
 			 * Options are: null, cover, contain
 			 */
 			sizing: {
-				type: String
+				type: String,
+				value: 'contain'
 			},
 			/**
 			 * Placeholder image showed while image is loading.
@@ -158,19 +159,14 @@
 			if (!selectedItem) {
 				return;
 			}
-			let img = Array.from(selectedItem.children).find(child => child.nodeName === 'IRON-IMAGE');
+			let img = Array.from(selectedItem.children).find(child => child.nodeName === 'IMG');
 			if (!img) {
 				return;
 			}
-			this.imageLoaded = img.loaded;
-		},
-
-		_imageLoadedChanged(e) {
-			let ironImage = e.currentTarget,
-				div = ironImage.parentNode;
-			if (Array.from(div.classList).indexOf('selected') > -1) {
-				this.imageLoaded = ironImage.loaded;
-			}
+			img.onload = () => {
+				this.imageLoaded = true;
+			};
+			this.imageLoaded = img.complete;
 		},
 
 		_heightValueChanged(height) {
@@ -256,31 +252,9 @@
 			}
 		},
 
-		_resolvePathsInString(content) {
-			let resolvedContent = content;
-
-			// src
-			const srcs = content.match(/src\s*=\s*"([^"]+)"/g),
-				hrefs = content.match(/href\s*=\s*"([^"]+)"/g);
-
-			srcs.forEach(src => {
-				let raw = src.substring(5, src.length - 1);
-				resolvedContent = resolvedContent.replace(raw, this.resolveUrl(raw));
-			});
-
-			// href
-			hrefs.forEach(href => {
-				let raw = href.substring(6, href.length - 1);
-				resolvedContent = resolvedContent.replace(raw, this.resolveUrl(raw));
-			});
-
-			return resolvedContent;
-		},
-
 		detach: function () {
 			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
 				sharedWindowInstance = sharedWindow.byKey('detachedWindow'),
-				swiper,
 				w;
 
 			if (sharedWindowInstance) {

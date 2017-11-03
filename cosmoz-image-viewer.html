@@ -22,8 +22,8 @@
 				display: block;
 				position: relative;
 				@apply --layout-vertical;
-				--cosmoz-image-viewer-height: 300px;
-				height: 100%
+				/* --cosmoz-image-viewer-height: 300px; */
+				height: 100%;
 			}
 
 			:host([fullscreen]) .image {
@@ -36,12 +36,39 @@
 			}
 
 			.image {
-				flex: auto;
+				display: block;
+				width: 100%;
+				pointer-events: none;
 			}
 
-			#imageContainer:hover > .detach-btn {
+			#imageContainer:hover > .counter, #imageContainer:hover > .detach-btn {
 				opacity: 1;
 				background-color: rgba(0, 0, 0, 0.44);
+				transition-delay: 0s;
+			}
+
+			.counter, .detach-btn {
+				opacity: 0;
+				-webkit-transition: opacity .25s ease-in-out;
+				-moz-transition: opacity .25s ease-in-out;
+				-ms-transition: opacity .25s ease-in-out;
+				-o-transition: opacity .25s ease-in-out;
+				transition: opacity .25s ease-in-out;
+				transition-delay: 3s;
+			}
+
+			.counter {
+				position: absolute;
+				background-color: rgba(0, 0, 0, 0.13);
+				color: #ffffff;
+				z-index: +1;
+				top: 18px;
+				left: 50%;
+				padding: 4px 10px;
+    			border-radius: 30px;
+				text-align: center;
+				font-weight: 100;
+				font-size: 0.8em;
 			}
 
 			.detach-btn {
@@ -52,27 +79,24 @@
 				color:rgba(255, 255, 255, 0.87);
 				background-color: rgba(0, 0, 0, 0.13);
 				border-radius: 20px;
-				opacity: 0.1;
-				-webkit-transition: opacity .25s ease-in-out;
-				-moz-transition: opacity .25s ease-in-out;
-				-ms-transition: opacity .25s ease-in-out;
-				-o-transition: opacity .25s ease-in-out;
-				transition: opacity .25s ease-in-out;
 			}
 
 			@media (hover: none) {
-				.detach-btn {
+				.detach-btn, .counter {
 					opacity: 1;
 					background-color: rgba(0, 0, 0, 0.26);
 				}
 			}
 
 			#carousel {
-				min-height: var(--cosmoz-image-viewer-height);
+				/* min-height: var(--cosmoz-image-viewer-height); */
+				--skeleton-carousel-container: {
+					position: relative;
+				}
 				--skeleton-carousel-nav: {
 					background-color: rgba(0, 0, 0, 0.44);
 					color: rgba(255, 255, 255, 0.87);
-					top: calc(50% - 11px);
+					top: 12px;
 					position: absolute;
 				};
 
@@ -82,7 +106,7 @@
 				};
 
 				--skeleton-carousel-nav-next: {
-					right: 12px;
+					left: 56px;
 				};
 
 				--skeleton-carousel-nav-prev: {
@@ -122,23 +146,20 @@
 				icon="launch"
 				title="[[ _('Detach image to separate window', t) ]]">
 			</paper-icon-button>
+			<div class="counter">[[selectedImageNumber]]/[[total]]</div>
 			<skeleton-carousel id="carousel"
 				selected-item="{{selectedItem}}"
 				dots="[[dots]]"
 				nav="[[nav]]"
 				loop="[[loop]]"
+				total="{{total}}"
 				selected="{{selectedImageNumber}}">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
 					<div on-click="_imageTapped">
-						<iron-image
+						<img
 							class="image"
-							data-src$="[[image]]"
-							placeholder="[[placeholder]]"
-							sizing="[[sizing]]"
-							preload
-							fade
-							on-loaded-changed="_imageLoadedChanged">
-						</iron-image>
+							data-src$="[[image]]">
+						</img>
 					</div>
 				</template>
 			</skeleton-carousel>
