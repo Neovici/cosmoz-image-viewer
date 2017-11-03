@@ -65,28 +65,6 @@
 				notify: true
 			},
 			/**
-			 * Sizing of the image in the container.
-			 * Options are: null, cover, contain
-			 */
-			sizing: {
-				type: String,
-				value: 'contain'
-			},
-			/**
-			 * Placeholder image showed while image is loading.
-			 */
-			placeholder: {
-				type: String
-			},
-			/**
-			 * Height of the element.
-			 */
-			height: {
-				type: String,
-				value: '300px',
-				observer: '_heightValueChanged'
-			},
-			/**
             * Show navigation next/prev buttons
             */
 			nav: {
@@ -167,10 +145,6 @@
 				this.imageLoaded = true;
 			};
 			this.imageLoaded = img.complete;
-		},
-
-		_heightValueChanged(height) {
-			this.updateStyles({'--cosmoz-image-viewer-height': height});
 		},
 
 		_computeCurrentImage: function (index, array) {
@@ -317,13 +291,6 @@
 			var topPx = height * (percent / 100);
 
 			this._scroller.scrollTop = topPx;
-		},
-
-		_imageTapped() {
-			if (!this.fullscreen || !this.$.carousel.animationEnded) {
-				return;
-			}
-			this.enterFullscreen();
 		},
 
 		enterFullscreen() {

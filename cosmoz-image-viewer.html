@@ -22,7 +22,6 @@
 				display: block;
 				position: relative;
 				@apply --layout-vertical;
-				/* --cosmoz-image-viewer-height: 300px; */
 				height: 100%;
 			}
 
@@ -41,13 +40,15 @@
 				pointer-events: none;
 			}
 
-			#imageContainer:hover > .counter, #imageContainer:hover > .detach-btn {
+			#imageContainer:hover > .counter,
+			#imageContainer:hover > .detach-btn,
+			#imageContainer:hover > .zoom-btn {
 				opacity: 1;
 				background-color: rgba(0, 0, 0, 0.44);
 				transition-delay: 0s;
 			}
 
-			.counter, .detach-btn {
+			.counter, .detach-btn, .zoom-btn {
 				opacity: 0;
 				-webkit-transition: opacity .25s ease-in-out;
 				-moz-transition: opacity .25s ease-in-out;
@@ -71,7 +72,7 @@
 				font-size: 0.8em;
 			}
 
-			.detach-btn {
+			.detach-btn, .zoom-btn {
 				position: absolute;
 				z-index: +1;
 				right: 12px;
@@ -79,6 +80,10 @@
 				color:rgba(255, 255, 255, 0.87);
 				background-color: rgba(0, 0, 0, 0.13);
 				border-radius: 20px;
+			}
+
+			.zoom-btn {
+				right: 56px;
 			}
 
 			@media (hover: none) {
@@ -146,6 +151,11 @@
 				title="[[ _('Detach image to separate window', t) ]]">
 			</paper-icon-button>
 			<div class="counter">[[selectedImageNumber]]/[[total]]</div>
+			<paper-icon-button class="zoom-btn"
+				on-click="enterFullscreen"
+				icon="icons:zoom-in"
+				title="[[ _('Zoom image', t) ]]">
+			</paper-icon-button>
 			<skeleton-carousel id="carousel"
 				selected-item="{{selectedItem}}"
 				dots="[[dots]]"
@@ -154,7 +164,7 @@
 				total="{{total}}"
 				selected="{{selectedImageNumber}}">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
-					<div on-click="_imageTapped">
+					<div>
 						<img
 							class="image"
 							data-src$="[[image]]">
