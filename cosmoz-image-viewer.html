@@ -3,6 +3,7 @@
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-meta/iron-meta.html">
+<link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../cosmoz-behaviors/cosmoz-behaviors.html">
 <link rel="import" href="../cosmoz-i18next/cosmoz-i18next.html">
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html" />
@@ -35,8 +36,10 @@
 			}
 
 			.image {
-				display: block;
-				width: 100%;
+				@apply --layout-flex-auto;
+				display: flex;
+				justify-content: center;
+				background-color: gray;
 				pointer-events: none;
 			}
 
@@ -94,9 +97,17 @@
 			}
 
 			#carousel {
-				--skeleton-carousel-container: {
-					position: relative;
-				}
+				--skeleton-carousel-item: {
+					height: 200px;
+					top: 50px;
+				};
+
+				--skeleton-carousel-item-selected: {
+					height: auto;
+					text-align: center;
+					top: 0;
+				};
+
 				--skeleton-carousel-nav: {
 					background-color: rgba(0, 0, 0, 0.44);
 					color: rgba(255, 255, 255, 0.87);
@@ -165,10 +176,11 @@
 				selected="{{selectedImageNumber}}">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
 					<div>
-						<img
+						<iron-image
 							class="image"
-							data-src$="[[image]]">
-						</img>
+							data-src$="[[image]]"
+							preload>
+						</iron-image>
 					</div>
 				</template>
 			</skeleton-carousel>
