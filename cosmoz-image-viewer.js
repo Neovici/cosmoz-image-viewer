@@ -131,6 +131,11 @@
 			full: {
 				type: Boolean,
 				value: false
+			},
+
+			isZoomed: {
+				type: Boolean,
+				value: false
 			}
 		},
 		listeners: {
@@ -171,6 +176,10 @@
 			this.imageLoaded = imgPanZoom.loaded;
 		},
 
+		_getZoomIcon(zoomed) {
+			return zoomed ? 'icons:zoom-out' : 'icons:zoom-in';
+		},
+
 		_initImgPanZoomInstance(imgPanZoom) {
 			if (!this.zoom) {
 				return;
@@ -179,9 +188,11 @@
 			const zoomHandler = (e) => {
 				let initial = imgPanZoom.viewer.viewport.getHomeZoom();
 				if (initial >= e.zoom && initial * 1.05 > e.zoom) {
+					this.isZoomed = false;
 					imgPanZoom.style.pointerEvents = 'none';
 					return;
 				}
+				this.isZoomed = true;
 				imgPanZoom.style.pointerEvents = 'all';
 			};
 
@@ -263,7 +274,7 @@
 			if (!dialog) {
 				dialog = document.createElement('cosmoz-image-viewer-overlay');
 				dialog.id = 'cosmoz-image-viewer-overlay';
-				dialog.withBackdrop = true;
+				dialog.noCancelOnOutsideClick = true;
 				document.body.appendChild(dialog);
 			}
 			dialog.images = this.images;
@@ -335,30 +346,21 @@
 			if (Array.from(div.classList).indexOf('selected') > -1) {
 				this.imageLoaded = imgPanZoom.loaded;
 			}
-			// this._initViewer(imgPanZoom);
 
 		},
 
-		// _initViewer(imgPanZoom) {
-		// 	setTimeout(() => {
-		// 		if (!imgPanZoom.viewer || imgPanZoom.viewer.getHandler('zoom')) {
-		// 			return;
-		// 		}
-		// 		imgPanZoom.viewer.addHandler('zoom', (e) => {
-		// 			if (imgPanZoom.initialZoom * 0.96 < e.zoom && imgPanZoom.initialZoom * 1.04 > e.zoom) {
-		// 				imgPanZoom.style.pointerEvents = 'none';
-		// 				return;
-		// 			}
-		// 			imgPanZoom.style.pointerEvents = 'all';
-		// 		});
-		// 	});
-		// },
-
-		zoomTo() {
+		zoomToggle() {
 			let el = this.$.carousel.selectedItem.querySelector('img-pan-zoom'),
 				viewer = el.viewer;
-			el.style.pointerEvents = 'all';
-			viewer.viewport.zoomTo(2);
+			if (!viewer) {
+				return;
+			}
+			if (this.isZoomed) {
+				el.resetZoom();
+				return;
+			}
+
+			viewer.viewport.zoomTo(1.5);
 		},
 
 		scrollHandler: function () {

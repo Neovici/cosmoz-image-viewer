@@ -12,7 +12,8 @@
                 width: 100vw;
             }
         </style>
-        <cosmoz-image-viewer on-track="_trackHandler"
+        <cosmoz-image-viewer
+            on-track="_trackHandler"
             images="[[images]]"
             sizing="contain"
             current-image-index="[[currentImageIndex]]"
@@ -28,6 +29,10 @@
         		Polymer.IronOverlayBehavior
         	],
 
+        	hostAttributes: {
+        		noCancelOnOutsideClick: true
+        	},
+
         	properties: {
         		images: {
         			type: Array
@@ -37,12 +42,22 @@
         		}
         	},
 
+        	attached() {
+        		let viewer = this.$$('cosmoz-image-viewer');
+        		viewer.addEventListener('dblclick', () => {
+        			if (viewer.isZoomed) {
+        				return;
+        			}
+        			viewer.zoomToggle();
+        		});
+        	},
+
         	_trackHandler(e) {
         		if (e.detail.state !== 'end') {
         			return;
         		}
-                // Swipe down for more than 100px
-        		if (e.detail.dy > 100) {
+                // Swipe down to close
+        		if (e.detail.dy > window.innerHeight * 0.4) {
         			this.close();
         		}
         	}

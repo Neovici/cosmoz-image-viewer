@@ -162,16 +162,16 @@
 		<div class="counter">[[selectedImageNumber]]/[[total]]</div>
 		<paper-icon-button class="zoom-btn"
 			hidden$="[[ !zoom ]]"
-			on-click="zoomTo"
-			icon="icons:zoom-in"
+			on-click="zoomToggle"
+			icon="[[_getZoomIcon(isZoomed)]]"
 			title="[[ _('Zoom image', t) ]]">
 		</paper-icon-button>
 
 		<paper-icon-button class="zoom-btn"
 			hidden$="[[ !full ]]"
 			on-click="openFullscreen"
-			icon="icons:zoom-in"
-			title="[[ _('Zoom image', t) ]]">
+			icon="icons:fullscreen"
+			title="[[ _('Fullscreen image', t) ]]">
 		</paper-icon-button>
 
 		<div id="imageContainer" on-scroll="scrollHandler">
