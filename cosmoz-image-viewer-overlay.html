@@ -1,0 +1,46 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-overlay-behavior/iron-overlay-behavior.html">
+
+<link rel="import" href="cosmoz-image-viewer.html">
+
+<dom-module id="cosmoz-image-viewer-overlay">
+    <template>
+        <style>
+            :host {
+                background: rgba(0, 0, 0, 0.44);
+                color: black;
+                padding: 24px;
+                box-shadow: rgba(0, 0, 0, 0.24) -2px 5px 12px 0px, rgba(0, 0, 0, 0.12) 0px 0px 12px 0px;
+            }
+
+            cosmoz-image-viewer {
+                --cosmoz-image-viewer-min-height: calc(90vh - 48px);
+            }
+        </style>
+        <cosmoz-image-viewer
+            images="[[images]]"
+            sizing="contain"
+            current-image-index="[[currentImageIndex]]"
+            nav>
+        </cosmoz-image-viewer>
+    </template>
+    <script>
+        Polymer({
+        	is: 'cosmoz-image-viewer-overlay',
+
+        	behaviors: [
+        		Polymer.IronOverlayBehavior
+        	],
+
+        	properties: {
+        		images: {
+        			type: Array
+        		},
+        		currentImageIndex: {
+        			type: Number
+        		}
+        	},
+
+        });
+    </script>
+</dom-module>

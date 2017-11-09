@@ -16,6 +16,9 @@
 
 <link rel="import" href="photoswipe-boilerplate.html">
 
+<link rel="import" href="cosmoz-image-viewer-overlay.html">
+<link rel="import" href="../img-pan-zoom/img-pan-zoom.html">
+
 <dom-module id="cosmoz-image-viewer">
 	<template>
 		<style>
@@ -23,11 +26,7 @@
 				display: block;
 				position: relative;
 				@apply --layout-vertical;
-				height: 100%;
-			}
-
-			:host([fullscreen]) .image {
-				cursor: pointer;
+				--cosmoz-image-viewer-min-height: 300px;
 			}
 
 			#imageContainer {
@@ -43,27 +42,13 @@
 				pointer-events: none;
 			}
 
-			#imageContainer:hover > .counter,
-			#imageContainer:hover > .detach-btn,
-			#imageContainer:hover > .zoom-btn {
+			.counter, .detach-btn, .zoom-btn, .nav {
 				opacity: 1;
 				background-color: rgba(0, 0, 0, 0.44);
-				transition-delay: 0s;
-			}
-
-			.counter, .detach-btn, .zoom-btn {
-				opacity: 0;
-				-webkit-transition: opacity .25s ease-in-out;
-				-moz-transition: opacity .25s ease-in-out;
-				-ms-transition: opacity .25s ease-in-out;
-				-o-transition: opacity .25s ease-in-out;
-				transition: opacity .25s ease-in-out;
-				transition-delay: 2s;
 			}
 
 			.counter {
 				position: absolute;
-				background-color: rgba(0, 0, 0, 0.13);
 				color: #ffffff;
 				z-index: +1;
 				top: 18px;
@@ -72,21 +57,33 @@
     			border-radius: 30px;
 				text-align: center;
 				font-weight: 100;
-				font-size: 0.8em;
+				font-size: 1em;
 			}
 
-			.detach-btn, .zoom-btn {
+			.detach-btn, .zoom-btn, .nav, .full-btn {
 				position: absolute;
 				z-index: +1;
+				opacity: 1;
 				right: 12px;
 				top: 12px;
 				color:rgba(255, 255, 255, 0.87);
-				background-color: rgba(0, 0, 0, 0.13);
 				border-radius: 20px;
 			}
 
 			.zoom-btn {
 				right: 56px;
+			}
+
+			.full-btn {
+				right: 84px;
+			}
+
+			.prev-btn {
+				left: 12px;
+			}
+
+			.next-btn {
+				left: 56px;
 			}
 
 			@media (hover: none) {
@@ -97,15 +94,10 @@
 			}
 
 			#carousel {
-				--skeleton-carousel-item: {
-					height: 200px;
-					top: 50px;
-				};
-
+				--skeleton-carousel-min-height: var(--cosmoz-image-viewer-min-height);
 				--skeleton-carousel-item-selected: {
 					height: auto;
 					text-align: center;
-					top: 0;
 				};
 
 				--skeleton-carousel-nav: {
@@ -128,24 +120,6 @@
 					left: 12px;
 				};
 
-				--skeleton-carousel-dots: {
-					position: absolute;
-					top: 21px;
-					background-color:rgba(128, 128, 128, 0.44);
-					border-radius: 16px;
-					height: 22px;
-					padding: 0 4px;
-					opacity: 0.67;
-				};
-
-				--skeleton-carousel-dot: {
-					height: 22px;
-					width: 22px;
-					padding: 0 4px;
-				}
-
-				--skeleton-carousel-dot-color: rgba(0, 0, 0, 0.87);
-
 				--skeleton-carousel-controls: {
 					padding: 0;
 				}
@@ -154,32 +128,46 @@
 		</style>
 		<photoswipe-boilerplate pswp="{{_pswp}}"></photoswipe-boilerplate>
 
+		<paper-icon-button
+			class="nav prev-btn"
+			hidden$="[[!nav]]"
+			icon="icons:arrow-back"
+			on-tap="previousImage">
+		</paper-icon-button>
+		<paper-icon-button
+			class="nav next-btn"
+			hidden$="[[!nav]]"
+			icon="icons:arrow-forward"
+			on-tap="nextImage">
+		</paper-icon-button>
+		<paper-icon-button class="detach-btn"
+			hidden$="[[ noDetach ]]"
+			on-click="detach"
+			icon="launch"
+			title="[[ _('Detach image to separate window', t) ]]">
+		</paper-icon-button>
+		<div class="counter">[[selectedImageNumber]]/[[total]]</div>
+		<paper-icon-button class="zoom-btn"
+			on-click="openFullscreen"
+			icon="icons:zoom-in"
+			title="[[ _('Zoom image', t) ]]">
+		</paper-icon-button>
+
 		<div id="imageContainer" on-scroll="scrollHandler">
-			<paper-icon-button class="detach-btn"
-				hidden$="[[ noDetach ]]"
-				on-click="detach"
-				icon="launch"
-				title="[[ _('Detach image to separate window', t) ]]">
-			</paper-icon-button>
-			<div class="counter">[[selectedImageNumber]]/[[total]]</div>
-			<paper-icon-button class="zoom-btn"
-				on-click="enterFullscreen"
-				icon="icons:zoom-in"
-				title="[[ _('Zoom image', t) ]]">
-			</paper-icon-button>
 			<skeleton-carousel id="carousel"
 				selected-item="{{selectedItem}}"
 				dots="[[dots]]"
-				nav="[[nav]]"
 				loop="[[loop]]"
 				total="{{total}}"
-				selected="{{selectedImageNumber}}">
+				selected="{{currentImageIndex}}">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
 					<div>
+						<!-- <img-pan-zoom data-src$="[[image]]"></img-pan-zoom> -->
 						<iron-image
+							sizing="[[sizing]]"
 							class="image"
 							data-src$="[[image]]"
-							preload>
+							on-loaded-changed="_imageLoadedChanged">
 						</iron-image>
 					</div>
 				</template>

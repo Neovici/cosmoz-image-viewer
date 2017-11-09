@@ -93,6 +93,9 @@
 				value: false,
 				reflectToAttribute: true
 			},
+			sizing: {
+				type: String
+			},
 			imageLoaded: {
 				type: Boolean,
 				value: false,
@@ -204,17 +207,34 @@
 		},
 
 		nextImage() {
-			if (this.currentImageIndex + 1 === this.images.length) {
-				return;
-			}
-			this.currentImageIndex += 1;
+			this.$.carousel.next();
 		},
 
 		previousImage() {
-			if (this.currentImageIndex === 0) {
-				return;
+			this.$.carousel.prev();
+		},
+
+		openFullscreen() {
+			var dialog = document.querySelector('#cosmoz-image-viewer-overlay');
+			if (!dialog) {
+				dialog = document.createElement('cosmoz-image-viewer-overlay');
+				dialog.id = 'cosmoz-image-viewer-overlay';
+				dialog.withBackdrop = true;
+				dialog.style.width = '90vw';
+				dialog.style.height = '90vh';
+				// let ci = document.createElement('cosmoz-image-viewer');
+				// ci.images = this.images;
+				// ci.nav = true;
+				// ci.zoom = false;
+				// ci.sizing = 'contain';
+				// ci.customStyle['--cosmoz-image-viewer-min-height'] = 'calc(90vh - 48px)';
+				// ci.updateStyles();
+				// Polymer.dom(dialog).insertBefore(ci, Polymer.dom(dialog).childNodes[0]);
+				document.body.appendChild(dialog);
 			}
-			this.currentImageIndex -= 1;
+			dialog.images = this.images;
+			dialog.currentImageIndex = this.currentImageIndex;
+			dialog.open();
 		},
 
 		attach: function () {
@@ -264,6 +284,7 @@
 				index: index || 0, // start at first slide
 				history: false, // disables unique URL for each slide.
 				preLoad: [1, 3], // Preloads one image before current image and three after.,
+				modal: true,
 				closeOnScroll: false,
 				loadingIndicatorDelay: 0,
 				hideAnimationDuration: 0,
@@ -271,6 +292,14 @@
 				showHideOpacity: false,
 				shareEl: false
 			}).init();
+		},
+
+		_imageLoadedChanged(e) {
+			let ironImage = e.currentTarget,
+				div = ironImage.parentNode;
+			if (Array.from(div.classList).indexOf('selected') > -1) {
+				this.imageLoaded = ironImage.loaded;
+			}
 		},
 
 		scrollHandler: function () {
