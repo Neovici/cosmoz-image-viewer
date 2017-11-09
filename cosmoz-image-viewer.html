@@ -26,7 +26,7 @@
 				display: block;
 				position: relative;
 				@apply --layout-vertical;
-				--cosmoz-image-viewer-min-height: 300px;
+				/* --cosmoz-image-viewer-min-height: 300px; */
 			}
 
 			#imageContainer {
@@ -94,9 +94,13 @@
 			}
 
 			#carousel {
-				--skeleton-carousel-min-height: var(--cosmoz-image-viewer-min-height);
 				--skeleton-carousel-item-selected: {
 					height: auto;
+					text-align: center;
+				};
+
+				--skeleton-carousel-item: {
+					height: 0;
 					text-align: center;
 				};
 
@@ -125,6 +129,15 @@
 				}
 			}
 
+			img-pan-zoom {
+				@apply --layout-flex-auto;
+				display: flex;
+				justify-content: center;
+				background-color: black;
+				pointer-events: none;
+				height: 100vh;
+			}
+
 		</style>
 		<photoswipe-boilerplate pswp="{{_pswp}}"></photoswipe-boilerplate>
 
@@ -148,6 +161,14 @@
 		</paper-icon-button>
 		<div class="counter">[[selectedImageNumber]]/[[total]]</div>
 		<paper-icon-button class="zoom-btn"
+			hidden$="[[ !zoom ]]"
+			on-click="zoomTo"
+			icon="icons:zoom-in"
+			title="[[ _('Zoom image', t) ]]">
+		</paper-icon-button>
+
+		<paper-icon-button class="zoom-btn"
+			hidden$="[[ !full ]]"
 			on-click="openFullscreen"
 			icon="icons:zoom-in"
 			title="[[ _('Zoom image', t) ]]">
@@ -162,8 +183,11 @@
 				selected="{{currentImageIndex}}">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
 					<div>
-						<!-- <img-pan-zoom data-src$="[[image]]"></img-pan-zoom> -->
+						<img-pan-zoom data-src$="[[image]]" hidden$="[[!zoom]]"
+							on-loaded-changed="_imageLoadedChanged">
+						</img-pan-zoom>
 						<iron-image
+							hidden$="[[zoom]]"
 							sizing="[[sizing]]"
 							class="image"
 							data-src$="[[image]]"
