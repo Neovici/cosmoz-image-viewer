@@ -1,4 +1,4 @@
-/*global document, Polymer, Cosmoz, window, PhotoSwipe, PhotoSwipeUI_Default */
+/*global document, Polymer, Cosmoz, window */
 (function () {
 
 	'use strict';
@@ -24,7 +24,7 @@
 				observer: '_currentImageIndexChanged'
 			},
 			/**
-			 * Like currentImageIndex + 1; Starts at 1 instead of 0.
+			 * Like currentImageIndex; Starts at 1 instead of 0.
 			 */
 			selectedImageNumber: {
 				type: Number,
@@ -49,13 +49,7 @@
 				type: Array,
 				computed: '_computeResolvedImages(images)'
 			},
-			/**
-			 * Disable button to detach image
-			 */
-			noDetach: {
-				type: Boolean,
-				value: false
-			},
+
 			scrollPercent: {
 				type: Number,
 				notify: true
@@ -64,17 +58,21 @@
 				type: String,
 				notify: true
 			},
+
+			sizing: {
+				type: String
+			},
 			/**
             * Show navigation next/prev buttons
             */
-			nav: {
+			showNav: {
 				type: Boolean,
 				value: false
 			},
 			/**
 			* Show navigation dots
 			*/
-			dots: {
+			showDots: {
 				type: Boolean,
 				value: false
 			},
@@ -85,17 +83,7 @@
 				type: Boolean,
 				value: false
 			},
-			/**
-			* If true, open fullscreen overlay when click on image
-			*/
-			fullscreen: {
-				type: Boolean,
-				value: false,
-				reflectToAttribute: true
-			},
-			sizing: {
-				type: String
-			},
+
 			imageLoaded: {
 				type: Boolean,
 				value: false
@@ -106,9 +94,6 @@
 			_scroller: {
 				type: Object
 			},
-			_pswp: {
-				type: Object
-			},
 			/**
 			 * The selected slide in the carousel
 			 */
@@ -117,17 +102,27 @@
 				observer: '_selectedItemChanged'
 			},
 
-			zoom: {
-				type: Boolean,
-				value: false
-			},
-
-			full: {
-				type: Boolean,
-				value: false
-			},
-
 			isZoomed: {
+				type: Boolean,
+				value: false
+			},
+
+			showZoom: {
+				type: Boolean,
+				value: false
+			},
+
+			showFullscreen: {
+				type: Boolean,
+				value: false
+			},
+
+			showDetach: {
+				type: Boolean,
+				value: false
+			},
+
+			showClose: {
 				type: Boolean,
 				value: false
 			}
@@ -183,7 +178,7 @@
 
 		},
 
-		_computeCurrentImage: function (index, array) {
+		_computeCurrentImage(index, array) {
 			if (!array) {
 				return;
 			}
@@ -220,23 +215,27 @@
 			this.selectedImageNumber = index + 1;
 		},
 
-		_onResize: function () {
+		_onResize() {
 			this.set('_imageContainerHeight', this._scroller.scrollHeight);
 		},
 
-		_computePage: function (index) {
+		_computePage(index) {
 			return index + 1;
 		},
 
-		_detachedChanged: function (value) {
+		_detachedChanged(value) {
 			this.hidden = value;
 		},
 
-		_imageListChanged: function (newlist) {
+		_imageListChanged(newlist) {
 			if (!newlist) {
 				return;
 			}
 			this.currentImageIndex = 0;
+		},
+
+		_close() {
+			this.fire('close-tapped');
 		},
 
 		nextImage() {
@@ -260,7 +259,7 @@
 			dialog.open();
 		},
 
-		attach: function () {
+		attach() {
 			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
 				sharedWindowInstance = sharedWindow.byKey('detachedWindow');
 
@@ -269,7 +268,7 @@
 			}
 		},
 
-		detach: function () {
+		detach() {
 			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
 				sharedWindowInstance = sharedWindow.byKey('detachedWindow'),
 				w;
@@ -300,21 +299,6 @@
 			this.notifyResize();
 		},
 
-		modalImageViewer: function (element, items, index) {
-			new PhotoSwipe(element, PhotoSwipeUI_Default, items, {
-				index: index || 0, // start at first slide
-				history: false, // disables unique URL for each slide.
-				preLoad: [1, 3], // Preloads one image before current image and three after.,
-				modal: true,
-				closeOnScroll: false,
-				loadingIndicatorDelay: 0,
-				hideAnimationDuration: 0,
-				showAnimationDuration: 0,
-				showHideOpacity: false,
-				shareEl: false
-			}).init();
-		},
-
 		_imageLoadedChanged(e) {
 			var imgPanZoom = e.currentTarget,
 				div = imgPanZoom.parentNode;
@@ -339,36 +323,24 @@
 			viewer.viewport.zoomTo(1.5);
 		},
 
-		scrollHandler: function () {
-			this.debounce('updateScrollPercent', function () {
+		scrollHandler() {
+			this.debounce('updateScrollPercent', () => {
 				var top = this._scroller.scrollTop,
 					height = this._imageContainerHeight,
 					percent = Math.round(top / height * 100);
 				if (percent !== this.scrollPercent) {
 					this.set('scrollPercent', percent);
 				}
-			}.bind(this), 100);
+			}, 100);
 		},
 
-		scrollToPercent: function (loaded, percent, height) {
+		scrollToPercent(loaded, percent, height) {
 			if (!loaded || !this._scroller) {
 				return;
 			}
 			var topPx = height * (percent / 100);
 
 			this._scroller.scrollTop = topPx;
-		},
-
-		enterFullscreen() {
-			var items = [];
-			this.images.forEach(function (image) {
-				items.push({
-					src: this.resolveUrl(image),
-					w: 1105,
-					h: 1562
-				});
-			}, this);
-			this.modalImageViewer(this._pswp, items, this.currentImageIndex);
 		},
 
 		_getDetachedContent() {
@@ -523,6 +495,7 @@
 								}
 								currentImageIndex++;
 								img.src = images[currentImageIndex];
+								_setDownload(images[currentImageIndex]);
 							},
 							prev = () => {
 								if (currentImageIndex === 0) {
@@ -530,6 +503,11 @@
 								}
 								currentImageIndex--;
 								img.src = images[currentImageIndex];
+								_setDownload(images[currentImageIndex]);
+							},
+							_setDownload = (imageUrl) => {
+								download.download = imageUrl.replace(/^.*[\\\/]/, '');
+								download.href = imageUrl;
 							},
 							printPage = () => {
 								actions.classList.add('hidden');
@@ -542,8 +520,7 @@
 							console.log(array);
 							images = array;
 							img.src = imageUrl;
-							download.download = imageUrl.replace(/^.*[\\\/]/, '');
-							download.href = imageUrl;
+							_setDownload(imageUrl);
 						};
 					</script>
 				</body>

@@ -13,7 +13,6 @@
 
 
 		<link rel="import" href="../cosmoz-image-viewer.html" />
-		<link rel="import" href="../cosmoz-swiper.html" />
 
 		<custom-style>
 			<style is="custom-style" include="demo-pages-shared-styles iron-flex">
@@ -32,7 +31,7 @@
 							<cosmoz-image-viewer
 								selected-image-number="{{selectedImageNumber}}"
 								images="[[images]]"
-								nav loop full>
+								show-nav loop show-fullscreen show-detach>
 							</cosmoz-image-viewer>
 						</template>
 					</dom-bind>

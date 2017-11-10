@@ -13,11 +13,12 @@
             }
         </style>
         <cosmoz-image-viewer
-            on-track="_trackHandler"
+			on-track="_trackHandler"
+			on-close-tapped="close"
             images="[[images]]"
             sizing="contain"
-            current-image-index="[[currentImageIndex]]"
-            nav zoom>
+			current-image-index="[[currentImageIndex]]"
+            show-nav show-zoom show-close show-detach>
         </cosmoz-image-viewer>
 
     </template>

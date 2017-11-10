@@ -1,30 +1,29 @@
 <link rel="import" href="../polymer/polymer.html">
+
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-meta/iron-meta.html">
 <link rel="import" href="../iron-image/iron-image.html">
-<link rel="import" href="../cosmoz-behaviors/cosmoz-behaviors.html">
-<link rel="import" href="../cosmoz-i18next/cosmoz-i18next.html">
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html" />
 
-<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="../cosmoz-behaviors/cosmoz-behaviors.html">
+<link rel="import" href="../cosmoz-i18next/cosmoz-i18next.html">
 
 <link rel="import" href="../skeleton-carousel/skeleton-carousel.html">
-
-<link rel="import" href="photoswipe-boilerplate.html">
+<link rel="import" href="../img-pan-zoom/img-pan-zoom.html">
 
 <link rel="import" href="cosmoz-image-viewer-overlay.html">
-<link rel="import" href="../img-pan-zoom/img-pan-zoom.html">
 
 <dom-module id="cosmoz-image-viewer">
 	<template>
-		<style>
+		<style include="iron-flex iron-flex-alignment">
 			:host {
 				display: block;
 				position: relative;
 				@apply --layout-vertical;
-				/* --cosmoz-image-viewer-min-height: 300px; */
 			}
 
 			#imageContainer {
@@ -32,25 +31,18 @@
 				will-change: transform;
 			}
 
-			.image {
-				@apply --layout-flex-auto;
-				display: flex;
-				justify-content: center;
-				background-color: gray;
-				pointer-events: none;
-			}
-
-			.counter, .detach-btn, .zoom-btn, .nav {
-				opacity: 1;
-				background-color: rgba(0, 0, 0, 0.44);
+			.actions {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				margin: auto;
+				max-width: 600px;
+				width: 100%;
+				padding: 12px;
 			}
 
 			.counter {
-				position: absolute;
-				color: #ffffff;
-				z-index: +1;
-				top: 18px;
-				left: 50%;
 				padding: 4px 10px;
     			border-radius: 30px;
 				text-align: center;
@@ -58,37 +50,20 @@
 				font-size: 1em;
 			}
 
-			.detach-btn, .zoom-btn, .nav, .full-btn {
-				position: absolute;
+			.nav {
 				z-index: +1;
+				opacity: 0.5;
+				color:rgba(255, 255, 255, 0.87);
 				opacity: 1;
+				background-color: rgba(0, 0, 0, 0.44);
+				border-radius: 20px;
+				margin: 3px;
+			}
+
+			.close-btn {
+				position: fixed;
 				right: 12px;
 				top: 12px;
-				color:rgba(255, 255, 255, 0.87);
-				border-radius: 20px;
-			}
-
-			.zoom-btn {
-				right: 56px;
-			}
-
-			.full-btn {
-				right: 84px;
-			}
-
-			.prev-btn {
-				left: 12px;
-			}
-
-			.next-btn {
-				left: 56px;
-			}
-
-			@media (hover: none) {
-				.detach-btn, .counter {
-					opacity: 1;
-					background-color: rgba(0, 0, 0, 0.26);
-				}
 			}
 
 			#carousel {
@@ -127,7 +102,15 @@
 				}
 			}
 
-			img-pan-zoom {
+			.image {
+				@apply --layout-flex-auto;
+				display: flex;
+				justify-content: center;
+				background-color: gray;
+				pointer-events: none;
+			}
+
+			.image-zoom {
 				@apply --layout-flex-auto;
 				display: flex;
 				justify-content: center;
@@ -137,55 +120,70 @@
 			}
 
 		</style>
-		<photoswipe-boilerplate pswp="{{_pswp}}"></photoswipe-boilerplate>
 
-		<paper-icon-button
-			class="nav prev-btn"
-			hidden$="[[!nav]]"
-			icon="icons:arrow-back"
-			on-tap="previousImage">
-		</paper-icon-button>
-		<paper-icon-button
-			class="nav next-btn"
-			hidden$="[[!nav]]"
-			icon="icons:arrow-forward"
-			on-tap="nextImage">
-		</paper-icon-button>
-		<paper-icon-button class="detach-btn"
-			hidden$="[[ noDetach ]]"
-			on-click="detach"
-			icon="launch"
-			title="[[ _('Detach image to separate window', t) ]]">
-		</paper-icon-button>
-		<div class="counter">[[selectedImageNumber]]/[[total]]</div>
-		<paper-icon-button class="zoom-btn"
-			hidden$="[[ !zoom ]]"
-			on-click="zoomToggle"
-			icon="[[_getZoomIcon(isZoomed)]]"
-			title="[[ _('Zoom image', t) ]]">
-		</paper-icon-button>
-
-		<paper-icon-button class="zoom-btn"
-			hidden$="[[ !full ]]"
-			on-click="openFullscreen"
-			icon="icons:fullscreen"
-			title="[[ _('Fullscreen image', t) ]]">
-		</paper-icon-button>
+		<div class="actions layout horizontal center">
+			<div class="flex"></div>
+			<paper-icon-button
+				class="nav"
+				hidden$="[[!showNav]]"
+				icon="icons:arrow-back"
+				on-tap="previousImage">
+			</paper-icon-button>
+			<paper-icon-button
+				class="nav"
+				hidden$="[[!showNav]]"
+				icon="icons:arrow-forward"
+				on-tap="nextImage">
+			</paper-icon-button>
+			<div class="flex"></div>
+			<div class="nav counter">[[selectedImageNumber]]/[[total]]</div>
+			<div class="flex"></div>
+			<paper-icon-button
+				class="nav"
+				hidden$="[[!showZoom]]"
+				on-click="zoomToggle"
+				icon="[[_getZoomIcon(isZoomed)]]"
+				title="[[ _('Zoom image', t) ]]">
+			</paper-icon-button>
+			<paper-icon-button
+				class="nav"
+				hidden$="[[!showDetach]]"
+				on-click="detach"
+				icon="launch"
+				title="[[ _('Detach image to separate window', t) ]]">
+			</paper-icon-button>
+			<paper-icon-button
+				class="nav"
+				hidden$="[[!showFullscreen]]"
+				on-click="openFullscreen"
+				icon="icons:fullscreen"
+				title="[[ _('Fullscreen image', t) ]]">
+			</paper-icon-button>
+			<paper-icon-button
+				class="nav close-btn"
+				hidden$="[[!showClose]]"
+				on-click="_close"
+				icon="icons:close"
+				title="[[ _('Close fullscreen', t) ]]">
+			</paper-icon-button>
+			<div class="flex"></div>
+		</div>
 
 		<div id="imageContainer" on-scroll="scrollHandler">
 			<skeleton-carousel id="carousel"
 				selected-item="{{selectedItem}}"
-				dots="[[dots]]"
+				dots="[[showDots]]"
 				loop="[[loop]]"
 				total="{{total}}"
 				selected="{{currentImageIndex}}">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
 					<div>
-						<img-pan-zoom data-src$="[[image]]" hidden$="[[!zoom]]"
+						<img-pan-zoom hidden$="[[!showZoom]]"
+							class="image-zoom"
+							data-src$="[[image]]"
 							on-loaded-changed="_imageLoadedChanged">
 						</img-pan-zoom>
-						<iron-image
-							hidden$="[[zoom]]"
+						<iron-image hidden$="[[showZoom]]"
 							sizing="[[sizing]]"
 							class="image"
 							data-src$="[[image]]"
