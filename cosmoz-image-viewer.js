@@ -24,7 +24,7 @@
 				observer: '_currentImageIndexChanged'
 			},
 			/**
-			 * Like currentImageIndex; Starts at 1 instead of 0.
+			 * Like currentImageIndex but starts at 1 instead of 0.
 			 */
 			selectedImageNumber: {
 				type: Number,
@@ -154,7 +154,7 @@
 		},
 
 		_initImgPanZoomInstance(imgPanZoom) {
-			if (!this.zoom) {
+			if (!this.showZoom) {
 				return;
 			}
 
