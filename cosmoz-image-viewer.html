@@ -1,33 +1,33 @@
 <link rel="import" href="../polymer/polymer.html">
+
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-meta/iron-meta.html">
-<link rel="import" href="../cosmoz-behaviors/cosmoz-behaviors.html">
-<link rel="import" href="../cosmoz-i18next/cosmoz-i18next.html">
+<link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html" />
 
-<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
 
-<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../cosmoz-behaviors/cosmoz-behaviors.html">
+<link rel="import" href="../cosmoz-i18next/cosmoz-i18next.html">
 
 <link rel="import" href="../skeleton-carousel/skeleton-carousel.html">
+<link rel="import" href="../img-pan-zoom/img-pan-zoom.html">
 
-<link rel="import" href="photoswipe-boilerplate.html">
+<link rel="import" href="cosmoz-image-viewer-overlay.html">
 
 <dom-module id="cosmoz-image-viewer">
 	<template>
-		<style>
+		<style include="iron-flex iron-flex-alignment">
 			:host {
 				display: block;
 				position: relative;
 				@apply --layout-vertical;
-				--cosmoz-image-viewer-height: 300px;
-				height: 100%
 			}
-
-			:host([fullscreen]) .image {
-				cursor: pointer;
+			/* For Polymer 2 */
+			[hidden] {
+				display: none !important;
 			}
 
 			#imageContainer {
@@ -35,44 +35,56 @@
 				will-change: transform;
 			}
 
-			.image {
-				flex: auto;
+			.actions {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				margin: auto;
+				max-width: 600px;
+				width: 100%;
+				padding: 12px;
 			}
 
-			#imageContainer:hover > .detach-btn {
+			.counter {
+				padding: 4px 10px;
+    			border-radius: 30px;
+				text-align: center;
+				font-weight: 100;
+				font-size: 1em;
+			}
+
+			.nav {
+				z-index: +1;
+				opacity: 0.5;
+				color:rgba(255, 255, 255, 0.87);
 				opacity: 1;
 				background-color: rgba(0, 0, 0, 0.44);
+				border-radius: 20px;
+				margin: 3px;
 			}
 
-			.detach-btn {
-				position: absolute;
-				z-index: +1;
+			.close-btn {
+				position: fixed;
 				right: 12px;
 				top: 12px;
-				color:rgba(255, 255, 255, 0.87);
-				background-color: rgba(0, 0, 0, 0.13);
-				border-radius: 20px;
-				opacity: 0.1;
-				-webkit-transition: opacity .25s ease-in-out;
-				-moz-transition: opacity .25s ease-in-out;
-				-ms-transition: opacity .25s ease-in-out;
-				-o-transition: opacity .25s ease-in-out;
-				transition: opacity .25s ease-in-out;
-			}
-
-			@media (hover: none) {
-				.detach-btn {
-					opacity: 1;
-					background-color: rgba(0, 0, 0, 0.26);
-				}
 			}
 
 			#carousel {
-				min-height: var(--cosmoz-image-viewer-height);
+				--skeleton-carousel-item-selected: {
+					height: auto;
+					text-align: center;
+				};
+
+				--skeleton-carousel-item: {
+					height: 0;
+					text-align: center;
+				};
+
 				--skeleton-carousel-nav: {
 					background-color: rgba(0, 0, 0, 0.44);
 					color: rgba(255, 255, 255, 0.87);
-					top: calc(50% - 11px);
+					top: 12px;
 					position: absolute;
 				};
 
@@ -82,74 +94,109 @@
 				};
 
 				--skeleton-carousel-nav-next: {
-					right: 12px;
+					left: 56px;
 				};
 
 				--skeleton-carousel-nav-prev: {
 					left: 12px;
 				};
 
-				--skeleton-carousel-dots: {
-					position: absolute;
-					top: 21px;
-					background-color:rgba(128, 128, 128, 0.44);
-					border-radius: 16px;
-					height: 22px;
-					padding: 0 4px;
-					opacity: 0.67;
-				};
-
-				--skeleton-carousel-dot: {
-					height: 22px;
-					width: 22px;
-					padding: 0 4px;
-				}
-
-				--skeleton-carousel-dot-color: rgba(0, 0, 0, 0.87);
-
 				--skeleton-carousel-controls: {
 					padding: 0;
 				}
 			}
 
-		</style>
-		<photoswipe-boilerplate pswp="{{_pswp}}"></photoswipe-boilerplate>
+			.image {
+				@apply --layout-flex-auto;
+				display: flex;
+				justify-content: center;
+				background-color: gray;
+				pointer-events: none;
+			}
 
-		<div id="imageContainer" on-scroll="scrollHandler">
-			<paper-icon-button class="detach-btn"
-				hidden$="[[ noDetach ]]"
+			.image-zoom {
+				@apply --layout-flex-auto;
+				display: flex;
+				justify-content: center;
+				background-color: black;
+				pointer-events: none;
+				height: 100vh;
+			}
+
+		</style>
+
+		<div class="actions layout horizontal center">
+			<div class="flex"></div>
+			<paper-icon-button
+				class="nav"
+				hidden$="[[!showNav]]"
+				icon="icons:arrow-back"
+				on-tap="previousImage">
+			</paper-icon-button>
+			<paper-icon-button
+				class="nav"
+				hidden$="[[!showNav]]"
+				icon="icons:arrow-forward"
+				on-tap="nextImage">
+			</paper-icon-button>
+			<div class="flex"></div>
+			<div class="nav counter">[[selectedImageNumber]]/[[total]]</div>
+			<div class="flex"></div>
+			<paper-icon-button
+				class="nav"
+				hidden$="[[!showZoom]]"
+				on-click="zoomToggle"
+				icon="[[_getZoomIcon(isZoomed)]]"
+				title="[[ _('Zoom image', t) ]]">
+			</paper-icon-button>
+			<paper-icon-button
+				class="nav"
+				hidden$="[[!showDetach]]"
 				on-click="detach"
 				icon="launch"
 				title="[[ _('Detach image to separate window', t) ]]">
 			</paper-icon-button>
+			<paper-icon-button
+				class="nav"
+				hidden$="[[!showFullscreen]]"
+				on-click="openFullscreen"
+				icon="icons:fullscreen"
+				title="[[ _('Fullscreen image', t) ]]">
+			</paper-icon-button>
+			<paper-icon-button
+				class="nav close-btn"
+				hidden$="[[!showClose]]"
+				on-click="_close"
+				icon="icons:close"
+				title="[[ _('Close fullscreen', t) ]]">
+			</paper-icon-button>
+			<div class="flex"></div>
+		</div>
+
+		<div id="imageContainer" on-scroll="scrollHandler">
 			<skeleton-carousel id="carousel"
 				selected-item="{{selectedItem}}"
-				dots="[[dots]]"
-				nav="[[nav]]"
+				dots="[[showDots]]"
 				loop="[[loop]]"
-				selected="{{selectedImageNumber}}">
+				total="{{total}}"
+				selected="{{currentImageIndex}}">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
-					<div on-click="_imageTapped">
-						<iron-image
+					<div>
+						<img-pan-zoom hidden$="[[!showZoom]]"
+							class="image-zoom"
+							data-src$="[[image]]"
+							on-loaded-changed="_imageLoadedChanged">
+						</img-pan-zoom>
+						<iron-image hidden$="[[showZoom]]"
+							sizing="[[sizing]]"
 							class="image"
 							data-src$="[[image]]"
-							placeholder="[[placeholder]]"
-							sizing="[[sizing]]"
-							preload
-							fade
 							on-loaded-changed="_imageLoadedChanged">
 						</iron-image>
 					</div>
 				</template>
 			</skeleton-carousel>
 		</div>
-
-		<iron-ajax
-			auto
-			url="[[_detachedContentUrl]]"
-			handle-as="text"
-			last-response="{{_detachedWindowContent}}">
-		</iron-ajax>
 
 		<iron-meta id="meta" type="cosmoz-image-viewer" key="detachedWindow"></iron-meta>
 

@@ -14,7 +14,9 @@
     "photoswipe": "^4.1.2",
     "iron-meta": "PolymerElements/iron-meta#^2.0.2",
     "iron-image": "PolymerElements/iron-image#^2.1.2",
-    "skeleton-carousel": "JaySunSyn/skeleton-carousel#hybrid"
+    "skeleton-carousel": "JaySunSyn/skeleton-carousel#hybrid",
+    "img-pan-zoom": "ryanburns23/img-pan-zoom#^2.0.0",
+    "iron-overlay-behavior": "^2.2.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#1 - 3",
