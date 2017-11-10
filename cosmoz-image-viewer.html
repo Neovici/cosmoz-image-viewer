@@ -10,8 +10,6 @@
 
 <link rel="import" href="../iron-image/iron-image.html">
 
-<link rel="import" href="../iron-ajax/iron-ajax.html">
-
 <link rel="import" href="../skeleton-carousel/skeleton-carousel.html">
 
 <link rel="import" href="photoswipe-boilerplate.html">
@@ -197,13 +195,6 @@
 				</template>
 			</skeleton-carousel>
 		</div>
-
-		<iron-ajax
-			auto
-			url="[[_detachedContentUrl]]"
-			handle-as="text"
-			last-response="{{_detachedWindowContent}}">
-		</iron-ajax>
 
 		<iron-meta id="meta" type="cosmoz-image-viewer" key="detachedWindow"></iron-meta>
 

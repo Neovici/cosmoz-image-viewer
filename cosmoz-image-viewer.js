@@ -116,12 +116,6 @@
 				type: Object,
 				observer: '_selectedItemChanged'
 			},
-			_detachedWindowContent: {
-				type: String
-			},
-			_detachedContentUrl: {
-				type: String
-			},
 
 			zoom: {
 				type: Boolean,
@@ -146,24 +140,8 @@
 			'_selectedImageNumberChanged(selectedImageNumber, images)'
 		],
 
-		_viewerChanged(viewer) {
-			// viewer.addHandler('zoom', (e) => {
-			// 	if (!viewer.initialZoom) {
-			// 		viewer.initialZoom = e.zoom;
-			// 		return;
-			// 	}
-			// 	if (viewer.initialZoom === e.zoom) {
-			// 		this.$$('#viewer').style.pointerEvents = 'none';
-			// 		return;
-			// 	}
-
-			// 	this.$$('#viewer').style.pointerEvents = 'all';
-			// });
-		},
-
 		ready() {
 			this.set('_scroller', this.$.imageContainer);
-			this._detachedContentUrl = this.resolveUrl('detached.html');
 		},
 
 		_selectedItemChanged(selectedItem) {
@@ -298,17 +276,17 @@
 
 			if (sharedWindowInstance) {
 				window.open(undefined, 'OCR', 'height=700,width=800');
-				sharedWindowInstance.setImages(this.images.map(i => this.resolveUrl(i)), this.currentImageIndex);
+				sharedWindowInstance.setImages(this._resolvedImages, this.currentImageIndex);
 				return;
 			}
 
 			w = window.open(undefined, 'OCR', 'height=700,width=800');
-			w.document.write(this._detachedWindowContent);
+			w.document.write(this._getDetachedContent());
 			w.document.close();
 			w.document.title = this._('Cosmoz Image Viewer');
 
 			w.addEventListener('ready', (e) => {
-				e.currentTarget.setImages(this.images.map(i => this.resolveUrl(i)), this.currentImageIndex);
+				e.currentTarget.setImages(this._resolvedImages, this.currentImageIndex);
 			});
 
 			w.addEventListener('beforeunload', () => {
@@ -316,8 +294,6 @@
 				this.notifyResize();
 				sharedWindow.value = undefined;
 			});
-
-			// w.setImages(this.images.map(i => this.resolveUrl(i)));
 
 			this._setIsDetached(true);
 			sharedWindow.value = w;
@@ -393,6 +369,186 @@
 				});
 			}, this);
 			this.modalImageViewer(this._pswp, items, this.currentImageIndex);
+		},
+
+		_getDetachedContent() {
+			return `
+			<html>
+				<head>
+					<title>Image Viewer Detached</title>
+					<style>
+						html,
+						body {
+							margin: 0;
+						}
+
+						#image {
+							overflow-y: auto;
+							width: 100%;
+						}
+
+						.actions {
+							position: fixed;
+							left: 0;
+							top: 0;
+							background-color: rgba(0, 0, 0, 0.6);
+							width: 100%;
+							height: 64px;
+							opacity: 0.1;
+							display: flex;
+							align-items: center;
+							-webkit-transition: opacity .25s ease-in-out;
+							-moz-transition: opacity .25s ease-in-out;
+							-ms-transition: opacity .25s ease-in-out;
+							-o-transition: opacity .25s ease-in-out;
+							transition: opacity .25s ease-in-out;
+							transition-delay: 5s;
+						}
+
+						.actions:hover {
+							opacity: 1;
+							transition-delay: 0s;
+						}
+
+						.fa {
+							color: #fff;
+							font-size: 1.2em;
+							cursor: pointer;
+						}
+
+						.btn {
+							font-size: 2em;
+						}
+
+						.space {
+							width: 100%;
+						}
+
+						.action-box {
+							padding: 0 48px;
+							display: -ms-flexbox;
+							display: -webkit-flex;
+							display: flex;
+							-ms-flex-direction: row;
+							-webkit-flex-direction: row;
+							flex-direction: row;
+						}
+						.action-box > * {
+							padding-right: 24px;
+						}
+
+						.hidden {
+							display: none;
+						}
+
+						.icon-btn {
+							position: inline-block;
+							width: 40px;
+							height: 40px;
+							border-radius: 20px;
+							background-color: rgba(0, 0, 0, 0.44);
+							padding: 8px;
+							outline: none;
+							cursor: pointer;
+							box-sizing: border-box !important;
+							margin: 6px;
+						}
+
+						.icon-only, .icon-btn {
+							color: rgba(255, 255, 255, 0.87);
+						}
+
+						.icon-only {
+							width: 24px;
+							height: 24px;
+						}
+
+						.icon {
+							pointer-events: none;
+							display: block;
+							width: 100%;
+							height: 100%;
+							fill: currentColor;
+						}
+					</style>
+				</head>
+				<body>
+					<img id="image">
+					<div class="actions">
+						<div class="action-box">
+							<div class="icon-btn" onclick="prev()">
+								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
+									<g><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></g>
+								</svg>
+							</div>
+							<div class="icon-btn" onclick="next()">
+								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
+									<g><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></g>
+								</svg>
+							</div>
+						</div>
+						<span class="space"></span>
+						<div class="action-box">
+							<a id="download">
+								<div class="icon-only">
+									<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
+										<g><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path></g>
+									</svg>
+								</div>
+							</a>
+							<div class="icon-only" onclick="printPage()">
+								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
+									<g><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"></path></g>
+								</svg>
+							</div>
+						</div>
+					</div>
+					<script>
+						/*eslint no-unused-vars: 0*/
+						var img,
+							download,
+							images,
+							actions,
+							currentImageIndex = 0;
+
+						const load = () => {
+								img = document.querySelector('#image');
+								download = document.querySelector('#download');
+								actions = document.querySelector('.actions');
+								window.dispatchEvent(new Event('ready', { bubbles: true }));
+							},
+							next = () => {
+								if (currentImageIndex === images.length - 1) {
+									return;
+								}
+								currentImageIndex++;
+								img.src = images[currentImageIndex];
+							},
+							prev = () => {
+								if (currentImageIndex === 0) {
+									return;
+								}
+								currentImageIndex--;
+								img.src = images[currentImageIndex];
+							},
+							printPage = () => {
+								actions.classList.add('hidden');
+								print();
+								actions.classList.remove('hidden');
+							};
+						window.onload = load;
+						window.setImages = (array, startIndex = 0) => {
+							let imageUrl = array[startIndex];
+							console.log(array);
+							images = array;
+							img.src = imageUrl;
+							download.download = imageUrl.replace(/^.*[\\\/]/, '');
+							download.href = imageUrl;
+						};
+					</script>
+				</body>
+			</html>
+			`;
 		}
 	});
 }());

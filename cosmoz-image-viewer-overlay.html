@@ -45,9 +45,6 @@
         	attached() {
         		let viewer = this.$$('cosmoz-image-viewer');
         		viewer.addEventListener('dblclick', () => {
-        			if (viewer.isZoomed) {
-        				return;
-        			}
         			viewer.zoomToggle();
         		});
         	},
