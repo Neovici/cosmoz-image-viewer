@@ -252,6 +252,8 @@
 				dialog = document.createElement('cosmoz-image-viewer-overlay');
 				dialog.id = 'cosmoz-image-viewer-overlay';
 				dialog.noCancelOnOutsideClick = true;
+				dialog.loop = this.loop;
+				dialog.showDetach = this.showDetach;
 				document.body.appendChild(dialog);
 			}
 			dialog.images = this.images;
