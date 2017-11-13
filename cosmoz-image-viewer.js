@@ -13,11 +13,17 @@
 		is: 'cosmoz-image-viewer',
 
 		properties: {
+			/**
+			 * The url of the currenly selected image.
+			 */
 			currentImage: {
-				type: Object,
+				type: String,
 				notify: true,
 				computed: '_computeCurrentImage(currentImageIndex, images)',
 			},
+			/**
+			 * The index in the images array of the currently selected image.
+			 */
 			currentImageIndex: {
 				type: Number,
 				notify: true
@@ -30,10 +36,9 @@
 				notify: true,
 				computed: '_computeSelectedImageNumber(currentImageIndex, total)'
 			},
-			currentPage: {
-				type: Number,
-				computed: '_computePage(currentImageIndex)'
-			},
+			/**
+			 * If true, the detached window is open.
+			 */
 			isDetached: {
 				type: Boolean,
 				value: false,
@@ -41,21 +46,18 @@
 				notify: true,
 				observer: '_detachedChanged'
 			},
+			/**
+			 * The images array.
+			 */
 			images: {
 				type: Array,
 				observer: '_imageListChanged'
 			},
-			_resolvedImages: {
-				type: Array,
-				computed: '_computeResolvedImages(images)'
-			},
-
+			/**
+			 * The percent the view should scroll down after the image got loaded.
+			 */
 			scrollPercent: {
 				type: Number,
-				notify: true
-			},
-			src: {
-				type: String,
 				notify: true
 			},
 
@@ -63,36 +65,11 @@
 				type: String
 			},
 			/**
-            * Show navigation next/prev buttons
-            */
-			showNav: {
-				type: Boolean,
-				value: false
-			},
-			/**
-			* Show navigation dots
-			*/
-			showDots: {
-				type: Boolean,
-				value: false
-			},
-			/**
-			* Loop through the images
-			*/
-			loop: {
-				type: Boolean,
-				value: false
-			},
-
+			 * If true, the currently selected image is fully loaded.
+			 */
 			imageLoaded: {
 				type: Boolean,
 				value: false
-			},
-			_imageContainerHeight: {
-				type: Number
-			},
-			_scroller: {
-				type: Object
 			},
 			/**
 			 * The selected slide in the carousel
@@ -101,42 +78,196 @@
 				type: Object,
 				observer: '_selectedItemChanged'
 			},
-
+			/**
+			 * If true, the current image is zoomed.
+			 */
 			isZoomed: {
 				type: Boolean,
 				value: false
 			},
-
+			/**
+            * If true, navigation next/prev buttons are visible.
+            */
+			showNav: {
+				type: Boolean,
+				value: false
+			},
+			/**
+			* If true, pagination dots are visible.
+			*/
+			showDots: {
+				type: Boolean,
+				value: false
+			},
+			/**
+			 * If true, a zoom button is visible.
+			 */
 			showZoom: {
 				type: Boolean,
 				value: false
 			},
-
+			/**
+			 * If true, a fullscreen button is visible.
+			 */
 			showFullscreen: {
 				type: Boolean,
 				value: false
 			},
-
+			/**
+			 * If true, a detach button is visible.
+			 */
 			showDetach: {
 				type: Boolean,
 				value: false
 			},
-
+			/**
+			* If true, a close icon is visible. Useful if displayed as an overlay.
+			*/
 			showClose: {
 				type: Boolean,
 				value: false
+			},
+			/**
+			* If true, clicking on next when the last image is selected,
+			* will show the first image again.
+			*/
+			loop: {
+				type: Boolean,
+				value: false
+			},
+
+			// Private
+
+			/**
+			 * The url resolved images array.
+			 */
+			_resolvedImages: {
+				type: Array,
+				computed: '_computeResolvedImages(images)'
+			},
+
+			_imageContainerHeight: {
+				type: Number
+			},
+
+			_scroller: {
+				type: Object
 			}
 		},
 		listeners: {
 			'iron-resize': '_onResize'
 		},
 		observers: [
-			'scrollToPercent(imageLoaded, scrollPercent, _imageContainerHeight)'
+			'_scrollToPercent(imageLoaded, scrollPercent, _imageContainerHeight)'
 		],
+
+		/** ELEMENT LIFECYCLE */
 
 		ready() {
 			this.set('_scroller', this.$.imageContainer);
+			this.addEventListener('dblclick', () => {
+				this.zoomToggle();
+			});
 		},
+
+		/** PUBLIC */
+
+		/**
+		 * Triggers the slide to the next image.
+		 * @returns {undefined}
+		 */
+		nextImage() {
+			this.$.carousel.next();
+		},
+		/**
+		 * Triggers the slide to the previous image.
+		 * @returns {undefined}
+		 */
+		previousImage() {
+			this.$.carousel.prev();
+		},
+		/**
+		 * Opens the fullscreen overlay.
+		 * @returns {undefined}
+		 */
+		openFullscreen() {
+			var dialog = document.querySelector('#cosmoz-image-viewer-overlay');
+			if (!dialog) {
+				dialog = document.createElement('cosmoz-image-viewer-overlay');
+				dialog.id = 'cosmoz-image-viewer-overlay';
+				dialog.noCancelOnOutsideClick = true;
+				dialog.loop = this.loop;
+				dialog.showDetach = this.showDetach;
+				document.body.appendChild(dialog);
+			}
+			dialog.images = this.images;
+			dialog.currentImageIndex = this.currentImageIndex;
+			dialog.open();
+		},
+		/**
+		 * Closes the detached window.
+		 * @returns {undefined}
+		 */
+		attach() {
+			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
+				sharedWindowInstance = sharedWindow.byKey('detachedWindow');
+
+			if (sharedWindowInstance) {
+				sharedWindowInstance.close();
+			}
+		},
+		/**
+		 * Opens a detached window.
+		 * @returns {undefined}
+		 */
+		detach() {
+			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
+				sharedWindowInstance = sharedWindow.byKey('detachedWindow'),
+				w;
+
+			if (sharedWindowInstance) {
+				window.open(undefined, 'OCR', 'height=700,width=800');
+				sharedWindowInstance.setImages(this._resolvedImages, this.currentImageIndex);
+				return;
+			}
+
+			w = window.open(undefined, 'OCR', 'height=700,width=800');
+			w.document.write(this._getDetachedContent());
+			w.document.close();
+			w.document.title = this._('Cosmoz Image Viewer');
+
+			w.addEventListener('ready', (e) => {
+				e.currentTarget.setImages(this._resolvedImages, this.currentImageIndex);
+			});
+
+			w.addEventListener('beforeunload', () => {
+				this._setIsDetached(false);
+				this.notifyResize();
+				sharedWindow.value = undefined;
+			});
+
+			this._setIsDetached(true);
+			sharedWindow.value = w;
+			this.notifyResize();
+		},
+		/**
+		 * Toggles between initial zoom level and 1.5x initial zoom level.
+		 * @returns {undefined}
+		 */
+		zoomToggle() {
+			let el = this.$.carousel.selectedItem.querySelector('img-pan-zoom');
+			if (!el.viewer) {
+				return;
+			}
+			if (this.isZoomed) {
+				el.resetZoom();
+				return;
+			}
+
+			el.viewer.viewport.zoomTo(1.5);
+		},
+
+		/** ELEMENT BEHAVIOR */
 
 		_selectedItemChanged(selectedItem) {
 			if (!selectedItem) {
@@ -152,24 +283,39 @@
 			return zoomed ? 'icons:zoom-out' : 'icons:zoom-in';
 		},
 
+		_isZoomed(viewer, zoom) {
+			let initialZoomLevel = viewer.viewport.getHomeZoom();
+			return zoom > initialZoomLevel * 1.05;
+		},
+
 		_initImgPanZoomInstance(imgPanZoom) {
 			if (!this.showZoom) {
 				return;
 			}
 
 			const zoomHandler = (e) => {
-				let initial = imgPanZoom.viewer.viewport.getHomeZoom();
-				if (initial >= e.zoom && initial * 1.05 > e.zoom) {
-					this.isZoomed = false;
-					imgPanZoom.style.pointerEvents = 'none';
+				this.isZoomed = this._isZoomed(imgPanZoom.viewer, e.zoom);
+				// If the zoom level is near to the initial zoom level
+				// set pointerEvents = 'none' in order to enable swiping to the next image.
+				// From here on, zooming or the "zoom mode" can only be activated from an outsite action like
+				// a) double click on the cosmoz-image-viewer instance which triggers zoomToggle() or
+				// b) a click on a zoom button which triggers zoomToggle()
+				// and triggers in this handler to set pointerEvents = 'all' again.
+				if (this.isZoomed) {
+					imgPanZoom.style.pointerEvents = 'all';
 					return;
 				}
-				this.isZoomed = true;
-				imgPanZoom.style.pointerEvents = 'all';
+				imgPanZoom.style.pointerEvents = 'none';
 			};
-
+			// The viewer of imgPanZoom needs some time to be initialized.
 			setTimeout(() => {
-				if (!imgPanZoom.viewer || imgPanZoom.viewer.getHandler('zoom')) {
+				if (!imgPanZoom.viewer) {
+					// viewer not ready, try again
+					this._initImgPanZoomInstance(imgPanZoom);
+					return;
+				}
+
+				if (imgPanZoom.viewer.getHandler('zoom')) {
 					return;
 				}
 				imgPanZoom.viewer.addHandler('zoom', zoomHandler);
@@ -202,10 +348,6 @@
 			this.set('_imageContainerHeight', this._scroller.scrollHeight);
 		},
 
-		_computePage(index) {
-			return index + 1;
-		},
-
 		_detachedChanged(value) {
 			this.hidden = value;
 		},
@@ -221,69 +363,6 @@
 			this.fire('close-tapped');
 		},
 
-		nextImage() {
-			this.$.carousel.next();
-		},
-
-		previousImage() {
-			this.$.carousel.prev();
-		},
-
-		openFullscreen() {
-			var dialog = document.querySelector('#cosmoz-image-viewer-overlay');
-			if (!dialog) {
-				dialog = document.createElement('cosmoz-image-viewer-overlay');
-				dialog.id = 'cosmoz-image-viewer-overlay';
-				dialog.noCancelOnOutsideClick = true;
-				dialog.loop = this.loop;
-				dialog.showDetach = this.showDetach;
-				document.body.appendChild(dialog);
-			}
-			dialog.images = this.images;
-			dialog.currentImageIndex = this.currentImageIndex;
-			dialog.open();
-		},
-
-		attach() {
-			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
-				sharedWindowInstance = sharedWindow.byKey('detachedWindow');
-
-			if (sharedWindowInstance) {
-				sharedWindowInstance.close();
-			}
-		},
-
-		detach() {
-			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
-				sharedWindowInstance = sharedWindow.byKey('detachedWindow'),
-				w;
-
-			if (sharedWindowInstance) {
-				window.open(undefined, 'OCR', 'height=700,width=800');
-				sharedWindowInstance.setImages(this._resolvedImages, this.currentImageIndex);
-				return;
-			}
-
-			w = window.open(undefined, 'OCR', 'height=700,width=800');
-			w.document.write(this._getDetachedContent());
-			w.document.close();
-			w.document.title = this._('Cosmoz Image Viewer');
-
-			w.addEventListener('ready', (e) => {
-				e.currentTarget.setImages(this._resolvedImages, this.currentImageIndex);
-			});
-
-			w.addEventListener('beforeunload', () => {
-				this._setIsDetached(false);
-				this.notifyResize();
-				sharedWindow.value = undefined;
-			});
-
-			this._setIsDetached(true);
-			sharedWindow.value = w;
-			this.notifyResize();
-		},
-
 		_imageLoadedChanged(e) {
 			var imgPanZoom = e.currentTarget,
 				div = imgPanZoom.parentNode;
@@ -294,21 +373,7 @@
 
 		},
 
-		zoomToggle() {
-			let el = this.$.carousel.selectedItem.querySelector('img-pan-zoom'),
-				viewer = el.viewer;
-			if (!viewer) {
-				return;
-			}
-			if (this.isZoomed) {
-				el.resetZoom();
-				return;
-			}
-
-			viewer.viewport.zoomTo(1.5);
-		},
-
-		scrollHandler() {
+		_scrollHandler() {
 			this.debounce('updateScrollPercent', () => {
 				var top = this._scroller.scrollTop,
 					height = this._imageContainerHeight,
@@ -319,7 +384,7 @@
 			}, 100);
 		},
 
-		scrollToPercent(loaded, percent, height) {
+		_scrollToPercent(loaded, percent, height) {
 			if (!loaded || !this._scroller) {
 				return;
 			}

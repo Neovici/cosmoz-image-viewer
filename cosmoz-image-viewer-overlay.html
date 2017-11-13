@@ -49,13 +49,6 @@
 				}
 			},
 
-			attached() {
-				let viewer = this.$$('cosmoz-image-viewer');
-				viewer.addEventListener('dblclick', () => {
-					viewer.zoomToggle();
-				});
-			},
-
 			_trackHandler(e) {
 				if (e.detail.state !== 'end') {
 					return;
@@ -66,6 +59,6 @@
 				}
 			}
 
-});
+		});
     </script>
 </dom-module>

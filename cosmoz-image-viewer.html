@@ -17,6 +17,22 @@
 
 <link rel="import" href="cosmoz-image-viewer-overlay.html">
 
+<!--
+`cosmoz-image-viewer` is an element for displaying images in a carousel while being able to detach the currently
+selected image into another window, zooming and activating a fullscreen mode.
+
+A user can enable the zoom mode by
+	a) clicking on the zoom button
+	b) double clicking on this element
+
+The zoom mode (+ pan) gets disabled when the image is zoomed out (The initial zoom level is active.) again
+so a user can swipe to the next image.
+
+@group Cosmoz Elements
+@element cosmoz-image-viewer
+@demo demo/index.html
+-->
+
 <dom-module id="cosmoz-image-viewer">
 	<template>
 		<style include="iron-flex iron-flex-alignment">
@@ -173,7 +189,7 @@
 			<div class="flex"></div>
 		</div>
 
-		<div id="imageContainer" on-scroll="scrollHandler">
+		<div id="imageContainer" on-scroll="_scrollHandler">
 			<skeleton-carousel id="carousel"
 				selected-item="{{selectedItem}}"
 				dots="[[showDots]]"
