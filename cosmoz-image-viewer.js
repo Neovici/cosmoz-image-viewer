@@ -20,15 +20,15 @@
 			},
 			currentImageIndex: {
 				type: Number,
-				notify: true,
-				observer: '_currentImageIndexChanged'
+				notify: true
 			},
 			/**
 			 * Like currentImageIndex but starts at 1 instead of 0.
 			 */
 			selectedImageNumber: {
 				type: Number,
-				notify: true
+				notify: true,
+				computed: '_computeSelectedImageNumber(currentImageIndex, total)'
 			},
 			currentPage: {
 				type: Number,
@@ -131,8 +131,7 @@
 			'iron-resize': '_onResize'
 		},
 		observers: [
-			'scrollToPercent(imageLoaded, scrollPercent, _imageContainerHeight)',
-			'_selectedImageNumberChanged(selectedImageNumber, images)'
+			'scrollToPercent(imageLoaded, scrollPercent, _imageContainerHeight)'
 		],
 
 		ready() {
@@ -192,27 +191,11 @@
 			return images.map(i => this.resolveUrl(i));
 		},
 
-		_selectedImageNumberChanged(imageNumber, images) {
-			this.currentImageIndex = imageNumber - 1;
-
-			if (!images || !Polymer.Element) {
-				return;
+		_computeSelectedImageNumber(index, total) {
+			if (!total) {
+				return 0;
 			}
-			// If nav buttons get deactivated, a tap of them opens
-			// fullscreen photoSwipe on Polymer 2.
-			// CSS --skeleton-carousel-nav-disabled ... doesn't work here.
-			if (parseInt(imageNumber, 10) === this.images.length) {
-				this.$$('skeleton-carousel').$.next.style.pointerEvents = 'all';
-				return;
-			}
-
-			if (parseInt(imageNumber, 10) === 1) {
-				this.$$('skeleton-carousel').$.prev.style.pointerEvents = 'all';
-			}
-		},
-
-		_currentImageIndexChanged(index) {
-			this.selectedImageNumber = index + 1;
+			return index + 1;
 		},
 
 		_onResize() {
