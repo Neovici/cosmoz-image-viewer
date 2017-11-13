@@ -16,7 +16,6 @@
 
 		<custom-style>
 			<style is="custom-style" include="demo-pages-shared-styles iron-flex">
-
 			</style>
 		</custom-style>
 
@@ -29,6 +28,28 @@
 					<dom-bind class="scope"><!-- for Polymer 2 -->
 						<template is="dom-bind" class="scope"><!-- for Polymer 1 -->
 							<cosmoz-image-viewer
+								images="[[images]]"
+								show-nav loop show-fullscreen show-detach>
+							</cosmoz-image-viewer>
+						</template>
+					</dom-bind>
+				</template>
+			</demo-snippet>
+			<h3>Zooming <code>cosmoz-image-viewer</code>.</h3>
+			<demo-snippet>
+				<template>
+					<dom-bind class="scope"><!-- for Polymer 2 -->
+						<template is="dom-bind" class="scope"><!-- for Polymer 1 -->
+							<custom-style>
+								<style is="custom-style">
+									.viewer {
+										--cosmoz-image-viewer-image-zoom: {
+											height: 400px;
+										};
+									}
+								</style>
+							</custom-style>
+							<cosmoz-image-viewer class="viewer"
 								images="[[images]]"
 								show-nav loop show-fullscreen show-detach show-zoom>
 							</cosmoz-image-viewer>
