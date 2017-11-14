@@ -404,6 +404,10 @@
 							margin: 0;
 						}
 
+						body: {
+							overflow: visible;
+						}
+
 						#image {
 							overflow-y: auto;
 							width: 100%;
@@ -492,11 +496,25 @@
 							height: 100%;
 							fill: currentColor;
 						}
+
+						@media print {
+							.hide-on-print {
+								display: none;
+							}
+							.print-image {
+								display: block;
+								page-break-inside: avoid;
+								page-break-after: always;
+								max-height: 100%;
+								width: 100%;
+							}
+						}
 					</style>
 				</head>
 				<body>
-					<img id="image">
-					<div class="actions">
+					<img id="image" class="hide-on-print">
+					<div id="printContainer"></div>
+					<div class="actions hide-on-print">
 						<div class="action-box">
 							<div class="icon-btn" onclick="prev()">
 								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
@@ -511,13 +529,11 @@
 						</div>
 						<span class="space"></span>
 						<div class="action-box">
-							<a id="download">
-								<div class="icon-only">
-									<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
-										<g><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path></g>
-									</svg>
-								</div>
-							</a>
+							<div class="icon-only" onclick="downloadImages()">
+								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
+									<g><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path></g>
+								</svg>
+							</div>
 							<div class="icon-only" onclick="printPage()">
 								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
 									<g><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"></path></g>
@@ -528,15 +544,11 @@
 					<script>
 						/*eslint no-unused-vars: 0*/
 						var img,
-							download,
 							images,
-							actions,
 							currentImageIndex = 0;
 
 						const load = () => {
 								img = document.querySelector('#image');
-								download = document.querySelector('#download');
-								actions = document.querySelector('.actions');
 								window.dispatchEvent(new Event('ready', { bubbles: true }));
 							},
 							next = () => {
@@ -545,7 +557,6 @@
 								}
 								currentImageIndex++;
 								img.src = images[currentImageIndex];
-								_setDownload(images[currentImageIndex]);
 							},
 							prev = () => {
 								if (currentImageIndex === 0) {
@@ -553,24 +564,57 @@
 								}
 								currentImageIndex--;
 								img.src = images[currentImageIndex];
-								_setDownload(images[currentImageIndex]);
 							},
-							_setDownload = (imageUrl) => {
-								download.download = imageUrl.replace(/^.*[\\\/]/, '');
-								download.href = imageUrl;
+
+							downloadImages = () => {
+								if (!images) {
+									return;
+								}
+								var dl = document.createElement('a');
+
+								images.forEach(imageUrl => {
+									dl.download = imageUrl.replace(/^.*[\\\/]/, '');
+									dl.href = imageUrl;
+									dl.click();
+								})
 							},
+
 							printPage = () => {
-								actions.classList.add('hidden');
-								print();
-								actions.classList.remove('hidden');
+								// Add all images to print
+								var printContainer = document.querySelector('#printContainer'),
+									imgs = [];
+
+								printContainer.innerHTML = '';
+
+								images.forEach(imageUrl => {
+									var i = document.createElement('img');
+									i.src = imageUrl;
+									i.classList.add('print-image');
+									imgs.push(i);
+									printContainer.appendChild(i);
+								});
+
+								_printIfLoaded(imgs).then(() => {
+									printContainer.innerHTML = '';
+								});
+							},
+							_printIfLoaded = (imgs) => {
+								return new Promise((resolve, reject) => {
+									setTimeout(() => {
+										if (!imgs.every(i => i.complete)) {
+											_printIfLoaded(imgs)
+											return;
+										}
+										print();
+										resolve();
+									}, 100);
+								});
 							};
 						window.onload = load;
 						window.setImages = (array, startIndex = 0) => {
 							let imageUrl = array[startIndex];
-							console.log(array);
 							images = array;
 							img.src = imageUrl;
-							_setDownload(imageUrl);
 						};
 					</script>
 				</body>
