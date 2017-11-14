@@ -404,6 +404,10 @@
 							margin: 0;
 						}
 
+						body: {
+							overflow: visible;
+						}
+
 						#image {
 							overflow-y: auto;
 							width: 100%;
@@ -492,11 +496,25 @@
 							height: 100%;
 							fill: currentColor;
 						}
+
+						@media print {
+							.hide-on-print {
+								display: none;
+							}
+							.print-image {
+								display: block;
+								page-break-inside: avoid;
+								page-break-after: always;
+								max-height: 100%;
+								width: 100%;
+							}
+						}
 					</style>
 				</head>
 				<body>
-					<img id="image">
-					<div class="actions">
+					<img id="image" class="hide-on-print">
+					<div id="printContainer"></div>
+					<div class="actions hide-on-print">
 						<div class="action-box">
 							<div class="icon-btn" onclick="prev()">
 								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
@@ -530,13 +548,11 @@
 						var img,
 							download,
 							images,
-							actions,
 							currentImageIndex = 0;
 
 						const load = () => {
 								img = document.querySelector('#image');
 								download = document.querySelector('#download');
-								actions = document.querySelector('.actions');
 								window.dispatchEvent(new Event('ready', { bubbles: true }));
 							},
 							next = () => {
@@ -560,14 +576,37 @@
 								download.href = imageUrl;
 							},
 							printPage = () => {
-								actions.classList.add('hidden');
-								print();
-								actions.classList.remove('hidden');
+								// Add all image to print
+								var page = document.querySelector('#printContainer'),
+									imgs = [];
+
+								page.innerHTML = '';
+								images.forEach((imageUrl) => {
+									var i = document.createElement('img');
+									i.src = imageUrl;
+									i.classList.add('print-image');
+									imgs.push(i);
+									page.appendChild(i);
+								});
+								_printIfLoaded(imgs).then(() => {
+									page.innerHTML = '';
+								});
+							},
+							_printIfLoaded = (imgs) => {
+								return new Promise((resolve, reject) => {
+									setTimeout(() => {
+										if (!imgs.every(i => i.complete)) {
+											_printIfLoaded(imgs)
+											return;
+										}
+										print();
+										resolve();
+									}, 100);
+								});
 							};
 						window.onload = load;
 						window.setImages = (array, startIndex = 0) => {
 							let imageUrl = array[startIndex];
-							console.log(array);
 							images = array;
 							img.src = imageUrl;
 							_setDownload(imageUrl);
