@@ -572,7 +572,7 @@
 								}
 								var dl = document.createElement('a');
 
-								images.forEach((imageUrl) => {
+								images.forEach(imageUrl => {
 									dl.download = imageUrl.replace(/^.*[\\\/]/, '');
 									dl.href = imageUrl;
 									dl.click();
@@ -581,19 +581,21 @@
 
 							printPage = () => {
 								// Add all images to print
-								var page = document.querySelector('#printContainer'),
+								var printContainer = document.querySelector('#printContainer'),
 									imgs = [];
 
-								page.innerHTML = '';
-								images.forEach((imageUrl) => {
+								printContainer.innerHTML = '';
+
+								images.forEach(imageUrl => {
 									var i = document.createElement('img');
 									i.src = imageUrl;
 									i.classList.add('print-image');
 									imgs.push(i);
-									page.appendChild(i);
+									printContainer.appendChild(i);
 								});
+
 								_printIfLoaded(imgs).then(() => {
-									page.innerHTML = '';
+									printContainer.innerHTML = '';
 								});
 							},
 							_printIfLoaded = (imgs) => {
