@@ -191,7 +191,7 @@
 		 * @returns {undefined}
 		 */
 		openFullscreen() {
-			var dialog = document.querySelector('#cosmoz-image-viewer-overlay');
+			let dialog = document.querySelector('#cosmoz-image-viewer-overlay');
 			if (!dialog) {
 				dialog = document.createElement('cosmoz-image-viewer-overlay');
 				dialog.id = 'cosmoz-image-viewer-overlay';
@@ -209,7 +209,7 @@
 		 * @returns {undefined}
 		 */
 		attach() {
-			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
+			const sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
 				sharedWindowInstance = sharedWindow.byKey('detachedWindow');
 
 			if (sharedWindowInstance) {
@@ -221,9 +221,8 @@
 		 * @returns {undefined}
 		 */
 		detach() {
-			var sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
-				sharedWindowInstance = sharedWindow.byKey('detachedWindow'),
-				w;
+			const sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
+				sharedWindowInstance = sharedWindow.byKey('detachedWindow');
 
 			if (sharedWindowInstance) {
 				window.open(undefined, 'OCR', 'height=700,width=800');
@@ -231,7 +230,7 @@
 				return;
 			}
 
-			w = window.open(undefined, 'OCR', 'height=700,width=800');
+			let w = window.open(undefined, 'OCR', 'height=700,width=800');
 			w.document.write(this._getDetachedContent());
 			w.document.close();
 			w.document.title = this._('Cosmoz Image Viewer');
@@ -255,7 +254,7 @@
 		 * @returns {undefined}
 		 */
 		zoomToggle() {
-			let el = this.$.carousel.selectedItem.querySelector('img-pan-zoom');
+			const el = this.$.carousel.selectedItem.querySelector('img-pan-zoom');
 			if (!el.viewer) {
 				return;
 			}
@@ -273,7 +272,7 @@
 			if (!selectedItem) {
 				return;
 			}
-			let imgPanZoom = selectedItem.querySelector('img-pan-zoom');
+			const imgPanZoom = selectedItem.querySelector('img-pan-zoom');
 
 			this._initImgPanZoomInstance(imgPanZoom);
 			this.imageLoaded = imgPanZoom.loaded;
@@ -284,7 +283,7 @@
 		},
 
 		_isZoomed(viewer, zoom) {
-			let initialZoomLevel = viewer.viewport.getHomeZoom();
+			const initialZoomLevel = viewer.viewport.getHomeZoom();
 			return zoom > initialZoomLevel * 1.05;
 		},
 
@@ -364,7 +363,7 @@
 		},
 
 		_imageLoadedChanged(e) {
-			var imgPanZoom = e.currentTarget,
+			const imgPanZoom = e.currentTarget,
 				div = imgPanZoom.parentNode;
 
 			if (Array.from(div.classList).indexOf('selected') > -1) {
@@ -375,7 +374,7 @@
 
 		_scrollHandler() {
 			this.debounce('updateScrollPercent', () => {
-				var top = this._scroller.scrollTop,
+				const top = this._scroller.scrollTop,
 					height = this._imageContainerHeight,
 					percent = Math.round(top / height * 100);
 				if (percent !== this.scrollPercent) {
@@ -388,7 +387,7 @@
 			if (!loaded || !this._scroller) {
 				return;
 			}
-			var topPx = height * (percent / 100);
+			const topPx = height * (percent / 100);
 
 			this._scroller.scrollTop = topPx;
 		},
@@ -543,7 +542,7 @@
 					</div>
 					<script>
 						/*eslint no-unused-vars: 0*/
-						var img,
+						let img,
 							images,
 							currentImageIndex = 0;
 
@@ -570,7 +569,7 @@
 								if (!images) {
 									return;
 								}
-								var dl = document.createElement('a');
+								const dl = document.createElement('a');
 
 								images.forEach(imageUrl => {
 									dl.download = imageUrl.replace(/^.*[\\\/]/, '');
@@ -580,18 +579,17 @@
 							},
 
 							printPage = () => {
-								// Add all images to print
-								var printContainer = document.querySelector('#printContainer'),
-									imgs = [];
+								const printContainer = document.querySelector('#printContainer');
+								let imgs;
 
 								printContainer.innerHTML = '';
 
-								images.forEach(imageUrl => {
-									var i = document.createElement('img');
+								imgs = images.map(imageUrl => {
+									const i = document.createElement('img');
 									i.src = imageUrl;
 									i.classList.add('print-image');
-									imgs.push(i);
 									printContainer.appendChild(i);
+									return i;
 								});
 
 								_printIfLoaded(imgs).then(() => {
@@ -612,7 +610,7 @@
 							};
 						window.onload = load;
 						window.setImages = (array, startIndex = 0) => {
-							let imageUrl = array[startIndex];
+							const imageUrl = array[startIndex];
 							images = array;
 							img.src = imageUrl;
 						};
