@@ -51,6 +51,9 @@
 			 */
 			images: {
 				type: Array,
+				value() {
+					return [];
+				},
 				observer: '_imageListChanged'
 			},
 			/**
@@ -128,6 +131,13 @@
 				value: false
 			},
 			/**
+			* If true, the current page number (e.g. 2/5) is visible.
+			*/
+			showPageNumber: {
+				type: Boolean,
+				value: false
+			},
+			/**
 			* If true, clicking on next when the last image is selected,
 			* will show the first image again.
 			*/
@@ -138,6 +148,30 @@
 
 			// Private
 
+			_showNav: {
+				type: Boolean,
+				computed: '_computeShowNav(showNav, images.length)'
+			},
+
+			_showZoom: {
+				type: Boolean,
+				computed: '_computeShowActions(showZoom, images.length)'
+			},
+
+			_showDetach: {
+				type: Boolean,
+				computed: '_computeShowActions(showDetach, images.length)'
+			},
+
+			_showFullscreen: {
+				type: Boolean,
+				computed: '_computeShowActions(showFullscreen, images.length)'
+			},
+
+			_showPageNumber: {
+				type: Boolean,
+				computed: '_computeShowActions(showPageNumber, images.length)'
+			},
 			/**
 			 * The url resolved images array.
 			 */
@@ -267,6 +301,14 @@
 		},
 
 		/** ELEMENT BEHAVIOR */
+
+		_computeShowNav(showNav, imagesLen) {
+			return showNav ? imagesLen > 1 : false;
+		},
+
+		_computeShowActions(show, imagesLen) {
+			return show ? imagesLen > 0 : false;
+		},
 
 		_selectedItemChanged(selectedItem) {
 			if (!selectedItem) {
