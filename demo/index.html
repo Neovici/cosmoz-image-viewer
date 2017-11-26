@@ -27,7 +27,7 @@
 				<template>
 					<dom-bind class="scope"><!-- for Polymer 2 -->
 						<template is="dom-bind" class="scope"><!-- for Polymer 1 -->
-							<cosmoz-image-viewer
+							<cosmoz-image-viewer id="first"
 								images="[[images]]"
 								show-nav loop show-fullscreen show-detach>
 							</cosmoz-image-viewer>
@@ -49,7 +49,7 @@
 									}
 								</style>
 							</custom-style>
-							<cosmoz-image-viewer class="viewer"
+							<cosmoz-image-viewer class="viewer" id="second"
 								images="[[images]]"
 								show-nav loop show-fullscreen show-detach show-zoom>
 							</cosmoz-image-viewer>

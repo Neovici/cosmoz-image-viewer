@@ -209,8 +209,8 @@
 		 * @returns {undefined}
 		 */
 		attach() {
-			const sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
-				sharedWindowInstance = sharedWindow.byKey('detachedWindow');
+			const ironMeta = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
+				sharedWindowInstance = ironMeta.byKey('detachedWindow');
 
 			if (sharedWindowInstance) {
 				sharedWindowInstance.close();
@@ -221,12 +221,17 @@
 		 * @returns {undefined}
 		 */
 		detach() {
-			const sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
-				sharedWindowInstance = sharedWindow.byKey('detachedWindow');
+			const ironMeta = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
+				sharedWindowInstance = ironMeta.byKey('detachedWindow');
 
 			if (sharedWindowInstance) {
+				sharedWindowInstance.addEventListener('instanceupdate', () => {
+					this._setIsDetached(false);
+				});
 				window.open(undefined, 'OCR', 'height=700,width=800');
 				sharedWindowInstance.setImages(this._resolvedImages, this.currentImageIndex);
+				sharedWindowInstance.dispatchEvent(new Event('instanceupdate'));
+				this._setIsDetached(true);
 				return;
 			}
 
@@ -242,11 +247,15 @@
 			w.addEventListener('beforeunload', () => {
 				this._setIsDetached(false);
 				this.notifyResize();
-				sharedWindow.value = undefined;
+				ironMeta.value = undefined;
+			});
+
+			w.addEventListener('instanceupdate', () => {
+				this._setIsDetached(false);
 			});
 
 			this._setIsDetached(true);
-			sharedWindow.value = w;
+			ironMeta.value = w;
 			this.notifyResize();
 		},
 		/**
