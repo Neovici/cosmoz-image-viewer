@@ -185,6 +185,7 @@ so a user can swipe to the next image.
 		</div>
 
 		<div id="imageContainer" on-scroll="_scrollHandler">
+			<p hidden$="[[_hideNoImageInfo]]">[[ _('No image loaded.', t) ]]</p>
 			<skeleton-carousel id="carousel"
 				selected-item="{{selectedItem}}"
 				dots="[[showDots]]"

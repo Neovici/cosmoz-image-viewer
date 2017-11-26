@@ -148,6 +148,11 @@
 
 			// Private
 
+			_hideNoImageInfo: {
+				type: Boolean,
+				computed: '_computeShowActions("true", images.length)'
+			},
+
 			_showNav: {
 				type: Boolean,
 				computed: '_computeShowNav(showNav, images.length)'
