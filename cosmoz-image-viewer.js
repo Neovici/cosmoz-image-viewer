@@ -228,17 +228,22 @@
 				sharedWindowInstance.addEventListener('instanceupdate', () => {
 					this._setIsDetached(false);
 				});
-				window.open(undefined, 'OCR', 'height=700,width=800');
+				sharedWindowInstance.open(undefined, 'OCR', 'height=700,width=800');
 				sharedWindowInstance.setImages(this._resolvedImages, this.currentImageIndex);
 				sharedWindowInstance.dispatchEvent(new Event('instanceupdate'));
 				this._setIsDetached(true);
 				return;
 			}
-
-			let w = window.open(undefined, 'OCR', 'height=700,width=800');
-			w.document.write(this._getDetachedContent());
-			w.document.close();
-			w.document.title = this._('Cosmoz Image Viewer');
+			// Call load() manually in case window already exists and onload event already fired.
+			let w = window.open('javascript:load()', 'OCR', 'height=700,width=800');
+			// If window name=OCR already exists, don't override its content.
+			// This happens if e.g. cosmoz-image-viewer instance gets reloaded
+			// and therefore lost the reference to `sharedWindowInstance`.
+			if (!w.document.body.querySelector('#image')) {
+				w.document.write(this._getDetachedContent());
+				w.document.close();
+				w.document.title = this._('Cosmoz Image Viewer');
+			}
 
 			w.addEventListener('ready', (e) => {
 				e.currentTarget.setImages(this._resolvedImages, this.currentImageIndex);
@@ -555,10 +560,13 @@
 							images,
 							currentImageIndex = 0;
 
-						const load = () => {
+						const init = () => {
 								img = document.querySelector('#image');
-								window.dispatchEvent(new Event('ready', { bubbles: true }));
 							},
+							load = () =>  {
+								init();
+								dispatchEvent(new Event('ready', { bubbles: true }));
+							}
 							next = () => {
 								if (currentImageIndex === images.length - 1) {
 									return;
@@ -617,8 +625,10 @@
 									}, 100);
 								});
 							};
-						window.onload = load;
-						window.setImages = (array, startIndex = 0) => {
+
+						onload = load;
+
+						setImages = (array, startIndex = 0) => {
 							const imageUrl = array[startIndex];
 							images = array;
 							img.src = imageUrl;
