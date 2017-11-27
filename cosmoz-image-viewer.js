@@ -543,6 +543,10 @@
 							fill: currentColor;
 						}
 
+						.hidden {
+							display: none;
+						}
+
 						@media print {
 							.hide-on-print {
 								display: none;
@@ -562,12 +566,12 @@
 					<div id="printContainer"></div>
 					<div class="actions hide-on-print">
 						<div class="action-box">
-							<div class="icon-btn" onclick="prev()">
+							<div class="icon-btn nav" onclick="prev()">
 								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
 									<g><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></g>
 								</svg>
 							</div>
-							<div class="icon-btn" onclick="next()">
+							<div class="icon-btn nav" onclick="next()">
 								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
 									<g><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></g>
 								</svg>
@@ -657,9 +661,15 @@
 							};
 						window.onload = load;
 						window.setImages = (array, startIndex = 0) => {
-							const imageUrl = array[startIndex];
+							const imageUrl = array[startIndex],
+								actionsCl = document.querySelector('.actions').classList,
+								navs = document.querySelectorAll('.nav');
 							images = array;
 							img.src = imageUrl;
+
+							// hide/show actions
+							images.length === 0 ? actionsCl.add('hidden') : actionsCl.remove('hidden');
+							navs.forEach(n => images.length > 1 ? n.classList.remove('hidden') : n.classList.add('hidden'));
 						};
 					</script>
 				</body>
