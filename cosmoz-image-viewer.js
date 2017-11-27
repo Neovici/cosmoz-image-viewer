@@ -524,7 +524,7 @@
 						}
 					</style>
 				</head>
-				<body>
+				<body onload="load()">
 					<img id="image" class="hide-on-print">
 					<div id="printContainer"></div>
 					<div class="actions hide-on-print">
@@ -556,17 +556,16 @@
 					</div>
 					<script>
 						/*eslint no-unused-vars: 0*/
-						let img,
-							images,
+						let images,
 							currentImageIndex = 0;
 
-						const init = () => {
-								img = document.querySelector('#image');
-							},
+						const
+							img = document.querySelector('#image'),
+
 							load = () =>  {
-								init();
 								dispatchEvent(new Event('ready', { bubbles: true }));
-							}
+							},
+
 							next = () => {
 								if (currentImageIndex === images.length - 1) {
 									return;
@@ -574,6 +573,7 @@
 								currentImageIndex++;
 								img.src = images[currentImageIndex];
 							},
+
 							prev = () => {
 								if (currentImageIndex === 0) {
 									return;
@@ -613,6 +613,7 @@
 									printContainer.innerHTML = '';
 								});
 							},
+
 							_printIfLoaded = (imgs) => {
 								return new Promise((resolve, reject) => {
 									setTimeout(() => {
@@ -626,13 +627,11 @@
 								});
 							};
 
-						onload = load;
-
-						setImages = (array, startIndex = 0) => {
-							const imageUrl = array[startIndex];
-							images = array;
-							img.src = imageUrl;
-						};
+							setImages = (array, startIndex = 0) => {
+								const imageUrl = array[startIndex];
+								images = array;
+								img.src = imageUrl;
+							};
 					</script>
 				</body>
 			</html>
