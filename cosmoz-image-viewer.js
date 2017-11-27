@@ -664,6 +664,7 @@
 							const imageUrl = array[startIndex],
 								actionsCl = document.querySelector('.actions').classList,
 								navs = document.querySelectorAll('.nav');
+							const imageUrl = array[startIndex];
 							images = array;
 							img.src = imageUrl;
 
