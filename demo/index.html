@@ -65,41 +65,9 @@
 				var images = [
 					'demo/images/stockholm.jpg',
 					'demo/images/a_size.png',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg'
-				];
+				].concat(...Array.from(new Array(30), (_, i) => {
+					return i % 2 === 0 ? 'demo/images/stockholm.jpg' : 'demo/images/strasbourg.jpg';
+				}));
 				document.querySelectorAll('.scope').forEach(s => s.images = images);
 			});
 		})();
