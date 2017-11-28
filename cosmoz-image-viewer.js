@@ -225,13 +225,16 @@
 				sharedWindowInstance = ironMeta.byKey('detachedWindow');
 
 			if (sharedWindowInstance) {
-				sharedWindowInstance.addEventListener('instanceupdate', () => {
+				sharedWindowInstance.addEventListener('instanceupdate', (e) => {
+					if (e.detail === this) {
+						this._setIsDetached(true);
+						return;
+					}
 					this._setIsDetached(false);
 				});
 				sharedWindowInstance.open(undefined, 'OCR', 'height=700,width=800');
 				sharedWindowInstance.setImages(this._resolvedImages, this.currentImageIndex);
-				sharedWindowInstance.dispatchEvent(new Event('instanceupdate'));
-				this._setIsDetached(true);
+				sharedWindowInstance.dispatchEvent(new CustomEvent('instanceupdate', {detail: this}));
 				return;
 			}
 			// Call load() manually in case window already exists and onload event already fired.
@@ -255,11 +258,15 @@
 				ironMeta.value = undefined;
 			});
 
-			w.addEventListener('instanceupdate', () => {
+			w.addEventListener('instanceupdate', (e) => {
+				if (e.detail === this) {
+					this._setIsDetached(true);
+					return;
+				}
 				this._setIsDetached(false);
 			});
 
-			this._setIsDetached(true);
+			w.dispatchEvent(new CustomEvent('instanceupdate', {detail: this}));
 			ironMeta.value = w;
 			this.notifyResize();
 		},
