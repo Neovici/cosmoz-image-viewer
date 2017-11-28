@@ -53,16 +53,16 @@ so a user can swipe to the next image.
 
 			.actions {
 				position: absolute;
-				top: 0;
 				left: 0;
 				right: 0;
-				margin: auto;
-				max-width: 600px;
-				width: 100%;
-				padding: 12px;
+				margin: 12px;
 			}
 
-			.counter {
+			.nav.counter {
+				position: absolute;
+				left: calc(50% - 32px);
+				margin-top: 22px;
+				width: 40px;
 				padding: 4px 10px;
     			border-radius: 30px;
 				text-align: center;
@@ -78,12 +78,6 @@ so a user can swipe to the next image.
 				background-color: rgba(0, 0, 0, 0.44);
 				border-radius: 20px;
 				margin: 3px;
-			}
-
-			.close-btn {
-				position: fixed;
-				right: 12px;
-				top: 12px;
 			}
 
 			#carousel {
@@ -142,55 +136,56 @@ so a user can swipe to the next image.
 
 		</style>
 
+		<div class="nav counter" hidden$="[[!_showPageNumber]]">
+			[[selectedImageNumber]]/[[total]]
+		</div>
+
 		<div class="actions layout horizontal center">
-			<div class="flex"></div>
 			<paper-icon-button
 				class="nav"
-				hidden$="[[!showNav]]"
+				hidden$="[[!_showNav]]"
 				icon="icons:arrow-back"
 				on-tap="previousImage">
 			</paper-icon-button>
 			<paper-icon-button
 				class="nav"
-				hidden$="[[!showNav]]"
+				hidden$="[[!_showNav]]"
 				icon="icons:arrow-forward"
 				on-tap="nextImage">
 			</paper-icon-button>
 			<div class="flex"></div>
-			<div class="nav counter">[[selectedImageNumber]]/[[total]]</div>
-			<div class="flex"></div>
 			<paper-icon-button
 				class="nav"
-				hidden$="[[!showZoom]]"
+				hidden$="[[!_showZoom]]"
 				on-click="zoomToggle"
 				icon="[[_getZoomIcon(isZoomed)]]"
 				title="[[ _('Zoom image', t) ]]">
 			</paper-icon-button>
 			<paper-icon-button
 				class="nav"
-				hidden$="[[!showDetach]]"
+				hidden$="[[!_showDetach]]"
 				on-click="detach"
 				icon="launch"
 				title="[[ _('Detach image to separate window', t) ]]">
 			</paper-icon-button>
 			<paper-icon-button
 				class="nav"
-				hidden$="[[!showFullscreen]]"
+				hidden$="[[!_showFullscreen]]"
 				on-click="openFullscreen"
 				icon="icons:fullscreen"
 				title="[[ _('Fullscreen image', t) ]]">
 			</paper-icon-button>
 			<paper-icon-button
-				class="nav close-btn"
+				class="nav"
 				hidden$="[[!showClose]]"
 				on-click="_close"
 				icon="icons:close"
 				title="[[ _('Close fullscreen', t) ]]">
 			</paper-icon-button>
-			<div class="flex"></div>
 		</div>
 
 		<div id="imageContainer" on-scroll="_scrollHandler">
+			<p hidden$="[[_hideNoImageInfo]]">[[ _('No image loaded.', t) ]]</p>
 			<skeleton-carousel id="carousel"
 				selected-item="{{selectedItem}}"
 				dots="[[showDots]]"

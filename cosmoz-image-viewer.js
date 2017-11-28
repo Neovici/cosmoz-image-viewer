@@ -51,6 +51,9 @@
 			 */
 			images: {
 				type: Array,
+				value() {
+					return [];
+				},
 				observer: '_imageListChanged'
 			},
 			/**
@@ -128,6 +131,13 @@
 				value: false
 			},
 			/**
+			* If true, the current page number (e.g. 2/5) is visible.
+			*/
+			showPageNumber: {
+				type: Boolean,
+				value: false
+			},
+			/**
 			* If true, clicking on next when the last image is selected,
 			* will show the first image again.
 			*/
@@ -138,6 +148,35 @@
 
 			// Private
 
+			_hideNoImageInfo: {
+				type: Boolean,
+				computed: '_computeShowActions("true", images.length)'
+			},
+
+			_showNav: {
+				type: Boolean,
+				computed: '_computeShowNav(showNav, images.length)'
+			},
+
+			_showZoom: {
+				type: Boolean,
+				computed: '_computeShowActions(showZoom, images.length)'
+			},
+
+			_showDetach: {
+				type: Boolean,
+				computed: '_computeShowActions(showDetach, images.length)'
+			},
+
+			_showFullscreen: {
+				type: Boolean,
+				computed: '_computeShowActions(showFullscreen, images.length)'
+			},
+
+			_showPageNumber: {
+				type: Boolean,
+				computed: '_computeShowActions(showPageNumber, images.length)'
+			},
 			/**
 			 * The url resolved images array.
 			 */
@@ -267,6 +306,14 @@
 		},
 
 		/** ELEMENT BEHAVIOR */
+
+		_computeShowNav(showNav, imagesLen) {
+			return showNav ? imagesLen > 1 : false;
+		},
+
+		_computeShowActions(show, imagesLen) {
+			return show ? imagesLen > 0 : false;
+		},
 
 		_selectedItemChanged(selectedItem) {
 			if (!selectedItem) {
@@ -462,10 +509,6 @@
 							padding-right: 24px;
 						}
 
-						.hidden {
-							display: none;
-						}
-
 						.icon-btn {
 							position: inline-block;
 							width: 40px;
@@ -486,6 +529,7 @@
 						.icon-only {
 							width: 24px;
 							height: 24px;
+							cursor: pointer;
 						}
 
 						.icon {
@@ -494,6 +538,10 @@
 							width: 100%;
 							height: 100%;
 							fill: currentColor;
+						}
+
+						[hidden] {
+							display: none;
 						}
 
 						@media print {
@@ -515,12 +563,12 @@
 					<div id="printContainer"></div>
 					<div class="actions hide-on-print">
 						<div class="action-box">
-							<div class="icon-btn" onclick="prev()">
+							<div class="icon-btn nav" onclick="prev()">
 								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
 									<g><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></g>
 								</svg>
 							</div>
-							<div class="icon-btn" onclick="next()">
+							<div class="icon-btn nav" onclick="next()">
 								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
 									<g><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></g>
 								</svg>
@@ -610,9 +658,15 @@
 							};
 						window.onload = load;
 						window.setImages = (array, startIndex = 0) => {
-							const imageUrl = array[startIndex];
+							const imageUrl = array[startIndex],
+								actions = document.querySelector('.actions'),
+								navs = document.querySelectorAll('.nav');
 							images = array;
 							img.src = imageUrl;
+
+							// hide/show actions
+							actions.hidden = images.length === 0 ? true : false;
+							navs.forEach(n => n.hidden = images.length > 1 ? false : true);
 						};
 					</script>
 				</body>
