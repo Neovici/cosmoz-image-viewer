@@ -543,7 +543,7 @@
 							fill: currentColor;
 						}
 
-						.hidden {
+						[hidden] {
 							display: none;
 						}
 
@@ -662,15 +662,14 @@
 						window.onload = load;
 						window.setImages = (array, startIndex = 0) => {
 							const imageUrl = array[startIndex],
-								actionsCl = document.querySelector('.actions').classList,
+								actions = document.querySelector('.actions'),
 								navs = document.querySelectorAll('.nav');
-							const imageUrl = array[startIndex];
 							images = array;
 							img.src = imageUrl;
 
 							// hide/show actions
-							images.length === 0 ? actionsCl.add('hidden') : actionsCl.remove('hidden');
-							navs.forEach(n => images.length > 1 ? n.classList.remove('hidden') : n.classList.add('hidden'));
+							actions.hidden = images.length === 0 ? true : false;
+							navs.forEach(n => n.hidden = images.length > 1 ? false : true);
 						};
 					</script>
 				</body>
