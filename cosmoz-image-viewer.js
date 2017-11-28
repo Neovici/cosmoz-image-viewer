@@ -509,10 +509,6 @@
 							padding-right: 24px;
 						}
 
-						.hidden {
-							display: none;
-						}
-
 						.icon-btn {
 							position: inline-block;
 							width: 40px;
@@ -533,6 +529,7 @@
 						.icon-only {
 							width: 24px;
 							height: 24px;
+							cursor: pointer;
 						}
 
 						.icon {
