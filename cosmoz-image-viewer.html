@@ -117,11 +117,11 @@ so a user can swipe to the next image.
 			}
 
 			.image {
-				@apply --layout-flex-auto;
-				display: flex;
-				justify-content: center;
 				background-color: gray;
 				pointer-events: none;
+				--iron-image-width: 100%;
+				--iron-image-height: auto;
+				@apply --cosmoz-image-viewer-image;
 			}
 
 			.image-zoom {
@@ -136,11 +136,11 @@ so a user can swipe to the next image.
 
 		</style>
 
-		<div class="nav counter" hidden$="[[!_showPageNumber]]">
+		<div class="nav counter hide-on-small-height" hidden$="[[!_showPageNumber]]">
 			[[selectedImageNumber]]/[[total]]
 		</div>
 
-		<div class="actions layout horizontal center">
+		<div class="actions layout horizontal center hide-on-small-height">
 			<paper-icon-button
 				class="nav"
 				hidden$="[[!_showNav]]"
