@@ -392,6 +392,14 @@
 
 		_onResize() {
 			this.set('_imageContainerHeight', this._scroller.scrollHeight);
+			this.debounce('hideAbsoluteContentOnSmallHeight', () => {
+				const absElements = Polymer.dom(this.root).querySelectorAll('.hide-on-small-height');
+				if (this.offsetHeight < 100) {
+					absElements.forEach(el => el.setAttribute('hidden', true));
+					return;
+				}
+				absElements.forEach(el => el.removeAttribute('hidden'));
+			}, 50);
 		},
 
 		_detachedChanged(value) {
