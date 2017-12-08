@@ -148,6 +148,11 @@
 
 			// Private
 
+			_elementHeight: {
+				type: Number,
+				value: 0
+			},
+
 			_hideNoImageInfo: {
 				type: Boolean,
 				computed: '_computeShowActions("true", images.length)'
@@ -155,27 +160,27 @@
 
 			_showNav: {
 				type: Boolean,
-				computed: '_computeShowNav(showNav, images.length)'
+				computed: '_computeShowActions(showNav, images.length, _elementHeight, 2)'
 			},
 
 			_showZoom: {
 				type: Boolean,
-				computed: '_computeShowActions(showZoom, images.length)'
+				computed: '_computeShowActions(showZoom, images.length, _elementHeight)'
 			},
 
 			_showDetach: {
 				type: Boolean,
-				computed: '_computeShowActions(showDetach, images.length)'
+				computed: '_computeShowActions(showDetach, images.length, _elementHeight)'
 			},
 
 			_showFullscreen: {
 				type: Boolean,
-				computed: '_computeShowActions(showFullscreen, images.length)'
+				computed: '_computeShowActions(showFullscreen, images.length, _elementHeight)'
 			},
 
 			_showPageNumber: {
 				type: Boolean,
-				computed: '_computeShowActions(showPageNumber, images.length)'
+				computed: '_computeShowActions(showPageNumber, images.length, _elementHeight)'
 			},
 			/**
 			 * The url resolved images array.
@@ -307,12 +312,9 @@
 
 		/** ELEMENT BEHAVIOR */
 
-		_computeShowNav(showNav, imagesLen) {
-			return showNav ? imagesLen > 1 : false;
-		},
-
-		_computeShowActions(show, imagesLen) {
-			return show ? imagesLen > 0 : false;
+		_computeShowActions(show, imagesLen, height, imgsMinLen = 1) {
+			const heightOk = height ? height > 100 : true;
+			return show ? imagesLen >= imgsMinLen && heightOk : false;
 		},
 
 		_selectedItemChanged(selectedItem) {
@@ -392,13 +394,8 @@
 
 		_onResize() {
 			this.set('_imageContainerHeight', this._scroller.scrollHeight);
-			this.debounce('hideAbsoluteContentOnSmallHeight', () => {
-				const absElements = Polymer.dom(this.root).querySelectorAll('.hide-on-small-height');
-				if (this.offsetHeight < 100) {
-					absElements.forEach(el => el.setAttribute('hidden', true));
-					return;
-				}
-				absElements.forEach(el => el.removeAttribute('hidden'));
+			this.debounce('elementHeight', () => {
+				this._elementHeight = this.offsetHeight;
 			}, 50);
 		},
 
