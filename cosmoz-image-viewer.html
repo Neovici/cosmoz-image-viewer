@@ -117,11 +117,11 @@ so a user can swipe to the next image.
 			}
 
 			.image {
-				@apply --layout-flex-auto;
-				display: flex;
-				justify-content: center;
 				background-color: gray;
 				pointer-events: none;
+				--iron-image-width: 100%;
+				--iron-image-height: auto;
+				@apply --cosmoz-image-viewer-image;
 			}
 
 			.image-zoom {
