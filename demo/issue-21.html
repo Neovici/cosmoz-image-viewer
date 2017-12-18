@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>cosmoz-image-viewer demo</title>
+
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html" />
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html" />
+
+
+		<link rel="import" href="../cosmoz-image-viewer.html" />
+
+		<custom-style>
+			<style is="custom-style" include="demo-pages-shared-styles iron-flex">
+			</style>
+		</custom-style>
+
+	</head>
+	<body>
+		<div id="container" class="vertical-section-container centered">
+			<h3>Changing image list</code>.</h3>
+			<demo-snippet>
+				<template>
+					<dom-bind class="scope"><!-- for Polymer 2 -->
+						<template is="dom-bind" class="scope"><!-- for Polymer 1 -->
+							<div>
+								<button on-click="changeImagesButton">Change images</button>
+							</div>
+							<cosmoz-image-viewer
+								images="[[images]]"
+								show-nav loop show-fullscreen show-detach show-page-number>
+							</cosmoz-image-viewer>
+						</template>
+					</dom-bind>
+				</template>
+			</demo-snippet>
+		</div>
+
+		<script type="text/javascript">
+		(() => {
+			window.addEventListener('WebComponentsReady', () => {
+				var
+					images1 = [
+						'demo/images/stockholm.jpg',
+						'demo/images/strasbourg.jpg'
+					],
+					images2 = [
+						'demo/images/cosmos1.jpg',
+						'demo/images/cosmos2.jpg'
+					];
+
+				document.querySelectorAll('.scope').forEach(s => {
+					s.images = images1;
+					s.changeImagesButton = () => {
+						if (s.images === images1) {
+							s.images = images2;
+						} else {
+							s.images = images1;
+						}
+					};
+				});
+			});
+		})();
+		</script>
+	</body>
+</html>
