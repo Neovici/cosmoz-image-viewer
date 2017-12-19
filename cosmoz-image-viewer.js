@@ -396,19 +396,19 @@
 		},
 
 		_imageListChanged(images) {
-			if (!images) {
-				this.set('_resolvedImages', images);
-				return;
-			}
 			this.currentImageIndex = 0;
 			/**
 			 * _resolvedImages = []
-			 * When changing the images property to a new array of images,
+			 * Solves: when changing the images property to a new array of images,
 			 * the displayed images might not be updated if the new array has the same size as the previous one.
 			 * See https://github.com/Neovici/cosmoz-image-viewer/issues/21
 			 */
 			this.set('_resolvedImages', []);
 			setTimeout(() => {
+				if (!images) {
+					this.set('_resolvedImages', images);
+					return;
+				}
 				this.set('_resolvedImages', images.map(i => this.resolveUrl(i)));
 			});
 		},
