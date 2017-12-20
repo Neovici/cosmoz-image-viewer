@@ -187,7 +187,6 @@
 			 */
 			_resolvedImages: {
 				type: Array,
-				computed: '_computeResolvedImages(images)'
 			},
 
 			_imageContainerHeight: {
@@ -378,13 +377,6 @@
 			return array[index];
 		},
 
-		_computeResolvedImages(images) {
-			if (!images) {
-				return;
-			}
-			return images.map(i => this.resolveUrl(i));
-		},
-
 		_computeSelectedImageNumber(index, total) {
 			if (!total) {
 				return 0;
@@ -403,11 +395,22 @@
 			this.hidden = value;
 		},
 
-		_imageListChanged(newlist) {
-			if (!newlist) {
-				return;
-			}
+		_imageListChanged(images) {
 			this.currentImageIndex = 0;
+			/**
+			 * _resolvedImages = []
+			 * Solves: when changing the images property to a new array of images,
+			 * the displayed images might not be updated if the new array has the same size as the previous one.
+			 * See https://github.com/Neovici/cosmoz-image-viewer/issues/21
+			 */
+			this.set('_resolvedImages', []);
+			Polymer.dom.addDebouncer(this.debounce('setResolvedImages', () => {
+				if (!images) {
+					this.set('_resolvedImages', images);
+					return;
+				}
+				this.set('_resolvedImages', images.map(i => this.resolveUrl(i)));
+			}));
 		},
 
 		_close() {
