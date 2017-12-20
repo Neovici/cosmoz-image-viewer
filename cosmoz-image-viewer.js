@@ -404,13 +404,13 @@
 			 * See https://github.com/Neovici/cosmoz-image-viewer/issues/21
 			 */
 			this.set('_resolvedImages', []);
-			setTimeout(() => {
+			Polymer.dom.addDebouncer(this.debounce('setResolvedImages', () => {
 				if (!images) {
 					this.set('_resolvedImages', images);
 					return;
 				}
 				this.set('_resolvedImages', images.map(i => this.resolveUrl(i)));
-			});
+			}));
 		},
 
 		_close() {
