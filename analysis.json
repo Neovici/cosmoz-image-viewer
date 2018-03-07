@@ -4,160 +4,614 @@
     {
       "description": "",
       "summary": "",
-      "path": "photoswipe-boilerplate.html",
+      "path": "cosmoz-image-viewer-overlay.html",
       "properties": [
         {
-          "name": "pswp",
-          "type": "Object",
-          "description": "",
+          "name": "sizingTarget",
+          "type": "!Element",
+          "description": "The element that will receive a `max-height`/`width`. By default it is the same as `this`,\nbut it can be set to a child element. This is useful, for example, for implementing a\nscrolling region inside the element.",
           "privacy": "public",
           "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
             "start": {
-              "line": 82,
-              "column": 11
+              "line": 69,
+              "column": 6
             },
             "end": {
-              "line": 85,
-              "column": 12
+              "line": 74,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "fitInto",
+          "type": "Object",
+          "description": "The element to fit `this` into.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 79,
+              "column": 6
+            },
+            "end": {
+              "line": 82,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "noOverlap",
+          "type": "boolean",
+          "description": "Will position the element around the positionTarget without overlapping it.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 87,
+              "column": 6
+            },
+            "end": {
+              "line": 89,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "positionTarget",
+          "type": "!Element",
+          "description": "The element that should be used to position the element. If not set, it will\ndefault to the parent node.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 96,
+              "column": 6
+            },
+            "end": {
+              "line": 98,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "horizontalAlign",
+          "type": "string",
+          "description": "The orientation against which to align the element horizontally\nrelative to the `positionTarget`. Possible values are \"left\", \"right\", \"center\", \"auto\".",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 104,
+              "column": 6
+            },
+            "end": {
+              "line": 106,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "verticalAlign",
+          "type": "string",
+          "description": "The orientation against which to align the element vertically\nrelative to the `positionTarget`. Possible values are \"top\", \"bottom\", \"middle\", \"auto\".",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 112,
+              "column": 6
+            },
+            "end": {
+              "line": 114,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "dynamicAlign",
+          "type": "boolean",
+          "description": "If true, it will use `horizontalAlign` and `verticalAlign` values as preferred alignment\nand if there's not enough space, it will pick the values which minimize the cropping.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 120,
+              "column": 6
+            },
+            "end": {
+              "line": 122,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "horizontalOffset",
+          "type": "number",
+          "description": "A pixel value that will be added to the position calculated for the\ngiven `horizontalAlign`, in the direction of alignment. You can think\nof it as increasing or decreasing the distance to the side of the\nscreen given by `horizontalAlign`.\n\nIf `horizontalAlign` is \"left\" or \"center\", this offset will increase or\ndecrease the distance to the left side of the screen: a negative offset will\nmove the dropdown to the left; a positive one, to the right.\n\nConversely if `horizontalAlign` is \"right\", this offset will increase\nor decrease the distance to the right side of the screen: a negative\noffset will move the dropdown to the right; a positive one, to the left.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 138,
+              "column": 6
+            },
+            "end": {
+              "line": 142,
+              "column": 7
             }
           },
           "metadata": {
             "polymer": {
               "notify": true
             }
-          }
-        }
-      ],
-      "methods": [
+          },
+          "defaultValue": "0",
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
         {
-          "name": "attached",
+          "name": "verticalOffset",
+          "type": "number",
+          "description": "A pixel value that will be added to the position calculated for the\ngiven `verticalAlign`, in the direction of alignment. You can think\nof it as increasing or decreasing the distance to the side of the\nscreen given by `verticalAlign`.\n\nIf `verticalAlign` is \"top\" or \"middle\", this offset will increase or\ndecrease the distance to the top side of the screen: a negative offset will\nmove the dropdown upwards; a positive one, downwards.\n\nConversely if `verticalAlign` is \"bottom\", this offset will increase\nor decrease the distance to the bottom side of the screen: a negative\noffset will move the dropdown downwards; a positive one, upwards.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 158,
+              "column": 6
+            },
+            "end": {
+              "line": 162,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          },
+          "defaultValue": "0",
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "autoFitOnAttach",
+          "type": "boolean",
+          "description": "Set to true to auto-fit on attach.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 167,
+              "column": 6
+            },
+            "end": {
+              "line": 170,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "_fitInfo",
+          "type": "?Object",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 173,
+              "column": 6
+            },
+            "end": {
+              "line": 175,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "_parentResizable",
+          "type": "Object",
+          "description": "The closest ancestor element that implements `IronResizableBehavior`.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 36,
+              "column": 6
+            },
+            "end": {
+              "line": 39,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_parentResizableChanged\""
+            }
+          },
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "_notifyingDescendant",
+          "type": "boolean",
+          "description": "True if this element is currently notifying its descendant elements of\nresize.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 45,
+              "column": 6
+            },
+            "end": {
+              "line": 48,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "opened",
+          "type": "boolean",
+          "description": "True if the overlay is currently displayed.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 29,
+              "column": 6
+            },
+            "end": {
+              "line": 34,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_openedChanged\""
+            }
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "canceled",
+          "type": "boolean",
+          "description": "True if the overlay was canceled when it was last closed.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 39,
+              "column": 6
+            },
+            "end": {
+              "line": 44,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_canceledChanged\"",
+              "readOnly": true
+            }
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "withBackdrop",
+          "type": "boolean",
+          "description": "Set to true to display a backdrop behind the overlay. It traps the focus\nwithin the light DOM of the overlay.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 50,
+              "column": 6
+            },
+            "end": {
+              "line": 53,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_withBackdropChanged\""
+            }
+          },
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "noAutoFocus",
+          "type": "boolean",
+          "description": "Set to true to disable auto-focusing the overlay or child nodes with\nthe `autofocus` attribute` when the overlay is opened.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 59,
+              "column": 6
+            },
+            "end": {
+              "line": 62,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "noCancelOnEscKey",
+          "type": "boolean",
+          "description": "Set to true to disable canceling the overlay with the ESC key.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 67,
+              "column": 6
+            },
+            "end": {
+              "line": 70,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "noCancelOnOutsideClick",
+          "type": "boolean",
+          "description": "Set to true to disable canceling the overlay by clicking outside it.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 75,
+              "column": 6
+            },
+            "end": {
+              "line": 78,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "closingReason",
+          "type": "Object",
+          "description": "Contains the reason(s) this overlay was last closed (see `iron-overlay-closed`).\n`IronOverlayBehavior` provides the `canceled` reason; implementers of the\nbehavior can provide other reasons in addition to `canceled`.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 85,
+              "column": 6
+            },
+            "end": {
+              "line": 89,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "restoreFocusOnClose",
+          "type": "boolean",
+          "description": "Set to true to enable restoring of focus when overlay is closed.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 94,
+              "column": 6
+            },
+            "end": {
+              "line": 97,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "allowClickThrough",
+          "type": "boolean",
+          "description": "Set to true to allow clicks to go through overlays.\nWhen the user clicks outside this overlay, the click may\nclose the overlay below.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 104,
+              "column": 6
+            },
+            "end": {
+              "line": 106,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "alwaysOnTop",
+          "type": "boolean",
+          "description": "Set to true to keep overlay always on top.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 111,
+              "column": 6
+            },
+            "end": {
+              "line": 113,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "scrollAction",
+          "type": "string",
+          "description": "Determines which action to perform when scroll outside an opened overlay happens.\nPossible values:\nlock - blocks scrolling from happening,\nrefit - computes the new position on the overlay\ncancel - causes the overlay to close",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 122,
+              "column": 6
+            },
+            "end": {
+              "line": 124,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_manager",
+          "type": "!Polymer.IronOverlayManagerClass",
+          "description": "Shortcut to access to the overlay manager.",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 131,
+              "column": 6
+            },
+            "end": {
+              "line": 134,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_focusedChild",
+          "type": "?Node",
+          "description": "The node being focused.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 140,
+              "column": 6
+            },
+            "end": {
+              "line": 142,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "hostAttributes",
+          "type": "Object",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 88,
-              "column": 10
-            },
-            "end": {
-              "line": 90,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "init",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 92,
-              "column": 10
-            },
-            "end": {
-              "line": 94,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "params": []
-        }
-      ],
-      "staticMethods": [],
-      "demos": [],
-      "metadata": {},
-      "sourceRange": {
-        "start": {
-          "line": 78,
-          "column": 17
-        },
-        "end": {
-          "line": 95,
-          "column": 10
-        }
-      },
-      "privacy": "public",
-      "superclass": "HTMLElement",
-      "attributes": [
-        {
-          "name": "pswp",
-          "description": "",
-          "sourceRange": {
-            "start": {
-              "line": 82,
-              "column": 11
-            },
-            "end": {
-              "line": 85,
-              "column": 12
-            }
-          },
-          "metadata": {},
-          "type": "Object"
-        }
-      ],
-      "events": [
-        {
-          "type": "CustomEvent",
-          "name": "pswp-changed",
-          "description": "Fired when the `pswp` property changes.",
-          "metadata": {}
-        }
-      ],
-      "styling": {
-        "cssVariables": [],
-        "selectors": []
-      },
-      "slots": [],
-      "tagname": "photoswipe-boilerplate"
-    },
-    {
-      "description": "",
-      "summary": "",
-      "path": "cosmoz-image-viewer.js",
-      "properties": [
-        {
-          "name": "currentImagePath",
-          "type": "string",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 13,
+              "line": 32,
               "column": 3
             },
             "end": {
-              "line": 16,
+              "line": 34,
               "column": 4
             }
           },
           "metadata": {
-            "polymer": {
-              "readOnly": true
-            }
+            "polymer": {}
           }
         },
         {
-          "name": "currentImage",
-          "type": "Object",
+          "name": "images",
+          "type": "Array",
           "description": "",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 17,
-              "column": 3
+              "line": 37,
+              "column": 4
             },
             "end": {
-              "line": 21,
-              "column": 4
+              "line": 39,
+              "column": 5
             }
           },
           "metadata": {
-            "polymer": {
-              "observer": "\"_currentImageChanged\"",
-              "readOnly": true
-            }
+            "polymer": {}
           }
         },
         {
@@ -167,12 +621,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 22,
-              "column": 3
+              "line": 40,
+              "column": 4
             },
             "end": {
-              "line": 24,
-              "column": 4
+              "line": 42,
+              "column": 5
             }
           },
           "metadata": {
@@ -180,22 +634,2219 @@
           }
         },
         {
-          "name": "currentPage",
-          "type": "number",
+          "name": "showDetach",
+          "type": "boolean",
           "description": "",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 25,
+              "line": 43,
+              "column": 4
+            },
+            "end": {
+              "line": 45,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 46,
+              "column": 4
+            },
+            "end": {
+              "line": 48,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "_fitWidth",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 178,
+              "column": 4
+            },
+            "end": {
+              "line": 186,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "_fitHeight",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 188,
+              "column": 4
+            },
+            "end": {
+              "line": 196,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "_fitLeft",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 198,
+              "column": 4
+            },
+            "end": {
+              "line": 206,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "_fitTop",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 208,
+              "column": 4
+            },
+            "end": {
+              "line": 216,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "_defaultPositionTarget",
+          "description": "The element that should be used to position the element,\nif no position target is configured.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 222,
+              "column": 4
+            },
+            "end": {
+              "line": 230,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "_localeHorizontalAlign",
+          "description": "The horizontal align value, accounting for the RTL/LTR text direction.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 235,
+              "column": 4
+            },
+            "end": {
+              "line": 246,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "__shouldPosition",
+          "description": "True if the element should be positioned instead of centered.",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 252,
+              "column": 4
+            },
+            "end": {
+              "line": 255,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "attached",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 207,
+              "column": 4
+            },
+            "end": {
+              "line": 213,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "detached",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 215,
+              "column": 4
+            },
+            "end": {
+              "line": 237,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "fit",
+          "description": "Positions and fits the element into the `fitInto` element.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 289,
+              "column": 4
+            },
+            "end": {
+              "line": 293,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "_discoverInfo",
+          "description": "Memoize information needed to position and size the target element.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 299,
+              "column": 4
+            },
+            "end": {
+              "line": 336,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "resetFit",
+          "description": "Resets the target element's position and size constraints, and clear\nthe memoized data.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 342,
+              "column": 4
+            },
+            "end": {
+              "line": 352,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "refit",
+          "description": "Equivalent to calling `resetFit()` and `fit()`. Useful to call this after\nthe element or the `fitInto` element has been resized, or if any of the\npositioning properties (e.g. `horizontalAlign, verticalAlign`) is updated.\nIt preserves the scroll position of the sizingTarget.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 360,
+              "column": 4
+            },
+            "end": {
+              "line": 367,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "position",
+          "description": "Positions the element according to `horizontalAlign, verticalAlign`.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 372,
+              "column": 4
+            },
+            "end": {
+              "line": 422,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "constrain",
+          "description": "Constrains the size of the element to `fitInto` by setting `max-height`\nand/or `max-width`.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 428,
+              "column": 4
+            },
+            "end": {
+              "line": 455,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "_sizeDimension",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 461,
+              "column": 4
+            },
+            "end": {
+              "line": 463,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "rect"
+            },
+            {
+              "name": "positionedBy"
+            },
+            {
+              "name": "start"
+            },
+            {
+              "name": "end"
+            },
+            {
+              "name": "extent"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "__sizeDimension",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 468,
+              "column": 4
+            },
+            "end": {
+              "line": 478,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "rect"
+            },
+            {
+              "name": "positionedBy"
+            },
+            {
+              "name": "start"
+            },
+            {
+              "name": "end"
+            },
+            {
+              "name": "extent"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "center",
+          "description": "Centers horizontally and vertically if not already positioned. This also sets\n`position:fixed`.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 484,
+              "column": 4
+            },
+            "end": {
+              "line": 517,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "__getNormalizedRect",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 519,
+              "column": 4
+            },
+            "end": {
+              "line": 531,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "target"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "__getOffscreenArea",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 533,
+              "column": 4
+            },
+            "end": {
+              "line": 537,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "position"
+            },
+            {
+              "name": "size"
+            },
+            {
+              "name": "fitRect"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "__getPosition",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 540,
+              "column": 4
+            },
+            "end": {
+              "line": 659,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "hAlign"
+            },
+            {
+              "name": "vAlign"
+            },
+            {
+              "name": "size"
+            },
+            {
+              "name": "sizeNoMargins"
+            },
+            {
+              "name": "positionRect"
+            },
+            {
+              "name": "fitRect"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "created",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 55,
+              "column": 4
+            },
+            "end": {
+              "line": 60,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "notifyResize",
+          "description": "Can be called to manually notify a resizable and its descendant\nresizables of a resize change.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 80,
+              "column": 4
+            },
+            "end": {
+              "line": 92,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "assignParentResizable",
+          "description": "Used to assign the closest resizable ancestor to this resizable\nif the ancestor detects a request for notifications.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 98,
+              "column": 4
+            },
+            "end": {
+              "line": 100,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "parentResizable"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "stopResizeNotificationsFor",
+          "description": "Used to remove a resizable descendant from the list of descendants\nthat should be notified of a resize change.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 106,
+              "column": 4
+            },
+            "end": {
+              "line": 113,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "target"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "resizerShouldNotify",
+          "description": "This method can be overridden to filter nested elements that should or\nshould not be notified by the current element. Return true if an element\nshould be notified, or false if it should not be notified.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 124,
+              "column": 4
+            },
+            "end": {
+              "line": 124,
+              "column": 59
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "element",
+              "type": "HTMLElement",
+              "description": "A candidate descendant element that\nimplements `IronResizableBehavior`."
+            }
+          ],
+          "return": {
+            "type": "boolean",
+            "desc": "True if the `element` should be notified of resize."
+          },
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "_onDescendantIronResize",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 126,
+              "column": 4
+            },
+            "end": {
+              "line": 138,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "_fireResize",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 140,
+              "column": 4
+            },
+            "end": {
+              "line": 145,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "_onIronRequestResizeNotifications",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 147,
+              "column": 4
+            },
+            "end": {
+              "line": 162,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "_parentResizableChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 164,
+              "column": 4
+            },
+            "end": {
+              "line": 168,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "parentResizable"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "_notifyDescendant",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 170,
+              "column": 4
+            },
+            "end": {
+              "line": 181,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "descendant"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "_requestResizeNotifications",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 183,
+              "column": 4
+            },
+            "end": {
+              "line": 211,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "backdropElement",
+          "description": "The backdrop element.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 158,
+              "column": 4
+            },
+            "end": {
+              "line": 160,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "!Element"
+          },
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_focusNode",
+          "description": "Returns the node to give focus to.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 166,
+              "column": 4
+            },
+            "end": {
+              "line": 168,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "!Node"
+          },
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_focusableNodes",
+          "description": "Array of nodes that can receive focus (overlay included), ordered by `tabindex`.\nThis is used to retrieve which is the first and last focusable nodes in order\nto wrap the focus for overlays `with-backdrop`.\n\nIf you know what is your content (specifically the first and last focusable children),\nyou can override this method to return only `[firstFocusable, lastFocusable];`",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 180,
+              "column": 4
+            },
+            "end": {
+              "line": 182,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "!Array.<!Node>"
+          },
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "ready",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 187,
+              "column": 4
+            },
+            "end": {
+              "line": 205,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          },
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "toggle",
+          "description": "Toggle the opened state of the overlay.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 242,
+              "column": 4
+            },
+            "end": {
+              "line": 245,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "open",
+          "description": "Open the overlay.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 250,
+              "column": 4
+            },
+            "end": {
+              "line": 253,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "close",
+          "description": "Close the overlay.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 258,
+              "column": 4
+            },
+            "end": {
+              "line": 261,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "cancel",
+          "description": "Cancels the overlay.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 267,
+              "column": 4
+            },
+            "end": {
+              "line": 275,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event",
+              "type": "Event=",
+              "description": "The original event"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "invalidateTabbables",
+          "description": "Invalidates the cached tabbable nodes. To be called when any of the focusable\ncontent changes (e.g. a button is disabled).",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 281,
+              "column": 4
+            },
+            "end": {
+              "line": 283,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_ensureSetup",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 285,
+              "column": 4
+            },
+            "end": {
+              "line": 292,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_openedChanged",
+          "description": "Called when `opened` changes.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 299,
+              "column": 4
+            },
+            "end": {
+              "line": 316,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "opened",
+              "type": "boolean="
+            }
+          ],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_canceledChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 318,
+              "column": 4
+            },
+            "end": {
+              "line": 321,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_withBackdropChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 323,
+              "column": 4
+            },
+            "end": {
+              "line": 335,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_prepareRenderOpened",
+          "description": "tasks which must occur before opening; e.g. making the element visible.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 341,
+              "column": 4
+            },
+            "end": {
+              "line": 357,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_renderOpened",
+          "description": "Tasks which cause the overlay to actually open; typically play an animation.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 363,
+              "column": 4
+            },
+            "end": {
+              "line": 365,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_renderClosed",
+          "description": "Tasks which cause the overlay to actually close; typically play an animation.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 371,
+              "column": 4
+            },
+            "end": {
+              "line": 373,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_finishRenderOpened",
+          "description": "Tasks to be performed at the end of open action. Will fire `iron-overlay-opened`.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 379,
+              "column": 4
+            },
+            "end": {
+              "line": 384,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_finishRenderClosed",
+          "description": "Tasks to be performed at the end of close action. Will fire `iron-overlay-closed`.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 390,
+              "column": 4
+            },
+            "end": {
+              "line": 398,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_preparePositioning",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 400,
+              "column": 4
+            },
+            "end": {
+              "line": 404,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_finishPositioning",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 406,
+              "column": 4
+            },
+            "end": {
+              "line": 419,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_applyFocus",
+          "description": "Applies focus according to the opened state.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 425,
+              "column": 4
+            },
+            "end": {
+              "line": 456,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_onCaptureClick",
+          "description": "Cancels (closes) the overlay. Call when click happens outside the overlay.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 463,
+              "column": 4
+            },
+            "end": {
+              "line": 467,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event",
+              "type": "!Event"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_onCaptureFocus",
+          "description": "Keeps track of the focused child. If withBackdrop, traps focus within overlay.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 474,
+              "column": 4
+            },
+            "end": {
+              "line": 485,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event",
+              "type": "!Event"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_onCaptureEsc",
+          "description": "Handles the ESC key event and cancels (closes) the overlay.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 492,
+              "column": 4
+            },
+            "end": {
+              "line": 496,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event",
+              "type": "!Event"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_onCaptureTab",
+          "description": "Handles TAB key events to track focus changes.\nWill wrap focus for overlays withBackdrop.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 504,
+              "column": 4
+            },
+            "end": {
+              "line": 546,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event",
+              "type": "!Event"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_onIronResize",
+          "description": "Refits if the overlay is opened and not animating.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 552,
+              "column": 4
+            },
+            "end": {
+              "line": 556,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_onNodesChange",
+          "description": "Will call notifyResize if overlay is opened.\nCan be overridden in order to avoid multiple observers on the same node.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 563,
+              "column": 4
+            },
+            "end": {
+              "line": 569,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "__ensureFirstLastFocusables",
+          "description": "Will set first and last focusable nodes if any of them is not set.",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 575,
+              "column": 4
+            },
+            "end": {
+              "line": 581,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "__openedChanged",
+          "description": "Tasks executed when opened changes: prepare for the opening, move the\nfocus, update the manager, render opened/closed.",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 588,
+              "column": 4
+            },
+            "end": {
+              "line": 604,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "__deraf",
+          "description": "Debounces the execution of a callback to the next animation frame.",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 612,
+              "column": 4
+            },
+            "end": {
+              "line": 621,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "jobname",
+              "type": "!string"
+            },
+            {
+              "name": "callback",
+              "type": "!Function",
+              "description": "Always bound to `this`"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "__updateScrollObservers",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 629,
+              "column": 4
+            },
+            "end": {
+              "line": 640,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "isAttached",
+              "type": "boolean"
+            },
+            {
+              "name": "opened",
+              "type": "boolean"
+            },
+            {
+              "name": "scrollAction",
+              "type": "string="
+            }
+          ],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "__addScrollListeners",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 645,
+              "column": 4
+            },
+            "end": {
+              "line": 667,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "__removeScrollListeners",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 672,
+              "column": 4
+            },
+            "end": {
+              "line": 684,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "__isValidScrollAction",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 691,
+              "column": 4
+            },
+            "end": {
+              "line": 695,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "scrollAction",
+              "type": "string="
+            }
+          ],
+          "return": {
+            "type": "boolean"
+          },
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "__onCaptureScroll",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 700,
+              "column": 4
+            },
+            "end": {
+              "line": 722,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "__saveScrollPosition",
+          "description": "Memoizes the scroll position of the outside scrolling element.",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 728,
+              "column": 4
+            },
+            "end": {
+              "line": 737,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "__restoreScrollPosition",
+          "description": "Resets the scroll position of the outside scrolling element.",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 743,
+              "column": 4
+            },
+            "end": {
+              "line": 752,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "_trackHandler",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 51,
               "column": 3
             },
             "end": {
-              "line": 28,
+              "line": 59,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 25,
+          "column": 10
+        },
+        "end": {
+          "line": 61,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [
+        {
+          "name": "sizing-target",
+          "description": "The element that will receive a `max-height`/`width`. By default it is the same as `this`,\nbut it can be set to a child element. This is useful, for example, for implementing a\nscrolling region inside the element.",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 69,
+              "column": 6
+            },
+            "end": {
+              "line": 74,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "!Element",
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "fit-into",
+          "description": "The element to fit `this` into.",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 79,
+              "column": 6
+            },
+            "end": {
+              "line": 82,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "Object",
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "no-overlap",
+          "description": "Will position the element around the positionTarget without overlapping it.",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 87,
+              "column": 6
+            },
+            "end": {
+              "line": 89,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "position-target",
+          "description": "The element that should be used to position the element. If not set, it will\ndefault to the parent node.",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 96,
+              "column": 6
+            },
+            "end": {
+              "line": 98,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "!Element",
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "horizontal-align",
+          "description": "The orientation against which to align the element horizontally\nrelative to the `positionTarget`. Possible values are \"left\", \"right\", \"center\", \"auto\".",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 104,
+              "column": 6
+            },
+            "end": {
+              "line": 106,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "vertical-align",
+          "description": "The orientation against which to align the element vertically\nrelative to the `positionTarget`. Possible values are \"top\", \"bottom\", \"middle\", \"auto\".",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 112,
+              "column": 6
+            },
+            "end": {
+              "line": 114,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "dynamic-align",
+          "description": "If true, it will use `horizontalAlign` and `verticalAlign` values as preferred alignment\nand if there's not enough space, it will pick the values which minimize the cropping.",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 120,
+              "column": 6
+            },
+            "end": {
+              "line": 122,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "horizontal-offset",
+          "description": "A pixel value that will be added to the position calculated for the\ngiven `horizontalAlign`, in the direction of alignment. You can think\nof it as increasing or decreasing the distance to the side of the\nscreen given by `horizontalAlign`.\n\nIf `horizontalAlign` is \"left\" or \"center\", this offset will increase or\ndecrease the distance to the left side of the screen: a negative offset will\nmove the dropdown to the left; a positive one, to the right.\n\nConversely if `horizontalAlign` is \"right\", this offset will increase\nor decrease the distance to the right side of the screen: a negative\noffset will move the dropdown to the right; a positive one, to the left.",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 138,
+              "column": 6
+            },
+            "end": {
+              "line": 142,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "number",
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "vertical-offset",
+          "description": "A pixel value that will be added to the position calculated for the\ngiven `verticalAlign`, in the direction of alignment. You can think\nof it as increasing or decreasing the distance to the side of the\nscreen given by `verticalAlign`.\n\nIf `verticalAlign` is \"top\" or \"middle\", this offset will increase or\ndecrease the distance to the top side of the screen: a negative offset will\nmove the dropdown upwards; a positive one, downwards.\n\nConversely if `verticalAlign` is \"bottom\", this offset will increase\nor decrease the distance to the bottom side of the screen: a negative\noffset will move the dropdown downwards; a positive one, upwards.",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 158,
+              "column": 6
+            },
+            "end": {
+              "line": 162,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "number",
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "auto-fit-on-attach",
+          "description": "Set to true to auto-fit on attach.",
+          "sourceRange": {
+            "file": "bower_components/iron-fit-behavior/iron-fit-behavior.html",
+            "start": {
+              "line": 167,
+              "column": 6
+            },
+            "end": {
+              "line": 170,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "name": "opened",
+          "description": "True if the overlay is currently displayed.",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 29,
+              "column": 6
+            },
+            "end": {
+              "line": 34,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "canceled",
+          "description": "True if the overlay was canceled when it was last closed.",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 39,
+              "column": 6
+            },
+            "end": {
+              "line": 44,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "with-backdrop",
+          "description": "Set to true to display a backdrop behind the overlay. It traps the focus\nwithin the light DOM of the overlay.",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 50,
+              "column": 6
+            },
+            "end": {
+              "line": 53,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "no-auto-focus",
+          "description": "Set to true to disable auto-focusing the overlay or child nodes with\nthe `autofocus` attribute` when the overlay is opened.",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 59,
+              "column": 6
+            },
+            "end": {
+              "line": 62,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "no-cancel-on-esc-key",
+          "description": "Set to true to disable canceling the overlay with the ESC key.",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 67,
+              "column": 6
+            },
+            "end": {
+              "line": 70,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "no-cancel-on-outside-click",
+          "description": "Set to true to disable canceling the overlay by clicking outside it.",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 75,
+              "column": 6
+            },
+            "end": {
+              "line": 78,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "closing-reason",
+          "description": "Contains the reason(s) this overlay was last closed (see `iron-overlay-closed`).\n`IronOverlayBehavior` provides the `canceled` reason; implementers of the\nbehavior can provide other reasons in addition to `canceled`.",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 85,
+              "column": 6
+            },
+            "end": {
+              "line": 89,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "Object",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "restore-focus-on-close",
+          "description": "Set to true to enable restoring of focus when overlay is closed.",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 94,
+              "column": 6
+            },
+            "end": {
+              "line": 97,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "allow-click-through",
+          "description": "Set to true to allow clicks to go through overlays.\nWhen the user clicks outside this overlay, the click may\nclose the overlay below.",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 104,
+              "column": 6
+            },
+            "end": {
+              "line": 106,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "always-on-top",
+          "description": "Set to true to keep overlay always on top.",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 111,
+              "column": 6
+            },
+            "end": {
+              "line": 113,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "scroll-action",
+          "description": "Determines which action to perform when scroll outside an opened overlay happens.\nPossible values:\nlock - blocks scrolling from happening,\nrefit - computes the new position on the overlay\ncancel - causes the overlay to close",
+          "sourceRange": {
+            "file": "bower_components/iron-overlay-behavior/iron-overlay-behavior.html",
+            "start": {
+              "line": 122,
+              "column": 6
+            },
+            "end": {
+              "line": 124,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "name": "images",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 37,
+              "column": 4
+            },
+            "end": {
+              "line": 39,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "current-image-index",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 40,
+              "column": 4
+            },
+            "end": {
+              "line": 42,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "show-detach",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 43,
+              "column": 4
+            },
+            "end": {
+              "line": 45,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "loop",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 46,
+              "column": 4
+            },
+            "end": {
+              "line": 48,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        }
+      ],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "horizontal-offset-changed",
+          "description": "Fired when the `horizontalOffset` property changes.",
+          "metadata": {},
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "type": "CustomEvent",
+          "name": "vertical-offset-changed",
+          "description": "Fired when the `verticalOffset` property changes.",
+          "metadata": {},
+          "inheritedFrom": "Polymer.IronFitBehavior"
+        },
+        {
+          "type": "CustomEvent",
+          "name": "opened-changed",
+          "description": "Fired when the `opened` property changes.",
+          "metadata": {},
+          "inheritedFrom": "Polymer.IronOverlayBehaviorImpl"
+        },
+        {
+          "type": "CustomEvent",
+          "name": "iron-overlay-canceled",
+          "description": "iron-overlay-canceled",
+          "metadata": {},
+          "inheritedFrom": "Polymer.IronOverlayBehavior"
+        },
+        {
+          "type": "CustomEvent",
+          "name": "iron-overlay-closed",
+          "description": "iron-overlay-closed",
+          "metadata": {},
+          "inheritedFrom": "Polymer.IronOverlayBehavior"
+        },
+        {
+          "type": "CustomEvent",
+          "name": "iron-overlay-opened",
+          "description": "iron-overlay-opened",
+          "metadata": {},
+          "inheritedFrom": "Polymer.IronOverlayBehavior"
+        }
+      ],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "cosmoz-image-viewer-overlay"
+    },
+    {
+      "description": "`cosmoz-image-viewer` is an element for displaying images in a carousel while being able to detach the currently\nselected image into another window, zooming and activating a fullscreen mode.\n\nA user can enable the zoom mode by\n  a) clicking on the zoom button\n  b) double clicking on this element\n\nThe zoom mode (+ pan) gets disabled when the image is zoomed out (The initial zoom level is active.) again\nso a user can swipe to the next image.",
+      "summary": "",
+      "path": "cosmoz-image-viewer.js",
+      "properties": [
+        {
+          "name": "_parentResizable",
+          "type": "Object",
+          "description": "The closest ancestor element that implements `IronResizableBehavior`.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 36,
+              "column": 6
+            },
+            "end": {
+              "line": 39,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_parentResizableChanged\""
+            }
+          },
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "_notifyingDescendant",
+          "type": "boolean",
+          "description": "True if this element is currently notifying its descendant elements of\nresize.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 45,
+              "column": 6
+            },
+            "end": {
+              "line": 48,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "abs",
+          "type": "Object",
+          "description": "Math.abs",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-behaviors/cosmoz-templatehelper-behavior.html",
+            "start": {
+              "line": 14,
+              "column": 2
+            },
+            "end": {
+              "line": 14,
+              "column": 15
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Cosmoz.TemplateHelperBehavior"
+        },
+        {
+          "name": "t",
+          "type": "Object",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 10,
+              "column": 3
+            },
+            "end": {
+              "line": 15,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "{}",
+          "inheritedFrom": "Cosmoz.TranslatableBehavior"
+        },
+        {
+          "name": "currentImage",
+          "type": "string",
+          "description": "The url of the currenly selected image.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 18,
+              "column": 3
+            },
+            "end": {
+              "line": 22,
               "column": 4
             }
           },
           "metadata": {
             "polymer": {
+              "notify": true,
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "currentImageIndex",
+          "type": "number",
+          "description": "The index in the images array of the currently selected image.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 26,
+              "column": 3
+            },
+            "end": {
+              "line": 29,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          }
+        },
+        {
+          "name": "selectedImageNumber",
+          "type": "number",
+          "description": "Like currentImageIndex but starts at 1 instead of 0.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 33,
+              "column": 3
+            },
+            "end": {
+              "line": 37,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
               "readOnly": true
             }
           }
@@ -203,15 +2854,15 @@
         {
           "name": "isDetached",
           "type": "boolean",
-          "description": "",
+          "description": "If true, the detached window is open.",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 29,
+              "line": 41,
               "column": 3
             },
             "end": {
-              "line": 35,
+              "line": 47,
               "column": 4
             }
           },
@@ -225,71 +2876,9 @@
           "defaultValue": "false"
         },
         {
-          "name": "imageLoaded",
-          "type": "boolean",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 36,
-              "column": 3
-            },
-            "end": {
-              "line": 39,
-              "column": 4
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "false"
-        },
-        {
           "name": "images",
           "type": "Array",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 40,
-              "column": 3
-            },
-            "end": {
-              "line": 43,
-              "column": 4
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "observer": "\"_imageListChanged\""
-            }
-          }
-        },
-        {
-          "name": "_resolvedImages",
-          "type": "Array",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 44,
-              "column": 3
-            },
-            "end": {
-              "line": 47,
-              "column": 4
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "readOnly": true
-            }
-          }
-        },
-        {
-          "name": "noDetach",
-          "type": "boolean",
-          "description": "Disable button to detach image",
+          "description": "The images array.",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -297,27 +2886,29 @@
               "column": 3
             },
             "end": {
-              "line": 54,
+              "line": 57,
               "column": 4
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "observer": "\"_imageListChanged\""
+            }
           },
-          "defaultValue": "false"
+          "defaultValue": "[]"
         },
         {
           "name": "scrollPercent",
           "type": "number",
-          "description": "",
+          "description": "The percent the view should scroll down after the image got loaded.",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 55,
+              "line": 61,
               "column": 3
             },
             "end": {
-              "line": 58,
+              "line": 64,
               "column": 4
             }
           },
@@ -328,50 +2919,10 @@
           }
         },
         {
-          "name": "src",
+          "name": "sizing",
           "type": "string",
           "description": "",
           "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 59,
-              "column": 3
-            },
-            "end": {
-              "line": 62,
-              "column": 4
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true
-            }
-          }
-        },
-        {
-          "name": "_imageContainerHeight",
-          "type": "number",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 63,
-              "column": 3
-            },
-            "end": {
-              "line": 65,
-              "column": 4
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "_scroller",
-          "type": "Object",
-          "description": "",
-          "privacy": "protected",
           "sourceRange": {
             "start": {
               "line": 66,
@@ -387,17 +2938,422 @@
           }
         },
         {
-          "name": "_pswp",
+          "name": "imageLoaded",
+          "type": "boolean",
+          "description": "If true, the currently selected image is fully loaded.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 72,
+              "column": 3
+            },
+            "end": {
+              "line": 75,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "selectedItem",
+          "type": "Object",
+          "description": "The selected slide in the carousel",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 79,
+              "column": 3
+            },
+            "end": {
+              "line": 82,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_selectedItemChanged\""
+            }
+          }
+        },
+        {
+          "name": "isZoomed",
+          "type": "boolean",
+          "description": "If true, the current image is zoomed.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 86,
+              "column": 3
+            },
+            "end": {
+              "line": 89,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "showNav",
+          "type": "boolean",
+          "description": "If true, navigation next/prev buttons are visible.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 93,
+              "column": 3
+            },
+            "end": {
+              "line": 96,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "showDots",
+          "type": "boolean",
+          "description": "If true, pagination dots are visible.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 100,
+              "column": 3
+            },
+            "end": {
+              "line": 103,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "showZoom",
+          "type": "boolean",
+          "description": "If true, a zoom button is visible.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 107,
+              "column": 3
+            },
+            "end": {
+              "line": 110,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "showFullscreen",
+          "type": "boolean",
+          "description": "If true, a fullscreen button is visible.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 114,
+              "column": 3
+            },
+            "end": {
+              "line": 117,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "showDetach",
+          "type": "boolean",
+          "description": "If true, a detach button is visible.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 121,
+              "column": 3
+            },
+            "end": {
+              "line": 124,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "showClose",
+          "type": "boolean",
+          "description": "If true, a close icon is visible. Useful if displayed as an overlay.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 128,
+              "column": 3
+            },
+            "end": {
+              "line": 131,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "showPageNumber",
+          "type": "boolean",
+          "description": "If true, the current page number (e.g. 2/5) is visible.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 135,
+              "column": 3
+            },
+            "end": {
+              "line": 138,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "description": "If true, clicking on next when the last image is selected,\nwill show the first image again.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 143,
+              "column": 3
+            },
+            "end": {
+              "line": 146,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "_elementHeight",
+          "type": "number",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 150,
+              "column": 3
+            },
+            "end": {
+              "line": 153,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "0"
+        },
+        {
+          "name": "_hideNoImageInfo",
+          "type": "boolean",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 155,
+              "column": 3
+            },
+            "end": {
+              "line": 158,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "_showNav",
+          "type": "boolean",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 160,
+              "column": 3
+            },
+            "end": {
+              "line": 163,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "_showZoom",
+          "type": "boolean",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 165,
+              "column": 3
+            },
+            "end": {
+              "line": 168,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "_showDetach",
+          "type": "boolean",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 170,
+              "column": 3
+            },
+            "end": {
+              "line": 173,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "_showFullscreen",
+          "type": "boolean",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 175,
+              "column": 3
+            },
+            "end": {
+              "line": 178,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "_showPageNumber",
+          "type": "boolean",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 180,
+              "column": 3
+            },
+            "end": {
+              "line": 183,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "_resolvedImages",
+          "type": "Array",
+          "description": "The url resolved images array.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 187,
+              "column": 3
+            },
+            "end": {
+              "line": 189,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "_imageContainerHeight",
+          "type": "number",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 191,
+              "column": 3
+            },
+            "end": {
+              "line": 193,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "_scroller",
           "type": "Object",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 69,
+              "line": 195,
               "column": 3
             },
             "end": {
-              "line": 71,
+              "line": 197,
               "column": 4
             }
           },
@@ -408,16 +3364,746 @@
       ],
       "methods": [
         {
+          "name": "created",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 55,
+              "column": 4
+            },
+            "end": {
+              "line": 60,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "attached",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 61,
+              "column": 2
+            },
+            "end": {
+              "line": 63,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Cosmoz.TranslatableBehavior"
+        },
+        {
+          "name": "detached",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 65,
+              "column": 2
+            },
+            "end": {
+              "line": 70,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Cosmoz.TranslatableBehavior"
+        },
+        {
+          "name": "notifyResize",
+          "description": "Can be called to manually notify a resizable and its descendant\nresizables of a resize change.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 80,
+              "column": 4
+            },
+            "end": {
+              "line": 92,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "assignParentResizable",
+          "description": "Used to assign the closest resizable ancestor to this resizable\nif the ancestor detects a request for notifications.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 98,
+              "column": 4
+            },
+            "end": {
+              "line": 100,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "parentResizable"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "stopResizeNotificationsFor",
+          "description": "Used to remove a resizable descendant from the list of descendants\nthat should be notified of a resize change.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 106,
+              "column": 4
+            },
+            "end": {
+              "line": 113,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "target"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "resizerShouldNotify",
+          "description": "This method can be overridden to filter nested elements that should or\nshould not be notified by the current element. Return true if an element\nshould be notified, or false if it should not be notified.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 124,
+              "column": 4
+            },
+            "end": {
+              "line": 124,
+              "column": 59
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "element",
+              "type": "HTMLElement",
+              "description": "A candidate descendant element that\nimplements `IronResizableBehavior`."
+            }
+          ],
+          "return": {
+            "type": "boolean",
+            "desc": "True if the `element` should be notified of resize."
+          },
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "_onDescendantIronResize",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 126,
+              "column": 4
+            },
+            "end": {
+              "line": 138,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "_fireResize",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 140,
+              "column": 4
+            },
+            "end": {
+              "line": 145,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "_onIronRequestResizeNotifications",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 147,
+              "column": 4
+            },
+            "end": {
+              "line": 162,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "_parentResizableChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 164,
+              "column": 4
+            },
+            "end": {
+              "line": 168,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "parentResizable"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "_notifyDescendant",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 170,
+              "column": 4
+            },
+            "end": {
+              "line": 181,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "descendant"
+            }
+          ],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "_requestResizeNotifications",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "start": {
+              "line": 183,
+              "column": 4
+            },
+            "end": {
+              "line": 211,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Polymer.IronResizableBehavior"
+        },
+        {
+          "name": "anyTrue",
+          "description": "Helper function to see if any of the arguments are true",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-behaviors/cosmoz-templatehelper-behavior.html",
+            "start": {
+              "line": 20,
+              "column": 2
+            },
+            "end": {
+              "line": 25,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "Boolean",
+            "desc": "true if any of the arguments are true"
+          },
+          "inheritedFrom": "Cosmoz.TemplateHelperBehavior"
+        },
+        {
+          "name": "concat",
+          "description": "Concatenate all arguments to a string",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-behaviors/cosmoz-templatehelper-behavior.html",
+            "start": {
+              "line": 31,
+              "column": 2
+            },
+            "end": {
+              "line": 33,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "String",
+            "desc": "String containing concatenated parameters"
+          },
+          "inheritedFrom": "Cosmoz.TemplateHelperBehavior"
+        },
+        {
+          "name": "ifElse",
+          "description": "If iftrue is true, return result, otherwise return elseresult",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-behaviors/cosmoz-templatehelper-behavior.html",
+            "start": {
+              "line": 42,
+              "column": 2
+            },
+            "end": {
+              "line": 44,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "iftrue",
+              "type": "Boolean",
+              "description": "Codition for result"
+            },
+            {
+              "name": "result",
+              "type": "*",
+              "description": "Result when iftrue is true"
+            },
+            {
+              "name": "elseresult",
+              "type": "*",
+              "description": "Result when iftrue is false"
+            }
+          ],
+          "return": {
+            "type": "Boolean",
+            "desc": "result or elseresult depending on iftrue"
+          },
+          "inheritedFrom": "Cosmoz.TemplateHelperBehavior"
+        },
+        {
+          "name": "inArray",
+          "description": "Check if item exists in array",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-behaviors/cosmoz-templatehelper-behavior.html",
+            "start": {
+              "line": 52,
+              "column": 2
+            },
+            "end": {
+              "line": 54,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "item",
+              "type": "*",
+              "description": "The item to search for in the array"
+            },
+            {
+              "name": "array",
+              "type": "Array",
+              "description": "The array to search"
+            }
+          ],
+          "return": {
+            "type": "Boolean",
+            "desc": "true if found"
+          },
+          "inheritedFrom": "Cosmoz.TemplateHelperBehavior"
+        },
+        {
+          "name": "isEqual",
+          "description": "Check equality",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-behaviors/cosmoz-templatehelper-behavior.html",
+            "start": {
+              "line": 62,
+              "column": 2
+            },
+            "end": {
+              "line": 64,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "arg1",
+              "type": "*",
+              "description": "Object to compare"
+            },
+            {
+              "name": "arg2",
+              "type": "*",
+              "description": "Object to compare"
+            }
+          ],
+          "return": {
+            "type": "Boolean",
+            "desc": "true if arg1 and arg2 are equal"
+          },
+          "inheritedFrom": "Cosmoz.TemplateHelperBehavior"
+        },
+        {
+          "name": "isEmpty",
+          "description": "Check if variable is undefined, null, empty Array list,\nempty String or 0 number (like length).",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-behaviors/cosmoz-templatehelper-behavior.html",
+            "start": {
+              "line": 72,
+              "column": 2
+            },
+            "end": {
+              "line": 87,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "obj",
+              "type": "Object",
+              "description": "variable"
+            }
+          ],
+          "return": {
+            "type": "Boolean",
+            "desc": "true if \"empty\", false otherwise"
+          },
+          "inheritedFrom": "Cosmoz.TemplateHelperBehavior"
+        },
+        {
+          "name": "toFixed",
+          "description": "Helper for Number.toFixed(arg)",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-behaviors/cosmoz-templatehelper-behavior.html",
+            "start": {
+              "line": 95,
+              "column": 2
+            },
+            "end": {
+              "line": 97,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "number",
+              "type": "Number",
+              "description": "The number argument"
+            },
+            {
+              "name": "fixval",
+              "type": "Number",
+              "description": "The number of decimals"
+            }
+          ],
+          "return": {
+            "type": "String",
+            "desc": "The number converted to string keep only fixval number of decimals"
+          },
+          "inheritedFrom": "Cosmoz.TemplateHelperBehavior"
+        },
+        {
+          "name": "_argumentsToObject",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 18,
+              "column": 2
+            },
+            "end": {
+              "line": 21,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "args"
+            },
+            {
+              "name": "skipnum"
+            }
+          ],
+          "inheritedFrom": "Cosmoz.TranslatableBehavior"
+        },
+        {
+          "name": "_arrayToObject",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 23,
+              "column": 2
+            },
+            "end": {
+              "line": 37,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "array"
+            }
+          ],
+          "inheritedFrom": "Cosmoz.TranslatableBehavior"
+        },
+        {
+          "name": "_ensureInitialized",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 39,
+              "column": 2
+            },
+            "end": {
+              "line": 45,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "Cosmoz.TranslatableBehavior"
+        },
+        {
+          "name": "_",
+          "description": "Convenience method for `gettext`",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 52,
+              "column": 2
+            },
+            "end": {
+              "line": 59,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "key",
+              "type": "String",
+              "description": "Translation key"
+            }
+          ],
+          "return": {
+            "type": "String",
+            "desc": "Translated text"
+          },
+          "inheritedFrom": "Cosmoz.TranslatableBehavior"
+        },
+        {
+          "name": "gettext",
+          "description": "#### Basic functionality\n##### `_(string, t)`\n    <div>{{ _(‘My translation’, t) }}</div>\n\n#### Interpolation\n##### `_(string, [args], t)`\n    <div>{{ _(‘Hello {0}’, user.name, t) }}</div>",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 85,
+              "column": 2
+            },
+            "end": {
+              "line": 92,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "key",
+              "type": "String",
+              "description": "String to translate"
+            }
+          ],
+          "return": {
+            "type": "String",
+            "desc": "Translated string"
+          },
+          "inheritedFrom": "Cosmoz.TranslatableBehavior"
+        },
+        {
+          "name": "ngettext",
+          "description": "#### Plurals\n##### `ngettext(singular, plural, count, t)`\n    <div>{{ ngettext(‘My translation’,\n    \t\t‘My translations’, count, t) }}</div>\n\n#### Plurals with interpolation\n##### `ngettext(singular, plural, [count and other args], t)`\n    <div>{{ ngettext(‘My translation for “{1}”’,\n        \t‘My {0} translations for “{1}”’,\n        \tcount, ‘hello’, t) }}</div>\n_The first number-argument found will be used as ‘count’ to decide plural._",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 111,
+              "column": 2
+            },
+            "end": {
+              "line": 129,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "singular",
+              "type": "String",
+              "description": "Singular string"
+            },
+            {
+              "name": "plural",
+              "type": "String",
+              "description": "Plural string"
+            }
+          ],
+          "return": {
+            "type": "String",
+            "desc": "Translated string"
+          },
+          "inheritedFrom": "Cosmoz.TranslatableBehavior"
+        },
+        {
+          "name": "pgettext",
+          "description": "#### Context\n##### `pgettext(context, ‘text’, t)`\n    <div>{{ pgettext(‘Cancel Invoice’,\n    \t\t‘Cancel’, t) }}</div>\n\n#### Context with interpolation\n##### `pgettext(context, ‘text’, [args], t)`\n    <div>{{ pgettext(‘Cancel Invoice’, ‘Cancel {0}’,\n    \t\tdocument.type, t) }}</div>",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 146,
+              "column": 2
+            },
+            "end": {
+              "line": 154,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "context",
+              "type": "String",
+              "description": "Context string"
+            },
+            {
+              "name": "key",
+              "type": "String",
+              "description": "String to translate"
+            }
+          ],
+          "return": {
+            "type": "String",
+            "desc": "Translated string"
+          },
+          "inheritedFrom": "Cosmoz.TranslatableBehavior"
+        },
+        {
+          "name": "npgettext",
+          "description": "#### Plurals and context\n##### `npgettext(context, singular, plural, count, t)`\n    <div>{{ npgettext('Cancel invoice',\n    \t\t‘My cancellation’,\n    \t\t‘My {0} cancellations’,\n    \t\tcount, t) }}</div>\n\n#### Plurals and context with interpolation\n##### `npgettext(context, singular, plural, count, t)`\n    <div>{{ npgettext('Cancel invoice',\n    \t\t‘My {1} cancellation’,\n    \t\t‘My {0} {1} cancellations’,\n    \t\tcount, document.type, t) }}</div>",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 176,
+              "column": 2
+            },
+            "end": {
+              "line": 198,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "context",
+              "type": "String",
+              "description": "Context string"
+            },
+            {
+              "name": "singular",
+              "type": "String",
+              "description": "Singular string"
+            },
+            {
+              "name": "plural",
+              "type": "String",
+              "description": "Plural string"
+            }
+          ],
+          "return": {
+            "type": "String",
+            "desc": "Translated string"
+          },
+          "inheritedFrom": "Cosmoz.TranslatableBehavior"
+        },
+        {
           "name": "ready",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 80,
+              "line": 208,
               "column": 2
             },
             "end": {
-              "line": 82,
+              "line": 213,
               "column": 3
             }
           },
@@ -425,16 +4111,254 @@
           "params": []
         },
         {
+          "name": "nextImage",
+          "description": "Triggers the slide to the next image.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 221,
+              "column": 2
+            },
+            "end": {
+              "line": 223,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "previousImage",
+          "description": "Triggers the slide to the previous image.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 228,
+              "column": 2
+            },
+            "end": {
+              "line": 230,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "openFullscreen",
+          "description": "Opens the fullscreen overlay.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 235,
+              "column": 2
+            },
+            "end": {
+              "line": 248,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "attach",
+          "description": "Closes the detached window.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 253,
+              "column": 2
+            },
+            "end": {
+              "line": 260,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "detach",
+          "description": "Opens a detached window.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 265,
+              "column": 2
+            },
+            "end": {
+              "line": 293,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "zoomToggle",
+          "description": "Toggles between initial zoom level and 1.5x initial zoom level.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 298,
+              "column": 2
+            },
+            "end": {
+              "line": 309,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "_computeShowActions",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 313,
+              "column": 2
+            },
+            "end": {
+              "line": 316,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "show"
+            },
+            {
+              "name": "imagesLen"
+            },
+            {
+              "name": "height"
+            },
+            {
+              "name": "imgsMinLen",
+              "defaultValue": "1"
+            }
+          ]
+        },
+        {
+          "name": "_selectedItemChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 318,
+              "column": 2
+            },
+            "end": {
+              "line": 326,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "selectedItem"
+            }
+          ]
+        },
+        {
+          "name": "_getZoomIcon",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 328,
+              "column": 2
+            },
+            "end": {
+              "line": 330,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "zoomed"
+            }
+          ]
+        },
+        {
+          "name": "_isZoomed",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 332,
+              "column": 2
+            },
+            "end": {
+              "line": 335,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "viewer"
+            },
+            {
+              "name": "zoom"
+            }
+          ]
+        },
+        {
+          "name": "_initImgPanZoomInstance",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 337,
+              "column": 2
+            },
+            "end": {
+              "line": 370,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "imgPanZoom"
+            }
+          ]
+        },
+        {
           "name": "_computeCurrentImage",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 84,
+              "line": 372,
               "column": 2
             },
             "end": {
-              "line": 86,
+              "line": 377,
               "column": 3
             }
           },
@@ -449,23 +4373,26 @@
           ]
         },
         {
-          "name": "_computeResolvedImages",
+          "name": "_computeSelectedImageNumber",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 88,
+              "line": 379,
               "column": 2
             },
             "end": {
-              "line": 90,
+              "line": 384,
               "column": 3
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "images"
+              "name": "index"
+            },
+            {
+              "name": "total"
             }
           ]
         },
@@ -475,54 +4402,16 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 92,
+              "line": 386,
               "column": 2
             },
             "end": {
-              "line": 94,
+              "line": 391,
               "column": 3
             }
           },
           "metadata": {},
           "params": []
-        },
-        {
-          "name": "_currentImageChanged",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 96,
-              "column": 2
-            },
-            "end": {
-              "line": 98,
-              "column": 3
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "_computePage",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 100,
-              "column": 2
-            },
-            "end": {
-              "line": 102,
-              "column": 3
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "index"
-            }
-          ]
         },
         {
           "name": "_detachedChanged",
@@ -530,11 +4419,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 104,
+              "line": 393,
               "column": 2
             },
             "end": {
-              "line": 106,
+              "line": 395,
               "column": 3
             }
           },
@@ -551,77 +4440,70 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 108,
+              "line": 397,
               "column": 2
             },
             "end": {
-              "line": 113,
+              "line": 413,
               "column": 3
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "newlist"
+              "name": "images"
             }
           ]
         },
         {
-          "name": "isFirst",
+          "name": "_close",
           "description": "",
-          "privacy": "public",
+          "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 115,
+              "line": 415,
               "column": 2
             },
             "end": {
-              "line": 117,
+              "line": 417,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_imageLoadedChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 419,
+              "column": 2
+            },
+            "end": {
+              "line": 427,
               "column": 3
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "index"
+              "name": "e"
             }
           ]
         },
         {
-          "name": "isLast",
+          "name": "_scrollHandler",
           "description": "",
-          "privacy": "public",
+          "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 119,
+              "line": 429,
               "column": 2
             },
             "end": {
-              "line": 121,
-              "column": 3
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "index"
-            },
-            {
-              "name": "array"
-            }
-          ]
-        },
-        {
-          "name": "nextImage",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 123,
-              "column": 2
-            },
-            "end": {
-              "line": 128,
+              "line": 438,
               "column": 3
             }
           },
@@ -629,128 +4511,16 @@
           "params": []
         },
         {
-          "name": "previousImage",
+          "name": "_scrollToPercent",
           "description": "",
-          "privacy": "public",
+          "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 130,
+              "line": 440,
               "column": 2
             },
             "end": {
-              "line": 135,
-              "column": 3
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "onImageLoad",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 137,
-              "column": 2
-            },
-            "end": {
-              "line": 142,
-              "column": 3
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "attach",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 144,
-              "column": 2
-            },
-            "end": {
-              "line": 151,
-              "column": 3
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "detach",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 153,
-              "column": 2
-            },
-            "end": {
-              "line": 199,
-              "column": 3
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "modalImageViewer",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 201,
-              "column": 2
-            },
-            "end": {
-              "line": 219,
-              "column": 3
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "element"
-            },
-            {
-              "name": "items"
-            },
-            {
-              "name": "index"
-            }
-          ]
-        },
-        {
-          "name": "scrollHandler",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 221,
-              "column": 2
-            },
-            "end": {
-              "line": 230,
-              "column": 3
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "scrollToPercent",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 232,
-              "column": 2
-            },
-            "end": {
-              "line": 239,
+              "line": 447,
               "column": 3
             }
           },
@@ -768,16 +4538,16 @@
           ]
         },
         {
-          "name": "showInvoiceImage",
+          "name": "_getDetachedContent",
           "description": "",
-          "privacy": "public",
+          "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 241,
+              "line": 449,
               "column": 2
             },
             "end": {
-              "line": 251,
+              "line": 682,
               "column": 3
             }
           },
@@ -786,7 +4556,12 @@
         }
       ],
       "staticMethods": [],
-      "demos": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
       "metadata": {},
       "sourceRange": {
         "start": {
@@ -794,7 +4569,7 @@
           "column": 9
         },
         "end": {
-          "line": 252,
+          "line": 683,
           "column": 2
         }
       },
@@ -802,15 +4577,33 @@
       "superclass": "HTMLElement",
       "attributes": [
         {
-          "name": "current-image-path",
+          "name": "t",
           "description": "",
           "sourceRange": {
+            "file": "bower_components/cosmoz-i18next/cosmoz-i18next.js",
             "start": {
-              "line": 13,
+              "line": 10,
               "column": 3
             },
             "end": {
-              "line": 16,
+              "line": 15,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "Object",
+          "inheritedFrom": "Cosmoz.TranslatableBehavior"
+        },
+        {
+          "name": "current-image",
+          "description": "The url of the currenly selected image.",
+          "sourceRange": {
+            "start": {
+              "line": 18,
+              "column": 3
+            },
+            "end": {
+              "line": 22,
               "column": 4
             }
           },
@@ -818,31 +4611,15 @@
           "type": "string"
         },
         {
-          "name": "current-image",
-          "description": "",
-          "sourceRange": {
-            "start": {
-              "line": 17,
-              "column": 3
-            },
-            "end": {
-              "line": 21,
-              "column": 4
-            }
-          },
-          "metadata": {},
-          "type": "Object"
-        },
-        {
           "name": "current-image-index",
-          "description": "",
+          "description": "The index in the images array of the currently selected image.",
           "sourceRange": {
             "start": {
-              "line": 22,
+              "line": 26,
               "column": 3
             },
             "end": {
-              "line": 24,
+              "line": 29,
               "column": 4
             }
           },
@@ -850,15 +4627,15 @@
           "type": "number"
         },
         {
-          "name": "current-page",
-          "description": "",
+          "name": "selected-image-number",
+          "description": "Like currentImageIndex but starts at 1 instead of 0.",
           "sourceRange": {
             "start": {
-              "line": 25,
+              "line": 33,
               "column": 3
             },
             "end": {
-              "line": 28,
+              "line": 37,
               "column": 4
             }
           },
@@ -867,30 +4644,14 @@
         },
         {
           "name": "is-detached",
-          "description": "",
+          "description": "If true, the detached window is open.",
           "sourceRange": {
             "start": {
-              "line": 29,
+              "line": 41,
               "column": 3
             },
             "end": {
-              "line": 35,
-              "column": 4
-            }
-          },
-          "metadata": {},
-          "type": "boolean"
-        },
-        {
-          "name": "image-loaded",
-          "description": "",
-          "sourceRange": {
-            "start": {
-              "line": 36,
-              "column": 3
-            },
-            "end": {
-              "line": 39,
+              "line": 47,
               "column": 4
             }
           },
@@ -899,14 +4660,14 @@
         },
         {
           "name": "images",
-          "description": "",
+          "description": "The images array.",
           "sourceRange": {
             "start": {
-              "line": 40,
+              "line": 51,
               "column": 3
             },
             "end": {
-              "line": 43,
+              "line": 57,
               "column": 4
             }
           },
@@ -914,31 +4675,15 @@
           "type": "Array"
         },
         {
-          "name": "no-detach",
-          "description": "Disable button to detach image",
-          "sourceRange": {
-            "start": {
-              "line": 51,
-              "column": 3
-            },
-            "end": {
-              "line": 54,
-              "column": 4
-            }
-          },
-          "metadata": {},
-          "type": "boolean"
-        },
-        {
           "name": "scroll-percent",
-          "description": "",
+          "description": "The percent the view should scroll down after the image got loaded.",
           "sourceRange": {
             "start": {
-              "line": 55,
+              "line": 61,
               "column": 3
             },
             "end": {
-              "line": 58,
+              "line": 64,
               "column": 4
             }
           },
@@ -946,23 +4691,217 @@
           "type": "number"
         },
         {
-          "name": "src",
+          "name": "sizing",
           "description": "",
           "sourceRange": {
             "start": {
-              "line": 59,
+              "line": 66,
               "column": 3
             },
             "end": {
-              "line": 62,
+              "line": 68,
               "column": 4
             }
           },
           "metadata": {},
           "type": "string"
+        },
+        {
+          "name": "image-loaded",
+          "description": "If true, the currently selected image is fully loaded.",
+          "sourceRange": {
+            "start": {
+              "line": 72,
+              "column": 3
+            },
+            "end": {
+              "line": 75,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "selected-item",
+          "description": "The selected slide in the carousel",
+          "sourceRange": {
+            "start": {
+              "line": 79,
+              "column": 3
+            },
+            "end": {
+              "line": 82,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "Object"
+        },
+        {
+          "name": "is-zoomed",
+          "description": "If true, the current image is zoomed.",
+          "sourceRange": {
+            "start": {
+              "line": 86,
+              "column": 3
+            },
+            "end": {
+              "line": 89,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "show-nav",
+          "description": "If true, navigation next/prev buttons are visible.",
+          "sourceRange": {
+            "start": {
+              "line": 93,
+              "column": 3
+            },
+            "end": {
+              "line": 96,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "show-dots",
+          "description": "If true, pagination dots are visible.",
+          "sourceRange": {
+            "start": {
+              "line": 100,
+              "column": 3
+            },
+            "end": {
+              "line": 103,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "show-zoom",
+          "description": "If true, a zoom button is visible.",
+          "sourceRange": {
+            "start": {
+              "line": 107,
+              "column": 3
+            },
+            "end": {
+              "line": 110,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "show-fullscreen",
+          "description": "If true, a fullscreen button is visible.",
+          "sourceRange": {
+            "start": {
+              "line": 114,
+              "column": 3
+            },
+            "end": {
+              "line": 117,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "show-detach",
+          "description": "If true, a detach button is visible.",
+          "sourceRange": {
+            "start": {
+              "line": 121,
+              "column": 3
+            },
+            "end": {
+              "line": 124,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "show-close",
+          "description": "If true, a close icon is visible. Useful if displayed as an overlay.",
+          "sourceRange": {
+            "start": {
+              "line": 128,
+              "column": 3
+            },
+            "end": {
+              "line": 131,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "show-page-number",
+          "description": "If true, the current page number (e.g. 2/5) is visible.",
+          "sourceRange": {
+            "start": {
+              "line": 135,
+              "column": 3
+            },
+            "end": {
+              "line": 138,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "loop",
+          "description": "If true, clicking on next when the last image is selected,\nwill show the first image again.",
+          "sourceRange": {
+            "start": {
+              "line": 143,
+              "column": 3
+            },
+            "end": {
+              "line": 146,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
         }
       ],
       "events": [
+        {
+          "type": "CustomEvent",
+          "name": "current-image-changed",
+          "description": "Fired when the `currentImage` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "current-image-index-changed",
+          "description": "Fired when the `currentImageIndex` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "selected-image-number-changed",
+          "description": "Fired when the `selectedImageNumber` property changes.",
+          "metadata": {}
+        },
         {
           "type": "CustomEvent",
           "name": "is-detached-changed",
@@ -974,295 +4913,14 @@
           "name": "scroll-percent-changed",
           "description": "Fired when the `scrollPercent` property changes.",
           "metadata": {}
-        },
-        {
-          "type": "CustomEvent",
-          "name": "src-changed",
-          "description": "Fired when the `src` property changes.",
-          "metadata": {}
         }
       ],
-      "styling": {
-        "cssVariables": [],
-        "selectors": []
-      },
-      "slots": [
-        {
-          "description": "",
-          "name": "",
-          "range": {
-            "file": "cosmoz-image-viewer.html",
-            "start": {
-              "line": 98,
-              "column": 3
-            },
-            "end": {
-              "line": 98,
-              "column": 16
-            }
-          }
-        }
-      ],
-      "tagname": "cosmoz-image-viewer"
-    },
-    {
-      "description": "global PhotoSwipe, PhotoSwipeUI_Default",
-      "summary": "",
-      "path": "cosmoz-swiper.html",
-      "properties": [
-        {
-          "name": "_pswp",
-          "type": "Object",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 15,
-              "column": 4
-            },
-            "end": {
-              "line": 17,
-              "column": 5
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "images",
-          "type": "Array",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 19,
-              "column": 4
-            },
-            "end": {
-              "line": 21,
-              "column": 5
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "startIndex",
-          "type": "number",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 23,
-              "column": 4
-            },
-            "end": {
-              "line": 26,
-              "column": 5
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "0"
-        },
-        {
-          "name": "photoSwipe",
-          "type": "Object",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 28,
-              "column": 4
-            },
-            "end": {
-              "line": 30,
-              "column": 5
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        }
-      ],
-      "methods": [
-        {
-          "name": "init",
-          "description": "Used to manually init this element.\nIf element is opened in detached window, attached() is not getting called.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 41,
-              "column": 3
-            },
-            "end": {
-              "line": 43,
-              "column": 4
-            }
-          },
-          "metadata": {},
-          "params": [],
-          "return": {
-            "type": "undefined"
-          }
-        },
-        {
-          "name": "_debounceInit",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 45,
-              "column": 3
-            },
-            "end": {
-              "line": 47,
-              "column": 4
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "images"
-            },
-            {
-              "name": "_pswp"
-            },
-            {
-              "name": "startIndex"
-            }
-          ]
-        },
-        {
-          "name": "_init",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 49,
-              "column": 3
-            },
-            "end": {
-              "line": 63,
-              "column": 4
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "images"
-            },
-            {
-              "name": "_pswp"
-            },
-            {
-              "name": "startIndex"
-            }
-          ]
-        },
-        {
-          "name": "_initPhotoSwipe",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 64,
-              "column": 3
-            },
-            "end": {
-              "line": 86,
-              "column": 4
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "element"
-            },
-            {
-              "name": "items"
-            },
-            {
-              "name": "startIndex"
-            }
-          ]
-        }
-      ],
-      "staticMethods": [],
-      "demos": [],
-      "metadata": {},
-      "sourceRange": {
-        "start": {
-          "line": 11,
-          "column": 10
-        },
-        "end": {
-          "line": 87,
-          "column": 3
-        }
-      },
-      "privacy": "public",
-      "superclass": "HTMLElement",
-      "attributes": [
-        {
-          "name": "images",
-          "description": "",
-          "sourceRange": {
-            "start": {
-              "line": 19,
-              "column": 4
-            },
-            "end": {
-              "line": 21,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "type": "Array"
-        },
-        {
-          "name": "start-index",
-          "description": "",
-          "sourceRange": {
-            "start": {
-              "line": 23,
-              "column": 4
-            },
-            "end": {
-              "line": 26,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "photo-swipe",
-          "description": "",
-          "sourceRange": {
-            "start": {
-              "line": 28,
-              "column": 4
-            },
-            "end": {
-              "line": 30,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "type": "Object"
-        }
-      ],
-      "events": [],
       "styling": {
         "cssVariables": [],
         "selectors": []
       },
       "slots": [],
-      "tagname": "cosmoz-swiper"
+      "tagname": "cosmoz-image-viewer"
     }
   ]
 }
