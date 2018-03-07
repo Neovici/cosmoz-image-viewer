@@ -446,6 +446,7 @@
 
 			this._scroller.scrollTop = topPx;
 		},
+		/* eslint-disable no-useless-escape */
 
 		_getDetachedContent() {
 			return `
@@ -681,5 +682,6 @@
 			</html>
 			`;
 		}
+		/* eslint-enable no-useless-escape */
 	});
 }());
