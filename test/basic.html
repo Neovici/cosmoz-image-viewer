@@ -5,8 +5,12 @@
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 	<title>cosmoz-image-viewer basic test</title>
 
-	<script src="../../web-component-tester/browser.js"></script>
 	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+	<script src="../../web-component-tester/browser.js"></script>
+	<script src="../../test-fixture/test-fixture-mocha.js"></script>
+
+	<link rel="import" href="../../test-fixture/test-fixture.html">
+	<link rel="import" href="../../iron-test-helpers/iron-test-helpers.html">
 
 	<link rel="import" href="../cosmoz-image-viewer.html">
 </head>
@@ -16,26 +20,141 @@
 			<cosmoz-image-viewer></cosmoz-image-viewer>
 		</template>
 	</test-fixture>
-
+	<test-fixture id="cosmozImageViewerOverlay">
+		<template>
+			<cosmoz-image-viewer-overlay></cosmoz-image-viewer-overlay>
+		</template>
+	</test-fixture>
 
 	<script>
+	/*global sinon chai*/
 	(function () {
 		'use strict';
 
+		sinon.assert.expose(chai.assert, { prefix: '' });
+
 		suite('cosmoz-image-viewer', function () {
 			var imageViewer;
-	
-			setup(function () {
+
+			setup(function (done) {
 				imageViewer = fixture('cosmozImageViewer');
 				imageViewer.images = [
-					'../demo/images/stockholm.jpg',
-					'../demo/images/strasbourg.jpg'
+					'../../demo/images/stockholm.jpg',
+					'../../demo/images/strasbourg.jpg',
+					'../../demo/images/cosmos1.jpg'
 				];
+
+				Polymer.Base.async(function () {
+					done();
+				}, 90);
 			});
 
 			test('instantiating the element works', function () {
 				assert.equal(imageViewer.is, 'cosmoz-image-viewer');
 			});
+
+			test('nextImage updates selected', function (done){
+				assert.equal(imageViewer.selectedImageNumber, 1);
+				imageViewer.nextImage();
+				Polymer.Base.async(function (){
+					assert.equal(imageViewer.selectedImageNumber, 2);
+					done();
+				}, 50);
+			});
+
+			test('previousImage updates selected', function (done){
+				imageViewer.nextImage();
+				assert.equal(imageViewer.selectedImageNumber, 2);
+				imageViewer.nextImage();
+				assert.equal(imageViewer.selectedImageNumber, 3);
+				imageViewer.previousImage();
+				Polymer.Base.async(function (){
+					assert.equal(imageViewer.selectedImageNumber, 2);
+					done();
+				}, 50);
+			});
+
+			test('currentImage is updated', function () {
+				assert.equal(imageViewer.currentImage, '../../demo/images/stockholm.jpg');
+				imageViewer.nextImage();
+				assert.equal(imageViewer.currentImage, '../../demo/images/strasbourg.jpg');
+			});
+
+			test('_computeCurrentImage does not update currentImage if no images', function () {
+				assert.equal(imageViewer.currentImage, '../../demo/images/stockholm.jpg');
+				imageViewer._computeCurrentImage(2, null);
+				assert.equal(imageViewer.currentImage, '../../demo/images/stockholm.jpg');
+			});
+
+			test('openFullScreen creates dialog', function (done){
+				imageViewer.openFullscreen();
+
+				let dialog = imageViewer.imageOverlay;
+				assert.equal(dialog.is, 'cosmoz-image-viewer-overlay');
+				assert.isTrue(dialog.opened);
+				assert.equal(dialog.id, 'cosmoz-image-viewer-overlay');
+				assert.equal(dialog.images.length, 3);
+				assert.equal(dialog.images, imageViewer.images);
+				done();
+			});
+
+			test('zoomToogle is called with double-click', function (done) {
+				let event = new MouseEvent('dblclick', {
+						'bubbles': true,
+						'cancelable': true
+					}),
+
+					items = imageViewer.$.carousel.$.carousel,
+					viewer = items.querySelector('#container');
+				viewer.items[1].dispatchEvent(event);
+
+				Polymer.Base.async(function (){
+					console.log(imageViewer.isZoomed);
+					done();
+				}, 100);
+
+			});
+
+		});
+
+		suite('cosmoz-image-viewer-overlay', function () {
+			var overlay;
+
+			setup(function (done) {
+				overlay = fixture('cosmozImageViewerOverlay');
+				overlay.images = [
+					'../../demo/images/stockholm.jpg',
+					'../../demo/images/strasbourg.jpg',
+					'../../demo/images/cosmos1.jpg'
+				];
+
+				Polymer.Base.async(function () {
+					done();
+				}, 90);
+			});
+
+			test('_trackHandler does not call close if detail state is not end', function () {
+				let event = new CustomEvent('testEvent', {
+						detail: {
+							'dy': 1000
+						}}),
+					spyClose = sinon.spy(overlay, 'close');
+
+				overlay._trackHandler(event);
+				assert.notCalled(spyClose);
+			});
+			test('_trackHandler does call close', function (){
+				let event = new CustomEvent('testEvent', {
+						detail: {
+							'state': 'end',
+							'dy': 1000
+						}}),
+					spyClose = sinon.spy(overlay, 'close');
+
+				overlay._trackHandler(event);
+				assert.calledOnce(spyClose);
+			});
+
 		});
 	}());
 
