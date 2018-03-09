@@ -2,6 +2,7 @@
 (function () {
 
 	'use strict';
+	let imageOverlay;
 
 	Polymer({
 		behaviors: [
@@ -229,20 +230,24 @@
 		previousImage() {
 			this.$.carousel.prev();
 		},
+
+		_createImageOverlay() {
+			let dialog = document.createElement('cosmoz-image-viewer-overlay');
+			dialog.id = 'cosmoz-image-viewer-overlay';
+			dialog.noCancelOnOutsideClick = true;
+			dialog.loop = this.loop;
+			dialog.showDetach = this.showDetach;
+			document.body.appendChild(dialog);
+			this.imageOverlay = imageOverlay = dialog;
+			return dialog;
+		},
+
 		/**
 		 * Opens the fullscreen overlay.
 		 * @returns {undefined}
 		 */
 		openFullscreen() {
-			let dialog = document.querySelector('#cosmoz-image-viewer-overlay');
-			if (!dialog) {
-				dialog = document.createElement('cosmoz-image-viewer-overlay');
-				dialog.id = 'cosmoz-image-viewer-overlay';
-				dialog.noCancelOnOutsideClick = true;
-				dialog.loop = this.loop;
-				dialog.showDetach = this.showDetach;
-				document.body.appendChild(dialog);
-			}
+			let dialog = imageOverlay || this._createImageOverlay();
 			dialog.images = this.images;
 			dialog.currentImageIndex = this.currentImageIndex;
 			dialog.open();
