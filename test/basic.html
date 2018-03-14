@@ -90,7 +90,9 @@
 				imageViewer.openFullscreen();
 
 				let dialog = imageViewer.imageOverlay;
+				assert.isDefined(dialog, 'Expected openFullscreen to create dialog if it was undefined');
 				assert.equal(dialog.is, 'cosmoz-image-viewer-overlay');
+				assert.isFunction(dialog.open);
 				assert.isTrue(dialog.opened);
 				assert.equal(dialog.id, 'cosmoz-image-viewer-overlay');
 				assert.equal(dialog.images.length, 3);
