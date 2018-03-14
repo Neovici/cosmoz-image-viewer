@@ -17,7 +17,7 @@
 <body>
 	<test-fixture id="cosmozImageViewer">
 		<template>
-			<cosmoz-image-viewer></cosmoz-image-viewer>
+			<cosmoz-image-viewer show-zoom></cosmoz-image-viewer>
 		</template>
 	</test-fixture>
 	<test-fixture id="cosmozImageViewerOverlay">
@@ -101,7 +101,7 @@
 			});
 
 			test('zoomToogle is called with double-click', function (done) {
-				let event = new MouseEvent('dblclick', {
+				const event = new MouseEvent('dblclick', {
 						'bubbles': true,
 						'cancelable': true
 					}),
@@ -117,6 +117,12 @@
 
 			});
 
+			test('_selectedItemChanged handles undefined', () => {
+				const selected = imageViewer.selectedItem;
+				imageViewer._selectedItemChanged();
+				assert.isDefined(imageViewer.selectedItem);
+				assert.equal(selected, imageViewer.selectedItem);
+			});
 		});
 
 		suite('cosmoz-image-viewer-overlay', function () {
