@@ -1,10 +1,10 @@
 language: node_js
-node_js: 6
+node_js: "lts/*"
 dist: trusty
 sudo: required
 env:
   global:
-    - CC_TEST_REPORTER_ID=
+    - CC_TEST_REPORTER_ID=48833ad27a301e5714aa1de8de7f8b8f0a662c12aceefab9cbc37d0a7e888a0e
 addons:
   firefox: latest
   apt:
