@@ -423,6 +423,9 @@
 		},
 
 		_isZoomed(viewer, zoom) {
+			if (viewer === null){
+				return;
+			}
 			const initialZoomLevel = viewer.viewport.getHomeZoom();
 			return zoom > initialZoomLevel * 1.05;
 		},
