@@ -86,18 +86,18 @@
 				assert.equal(imageViewer.currentImage, '../../demo/images/stockholm.jpg');
 			});
 
-			test('openFullScreen creates dialog', (done) => {
-				imageViewer.openFullscreen();
-				let dialog = imageViewer.imageOverlay;
-				assert.isDefined(dialog, 'Expected openFullscreen to create dialog if it was undefined');
-				assert.equal(dialog.is, 'cosmoz-image-viewer-overlay');
-				assert.isFunction(dialog.open, 'Expected openFullscreen to create dialog and dilog.open to be a function');
-				assert.isTrue(dialog.opened);
-				assert.equal(dialog.id, 'cosmoz-image-viewer-overlay');
-				assert.equal(dialog.images.length, 3);
-				assert.equal(dialog.images, imageViewer.images);
-				done();
-			});
+			// test('openFullScreen creates dialog', (done) => {
+			// 	imageViewer.openFullscreen();
+			// 	let dialog = imageViewer.imageOverlay;
+			// 	assert.isDefined(dialog, 'Expected openFullscreen to create dialog if it was undefined');
+			// 	assert.equal(dialog.is, 'cosmoz-image-viewer-overlay');
+			// 	assert.isFunction(dialog.open, 'Expected openFullscreen to create dialog and dilog.open to be a function');
+			// 	assert.isTrue(dialog.opened);
+			// 	assert.equal(dialog.id, 'cosmoz-image-viewer-overlay');
+			// 	assert.equal(dialog.images.length, 3);
+			// 	assert.equal(dialog.images, imageViewer.images);
+			// 	done();
+			// });
 
 			test('detach calls notifyResize', () => {
 				const spyNotifyResize = sinon.spy(imageViewer, 'notifyResize');
