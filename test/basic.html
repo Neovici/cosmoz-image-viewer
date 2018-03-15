@@ -123,23 +123,6 @@
 				assert.equal(imageViewer.isZoomed, zoomed);
 			});
 
-			test('zoomToogle is called with double-click', (done) => {
-				const event = new MouseEvent('dblclick', {
-						'bubbles': true,
-						'cancelable': true
-					}),
-
-					items = imageViewer.$.carousel.$.carousel,
-					viewer = items.querySelector('#container');
-				viewer.items[1].dispatchEvent(event);
-
-				Polymer.Base.async(() => {
-					console.log(imageViewer.isZoomed);
-					done();
-				}, 100);
-
-			});
-
 			test('zoomToogle resets zoom', (done) => {
 				Polymer.Base.async(() => {
 					const el = imageViewer.$.carousel.selectedItem.querySelector('img-pan-zoom'),
