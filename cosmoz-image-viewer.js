@@ -238,7 +238,7 @@
 			dialog.loop = this.loop;
 			dialog.showDetach = this.showDetach;
 			document.body.appendChild(dialog);
-			this.imageOverlay = imageOverlay = dialog;
+			imageOverlay = dialog;
 			return dialog;
 		},
 
