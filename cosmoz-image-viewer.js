@@ -218,6 +218,9 @@
 
 		detached() {
 			this.removeEventListener('dblclick', this._dblClickListner);
+			this.cancelDebouncer('updateScrollPercent');
+			this.cancelDebouncer('elementHeight');
+			this.cancelDebouncer('setResolvedImages');
 		},
 
 		/** PUBLIC */
