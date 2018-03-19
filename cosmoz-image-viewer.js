@@ -209,9 +209,15 @@
 
 		ready() {
 			this.set('_scroller', this.$.imageContainer);
-			this.addEventListener('dblclick', () => {
-				this.zoomToggle();
-			});
+			this._dblClickListner = this.zoomToggle.bind(this);
+		},
+
+		attached() {
+			this.addEventListener('dblclick', this._dblClickListner);
+		},
+
+		detached() {
+			this.removeEventListener('dblclick', this._dblClickListner);
 		},
 
 		/** PUBLIC */
