@@ -257,8 +257,8 @@
 		 * @returns {undefined}
 		 */
 		attach() {
-			const sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
-				sharedWindowInstance = sharedWindow.byKey('detachedWindow');
+			const ironMeta = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
+				sharedWindowInstance = ironMeta.byKey('detachedWindow');
 
 			if (sharedWindowInstance) {
 				sharedWindowInstance.close();
@@ -269,19 +269,32 @@
 		 * @returns {undefined}
 		 */
 		detach() {
-			const sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
-				sharedWindowInstance = sharedWindow.byKey('detachedWindow');
+			const ironMeta = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
+				sharedWindowInstance = ironMeta.byKey('detachedWindow');
 
 			if (sharedWindowInstance) {
-				window.open(undefined, 'OCR', 'height=700,width=800');
+				sharedWindowInstance.addEventListener('instanceupdate', (e) => {
+					if (e.detail === this) {
+						this._setIsDetached(true);
+						return;
+					}
+					this._setIsDetached(false);
+				});
+				sharedWindowInstance.open(undefined, 'OCR', 'height=700,width=800');
 				sharedWindowInstance.setImages(this._resolvedImages, this.currentImageIndex);
+				sharedWindowInstance.dispatchEvent(new CustomEvent('instanceupdate', {detail: this}));
 				return;
 			}
-
-			let w = window.open(undefined, 'OCR', 'height=700,width=800');
-			w.document.write(this._getDetachedContent());
-			w.document.close();
-			w.document.title = this._('Cosmoz Image Viewer');
+			// Call load() manually in case window already exists and onload event already fired.
+			let w = window.open('javascript:load()', 'OCR', 'height=700,width=800');
+			// If window name=OCR already exists, don't override its content.
+			// This happens if e.g. cosmoz-image-viewer instance gets reloaded
+			// and therefore lost the reference to `sharedWindowInstance`.
+			if (!w.document.body.querySelector('#image')) {
+				w.document.write(this._getDetachedContent());
+				w.document.close();
+				w.document.title = this._('Cosmoz Image Viewer');
+			}
 
 			w.addEventListener('ready', (e) => {
 				e.currentTarget.setImages(this._resolvedImages, this.currentImageIndex);
@@ -290,11 +303,19 @@
 			w.addEventListener('beforeunload', () => {
 				this._setIsDetached(false);
 				this.notifyResize();
-				sharedWindow.value = undefined;
+				ironMeta.value = undefined;
 			});
 
-			this._setIsDetached(true);
-			sharedWindow.value = w;
+			w.addEventListener('instanceupdate', (e) => {
+				if (e.detail === this) {
+					this._setIsDetached(true);
+					return;
+				}
+				this._setIsDetached(false);
+			});
+
+			w.dispatchEvent(new CustomEvent('instanceupdate', {detail: this}));
+			ironMeta.value = w;
 			this.notifyResize();
 		},
 		/**
@@ -572,7 +593,7 @@
 						}
 					</style>
 				</head>
-				<body>
+				<body onload="load()">
 					<img id="image" class="hide-on-print">
 					<div id="printContainer"></div>
 					<div class="actions hide-on-print">
@@ -604,14 +625,16 @@
 					</div>
 					<script>
 						/*eslint no-unused-vars: 0*/
-						let img,
-							images,
+						let images,
 							currentImageIndex = 0;
 
-						const load = () => {
-								img = document.querySelector('#image');
-								window.dispatchEvent(new Event('ready', { bubbles: true }));
+						const
+							img = document.querySelector('#image'),
+
+							load = () =>  {
+								dispatchEvent(new Event('ready', { bubbles: true }));
 							},
+
 							next = () => {
 								if (currentImageIndex === images.length - 1) {
 									return;
@@ -619,6 +642,7 @@
 								currentImageIndex++;
 								img.src = images[currentImageIndex];
 							},
+
 							prev = () => {
 								if (currentImageIndex === 0) {
 									return;
@@ -658,6 +682,7 @@
 									printContainer.innerHTML = '';
 								});
 							},
+
 							_printIfLoaded = (imgs) => {
 								return new Promise((resolve, reject) => {
 									setTimeout(() => {
@@ -670,11 +695,12 @@
 									}, 100);
 								});
 							};
-						window.onload = load;
-						window.setImages = (array, startIndex = 0) => {
+
+						setImages = (array, startIndex = 0) => {
 							const imageUrl = array[startIndex],
 								actions = document.querySelector('.actions'),
 								navs = document.querySelectorAll('.nav');
+
 							images = array;
 							img.src = imageUrl;
 
@@ -682,6 +708,7 @@
 							actions.hidden = images.length === 0 ? true : false;
 							navs.forEach(n => n.hidden = images.length > 1 ? false : true);
 						};
+
 					</script>
 				</body>
 			</html>

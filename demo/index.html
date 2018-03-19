@@ -10,12 +10,17 @@
 
 		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html" />
 		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html" />
-
+		<link rel="import" href="../../cosmoz-data-nav/cosmoz-data-nav.html">
 
 		<link rel="import" href="../cosmoz-image-viewer.html" />
 
 		<custom-style>
 			<style is="custom-style" include="demo-pages-shared-styles iron-flex">
+				cosmoz-data-nav {
+					display: block;
+					height: 600px;
+					position: relative;
+				}
 			</style>
 		</custom-style>
 
@@ -27,7 +32,7 @@
 				<template>
 					<dom-bind class="scope"><!-- for Polymer 2 -->
 						<template is="dom-bind" class="scope"><!-- for Polymer 1 -->
-							<cosmoz-image-viewer
+							<cosmoz-image-viewer id="first"
 								images="[[images]]"
 								show-nav loop show-fullscreen show-detach show-page-number>
 							</cosmoz-image-viewer>
@@ -35,6 +40,7 @@
 					</dom-bind>
 				</template>
 			</demo-snippet>
+
 			<h3>Zooming <code>cosmoz-image-viewer</code>.</h3>
 			<demo-snippet>
 				<template>
@@ -49,10 +55,35 @@
 									}
 								</style>
 							</custom-style>
-							<cosmoz-image-viewer class="viewer"
+							<cosmoz-image-viewer class="viewer" id="second"
 								images="[[images]]"
 								show-nav loop show-fullscreen show-detach show-zoom>
 							</cosmoz-image-viewer>
+						</template>
+					</dom-bind>
+				</template>
+			</demo-snippet>
+
+			<h3><code>cosmoz-image-viewer</code> via <code>cosmoz-data-nav</code></h3>
+			<demo-snippet>
+				<template>
+					<dom-bind class="scope data-nav"><!-- for Polymer 2 -->
+						<template is="dom-bind" class="scope data-nav"><!-- for Polymer 1 -->
+							<cosmoz-data-nav index-as="index" item-as="item" items="[[items]]" on-need-data="onNeedData">
+									<template>
+										<div class="fit layout vertical" style$="background-color: {{ computeColor(index) }}">
+											<div>
+												<paper-icon-button slot="actions" disabled$="[[ prevDisabled ]]" icon="chevron-left" cosmoz-data-nav-select="-1"></paper-icon-button>
+												<span>[[index]]</span>
+												<paper-icon-button slot="actions" disabled$="[[ nextDisabled ]]" icon="chevron-right" cosmoz-data-nav-select="+1"></paper-icon-button>
+											</div>
+											<cosmoz-image-viewer id$="[[index]]"
+												images="[[images]]"
+												show-nav loop show-detach>
+											</cosmoz-image-viewer>
+										</div>
+									</template>
+								</cosmoz-data-nav>
 						</template>
 					</dom-bind>
 				</template>
@@ -65,42 +96,24 @@
 				var images = [
 					'demo/images/stockholm.jpg',
 					'demo/images/a_size.png',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg',
-					'demo/images/strasbourg.jpg',
-					'demo/images/stockholm.jpg'
-				];
+				].concat(...Array.from(new Array(30), (_, i) => {
+					return i % 2 === 0 ? 'demo/images/stockholm.jpg' : 'demo/images/strasbourg.jpg';
+				}));
 				document.querySelectorAll('.scope').forEach(s => s.images = images);
+
+				// cosmoz-data-nav
+				document.querySelectorAll('.data-nav').forEach(d => {
+					d.onNeedData = function (event, detail) {
+						setTimeout(() => {
+							event.target.setItemById(detail.id, { id: detail.id });
+						}, 2000);
+						return { id: detail.id };
+					};
+					d.computeColor = function () {
+						return '#' + Math.random().toString(16).slice(-3);
+					};
+					d.items = Array.from(new Array(5), (_, i) => i.toString());
+				});
 			});
 		})();
 		</script>
