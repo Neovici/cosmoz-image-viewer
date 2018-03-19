@@ -298,7 +298,7 @@
 		},
 
 		_createImageOverlay() {
-			let dialog = document.createElement('cosmoz-image-viewer-overlay');
+			const dialog = document.createElement('cosmoz-image-viewer-overlay');
 			dialog.id = 'cosmoz-image-viewer-overlay';
 			dialog.noCancelOnOutsideClick = true;
 			dialog.loop = this.loop;
@@ -313,7 +313,7 @@
 		 * @returns {undefined}
 		 */
 		openFullscreen() {
-			let dialog = imageOverlay || this._createImageOverlay();
+			const dialog = imageOverlay || this._createImageOverlay();
 			dialog.images = this.images;
 			dialog.currentImageIndex = this.currentImageIndex;
 			dialog.open();
