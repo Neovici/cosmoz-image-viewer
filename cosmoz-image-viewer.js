@@ -2,6 +2,10 @@
 (function () {
 
 	'use strict';
+	const globals = {
+		window: null,
+		windowOpener: null
+	};
 	let imageOverlay;
 
 	Polymer({
@@ -28,6 +32,49 @@
 			currentImageIndex: {
 				type: Number,
 				notify: true
+			},
+			/**
+			 * Unique name of browsing context for detached window
+			 */
+			detachedWindowName: {
+				type: String,
+				value: 'OCR'
+			},
+			/**
+			 * Detached window features
+			 * https://developer.mozilla.org/en-US/docs/Web/API/Window/open#Window_features
+			 */
+			detachedWindowFeatures: {
+				type: Object,
+				value() {
+					return {
+						height: 700,
+						width: 800
+					};
+				}
+			},
+			/**
+			 * Detached window features in string format
+			 */
+			_detachedWindowFeaturesString: {
+				type: String,
+				computed: '_computeDetachedWindowFeaturesString(detachedWindowFeatures)'
+			},
+			/**
+			 * Default title of detached window document,
+			 * used if no title attribute/property is specified
+			 */
+			_defaultDetachedWindowTitle: {
+				type: String,
+				computed: '_("Cosmoz Image Viewer", t)'
+			},
+			/**
+			 * Evaluated title of detached window document.
+			 * Supplied title or default
+			 */
+			_detachedWindowTitle: {
+				type: String,
+				computed: '_getTitle(title, _defaultDetachedWindowTitle)'
 			},
 			/**
 			 * Like currentImageIndex but starts at 1 instead of 0.
@@ -137,6 +184,13 @@
 			showPageNumber: {
 				type: Boolean,
 				value: false
+			},
+			/**
+			 * Title used as tooltip and detached window document title
+			 */
+			title: {
+				type: String,
+				reflectToAttribute: true
 			},
 			/**
 			* If true, clicking on next when the last image is selected,
@@ -269,11 +323,9 @@
 		 * @returns {undefined}
 		 */
 		attach() {
-			const sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
-				sharedWindowInstance = sharedWindow.byKey('detachedWindow');
-
-			if (sharedWindowInstance) {
-				sharedWindowInstance.close();
+			this._setIsDetached(false);
+			if (globals.window) {
+				globals.window.close();
 			}
 		},
 		/**
@@ -281,33 +333,46 @@
 		 * @returns {undefined}
 		 */
 		detach() {
-			const sharedWindow = new Polymer.IronMeta({type: 'cosmoz-image-viewer', key: 'detachedWindow'}),
-				sharedWindowInstance = sharedWindow.byKey('detachedWindow');
+			this._setIsDetached(true);
 
-			if (sharedWindowInstance) {
-				window.open(undefined, 'OCR', 'height=700,width=800');
-				sharedWindowInstance.setImages(this._resolvedImages, this.currentImageIndex);
+			if (globals.windowOpener !== this) {
+				if (globals.windowOpener != null) {
+					globals.windowOpener._setIsDetached(false);
+				}
+				globals.windowOpener = this;
+			}
+
+			if (this.hasWindow) {
+				globals.window.document.title = this._detachedWindowTitle;
+				globals.window.setImages(this._resolvedImages, this.currentImageIndex);
+				globals.window.focus();
 				return;
 			}
 
-			let w = window.open(undefined, 'OCR', 'height=700,width=800');
+			const w = globals.window = window.open(undefined, this.detachedWindowName, this._detachedWindowFeaturesString);
+
 			w.document.write(this._getDetachedContent());
 			w.document.close();
-			w.document.title = this._('Cosmoz Image Viewer');
+			w.document.title = this._detachedWindowTitle;
 
-			w.addEventListener('ready', (e) => {
+
+			w.addEventListener('ready', e => {
 				e.currentTarget.setImages(this._resolvedImages, this.currentImageIndex);
 			});
 
 			w.addEventListener('beforeunload', () => {
-				this._setIsDetached(false);
-				this.notifyResize();
-				sharedWindow.value = undefined;
+				globals.windowOpener._setIsDetached(false);
+				globals.windowOpener = null;
+				globals.window = null;
 			});
-
-			this._setIsDetached(true);
-			sharedWindow.value = w;
-			this.notifyResize();
+		},
+		get hasWindow() {
+			return globals.window != null && !globals.window.closed;
+		},
+		syncState() {
+			if (!this.isDetached && this.hasWindow) {
+				this.detach();
+			}
 		},
 		/**
 		 * Toggles between initial zoom level and 1.5x initial zoom level.
@@ -328,6 +393,12 @@
 
 		/** ELEMENT BEHAVIOR */
 
+		_computeDetachedWindowFeaturesString(featues = {}) {
+			return Object.keys(featues)
+				.map(key => key + '=' + featues[key])
+				.join(',');
+		},
+
 		_computeShowActions(show, imagesLen, height, imgsMinLen = 1) {
 			const heightOk = height ? height > 100 : true;
 			return show ? imagesLen >= imgsMinLen && heightOk : false;
@@ -347,6 +418,10 @@
 			return zoomed ? 'icons:zoom-out' : 'icons:zoom-in';
 		},
 
+		_getTitle(title1, title2) {
+			return title1 || title2;
+		},
+
 		_isZoomed(viewer, zoom) {
 			const initialZoomLevel = viewer.viewport.getHomeZoom();
 			return zoom > initialZoomLevel * 1.05;
@@ -357,7 +432,7 @@
 				return;
 			}
 
-			const zoomHandler = (e) => {
+			const zoomHandler = e => {
 				this.isZoomed = this._isZoomed(imgPanZoom.viewer, e.zoom);
 				// If the zoom level is near to the initial zoom level
 				// set pointerEvents = 'none' in order to enable swiping to the next image.
@@ -403,13 +478,12 @@
 
 		_onResize() {
 			this.set('_imageContainerHeight', this._scroller.scrollHeight);
-			this.debounce('elementHeight', () => {
-				this._elementHeight = this.offsetHeight;
-			}, 50);
+			this.debounce('elementHeight', () => this._elementHeight = this.offsetHeight, 50);
 		},
 
 		_detachedChanged(value) {
 			this.hidden = value;
+			this.notifyResize();
 		},
 
 		_imageListChanged(images) {
@@ -500,7 +574,7 @@
 							-ms-transition: opacity .25s ease-in-out;
 							-o-transition: opacity .25s ease-in-out;
 							transition: opacity .25s ease-in-out;
-							transition-delay: 5s;
+							transition-delay: 0s;
 						}
 
 						.actions:hover {
@@ -520,6 +594,7 @@
 
 						.space {
 							width: 100%;
+							text-align: center:
 						}
 
 						.action-box {
@@ -620,11 +695,7 @@
 							images,
 							currentImageIndex = 0;
 
-						const load = () => {
-								img = document.querySelector('#image');
-								window.dispatchEvent(new Event('ready', { bubbles: true }));
-							},
-							next = () => {
+						const next = () => {
 								if (currentImageIndex === images.length - 1) {
 									return;
 								}
@@ -670,11 +741,11 @@
 									printContainer.innerHTML = '';
 								});
 							},
-							_printIfLoaded = (imgs) => {
+							_printIfLoaded = imgs => {
 								return new Promise((resolve, reject) => {
 									setTimeout(() => {
 										if (!imgs.every(i => i.complete)) {
-											_printIfLoaded(imgs)
+											_printIfLoaded(imgs);
 											return;
 										}
 										print();
@@ -682,7 +753,10 @@
 									}, 100);
 								});
 							};
-						window.onload = load;
+						window.onload = () => {
+							img = document.querySelector('#image');
+							window.dispatchEvent(new Event('ready', { bubbles: true }));
+						};
 						window.setImages = (array, startIndex = 0) => {
 							const imageUrl = array[startIndex],
 								actions = document.querySelector('.actions'),
