@@ -11,6 +11,7 @@
 	Polymer({
 		behaviors: [
 			Polymer.IronResizableBehavior,
+			Polymer.Templatizer,
 			Cosmoz.TemplateHelperBehavior,
 			Cosmoz.TranslatableBehavior
 		],
@@ -349,16 +350,15 @@
 				return;
 			}
 
-			const w = globals.window = window.open(undefined, this.detachedWindowName, this._detachedWindowFeaturesString);
+			const
+				w = globals.window = window.open(undefined, this.detachedWindowName, this._detachedWindowFeaturesString),
+				windowTemplate = this.$$('#externalWindow'),
+				windowTemplateClone = windowTemplate.content.cloneNode(true);
 
-			w.document.write(this._getDetachedContent());
-			w.document.close();
+			w.document.body.appendChild(windowTemplateClone);
+			w.setImages(this._resolvedImages, this.currentImageIndex);
+
 			w.document.title = this._detachedWindowTitle;
-
-
-			w.addEventListener('ready', e => {
-				e.currentTarget.setImages(this._resolvedImages, this.currentImageIndex);
-			});
 
 			w.addEventListener('beforeunload', () => {
 				globals.windowOpener._setIsDetached(false);
@@ -537,242 +537,5 @@
 
 			this._scroller.scrollTop = topPx;
 		},
-		/* eslint-disable no-useless-escape */
-
-		_getDetachedContent() {
-			return `
-			<html>
-				<head>
-					<title>Image Viewer Detached</title>
-					<style>
-						html,
-						body {
-							margin: 0;
-						}
-
-						body: {
-							overflow: visible;
-						}
-
-						#image {
-							overflow-y: auto;
-							width: 100%;
-						}
-
-						.actions {
-							position: fixed;
-							left: 0;
-							top: 0;
-							background-color: rgba(0, 0, 0, 0.6);
-							width: 100%;
-							height: 64px;
-							opacity: 0.1;
-							display: flex;
-							align-items: center;
-							-webkit-transition: opacity .25s ease-in-out;
-							-moz-transition: opacity .25s ease-in-out;
-							-ms-transition: opacity .25s ease-in-out;
-							-o-transition: opacity .25s ease-in-out;
-							transition: opacity .25s ease-in-out;
-							transition-delay: 0s;
-						}
-
-						.actions:hover {
-							opacity: 1;
-							transition-delay: 0s;
-						}
-
-						.fa {
-							color: #fff;
-							font-size: 1.2em;
-							cursor: pointer;
-						}
-
-						.btn {
-							font-size: 2em;
-						}
-
-						.space {
-							width: 100%;
-							text-align: center:
-						}
-
-						.action-box {
-							padding: 0 48px;
-							display: -ms-flexbox;
-							display: -webkit-flex;
-							display: flex;
-							-ms-flex-direction: row;
-							-webkit-flex-direction: row;
-							flex-direction: row;
-						}
-						.action-box > * {
-							padding-right: 24px;
-						}
-
-						.icon-btn {
-							position: inline-block;
-							width: 40px;
-							height: 40px;
-							border-radius: 20px;
-							background-color: rgba(0, 0, 0, 0.44);
-							padding: 8px;
-							outline: none;
-							cursor: pointer;
-							box-sizing: border-box !important;
-							margin: 6px;
-						}
-
-						.icon-only, .icon-btn {
-							color: rgba(255, 255, 255, 0.87);
-						}
-
-						.icon-only {
-							width: 24px;
-							height: 24px;
-							cursor: pointer;
-						}
-
-						.icon {
-							pointer-events: none;
-							display: block;
-							width: 100%;
-							height: 100%;
-							fill: currentColor;
-						}
-
-						[hidden] {
-							display: none;
-						}
-
-						@media print {
-							.hide-on-print {
-								display: none;
-							}
-							.print-image {
-								display: block;
-								page-break-inside: avoid;
-								page-break-after: always;
-								max-height: 100%;
-								width: 100%;
-							}
-						}
-					</style>
-				</head>
-				<body>
-					<img id="image" class="hide-on-print">
-					<div id="printContainer"></div>
-					<div class="actions hide-on-print">
-						<div class="action-box">
-							<div class="icon-btn nav" onclick="prev()">
-								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
-									<g><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></g>
-								</svg>
-							</div>
-							<div class="icon-btn nav" onclick="next()">
-								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
-									<g><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></g>
-								</svg>
-							</div>
-						</div>
-						<span class="space"></span>
-						<div class="action-box">
-							<div class="icon-only" onclick="downloadImages()">
-								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
-									<g><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path></g>
-								</svg>
-							</div>
-							<div class="icon-only" onclick="printPage()">
-								<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
-									<g><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"></path></g>
-								</svg>
-							</div>
-						</div>
-					</div>
-					<script>
-						/*eslint no-unused-vars: 0*/
-						let img,
-							images,
-							currentImageIndex = 0;
-
-						const next = () => {
-								if (currentImageIndex === images.length - 1) {
-									return;
-								}
-								currentImageIndex++;
-								img.src = images[currentImageIndex];
-							},
-							prev = () => {
-								if (currentImageIndex === 0) {
-									return;
-								}
-								currentImageIndex--;
-								img.src = images[currentImageIndex];
-							},
-
-							downloadImages = () => {
-								if (!images) {
-									return;
-								}
-								const dl = document.createElement('a');
-
-								images.forEach(imageUrl => {
-									dl.download = imageUrl.replace(/^.*[\\\/]/, '');
-									dl.href = imageUrl;
-									dl.click();
-								})
-							},
-
-							printPage = () => {
-								const printContainer = document.querySelector('#printContainer');
-								let imgs;
-
-								printContainer.innerHTML = '';
-
-								imgs = images.map(imageUrl => {
-									const i = document.createElement('img');
-									i.src = imageUrl;
-									i.classList.add('print-image');
-									printContainer.appendChild(i);
-									return i;
-								});
-
-								_printIfLoaded(imgs).then(() => {
-									printContainer.innerHTML = '';
-								});
-							},
-							_printIfLoaded = imgs => {
-								return new Promise((resolve, reject) => {
-									setTimeout(() => {
-										if (!imgs.every(i => i.complete)) {
-											_printIfLoaded(imgs);
-											return;
-										}
-										print();
-										resolve();
-									}, 100);
-								});
-							};
-						window.onload = () => {
-							img = document.querySelector('#image');
-							window.dispatchEvent(new Event('ready', { bubbles: true }));
-						};
-						window.setImages = (array, startIndex = 0) => {
-							const imageUrl = array[startIndex],
-								actions = document.querySelector('.actions'),
-								navs = document.querySelectorAll('.nav');
-							images = array;
-							img.src = imageUrl;
-
-							// hide/show actions
-							actions.hidden = images.length === 0 ? true : false;
-							navs.forEach(n => n.hidden = images.length > 1 ? false : true);
-						};
-					</script>
-				</body>
-			</html>
-			`;
-		}
-		/* eslint-enable no-useless-escape */
 	});
 }());
