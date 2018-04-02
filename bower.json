@@ -12,7 +12,7 @@
     "cosmoz-behaviors": "Neovici/cosmoz-behaviors#^1.0.0",
     "cosmoz-i18next": "Neovici/cosmoz-i18next#^1.0.0",
     "iron-image": "PolymerElements/iron-image#^2.1.2",
-    "skeleton-carousel": "JaySunSyn/skeleton-carousel#hybrid",
+    "skeleton-carousel": "FabricElements/skeleton-carousel#hybrid",
     "img-pan-zoom": "ryanburns23/img-pan-zoom#^2.0.0",
     "iron-overlay-behavior": "^2.2.0"
   },
@@ -34,7 +34,7 @@
         "paper-icon-button": "PolymerElements/paper-icon-button#^2.0.0",
         "cosmoz-behaviors": "Neovici/cosmoz-behaviors#^1.0.0",
         "cosmoz-i18next": "Neovici/cosmoz-i18next#^1.0.0",
-        "skeleton-carousel": "JaySunSyn/skeleton-carousel#hybrid"
+        "skeleton-carousel": "FabricElements/skeleton-carousel#hybrid"
       },
       "devDependencies": {
         "iron-component-page": "PolymerElements/iron-component-page#^2.0.0",
