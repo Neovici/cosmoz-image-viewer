@@ -282,6 +282,9 @@
 
 		/** PUBLIC */
 
+		get imageOverlay() {
+			return imageOverlay;
+		},
 		/**
 		 * Triggers the slide to the next image.
 		 * @returns {undefined}
@@ -304,7 +307,7 @@
 			dialog.loop = this.loop;
 			dialog.showDetach = this.showDetach;
 			document.body.appendChild(dialog);
-			imageOverlay = this.imageOverlay = dialog;
+			imageOverlay = dialog;
 			return dialog;
 		},
 
