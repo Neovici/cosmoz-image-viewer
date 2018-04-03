@@ -124,19 +124,25 @@
 			});
 
 			test('zoomToogle resets zoom', (done) => {
-				Polymer.Base.async(() => {
-					const el = imageViewer.$.carousel.selectedItem.querySelector('img-pan-zoom'),
-						spyResetZoom = sinon.spy(el, 'resetZoom');
-					assert.isFalse(imageViewer.isZoomed);
-					el.viewer.viewport.zoomTo(1.5);
-					imageViewer.zoomToggle();
+				const waitForImages = () => {
+					const el = imageViewer.$.carousel.selectedItem.querySelector('img-pan-zoom');
+					if (el == null || el.viewer == null) {
+						Polymer.Base.async(waitForImages, 150);
+					} else {
+						const spyResetZoom = sinon.spy(el, 'resetZoom');
+						assert.isFalse(imageViewer.isZoomed);
+						assert.isDefined(el);
+						el.viewer.viewport.zoomTo(1.5);
+						imageViewer.zoomToggle();
 
-					imageViewer.isZoomed = true;
-					Polymer.Base.async(() => {
-						assert.calledOnce(spyResetZoom);
+						imageViewer.isZoomed = true;
+						Polymer.Base.async(() => {
+							assert.calledOnce(spyResetZoom);
+						}, 100);
 						done();
-					}, 200);
-				}, 150);
+					}
+				};
+				Polymer.Base.async(waitForImages, 150);
 			});
 
 			test('zoomToogle handles undefined viewer', (done) => {
