@@ -11,7 +11,6 @@
 	Polymer({
 		behaviors: [
 			Polymer.IronResizableBehavior,
-			Polymer.Templatizer,
 			Cosmoz.TemplateHelperBehavior,
 			Cosmoz.TranslatableBehavior
 		],
