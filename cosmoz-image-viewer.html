@@ -418,6 +418,10 @@ so a user can swipe to the next image.
 						_printIfLoaded(imgs).then(() => {
 							printContainer.innerHTML = '';
 						});
+					},
+
+					init = () => {
+						window.dispatchEvent(new Event('ready', { bubbles: true }));
 					};
 
 
@@ -433,6 +437,8 @@ so a user can swipe to the next image.
 					actions.hidden = images.length === 0 ? true : false;
 					navs.forEach(n => n.hidden = images.length > 1 ? false : true);
 				};
+
+				init();
 			</script>
 		</template>
 	</template>

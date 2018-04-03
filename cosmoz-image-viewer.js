@@ -358,15 +358,15 @@
 				windowTemplateClone = windowTemplate.content.cloneNode(true);
 
 			if (w == null) {
-				// window.open is only not being blocked (w !== null), when it is invoked by user action, for example in a click event,
-				// emitted by a native browser event. Also javaScript emitted events are being blocked.
-				// In case, detach() is called by javaScript (in a test), `w` will be null.
+				// if window.open() is blocked (popup blocked, not emited by native user triggered event)
 				return;
 			}
 
-			w.document.body.appendChild(windowTemplateClone);
-			w.setImages(this._resolvedImages, this.currentImageIndex);
+			w.addEventListener('ready', () => {
+				w.setImages(this._resolvedImages, this.currentImageIndex);
+			});
 
+			w.document.body.appendChild(windowTemplateClone);
 			w.document.title = this._detachedWindowTitle;
 
 			w.addEventListener('beforeunload', () => {
