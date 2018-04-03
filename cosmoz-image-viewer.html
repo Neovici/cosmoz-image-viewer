@@ -260,7 +260,7 @@ so a user can swipe to the next image.
 
 				.space {
 					width: 100%;
-					text-align: center:
+					text-align: center;
 				}
 
 				.action-box {
@@ -382,7 +382,7 @@ so a user can swipe to the next image.
 						const dl = document.createElement('a');
 
 						images.forEach(imageUrl => {
-							dl.download = imageUrl.replace(/^.*[\\\/]/, '');
+							dl.download = imageUrl.replace(/^.*[\\/]/, '');
 							dl.href = imageUrl;
 							dl.click();
 						});
