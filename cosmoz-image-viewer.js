@@ -357,6 +357,13 @@
 				windowTemplate = this.$$('#externalWindow'),
 				windowTemplateClone = windowTemplate.content.cloneNode(true);
 
+			if (w == null) {
+				// window.open is only not being blocked (w !== null), when it is invoked by user action, for example in a click event,
+				// emitted by a native browser event. Also javaScript emitted events are being blocked.
+				// In case, detach() is called by javaScript (in a test), `w` will be null.
+				return;
+			}
+
 			w.document.body.appendChild(windowTemplateClone);
 			w.setImages(this._resolvedImages, this.currentImageIndex);
 
