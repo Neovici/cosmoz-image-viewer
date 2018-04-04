@@ -347,7 +347,7 @@
 
 			if (this.hasWindow) {
 				globals.window.document.title = this._detachedWindowTitle;
-				globals.window.setImages(this._resolvedImages, this.currentImageIndex);
+				globals.window.ciw.setImages(this._resolvedImages, this.currentImageIndex);
 				globals.window.focus();
 				return;
 			}
@@ -362,18 +362,28 @@
 				return;
 			}
 
-			w.addEventListener('ready', () => {
-				w.setImages(this._resolvedImages, this.currentImageIndex);
-			});
+			if (w.ciw != null) {
+				// browser has been refreshed without closing external window, we will reuse an old window
+				w.removeEventListener('beforeunload', globals.windowBeforeUnloadHandler);
+			}
 
-			w.document.body.appendChild(windowTemplateClone);
-			w.document.title = this._detachedWindowTitle;
-
-			w.addEventListener('beforeunload', () => {
+			globals.windowReadyHandler = () => w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
+			globals.windowBeforeUnloadHandler = () => {
 				globals.windowOpener._setIsDetached(false);
 				globals.windowOpener = null;
 				globals.window = null;
-			});
+			};
+
+			w.document.title = this._detachedWindowTitle;
+
+			w.addEventListener('beforeunload', globals.windowBeforeUnloadHandler);
+
+			if (w.ciw == null) {
+				w.addEventListener('ready', globals.windowReadyHandler);
+				w.document.body.appendChild(windowTemplateClone);
+			} else {
+				w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
+			}
 		},
 		get hasWindow() {
 			return globals.window != null && !globals.window.closed;
