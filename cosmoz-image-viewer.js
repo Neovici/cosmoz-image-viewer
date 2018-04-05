@@ -375,18 +375,45 @@
 			};
 			globals.downloadHandler = (e) => {
 				const fileUrls = e.detail;
-				fileUrls.forEach(imageUrl => {
-					const filename = imageUrl.replace(/^.*[\\/]/, '');
-					fetch(imageUrl)
-						.then((response) => response.blob())
-						.then((blob) => {
-							const dl = document.createElement('a');
-							const objUrl = URL.createObjectURL(blob);
-							dl.href = objUrl;
-							dl.download = filename;
-							dl.click();
+				let zip = new NullZipArchive('filename', false);
+
+				const blobToUint8Array = (b) => {
+					const uri = URL.createObjectURL(b),
+						xhr = new XMLHttpRequest();
+					let i,
+						ui8;
+					xhr.open('GET', uri, false);
+					xhr.send();
+					URL.revokeObjectURL(uri);
+					ui8 = new Uint8Array(xhr.response.length);
+					for (i = 0; i < xhr.response.length; ++i) {
+						ui8[i] = xhr.response.charCodeAt(i);
+					}
+					return ui8;
+				};
+
+				fileUrls.forEach((url, i, array) => {
+					let filename = url.replace(/^.*[\\/]/, '');
+					fetch(url)
+						.then(response => response.blob())
+						.then(blob => {
+							const u8 = blobToUint8Array(blob);
+
+							const existingFileNameIndex = zip.a.indexOf(filename);
+
+							if (existingFileNameIndex !== -1) {
+								filename += existingFileNameIndex + 1;
+							}
+
+							zip.addFileFromUint8Array(filename, u8);
+
+							if (array.length === zip.a.length) {
+								zip.generate();
+								const dl = zip.createDownloadLink();
+								dl.click();
+							}
 						})
-						.catch((err) => {
+						.catch(err => {
 							console.error(err);
 						});
 				});

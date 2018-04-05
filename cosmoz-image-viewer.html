@@ -15,7 +15,7 @@
 <link rel="import" href="../img-pan-zoom/img-pan-zoom.html">
 
 <link rel="import" href="cosmoz-image-viewer-overlay.html">
-
+<script src="../nullxlsx/dist/nullzip.min.js"></script>
 <!--
 `cosmoz-image-viewer` is an element for displaying images in a carousel while being able to detach the currently
 selected image into another window, zooming and activating a fullscreen mode.
@@ -598,23 +598,6 @@ so a user can swipe to the next image.
 							}
 
 							window.dispatchEvent(new CustomEvent('download', { detail: ciw.images }));
-
-							// ciw.images.forEach(imageUrl => {
-							// 	const filename = imageUrl.replace(/^.*[\\/]/, '');
-							// 	fetch(imageUrl)
-							// 		.then((response) => response.blob())
-							// 		.then((blob) => {
-							// 			const dl = document.createElement('a');
-							// 			const objUrl = URL.createObjectURL(blob);
-							// 			dl.href = objUrl;
-							// 			dl.download = filename;
-							// 			console.log('click');
-							// 			dl.click();
-							// 		})
-							// 		.catch((err) => {
-							// 			console.log(err);
-							// 		});
-							// });
 						},
 						printPage() {
 							ciw.elements.printContainer.innerHTML = '';
