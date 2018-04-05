@@ -374,41 +374,27 @@
 				globals.window = null;
 			};
 			globals.downloadHandler = (e) => {
-				const fileUrls = e.detail;
+				const fileUrls = e.detail,
+					filenames = [];
 				let zip = new NullZipArchive('filename', false);
-
-				const blobToUint8Array = (b) => {
-					const uri = URL.createObjectURL(b),
-						xhr = new XMLHttpRequest();
-					let i,
-						ui8;
-					xhr.open('GET', uri, false);
-					xhr.send();
-					URL.revokeObjectURL(uri);
-					ui8 = new Uint8Array(xhr.response.length);
-					for (i = 0; i < xhr.response.length; ++i) {
-						ui8[i] = xhr.response.charCodeAt(i);
-					}
-					return ui8;
-				};
 
 				fileUrls.forEach((url, i, array) => {
 					let filename = url.replace(/^.*[\\/]/, '');
+					const filenameParts = filename.split('.');
 					fetch(url)
-						.then(response => response.blob())
-						.then(blob => {
-							const u8 = blobToUint8Array(blob);
+						.then(response => response.arrayBuffer())
+						.then(ab => {
+							const existingFileNames = filenames.filter(f => f === filenameParts[0]);
 
-							const existingFileNameIndex = zip.a.findIndex(f => f.name === filename);
-
-							if (existingFileNameIndex !== -1) {
-								const fa = filename.split('.');
-								filename = `${fa[0]} (${existingFileNameIndex + 1}).${fa[1]}`;
+							if (existingFileNames.length !== 0) {
+								filename = `${filenameParts[0]} (${existingFileNames.length + 1}).${filenameParts[1]}`;
 							}
 
-							zip.addFileFromUint8Array(filename, u8);
+							zip.addFileFromUint8Array(filename, new Uint8Array(ab));
+							filenames.push(filenameParts[0]);
 
 							if (array.length === zip.a.length) {
+								console.log(zip.a);
 								zip.generate();
 								const dl = zip.createDownloadLink();
 								dl.click();

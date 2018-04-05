@@ -10,7 +10,8 @@
 		"HTMLImports": false,
 		"moment": false,
 		"Polymer": false,
-		"WeakMap": false
+		"WeakMap": false,
+		"NullZipArchive": false
 	},
 	"parserOptions": {
 		"ecmaVersion": 6

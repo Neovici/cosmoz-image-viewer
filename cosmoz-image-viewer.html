@@ -627,7 +627,7 @@ so a user can swipe to the next image.
 						window.dispatchEvent(new Event('ready', { bubbles: true }));
 					},
 					_printIfLoaded: imgs =>
-						new Promise((resolve, reject) => {
+						new Promise(resolve => {
 							setTimeout(() => {
 								if (!imgs.every(i => i.complete)) {
 									ciw._printIfLoaded(imgs);
