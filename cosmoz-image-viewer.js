@@ -373,9 +373,29 @@
 				globals.windowOpener = null;
 				globals.window = null;
 			};
+			globals.downloadHandler = (e) => {
+				const fileUrls = e.detail;
+				fileUrls.forEach(imageUrl => {
+					const filename = imageUrl.replace(/^.*[\\/]/, '');
+					fetch(imageUrl)
+						.then((response) => response.blob())
+						.then((blob) => {
+							const dl = document.createElement('a');
+							const objUrl = URL.createObjectURL(blob);
+							dl.href = objUrl;
+							dl.download = filename;
+							dl.click();
+						})
+						.catch((err) => {
+							console.error(err);
+						});
+				});
+
+			};
 
 			w.document.title = this._detachedWindowTitle;
 
+			w.addEventListener('download', globals.downloadHandler);
 			w.addEventListener('beforeunload', globals.windowBeforeUnloadHandler);
 
 			if (w.ciw == null) {

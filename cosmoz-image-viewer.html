@@ -596,13 +596,25 @@ so a user can swipe to the next image.
 							if (!Array.isArray(ciw.images)) {
 								return;
 							}
-							const dl = document.createElement('a');
 
-							ciw.images.forEach(imageUrl => {
-								dl.download = imageUrl.replace(/^.*[\\/]/, '');
-								dl.href = imageUrl;
-								dl.click();
-							});
+							window.dispatchEvent(new CustomEvent('download', { detail: ciw.images }));
+
+							// ciw.images.forEach(imageUrl => {
+							// 	const filename = imageUrl.replace(/^.*[\\/]/, '');
+							// 	fetch(imageUrl)
+							// 		.then((response) => response.blob())
+							// 		.then((blob) => {
+							// 			const dl = document.createElement('a');
+							// 			const objUrl = URL.createObjectURL(blob);
+							// 			dl.href = objUrl;
+							// 			dl.download = filename;
+							// 			console.log('click');
+							// 			dl.click();
+							// 		})
+							// 		.catch((err) => {
+							// 			console.log(err);
+							// 		});
+							// });
 						},
 						printPage() {
 							ciw.elements.printContainer.innerHTML = '';
