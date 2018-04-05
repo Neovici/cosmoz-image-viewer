@@ -628,11 +628,15 @@ so a user can swipe to the next image.
 							'nextImg',
 							'space'
 						].reduce((elements, id) => Object.assign(elements, { [id]: document.getElementById(id) }), {});
+						if (ciw.elements.image == null) {
+							console.error('#image not found, run in wrong context?', ciw.elements.image, this, window);
+							return;
+						}
 						ciw.elements.image.onload = () => ciw.elements.loading.style.display = 'none';
 						window.dispatchEvent(new Event('ready', { bubbles: true }));
 					},
 					_printIfLoaded: imgs =>
-						new Promise((resolve, reject) => {
+						new Promise(resolve => {
 							setTimeout(() => {
 								if (!imgs.every(i => i.complete)) {
 									ciw._printIfLoaded(imgs);
