@@ -399,10 +399,11 @@
 						.then(blob => {
 							const u8 = blobToUint8Array(blob);
 
-							const existingFileNameIndex = zip.a.indexOf(filename);
+							const existingFileNameIndex = zip.a.findIndex(f => f.name === filename);
 
 							if (existingFileNameIndex !== -1) {
-								filename += existingFileNameIndex + 1;
+								const fa = filename.split('.');
+								filename = `${fa[0]} (${existingFileNameIndex + 1}).${fa[1]}`;
 							}
 
 							zip.addFileFromUint8Array(filename, u8);
