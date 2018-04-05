@@ -200,6 +200,14 @@
 				type: Boolean,
 				value: false
 			},
+			/**
+			* The filename of the zip archive when downloaded
+			* in the detached window.
+			*/
+			downloadFileName: {
+				type: String,
+				value: 'archive'
+			},
 
 			// Private
 
@@ -376,7 +384,7 @@
 			globals.downloadHandler = (e) => {
 				const fileUrls = e.detail,
 					filenames = [];
-				let zip = new NullZipArchive('filename', false);
+				let zip = new NullZipArchive(this.downloadFileName, false);
 
 				fileUrls.forEach((url, i, array) => {
 					let filename = url.replace(/^.*[\\/]/, '');
