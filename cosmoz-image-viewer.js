@@ -383,35 +383,42 @@
 			};
 			globals.downloadHandler = (e) => {
 				const fileUrls = e.detail,
-					filenames = [];
-				let zip = new NullZipArchive(this.downloadFileName, false);
+					fetches = fileUrls
+						.map(url => fetch(url)
+							.then(response => {
+								return response.arrayBuffer();
+							})
+							.then(data => {
+								return {data, url};
+							})
+						);
 
-				fileUrls.forEach((url, i, array) => {
-					let filename = url.replace(/^.*[\\/]/, '');
-					const filenameParts = filename.split('.');
-					fetch(url)
-						.then(response => response.arrayBuffer())
-						.then(ab => {
+				Promise
+					.all(fetches)
+					.then(responses => {
+						const filenames = [],
+							zip = new NullZipArchive(this.downloadFileName, false);
+
+						responses.forEach(response => {
+							let filename = response.url.replace(/^.*[\\/]/, '');
+							const filenameParts = filename.split('.');
+
 							const existingFileNames = filenames.filter(f => f === filenameParts[0]);
 
-							if (existingFileNames.length !== 0) {
+							if (existingFileNames.length > 0) {
 								filename = `${filenameParts[0]} (${existingFileNames.length + 1}).${filenameParts[1]}`;
 							}
 
-							zip.addFileFromUint8Array(filename, new Uint8Array(ab));
+							zip.addFileFromUint8Array(filename, new Uint8Array(response.data));
 							filenames.push(filenameParts[0]);
 
-							if (array.length === zip.a.length) {
+							if (fileUrls.length === zip.a.length) {
 								zip.generate();
 								const dl = zip.createDownloadLink();
 								dl.click();
 							}
-						})
-						.catch(err => {
-							console.error(err);
 						});
-				});
-
+					});
 			};
 
 			w.document.title = this._detachedWindowTitle;
