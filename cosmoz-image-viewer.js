@@ -402,7 +402,6 @@
 							filenames.push(filenameParts[0]);
 
 							if (array.length === zip.a.length) {
-								console.log(zip.a);
 								zip.generate();
 								const dl = zip.createDownloadLink();
 								dl.click();
