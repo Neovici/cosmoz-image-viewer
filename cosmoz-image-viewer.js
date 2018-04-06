@@ -341,7 +341,7 @@
 		},
 		/**
 		 * Opens a detached window.
-		 * @returns {undefined}
+		 * @returns {Object} detached window object
 		 */
 		detach() {
 			this._setIsDetached(true);
@@ -357,7 +357,7 @@
 				globals.window.document.title = this._detachedWindowTitle;
 				globals.window.ciw.setImages(this._resolvedImages, this.currentImageIndex);
 				globals.window.focus();
-				return;
+				return globals.window;
 			}
 
 			const
@@ -367,7 +367,7 @@
 
 			if (w == null) {
 				// if window.open() is blocked (popup blocked, not emited by native user triggered event)
-				return;
+				return w;
 			}
 
 			if (w.ciw != null) {
@@ -393,13 +393,13 @@
 							})
 						);
 
-				Promise
+				return Promise
 					.all(fetches)
 					.then(responses => {
 						const filenames = [],
 							zip = new NullZipArchive(this.downloadFileName, false);
 
-						responses.forEach(response => {
+						for (const response of responses) {
 							let filename = response.url.replace(/^.*[\\/]/, '');
 							const filenameParts = filename.split('.');
 
@@ -413,11 +413,15 @@
 							filenames.push(filenameParts[0]);
 
 							if (fileUrls.length === zip.a.length) {
-								zip.generate();
-								const dl = zip.createDownloadLink();
-								dl.click();
+								return zip;
 							}
-						});
+						}
+					})
+					.then(zip => {
+						zip.generate();
+						const dl = zip.createDownloadLink();
+						dl.click();
+						return zip;
 					});
 			};
 
@@ -432,6 +436,8 @@
 			} else {
 				w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
 			}
+
+			return w;
 		},
 		get hasWindow() {
 			return globals.window != null && !globals.window.closed;
