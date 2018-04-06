@@ -382,47 +382,9 @@
 				globals.window = null;
 			};
 			globals.downloadHandler = (e) => {
-				const fileUrls = e.detail,
-					fetches = fileUrls
-						.map(url => fetch(url)
-							.then(response => {
-								return response.arrayBuffer();
-							})
-							.then(data => {
-								return {data, url};
-							})
-						);
-
-				return Promise
-					.all(fetches)
-					.then(responses => {
-						const filenames = [],
-							zip = new NullZipArchive(this.downloadFileName, false);
-
-						for (const response of responses) {
-							let filename = response.url.replace(/^.*[\\/]/, '');
-							const filenameParts = filename.split('.');
-
-							const existingFileNames = filenames.filter(f => f === filenameParts[0]);
-
-							if (existingFileNames.length > 0) {
-								filename = `${filenameParts[0]} (${existingFileNames.length + 1}).${filenameParts[1]}`;
-							}
-
-							zip.addFileFromUint8Array(filename, new Uint8Array(response.data));
-							filenames.push(filenameParts[0]);
-
-							if (fileUrls.length === zip.a.length) {
-								return zip;
-							}
-						}
-					})
-					.then(zip => {
-						zip.generate();
-						const dl = zip.createDownloadLink();
-						dl.click();
-						return zip;
-					});
+				this.createZipFromUrls(e.detail).then(zip => {
+					this.downloadZip(zip);
+				});
 			};
 
 			w.document.title = this._detachedWindowTitle;
@@ -446,6 +408,52 @@
 			if (!this.isDetached && this.hasWindow) {
 				this.detach();
 			}
+		},
+
+		downloadZip(zip) {
+			const dl = zip.createDownloadLink();
+			dl.click();
+		},
+
+		createZipFromUrls(fileUrls) {
+			const fetches = fileUrls
+				.map(url => fetch(url)
+					.then(response => {
+						return response.arrayBuffer();
+					})
+					.then(data => {
+						return {data, url};
+					})
+				);
+
+			return Promise
+				.all(fetches)
+				.then(responses => {
+					const filenames = [],
+						zip = new NullZipArchive(this.downloadFileName, false);
+
+					for (const response of responses) {
+						let filename = response.url.replace(/^.*[\\/]/, '');
+						const filenameParts = filename.split('.');
+
+						const existingFilesWithSameFilename = filenames.filter(f => f === filenameParts[0]);
+
+						if (existingFilesWithSameFilename.length > 0) {
+							filename = `${filenameParts[0]} (${existingFilesWithSameFilename.length + 1}).${filenameParts[1]}`;
+						}
+
+						zip.addFileFromUint8Array(filename, new Uint8Array(response.data));
+						filenames.push(filenameParts[0]);
+
+						if (fileUrls.length === zip.a.length) {
+							return zip;
+						}
+					}
+				})
+				.then(zip => {
+					zip.generate();
+					return zip;
+				});
 		},
 		/**
 		 * Toggles between initial zoom level and 1.5x initial zoom level.
