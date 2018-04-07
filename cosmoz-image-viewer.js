@@ -381,8 +381,8 @@
 				globals.windowOpener = null;
 				globals.window = null;
 			};
-			globals.downloadHandler = (e) => {
-				this.createZipFromUrls(e.detail).then(zip => {
+			globals.downloadHandler = ({detail}) => {
+				this.createZipFromUrls(detail).then(zip => {
 					this.downloadZip(zip);
 				});
 			};
