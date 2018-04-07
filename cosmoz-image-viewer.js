@@ -433,7 +433,8 @@
 						zip = new NullZipArchive(this.downloadFileName, false);
 
 					for (const response of responses) {
-						let filename = response.url.replace(/^.*[\\/]/, '');
+						const {url, data} = response;
+						let filename = url.replace(/^.*[\\/]/, '');
 						const filenameParts = filename.split('.');
 
 						const existingFilesWithSameFilename = filenames.filter(f => f === filenameParts[0]);
@@ -442,7 +443,7 @@
 							filename = `${filenameParts[0]} (${existingFilesWithSameFilename.length + 1}).${filenameParts[1]}`;
 						}
 
-						zip.addFileFromUint8Array(filename, new Uint8Array(response.data));
+						zip.addFileFromUint8Array(filename, new Uint8Array(data));
 						filenames.push(filenameParts[0]);
 
 						if (fileUrls.length === zip.a.length) {
