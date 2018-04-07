@@ -447,13 +447,10 @@
 						filenames.push(filenameParts[0]);
 
 						if (fileUrls.length === zip.a.length) {
+							zip.generate();
 							return zip;
 						}
 					}
-				})
-				.then(zip => {
-					zip.generate();
-					return zip;
 				});
 		},
 		/**
