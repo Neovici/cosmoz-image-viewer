@@ -588,6 +588,9 @@ so a user can swipe to the next image.
 								'actions',
 								'navs'
 							].reduce((elements, id) => Object.assign(elements, { [id]: document.getElementById(id) }), {});
+							if (this.elements.image == null) {
+								return;
+							}
 							this.elements.image.onload = () => this._setSpinnerVisibility(false);
 						}
 
@@ -707,6 +710,10 @@ so a user can swipe to the next image.
 						}
 					}
 					window.ciw = new CIV();
+					if (window.ciw.elements.image == null) {
+						console.error('#image not found, run in wrong context?', window.ciw.elements.image, this, window);
+						return;
+					}
 					window.dispatchEvent(new Event('ready', { bubbles: true }));
 				})();
 			</script>
