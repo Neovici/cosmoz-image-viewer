@@ -190,7 +190,8 @@
 			 */
 			title: {
 				type: String,
-				reflectToAttribute: true
+				reflectToAttribute: true,
+				value: null
 			},
 			/**
 			* If true, clicking on next when the last image is selected,
@@ -367,7 +368,6 @@
 				w.removeEventListener('beforeunload', globals.windowBeforeUnloadHandler);
 			}
 
-			globals.windowReadyHandler = () => w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
 			globals.windowBeforeUnloadHandler = () => {
 				globals.windowOpener._setIsDetached(false);
 				globals.windowOpener = null;
@@ -379,7 +379,7 @@
 			w.addEventListener('beforeunload', globals.windowBeforeUnloadHandler);
 
 			if (w.ciw == null) {
-				w.addEventListener('ready', globals.windowReadyHandler);
+				w.addEventListener('ready', () => w.ciw.setImages(this._resolvedImages, this.currentImageIndex));
 				w.document.body.appendChild(windowTemplateClone);
 			} else {
 				w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
