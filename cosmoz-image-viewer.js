@@ -370,7 +370,8 @@
 			const
 				w = globals.window = window.open(undefined, this.detachedWindowName, this._detachedWindowFeaturesString),
 				windowTemplate = this.$$('#externalWindow'),
-				windowTemplateClone = windowTemplate.content.cloneNode(true);
+				windowTemplateClone = windowTemplate.content.cloneNode(true),
+				setImages = () => w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
 
 			if (w == null) {
 				// if window.open() is blocked (popup blocked, not emited by native user triggered event)
@@ -388,10 +389,10 @@
 			w.addEventListener('beforeunload', globals.windowBeforeUnloadHandler);
 
 			if (w.ciw == null) {
-				w.addEventListener('ready', () => w.ciw.setImages(this._resolvedImages, this.currentImageIndex));
+				w.addEventListener('ready', () => setImages());
 				w.document.body.appendChild(windowTemplateClone);
 			} else {
-				w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
+				setImages();
 			}
 
 			return w;
