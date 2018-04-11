@@ -354,12 +354,19 @@
 			}
 
 			if (this.hasWindow) {
-				globals.window.document.title = this._detachedWindowTitle;
-				globals.window.ciw.setImages(this._resolvedImages, this.currentImageIndex);
-				globals.window.focus();
-				return globals.window;
+				return this._detachToExistingWindow();
 			}
 
+			globals.windowBeforeUnloadHandler = () => {
+				globals.windowOpener._setIsDetached(false);
+				globals.windowOpener = null;
+				globals.window = null;
+			};
+
+			return this._detachToNewWindow();
+		},
+
+		_detachToNewWindow() {
 			const
 				w = globals.window = window.open(undefined, this.detachedWindowName, this._detachedWindowFeaturesString),
 				windowTemplate = this.$$('#externalWindow'),
@@ -375,25 +382,13 @@
 				w.removeEventListener('beforeunload', globals.windowBeforeUnloadHandler);
 			}
 
-			globals.windowReadyHandler = () => w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
-			globals.windowBeforeUnloadHandler = () => {
-				globals.windowOpener._setIsDetached(false);
-				globals.windowOpener = null;
-				globals.window = null;
-			};
-			globals.downloadHandler = ({detail}) => {
-				this.createZipFromUrls(detail).then(zip => {
-					this.downloadZip(zip);
-				});
-			};
-
 			w.document.title = this._detachedWindowTitle;
 
-			w.addEventListener('download', globals.downloadHandler);
+			w.addEventListener('download', ({detail}) => this.createZipFromUrls(detail).then(zip => this.downloadZip(zip)));
 			w.addEventListener('beforeunload', globals.windowBeforeUnloadHandler);
 
 			if (w.ciw == null) {
-				w.addEventListener('ready', globals.windowReadyHandler);
+				w.addEventListener('ready', () => w.ciw.setImages(this._resolvedImages, this.currentImageIndex));
 				w.document.body.appendChild(windowTemplateClone);
 			} else {
 				w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
@@ -401,9 +396,18 @@
 
 			return w;
 		},
+
+		_detachToExistingWindow() {
+			globals.window.document.title = this._detachedWindowTitle;
+			globals.window.ciw.setImages(this._resolvedImages, this.currentImageIndex);
+			globals.window.focus();
+			return globals.window;
+		},
+
 		get hasWindow() {
 			return globals.window != null && !globals.window.closed;
 		},
+
 		syncState() {
 			if (!this.isDetached && this.hasWindow) {
 				this.detach();
