@@ -190,7 +190,8 @@
 			 */
 			title: {
 				type: String,
-				reflectToAttribute: true
+				reflectToAttribute: true,
+				value: null
 			},
 			/**
 			* If true, clicking on next when the last image is selected,
