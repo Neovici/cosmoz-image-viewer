@@ -359,7 +359,9 @@
 			}
 
 			globals.windowBeforeUnloadHandler = () => {
-				globals.windowOpener._setIsDetached(false);
+				if (globals.windowOpener !== null) {
+					globals.windowOpener._setIsDetached(false);
+				}
 				globals.windowOpener = null;
 				globals.window = null;
 			};

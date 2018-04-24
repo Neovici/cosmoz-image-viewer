@@ -107,20 +107,6 @@
 				imageViewer.attach();
 			});
 
-			test('detaching works', () => {
-				const w = imageViewer.detach();
-				assert.isNotNull(w);
-				w.close();
-			});
-
-			test('detaching to existing window works', () => {
-				const w = imageViewer.detach();
-				const w2 = imageViewer.detach();
-				assert.isNotNull(w);
-				assert.deepEqual(w, w2);
-				w.close();
-			});
-
 			test('zip creation works', (done) => {
 				imageViewer.createZipFromUrls(imageViewer._resolvedImages).then(zip => {
 					assert.isAbove(zip.b.byteLength, 10000);
