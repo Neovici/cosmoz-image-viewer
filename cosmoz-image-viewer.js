@@ -431,9 +431,7 @@
 		},
 
 		downloadZip(zip) {
-			let a = zip.createDownloadLink();
-			a.hidden = true;
-			a = document.body.appendChild(a);
+			const a = document.body.appendChild(zip.createDownloadLink());
 			a.click();
 			document.body.removeChild(a);
 		},
