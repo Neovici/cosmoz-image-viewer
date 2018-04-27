@@ -26,7 +26,8 @@ Example:
 ```
 -->
 ```html
-<cosmoz-image-viewer current-image="demo/images/stockholm.jpg">
+<cosmoz-image-viewer show-nav show-dots show-fullscreen show-zoom show-detach
+images='["demo/images/stockholm.jpg", "demo/images/strasbourg.jpg"]'>
 </cosmoz-image-viewer>
 ```
 
