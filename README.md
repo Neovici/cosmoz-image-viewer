@@ -26,53 +26,8 @@ Example:
 ```
 -->
 ```html
-<cosmoz-image-viewer images="[[ images ]]">
+<cosmoz-image-viewer current-image="demo/images/stockholm.jpg">
 </cosmoz-image-viewer>
-<script type="text/javascript">
-(() => {
-  window.addEventListener('WebComponentsReady', () => {
-    const images = [
-      'demo/images/stockholm.jpg',
-      'demo/images/a_size.png',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg',
-      'demo/images/strasbourg.jpg',
-      'demo/images/stockholm.jpg'
-    ];
-    document.querySelectorAll('.scope').forEach(s => s.images = images);
-  });
-})();
-</script>
 ```
 
 ## Install the Polymer-CLI
