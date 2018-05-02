@@ -12,6 +12,8 @@ and activating a fullscreen mode.
 
 `<cosmoz-image-viewer>`
 
+Example:
+
 <!--
 ```
 <custom-element-demo>
@@ -24,8 +26,9 @@ and activating a fullscreen mode.
 ```
 -->
 ```html
-<cosmoz-image-viewer images="[[ images ]]">
-<cosmoz-image-viewer>
+<cosmoz-image-viewer show-nav show-dots show-fullscreen show-zoom show-detach
+images='["demo/images/stockholm.jpg", "demo/images/strasbourg.jpg"]'>
+</cosmoz-image-viewer>
 ```
 
 ## Install the Polymer-CLI
