@@ -284,9 +284,6 @@
 			this.cancelDebouncer('updateScrollPercent');
 			this.cancelDebouncer('elementHeight');
 			this.cancelDebouncer('setResolvedImages');
-
-			Array.from(Polymer.dom(this.root).querySelectorAll('img-pan-zoom'))
-				.forEach((img)=> img && img.viewer && img.destroy());
 		},
 
 		/** PUBLIC */
