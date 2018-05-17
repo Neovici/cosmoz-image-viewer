@@ -551,8 +551,7 @@ so a user can swipe to the next image.
 				/*eslint-env browser*/
 				(() => {
 					class CIV {
-						constructor(images = []) {
-							this._images = images;
+						constructor() {
 							this._currentImageIndex = 0;
 							this.elements = [
 								'image',
@@ -581,15 +580,15 @@ so a user can swipe to the next image.
 							this._setDisplay('loading', loading);
 						}
 
-						set currentImageHasError(hasError) {
-							this._currentImageHasError = hasError;
-						}
-
 						get currentImageIndex() {
 							return this._currentImageIndex;
 						}
 
 						set currentImageIndex(index) {
+							if (index > this.images.length - 1) {
+								console.warn('Image index does not exist!');
+								return;
+							}
 							this._currentImageIndex = index;
 							this._changeCurrentImage(this.images[index]);
 							this._setDisplay('error', false);
@@ -607,7 +606,7 @@ so a user can swipe to the next image.
 							return this._images;
 						}
 
-						setImages(images, currentImageIndex) {
+						setImages(images, currentImageIndex = 0) {
 							this.images = images;
 							this.currentImageIndex = currentImageIndex;
 						}

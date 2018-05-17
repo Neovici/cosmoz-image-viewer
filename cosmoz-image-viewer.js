@@ -358,14 +358,6 @@
 				return this._detachToExistingWindow();
 			}
 
-			globals.windowBeforeUnloadHandler = () => {
-				if (globals.windowOpener !== null) {
-					globals.windowOpener._setIsDetached(false);
-				}
-				globals.windowOpener = null;
-				globals.window = null;
-			};
-
 			return this._detachToNewWindow();
 		},
 
@@ -385,6 +377,14 @@
 				// browser has been refreshed without closing external window, we will reuse an old window
 				w.removeEventListener('beforeunload', globals.windowBeforeUnloadHandler);
 			}
+
+			globals.windowBeforeUnloadHandler = () => {
+				if (globals.windowOpener !== null) {
+					globals.windowOpener._setIsDetached(false);
+				}
+				globals.windowOpener = null;
+				globals.window = null;
+			};
 
 			w.document.title = this._detachedWindowTitle;
 
@@ -421,7 +421,7 @@
 		},
 
 		get hasWindow() {
-			return globals.window != null && !globals.window.closed && globals.window.ciw;
+			return globals.window != null && !globals.window.closed;
 		},
 
 		syncState() {
@@ -437,15 +437,11 @@
 		},
 
 		createZipFromUrls(fileUrls) {
-			const fetches = fileUrls
-				.map(url => fetch(url)
-					.then(response => {
-						return response.arrayBuffer();
-					})
-					.then(data => {
-						return {data, url};
-					})
-				);
+			const fetches = fileUrls.map(url =>
+				fetch(url)
+					.then(response => response.arrayBuffer())
+					.then(data => ({data, url}))
+			);
 
 			return Promise
 				.all(fetches)
