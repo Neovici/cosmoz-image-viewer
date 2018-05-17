@@ -422,7 +422,7 @@
 		},
 
 		get hasWindow() {
-			return globals.window != null && !globals.window.closed;
+			return globals.window != null && !globals.window.closed && globals.window.ciw;
 		},
 
 		syncState() {
