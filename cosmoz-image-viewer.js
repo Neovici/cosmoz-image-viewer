@@ -390,24 +390,28 @@
 
 			if (w.ciw == null) {
 				w.addEventListener('ready', () => setImages());
+				this._appendScriptsToWindow(windowTemplateClone.childNodes, w);
 
-				Array.from(windowTemplateClone.childNodes)
-					.forEach(node => {
-						if (node.tagName === 'SCRIPT') {
-							// Needed for Firefox
-							// otherwise the script would not be evaluated
-							const sc = document.createElement('script');
-							sc.innerHTML = node.innerHTML;
-							w.document.body.appendChild(sc);
-							return;
-						}
-						w.document.body.appendChild(node);
-					});
 			} else {
 				setImages();
 			}
 
 			return w;
+		},
+
+		_appendScriptsToWindow(nodes, w) {
+			Array.from(nodes)
+				.forEach(node => {
+					if (node.tagName === 'SCRIPT') {
+						// Needed for Firefox
+						// otherwise the script would not be evaluated
+						const sc = document.createElement('script');
+						sc.innerHTML = node.innerHTML;
+						w.document.body.appendChild(sc);
+						return;
+					}
+					w.document.body.appendChild(node);
+				});
 		},
 
 		_detachToExistingWindow() {
