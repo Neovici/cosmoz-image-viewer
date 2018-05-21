@@ -13,6 +13,7 @@
 
 <link rel="import" href="../skeleton-carousel/skeleton-carousel.html">
 <link rel="import" href="../img-pan-zoom/img-pan-zoom.html">
+<link rel="import" href="../nullxlsx/dist/import-nullzip.html">
 
 <link rel="import" href="cosmoz-image-viewer-overlay.html">
 
@@ -217,16 +218,13 @@ so a user can swipe to the next image.
 					margin: 0;
 					font-family: sans-serif;
 				}
-
 				body {
 					overflow: visible;
 				}
-
 				#image {
 					overflow-y: auto;
 					width: 100%;
 				}
-
 				#actions {
 					position: fixed;
 					left: 0;
@@ -246,29 +244,24 @@ so a user can swipe to the next image.
 					color: rgba(255, 255, 255, 0.87);
 					z-index: 10;
 				}
-
 				#actions:hover {
 					opacity: 1;
 					transition-delay: 0s;
 				}
-
 				.fa {
 					color: #fff;
 					font-size: 1.2em;
 					cursor: pointer;
 				}
-
 				.btn {
 					font-size: 2em;
 				}
-
-				#space {
+				#pageNumber {
 					width: 100%;
 					text-align: center;
 					font-size: 1.1em;
 					letter-spacing: 0.2em;
 				}
-
 				.action-box {
 					padding: 0 48px;
 					display: -ms-flexbox;
@@ -281,7 +274,6 @@ so a user can swipe to the next image.
 				.action-box > * {
 					padding-right: 24px;
 				}
-
 				.icon-btn {
 					position: inline-block;
 					width: 40px;
@@ -294,19 +286,16 @@ so a user can swipe to the next image.
 					box-sizing: border-box !important;
 					margin: 6px;
 				}
-
 				.icon-btn[disabled] {
 					cursor: default;
 					background-color: rgba(0, 0, 0, 0.2);
 					color: rgba(255, 255, 255, 0.4);
 				}
-
 				.icon-only {
 					width: 24px;
 					height: 24px;
 					cursor: pointer;
 				}
-
 				.icon {
 					pointer-events: none;
 					display: block;
@@ -314,14 +303,12 @@ so a user can swipe to the next image.
 					height: 100%;
 					fill: currentColor;
 				}
-
 				[hidden] {
 					display: none;
 				}
-
 				@media print {
 					.hide-on-print {
-						display: none;
+						display: none !important;
 					}
 					.print-image {
 						display: block;
@@ -331,7 +318,6 @@ so a user can swipe to the next image.
 						width: 100%;
 					}
 				}
-
 				.fullscreen {
 					position: absolute;
 					left: 0;
@@ -341,12 +327,10 @@ so a user can swipe to the next image.
 					background-color:#eee;
 					opacity: 0.7;
 				}
-
 				#error.fullscreen {
 					display: none;
 					opacity: 0.95;
 				}
-
 				.center-holder {
 					position: absolute;
 					left: 50%;
@@ -354,22 +338,18 @@ so a user can swipe to the next image.
 					margin-left: -40px;
 					margin-top: -40px;
 				}
-
 				#error .center-holder {
 					margin-left: -150px;
 				}
-
 				.center-content {
 					width: 80px;
 					height: 80px;
 					position: relative;
 				}
-
 				#error .center-content {
 					width: 300px;
 					text-align: center;
 				}
-
 				.sk-circle .sk-child {
 					width: 100%;
 					height: 100%;
@@ -377,7 +357,6 @@ so a user can swipe to the next image.
 					left: 0;
 					top: 0;
 				}
-
 				.sk-circle .sk-child:before {
 					content: '';
 					display: block;
@@ -389,128 +368,105 @@ so a user can swipe to the next image.
 					-webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
 					animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
 				}
-
 				.sk-circle .sk-circle2 {
 					-webkit-transform: rotate(30deg);
 					-ms-transform: rotate(30deg);
 					transform: rotate(30deg);
 				}
-
 				.sk-circle .sk-circle3 {
 					-webkit-transform: rotate(60deg);
 					-ms-transform: rotate(60deg);
 					transform: rotate(60deg);
 				}
-
 				.sk-circle .sk-circle4 {
 					-webkit-transform: rotate(90deg);
 					-ms-transform: rotate(90deg);
 					transform: rotate(90deg);
 				}
-
 				.sk-circle .sk-circle5 {
 					-webkit-transform: rotate(120deg);
 					-ms-transform: rotate(120deg);
 					transform: rotate(120deg);
 				}
-
 				.sk-circle .sk-circle6 {
 					-webkit-transform: rotate(150deg);
 					-ms-transform: rotate(150deg);
 					transform: rotate(150deg);
 				}
-
 				.sk-circle .sk-circle7 {
 					-webkit-transform: rotate(180deg);
 					-ms-transform: rotate(180deg);
 					transform: rotate(180deg);
 				}
-
 				.sk-circle .sk-circle8 {
 					-webkit-transform: rotate(210deg);
 					-ms-transform: rotate(210deg);
 					transform: rotate(210deg);
 				}
-
 				.sk-circle .sk-circle9 {
 					-webkit-transform: rotate(240deg);
 					-ms-transform: rotate(240deg);
 					transform: rotate(240deg);
 				}
-
 				.sk-circle .sk-circle10 {
 					-webkit-transform: rotate(270deg);
 					-ms-transform: rotate(270deg);
 					transform: rotate(270deg);
 				}
-
 				.sk-circle .sk-circle11 {
 					-webkit-transform: rotate(300deg);
 					-ms-transform: rotate(300deg);
 					transform: rotate(300deg);
 				}
-
 				.sk-circle .sk-circle12 {
 					-webkit-transform: rotate(330deg);
 					-ms-transform: rotate(330deg);
 					transform: rotate(330deg);
 				}
-
 				.sk-circle .sk-circle2:before {
 					-webkit-animation-delay: -1.1s;
 					animation-delay: -1.1s;
 				}
-
 				.sk-circle .sk-circle3:before {
 					-webkit-animation-delay: -1s;
 					animation-delay: -1s;
 				}
-
 				.sk-circle .sk-circle4:before {
 					-webkit-animation-delay: -0.9s;
 					animation-delay: -0.9s;
 				}
-
 				.sk-circle .sk-circle5:before {
 					-webkit-animation-delay: -0.8s;
 					animation-delay: -0.8s;
 				}
-
 				.sk-circle .sk-circle6:before {
 					-webkit-animation-delay: -0.7s;
 					animation-delay: -0.7s;
 				}
-
 				.sk-circle .sk-circle7:before {
 					-webkit-animation-delay: -0.6s;
 					animation-delay: -0.6s;
 				}
-
 				.sk-circle .sk-circle8:before {
 					-webkit-animation-delay: -0.5s;
 					animation-delay: -0.5s;
 				}
-
 				.sk-circle .sk-circle9:before {
 					-webkit-animation-delay: -0.4s;
 					animation-delay: -0.4s;
 				}
-
 				.sk-circle .sk-circle10:before {
 					-webkit-animation-delay: -0.3s;
 					animation-delay: -0.3s;
 				}
-
 				.sk-circle .sk-circle11:before {
 					-webkit-animation-delay: -0.2s;
 					animation-delay: -0.2s;
 				}
-
 				.sk-circle .sk-circle12:before {
 					-webkit-animation-delay: -0.1s;
 					animation-delay: -0.1s;
 				}
-
 				@-webkit-keyframes sk-circleBounceDelay {
 					0%,
 					80%,
@@ -523,7 +479,6 @@ so a user can swipe to the next image.
 						transform: scale(1);
 					}
 				}
-
 				@keyframes sk-circleBounceDelay {
 					0%,
 					80%,
@@ -541,26 +496,26 @@ so a user can swipe to the next image.
 			<img id="image" class="hide-on-print">
 			<div id="printContainer"></div>
 			<div id="actions" class="hide-on-print">
-				<div class="action-box">
-					<div id="prevImg" class="icon-btn nav" onclick="ciw.actions.prev()">
+				<div id="navs" class="action-box">
+					<div id="prevImg" class="icon-btn nav" onclick="ciw.prev()">
 						<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
 							<g><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></g>
 						</svg>
 					</div>
-					<div id="nextImg" class="icon-btn nav" onclick="ciw.actions.next()">
+					<div id="nextImg" class="icon-btn nav" onclick="ciw.next()">
 						<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
 							<g><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></g>
 						</svg>
 					</div>
 				</div>
-				<span id="space"></span>
+				<span id="pageNumber"></span>
 				<div class="action-box">
-					<div class="icon-only" onclick="ciw.actions.downloadImages()">
+					<div class="icon-only" onclick="ciw.downloadImages()">
 						<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
 							<g><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path></g>
 						</svg>
 					</div>
-					<div class="icon-only" onclick="ciw.actions.printPage()">
+					<div class="icon-only" onclick="ciw.printPage()">
 						<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
 							<g><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"></path></g>
 						</svg>
@@ -594,123 +549,152 @@ so a user can swipe to the next image.
 			</div>
 			<script>
 				/*eslint-env browser*/
-				const ciw = {
-					actions: {
+				(() => {
+					class CIV {
+						constructor() {
+							this._currentImageIndex = 0;
+							this.elements = [
+								'image',
+								'loading',
+								'prevImg',
+								'printContainer',
+								'nextImg',
+								'pageNumber',
+								'actions',
+								'navs',
+								'error'
+							].reduce((elements, id) => Object.assign(elements, { [id]: document.getElementById(id) }), {});
+							if (this.elements.image == null) {
+								return;
+							}
+							this.elements.image.onload = () => this._setDisplay('loading', false);
+							this.elements.image.onerror = () => this._setDisplay('error', true);
+						}
+
+						get isLoading() {
+							return this._isLoading;
+						}
+
+						set isLoading(loading) {
+							this._isLoading = true;
+							this._setDisplay('loading', loading);
+						}
+
+						get currentImageIndex() {
+							return this._currentImageIndex;
+						}
+
+						set currentImageIndex(index) {
+							if (index > this.images.length - 1) {
+								console.warn('Image index does not exist!');
+								return;
+							}
+							this._currentImageIndex = index;
+							this._changeCurrentImage(this.images[index]);
+							this._setDisplay('error', false);
+							this._updateNavState();
+						}
+
+						set images(images) {
+							this._images = images;
+							this.currentImageIndex = 0;
+							this._setDisplay('actions', images.length > 0, 'flex');
+							this._setNavVisibility(images.length > 1);
+						}
+
+						get images() {
+							return this._images;
+						}
+
+						setImages(images, currentImageIndex = 0) {
+							this.images = images;
+							this.currentImageIndex = currentImageIndex;
+						}
+
 						next() {
-							if (ciw.currentImageIndex === ciw.images.length - 1) {
+							if (this.currentImageIndex === this.images.length - 1) {
 								return;
 							}
-							ciw.currentImageIndex++;
-							ciw.elements.loading.style.display = 'block';
-							ciw.elements.error.style.display = 'none';
-							ciw.elements.image.src = ciw.images[ciw.currentImageIndex];
-							ciw.updateNavState();
-						},
+							this.currentImageIndex++;
+						}
+
 						prev() {
-							if (ciw.currentImageIndex === 0) {
+							if (this.currentImageIndex === 0) {
 								return;
 							}
-							ciw.currentImageIndex--;
-							ciw.elements.loading.style.display = 'block';
-							ciw.elements.error.style.display = 'none';
-							ciw.elements.image.src = ciw.images[ciw.currentImageIndex];
-							ciw.updateNavState();
-						},
+							this.currentImageIndex--;
+						}
+
 						downloadImages() {
-							if (!Array.isArray(ciw.images)) {
+							if (!Array.isArray(this.images)) {
 								return;
 							}
-							const dl = document.createElement('a');
+							window.dispatchEvent(new CustomEvent('download', { detail: this.images }));
+						}
 
-							ciw.images.forEach(imageUrl => {
-								dl.download = imageUrl.replace(/^.*[\\/]/, '');
-								dl.href = imageUrl;
-								dl.click();
-							});
-						},
 						printPage() {
-							ciw.elements.printContainer.innerHTML = '';
+							this.elements.printContainer.innerHTML = '';
 
-							const imgs = ciw.images.map(imageUrl => {
+							const imgs = this.images.map(imageUrl => {
 								const i = document.createElement('img');
 								i.src = imageUrl;
 								i.classList.add('print-image');
-								ciw.elements.printContainer.appendChild(i);
+								this.elements.printContainer.appendChild(i);
 								return i;
 							});
+							this._printIfLoaded(imgs).then(() => this.elements.printContainer.innerHTML = '');
+						}
 
-							ciw._printIfLoaded(imgs).then(() => ciw.elements.printContainer.innerHTML = '');
+						_printIfLoaded(imgs) {
+							return new Promise(resolve => {
+								setTimeout(() => {
+									if (!imgs.every(i => i.complete)) {
+										this._printIfLoaded(imgs);
+										return;
+									}
+									print();
+									resolve();
+								}, 100);
+							});
 						}
-					},
-					elements: {},
-					init() {
-						ciw.elements = [
-							'error',
-							'image',
-							'loading',
-							'prevImg',
-							'printContainer',
-							'nextImg',
-							'space'
-						].reduce((elements, id) => Object.assign(elements, { [id]: document.getElementById(id) }), {});
-						if (ciw.elements.image == null) {
-							console.error('#image not found, run in wrong context?', ciw.elements.image, this, window);
-							return;
-						}
-						ciw.elements.image.onload = () => {
-							ciw.elements.loading.style.display = 'none';
-							ciw.elements.error.style.display = 'none';
-						};
-						ciw.elements.image.onerror = () => {
-							ciw.elements.loading.style.display = 'none';
-							ciw.elements.error.style.display = 'block';
-						};
-						window.dispatchEvent(new Event('ready', { bubbles: true }));
-					},
-					_printIfLoaded: imgs =>
-						new Promise(resolve => {
-							setTimeout(() => {
-								if (!imgs.every(i => i.complete)) {
-									ciw._printIfLoaded(imgs);
-									return;
-								}
-								print();
-								resolve();
-							}, 100);
-						}),
-					setImages(array, startIndex = 0) {
-						const imageUrl = array[startIndex],
-							actions = document.getElementById('actions'),
-							navs = document.querySelectorAll('.nav');
-						ciw.images = array;
-						ciw.elements.loading.style.display = 'block';
-						ciw.elements.error.style.display = 'none';
-						ciw.elements.image.src = imageUrl;
-						ciw.currentImageIndex = startIndex;
 
-						// hide/show actions
-						actions.hidden = ciw.images.length === 0 ? true : false;
+						_changeCurrentImage(url) {
+							this.isLoading = true;
+							this.elements.image.src = url;
+						}
 
-						navs.forEach(n => n.hidden = ciw.images.length > 1 ? false : true);
-						ciw.updateNavState();
-					},
-					updateNavState() {
-						if (ciw.currentImageIndex === 0) {
-							ciw.elements.prevImg.setAttribute('disabled', true);
-						} else {
-							ciw.elements.prevImg.removeAttribute('disabled');
+						_setDisplay(element, visible = false, trueStyle = 'block', falseStyle = 'none') {
+							if (!element || !this.elements[element]) {
+								return;
+							}
+							this.elements[element].style.display = visible ? trueStyle : falseStyle;
 						}
-						if (ciw.currentImageIndex + 1 === ciw.images.length) {
-							ciw.elements.nextImg.setAttribute('disabled', true);
-						} else {
-							ciw.elements.nextImg.removeAttribute('disabled');
+
+						_setNavVisibility(visible) {
+							this.elements.navs.hidden = !visible;
 						}
-						ciw.elements.space.innerHTML = `${ciw.currentImageIndex + 1} / ${ciw.images.length}`;
+
+						_updateNavState() {
+							if (this.currentImageIndex === 0) {
+								this.elements.prevImg.setAttribute('disabled', true);
+							} else {
+								this.elements.prevImg.removeAttribute('disabled');
+							}
+							if (this.currentImageIndex + 1 === this.images.length) {
+								this.elements.nextImg.setAttribute('disabled', true);
+							} else {
+								this.elements.nextImg.removeAttribute('disabled');
+							}
+							this.elements.pageNumber.innerHTML = `${this.currentImageIndex + 1} / ${this.images.length}`;
+						}
 					}
-				};
-				window.ciw = ciw;
-
-				ciw.init();
+					window.ciw = new CIV();
+					if (window.ciw.elements.image == null) {
+						console.error('#image not found, run in wrong context?', window.ciw.elements.image, this, window);
+						return;
+					}
+					window.dispatchEvent(new Event('ready', { bubbles: true }));
+				})();
 			</script>
 		</template>
 	</template>

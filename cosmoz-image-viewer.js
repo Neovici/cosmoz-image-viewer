@@ -201,6 +201,14 @@
 				type: Boolean,
 				value: false
 			},
+			/**
+			* The filename of the zip archive when downloaded
+			* in the detached window.
+			*/
+			downloadFileName: {
+				type: String,
+				value: 'archive'
+			},
 
 			// Private
 
@@ -331,7 +339,7 @@
 		},
 		/**
 		 * Opens a detached window.
-		 * @returns {undefined}
+		 * @returns {Object} detached window object
 		 */
 		detach() {
 			this._setIsDetached(true);
@@ -344,20 +352,22 @@
 			}
 
 			if (this.hasWindow) {
-				globals.window.document.title = this._detachedWindowTitle;
-				globals.window.ciw.setImages(this._resolvedImages, this.currentImageIndex);
-				globals.window.focus();
-				return;
+				return this._detachToExistingWindow();
 			}
 
+			return this._detachToNewWindow();
+		},
+
+		_detachToNewWindow() {
 			const
 				w = globals.window = window.open(undefined, this.detachedWindowName, this._detachedWindowFeaturesString),
 				windowTemplate = this.$$('#externalWindow'),
-				windowTemplateClone = windowTemplate.content.cloneNode(true);
+				windowTemplateClone = windowTemplate.content.cloneNode(true),
+				setImages = () => w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
 
 			if (w == null) {
 				// if window.open() is blocked (popup blocked, not emited by native user triggered event)
-				return;
+				return w;
 			}
 
 			if (w.ciw != null) {
@@ -366,29 +376,98 @@
 			}
 
 			globals.windowBeforeUnloadHandler = () => {
-				globals.windowOpener._setIsDetached(false);
+				if (globals.windowOpener !== null) {
+					globals.windowOpener._setIsDetached(false);
+				}
 				globals.windowOpener = null;
 				globals.window = null;
 			};
 
 			w.document.title = this._detachedWindowTitle;
 
+			w.addEventListener('download', ({detail}) => this.createZipFromUrls(detail).then(zip => this.downloadZip(zip)));
 			w.addEventListener('beforeunload', globals.windowBeforeUnloadHandler);
 
 			if (w.ciw == null) {
-				w.addEventListener('ready', () => w.ciw.setImages(this._resolvedImages, this.currentImageIndex));
-				w.document.body.appendChild(windowTemplateClone);
+				w.addEventListener('ready', () => setImages());
+				this._appendScriptsToWindow(windowTemplateClone.childNodes, w);
+
 			} else {
-				w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
+				setImages();
 			}
+
+			return w;
 		},
+
+		_appendScriptsToWindow(nodes, w) {
+			Array.from(nodes)
+				.forEach(node => {
+					if (node.tagName === 'SCRIPT') {
+						// Needed for Firefox
+						// otherwise the script would not be evaluated
+						const sc = document.createElement('script');
+						sc.innerHTML = node.innerHTML;
+						w.document.body.appendChild(sc);
+						return;
+					}
+					w.document.body.appendChild(node);
+				});
+		},
+
+		_detachToExistingWindow() {
+			globals.window.document.title = this._detachedWindowTitle;
+			globals.window.ciw.setImages(this._resolvedImages, this.currentImageIndex);
+			globals.window.focus();
+			return globals.window;
+		},
+
 		get hasWindow() {
-			return globals.window != null && !globals.window.closed;
+			return globals.window != null && !globals.window.closed && globals.window.ciw;
 		},
+
 		syncState() {
 			if (!this.isDetached && this.hasWindow) {
 				this.detach();
 			}
+		},
+
+		downloadZip(zip) {
+			const a = document.body.appendChild(zip.createDownloadLink());
+			a.click();
+			document.body.removeChild(a);
+		},
+
+		createZipFromUrls(fileUrls) {
+			const fetches = fileUrls.map(url =>
+				fetch(url)
+					.then(response => response.arrayBuffer())
+					.then(data => ({data, url}))
+			);
+
+			return Promise
+				.all(fetches)
+				.then(responses => {
+					const filenames = [],
+						zip = new NullZipArchive(this.downloadFileName, false);
+
+					for (const {url, data} of responses) {
+						let filename = url.replace(/^.*[\\/]/, '');
+						const filenameParts = filename.split('.'),
+							sameFilenames = filenames.filter(f => f === filenameParts[0]);
+
+						if (sameFilenames.length > 0) {
+							filename = `${filenameParts[0]} (${sameFilenames.length + 1}).${filenameParts[1]}`;
+						}
+
+						zip.addFileFromUint8Array(filename, new Uint8Array(data));
+						filenames.push(filenameParts[0]);
+
+						if (fileUrls.length === zip.a.length) {
+							zip.generate();
+							return zip;
+						}
+					}
+				});
 		},
 		/**
 		 * Toggles between initial zoom level and 1.5x initial zoom level.

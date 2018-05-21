@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+	<title>cosmoz-image-viewer basic test</title>
+
+	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+	<script src="../../web-component-tester/browser.js"></script>
+	<script src="../../test-fixture/test-fixture-mocha.js"></script>
+
+	<link rel="import" href="../../test-fixture/test-fixture.html">
+	<link rel="import" href="../../iron-test-helpers/iron-test-helpers.html">
+
+	<link rel="import" href="../cosmoz-image-viewer.html">
+</head>
+<body>
+	<test-fixture id="cosmozImageViewer">
+		<template>
+			<cosmoz-image-viewer show-zoom></cosmoz-image-viewer>
+		</template>
+    </test-fixture>
+
+    <test-fixture id="cosmozImageViewer2">
+            <template>
+                <cosmoz-image-viewer show-zoom></cosmoz-image-viewer>
+            </template>
+        </test-fixture>
+
+	<script>
+	/*global sinon chai*/
+	(function () {
+		'use strict';
+
+		sinon.assert.expose(chai.assert, { prefix: '' });
+
+		suite('cosmoz-image-viewer', () => {
+			let imageViewer,
+				imageViewer2;
+
+			setup(function (done) {
+				imageViewer = fixture('cosmozImageViewer');
+				imageViewer2 = fixture('cosmozImageViewer2');
+
+				[imageViewer, imageViewer2].forEach(viewer => {
+					viewer.images = [
+						'../../demo/images/stockholm.jpg',
+						'../../demo/images/strasbourg.jpg',
+						'../../demo/images/cosmos1.jpg'
+					];
+				});
+
+				let w = imageViewer.detach();
+				if (w == null) {
+					console.warn('Only gets tested without popup blocker');
+					/* eslint-disable-next-line no-invalid-this */
+					this.skip();
+				}
+				w.close();
+
+				Polymer.Base.async(() => {
+					done();
+				}, 100);
+			});
+
+			test('detaching works', () => {
+				const w = imageViewer.detach();
+				assert.isNotNull(w);
+				w.close();
+			});
+
+			test('detaching to existing window works', () => {
+				let w = imageViewer.detach();
+				const w2 = imageViewer.detach();
+				assert.isNotNull(w);
+				assert.deepEqual(w, w2);
+				w.close();
+			});
+
+			test('shared detaching works', () => {
+				let w = imageViewer.detach();
+				const w2 = imageViewer2.detach();
+				assert.isNotNull(w);
+				assert.deepEqual(w, w2);
+				w.close();
+			});
+		});
+
+	}());
+
+	</script>
+</body>
+</html>

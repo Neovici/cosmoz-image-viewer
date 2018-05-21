@@ -107,6 +107,13 @@
 				imageViewer.attach();
 			});
 
+			test('zip creation works', (done) => {
+				imageViewer.createZipFromUrls(imageViewer._resolvedImages).then(zip => {
+					assert.isAbove(zip.b.byteLength, 10000);
+					done();
+				});
+			});
+
 			test('_close fires event close-tapped', () => {
 				let called = false;
 				imageViewer.addEventListener('close-tapped', () => {
