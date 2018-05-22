@@ -211,6 +211,41 @@
 			});
 		});
 
+		suite('cosmoz-image-viewer-error-images', () => {
+			let imageViewer,
+				errorDiv;
+
+			setup((done) => {
+				imageViewer = fixture('cosmozImageViewer');
+				imageViewer.images = [
+					'xyz.jpg',
+					'../../demo/images/stockholm.jpg',
+					'../../demo/images/strasbourg.jpg'
+				];
+
+				errorDiv = () => imageViewer.carousel.selectedItem.querySelector('.error');
+
+				Polymer.Base.async(() => {
+					done();
+				}, 100);
+			});
+
+			test('error is shown', () => {
+				imageViewer.currentImageIndex = 0;
+				assert.equal(errorDiv().hidden, false);
+			});
+
+			test('next image works again with hidden error', () => {
+				imageViewer.currentImageIndex = 1;
+				assert.equal(errorDiv().hidden, true);
+			});
+
+			test('previous image shows error', () => {
+				imageViewer.currentImageIndex = 0;
+				assert.equal(errorDiv().hidden, false);
+			});
+		});
+
 		suite('cosmoz-image-viewer-overlay', () => {
 			let overlay;
 

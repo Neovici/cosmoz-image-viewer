@@ -291,19 +291,23 @@
 		get imageOverlay() {
 			return imageOverlay;
 		},
+
+		get carousel() {
+			return this.$$('#carousel');
+		},
 		/**
 		 * Triggers the slide to the next image.
 		 * @returns {undefined}
 		 */
 		nextImage() {
-			this.$.carousel.next();
+			this.carousel.next();
 		},
 		/**
 		 * Triggers the slide to the previous image.
 		 * @returns {undefined}
 		 */
 		previousImage() {
-			this.$.carousel.prev();
+			this.carousel.prev();
 		},
 
 		_createImageOverlay() {
@@ -474,7 +478,7 @@
 		 * @returns {undefined}
 		 */
 		zoomToggle() {
-			const el = this.$.carousel.selectedItem.querySelector('img-pan-zoom');
+			const el = this.carousel.selectedItem.querySelector('img-pan-zoom');
 			if (!el.viewer) {
 				return;
 			}
@@ -511,7 +515,7 @@
 		},
 
 		_getErrorClass(showZoom) {
-			return showZoom ? 'error pan' : 'error';
+			return showZoom ? 'pan' : '';
 		},
 
 		_selectedItemChanged(selectedItem) {
