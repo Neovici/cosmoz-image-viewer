@@ -235,6 +235,12 @@
 				assert.equal(errorDiv().hidden, false);
 			});
 
+			test('error is shown with img-pan-zoom active', () => {
+				imageViewer.showZoom = true;
+				imageViewer.currentImageIndex = 0;
+				assert.equal(errorDiv().hidden, false);
+			});
+
 			test('next image works again with hidden error', () => {
 				imageViewer.currentImageIndex = 1;
 				assert.equal(errorDiv().hidden, true);
