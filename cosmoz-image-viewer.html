@@ -219,11 +219,13 @@ so a user can swipe to the next image.
 						</div>
 						<img-pan-zoom hidden$="[[!showZoom]]"
 							class="image-zoom"
-							data-src$="[[image]]"
+							data-src$="[[_getImgPanZoomSrc(image, showZoom)]]"
 							on-loaded-changed="_imageLoadedChanged"
 							on-error-changed="_onImageError">
 						</img-pan-zoom>
-						<iron-image hidden$="[[showZoom]]"
+						<iron-image
+							hidden$="[[showZoom]]"
+							prevent-load="[[showZoom]]"
 							sizing="[[sizing]]"
 							class="image"
 							data-src$="[[image]]"

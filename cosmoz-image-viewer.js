@@ -510,12 +510,21 @@
 				return;
 			}
 
-			errorContainer.querySelector('.desc').innerHTML = e.currentTarget.dataset.src;
 			errorContainer.setAttribute('hidden', true);
+
+			if (!e.currentTarget.dataset.src) {
+				return;
+			}
+			errorContainer.querySelector('.desc').innerHTML =  e.currentTarget.dataset.src;
+
 		},
 
 		_getErrorClass(showZoom) {
 			return showZoom ? 'pan' : '';
+		},
+
+		_getImgPanZoomSrc(image, showZoom) {
+			return showZoom ? image : null;
 		},
 
 		_selectedItemChanged(selectedItem) {
