@@ -499,6 +499,21 @@
 			return show ? imagesLen >= imgsMinLen && heightOk : false;
 		},
 
+		_onImageError(e) {
+			const errorContainer = e.currentTarget.parentElement.querySelector('.error');
+			if (e.detail.value) {
+				errorContainer.removeAttribute('hidden');
+				return;
+			}
+
+			errorContainer.querySelector('.desc').innerHTML = e.currentTarget.dataset.src;
+			errorContainer.setAttribute('hidden', true);
+		},
+
+		_getErrorClass(showZoom) {
+			return showZoom ? 'error pan' : 'error';
+		},
+
 		_selectedItemChanged(selectedItem) {
 			if (!selectedItem) {
 				return;
