@@ -183,6 +183,34 @@
 			});
 		});
 
+		suite('cosmoz-image-viewer-no-images', () => {
+			let imageViewer;
+
+			setup((done) => {
+				imageViewer = fixture('cosmozImageViewer');
+				imageViewer.images = [];
+				imageViewer.showZoom = true;
+				imageViewer.showNav = true;
+				imageViewer.showFullscreen = true;
+				imageViewer.showDetach = true;
+
+				Polymer.Base.async(() => {
+					done();
+				}, 100);
+			});
+
+			test('action items are hidden', () => {
+				assert.equal(imageViewer._showNav, false);
+				assert.equal(imageViewer._showZoom, false);
+				assert.equal(imageViewer._showFullscreen, false);
+				assert.equal(imageViewer._showDetach, false);
+			});
+
+			test('no image info is shown', () => {
+				assert.equal(imageViewer._hideNoImageInfo, false);
+			});
+		});
+
 		suite('cosmoz-image-viewer-overlay', () => {
 			let overlay;
 
