@@ -233,7 +233,8 @@
 			test('error is shown', (done) => {
 				imageViewer.showZoom = false;
 				imageViewer.currentImageIndex = 0;
-				const err = errorDiv();
+				let err;
+				Polymer.Base.async(() => err = errorDiv());
 				Polymer.Base.async(() => {
 					assert.equal(err.hidden, false);
 					done();
@@ -243,7 +244,8 @@
 			test('error is shown with img-pan-zoom active', (done) => {
 				imageViewer.showZoom = true;
 				imageViewer.currentImageIndex = 0;
-				const err = errorDiv();
+				let err;
+				Polymer.Base.async(() => err = errorDiv());
 				Polymer.Base.async(() => {
 					assert.equal(err.hidden, false);
 					done();
@@ -253,7 +255,8 @@
 			test('error gets hidden if next image loaded successfully', (done) => {
 				imageViewer.showZoom = false;
 				imageViewer.currentImageIndex = 1;
-				const err = errorDiv();
+				let err;
+				Polymer.Base.async(() => err = errorDiv());
 				Polymer.Base.async(() => {
 					assert.equal(err.hidden, true);
 					done();
