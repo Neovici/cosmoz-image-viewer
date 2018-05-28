@@ -235,8 +235,7 @@
 				imageViewer.currentImageIndex = 1;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
-					console.log(errorDiv());
-					assert.equal(errorDiv().hidden, false);
+					assert.equal(imageViewer.carousel.selectedItem.querySelector('.error').hidden, false);
 					done();
 				}, 200);
 			});
@@ -246,7 +245,7 @@
 				imageViewer.currentImageIndex = 1;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
-					assert.equal(errorDiv().hidden, false);
+					assert.equal(imageViewer.carousel.selectedItem.querySelector('.error').hidden, false);
 					done();
 				}, 200);
 			});
@@ -256,7 +255,7 @@
 				imageViewer.currentImageIndex = 0;
 				imageViewer.currentImageIndex = 1;
 				Polymer.Base.async(() => {
-					assert.equal(errorDiv().hidden, true);
+					assert.equal(imageViewer.carousel.selectedItem.querySelector('.error').hidden, true);
 					done();
 				}, 200);
 			});
