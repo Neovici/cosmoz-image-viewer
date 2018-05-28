@@ -213,7 +213,7 @@ so a user can swipe to the next image.
 				selected="{{currentImageIndex}}">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
 					<div>
-						<div class$="error [[_getErrorClass(showZoom)]]">
+						<div class$="error [[_getErrorClass(showZoom)]]" name="errorDiv">
 							<h2>An error occurred while loading the image.</h2>
 							<div class="desc"></div>
 						</div>

@@ -234,6 +234,7 @@
 				imageViewer.showZoom = false;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
+					console.log(errorDiv().name);
 					assert.equal(errorDiv().hidden, false);
 					done();
 				}, 100);
