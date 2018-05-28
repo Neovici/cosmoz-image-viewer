@@ -235,7 +235,7 @@
 				imageViewer.currentImageIndex = 1;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
-					assert.equal(imageViewer.carousel.selectedItem.querySelector('.error').hidden, false);
+					assert.notEqual(imageViewer.carousel.selectedItem.querySelector('.error').offsetParent, null);
 					done();
 				}, 200);
 			});
@@ -245,7 +245,7 @@
 				imageViewer.currentImageIndex = 1;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
-					assert.equal(imageViewer.carousel.selectedItem.querySelector('.error').hidden, false);
+					assert.notEqual(imageViewer.carousel.selectedItem.querySelector('.error').offsetParent, null);
 					done();
 				}, 200);
 			});
@@ -255,7 +255,7 @@
 				imageViewer.currentImageIndex = 0;
 				imageViewer.currentImageIndex = 1;
 				Polymer.Base.async(() => {
-					assert.equal(imageViewer.carousel.selectedItem.querySelector('.error').hidden, true);
+					assert.equal(imageViewer.carousel.selectedItem.querySelector('.error').offsetParent, null);
 					done();
 				}, 200);
 			});
