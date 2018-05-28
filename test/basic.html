@@ -232,12 +232,13 @@
 
 			test('error is shown', (done) => {
 				imageViewer.showZoom = false;
+				imageViewer.currentImageIndex = 1;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
 					console.log(errorDiv());
 					assert.equal(errorDiv().hidden, false);
 					done();
-				}, 1000);
+				}, 200);
 			});
 
 			test('error is shown with img-pan-zoom active', (done) => {
@@ -247,7 +248,7 @@
 				Polymer.Base.async(() => {
 					assert.equal(errorDiv().hidden, false);
 					done();
-				}, 1000);
+				}, 200);
 			});
 
 			test('error gets hidden if next image loaded successfully', (done) => {
@@ -257,7 +258,7 @@
 				Polymer.Base.async(() => {
 					assert.equal(errorDiv().hidden, true);
 					done();
-				}, 1000);
+				}, 200);
 			});
 		});
 
