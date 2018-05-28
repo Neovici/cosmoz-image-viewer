@@ -237,7 +237,7 @@
 					console.log(errorDiv());
 					assert.equal(errorDiv().hidden, false);
 					done();
-				}, 200);
+				}, 1000);
 			});
 
 			test('error is shown with img-pan-zoom active', (done) => {
@@ -247,7 +247,7 @@
 				Polymer.Base.async(() => {
 					assert.equal(errorDiv().hidden, false);
 					done();
-				}, 200);
+				}, 1000);
 			});
 
 			test('error gets hidden if next image loaded successfully', (done) => {
@@ -257,7 +257,7 @@
 				Polymer.Base.async(() => {
 					assert.equal(errorDiv().hidden, true);
 					done();
-				}, 200);
+				}, 1000);
 			});
 		});
 
