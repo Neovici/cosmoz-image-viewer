@@ -213,7 +213,8 @@
 
 		suite('cosmoz-image-viewer-loading-error', () => {
 			let imageViewer,
-				errorDiv;
+				errorDiv,
+				hasDisplayNone;
 
 			setup((done) => {
 				imageViewer = fixture('cosmozImageViewer');
@@ -224,18 +225,27 @@
 				];
 
 				errorDiv = () => imageViewer.carousel.selectedItem.querySelector('.error');
+				hasDisplayNone = (element) => element.offsetHeight === 0 && element.offsetWidth === 0;
+
 
 				Polymer.Base.async(() => {
 					done();
 				}, 100);
 			});
 
+			test('error is hidden if no loading error', (done) => {
+				imageViewer.currentImageIndex = 1;
+				Polymer.Base.async(() => {
+					assert.equal(hasDisplayNone(errorDiv()), true);
+					done();
+				}, 200);
+			});
+
 			test('error is shown', (done) => {
 				imageViewer.showZoom = false;
-				imageViewer.currentImageIndex = 1;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
-					assert.notEqual(imageViewer.carousel.selectedItem.querySelector('.error').offsetParent, null);
+					assert.equal(hasDisplayNone(errorDiv()), false);
 					done();
 				}, 200);
 			});
@@ -245,17 +255,17 @@
 				imageViewer.currentImageIndex = 1;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
-					assert.notEqual(imageViewer.carousel.selectedItem.querySelector('.error').offsetParent, null);
+					assert.equal(hasDisplayNone(errorDiv()), false);
 					done();
 				}, 200);
 			});
 
-			test('error gets hidden if next image loaded successfully', (done) => {
+			test('error is hidden if next image loaded successfully', (done) => {
 				imageViewer.showZoom = false;
 				imageViewer.currentImageIndex = 0;
 				imageViewer.currentImageIndex = 1;
 				Polymer.Base.async(() => {
-					assert.equal(imageViewer.carousel.selectedItem.querySelector('.error').offsetParent, null);
+					assert.equal(hasDisplayNone(errorDiv()), true);
 					done();
 				}, 200);
 			});
