@@ -232,21 +232,13 @@
 				}, 100);
 			});
 
-			test('error is hidden if no loading error', (done) => {
-				imageViewer.currentImageIndex = 1;
-				Polymer.Base.async(() => {
-					assert.equal(displayNone(errorDiv()), true);
-					done();
-				}, 200);
-			});
-
 			test('error is shown', (done) => {
 				imageViewer.showZoom = false;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
 					assert.equal(displayNone(errorDiv()), false);
 					done();
-				}, 200);
+				}, 50);
 			});
 
 			test('error is shown with img-pan-zoom active', (done) => {
@@ -256,7 +248,7 @@
 				Polymer.Base.async(() => {
 					assert.equal(displayNone(errorDiv()), false);
 					done();
-				}, 200);
+				}, 50);
 			});
 
 			test('error is hidden if next image loaded successfully', (done) => {
@@ -266,7 +258,7 @@
 				Polymer.Base.async(() => {
 					assert.equal(displayNone(errorDiv()), true);
 					done();
-				}, 200);
+				}, 50);
 			});
 		});
 
