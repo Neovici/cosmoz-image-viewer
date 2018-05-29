@@ -272,7 +272,12 @@
 
 		ready() {
 			this.set('_scroller', this.$.imageContainer);
-			this._dblClickListner = this.zoomToggle.bind(this);
+			this._dblClickListner = () => {
+				if (!this._showZoom) {
+					return;
+				}
+				this.zoomToggle();
+			};
 		},
 
 		attached() {
@@ -506,27 +511,11 @@
 		_onImageError(e) {
 			const errorContainer = e.currentTarget.parentElement.querySelector('.error');
 			if (e.detail.value) {
-				// errorContainer.removeAttribute('hidden');
-				errorContainer.classList.remove('hidden');
+				errorContainer.removeAttribute('hidden');
 				return;
 			}
 
-			// errorContainer.setAttribute('hidden', true);
-			errorContainer.classList.add('hidden');
-
-			if (!e.currentTarget.dataset.src) {
-				return;
-			}
-			errorContainer.querySelector('.desc').innerHTML =  e.currentTarget.dataset.src;
-
-		},
-
-		_getErrorClass(showZoom) {
-			return showZoom ? 'pan' : '';
-		},
-
-		_getImgPanZoomSrc(image, showZoom) {
-			return showZoom ? image : null;
+			errorContainer.setAttribute('hidden', true);
 		},
 
 		_selectedItemChanged(selectedItem) {
