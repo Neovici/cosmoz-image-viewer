@@ -214,7 +214,7 @@
 		suite('cosmoz-image-viewer-loading-error', () => {
 			let imageViewer,
 				errorDiv,
-				hasDisplayNone;
+				displayNone;
 
 			setup((done) => {
 				imageViewer = fixture('cosmozImageViewer');
@@ -225,8 +225,7 @@
 				];
 
 				errorDiv = () => imageViewer.carousel.selectedItem.querySelector('.error');
-				hasDisplayNone = (element) => element.offsetHeight === 0 && element.offsetWidth === 0;
-
+				displayNone = (element) => element.offsetParent === null;
 
 				Polymer.Base.async(() => {
 					done();
@@ -236,7 +235,7 @@
 			test('error is hidden if no loading error', (done) => {
 				imageViewer.currentImageIndex = 1;
 				Polymer.Base.async(() => {
-					assert.equal(hasDisplayNone(errorDiv()), true);
+					assert.equal(displayNone(errorDiv()), true);
 					done();
 				}, 200);
 			});
@@ -245,7 +244,7 @@
 				imageViewer.showZoom = false;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
-					assert.equal(hasDisplayNone(errorDiv()), false);
+					assert.equal(displayNone(errorDiv()), false);
 					done();
 				}, 200);
 			});
@@ -255,7 +254,7 @@
 				imageViewer.currentImageIndex = 1;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
-					assert.equal(hasDisplayNone(errorDiv()), false);
+					assert.equal(displayNone(errorDiv()), false);
 					done();
 				}, 200);
 			});
@@ -265,7 +264,7 @@
 				imageViewer.currentImageIndex = 0;
 				imageViewer.currentImageIndex = 1;
 				Polymer.Base.async(() => {
-					assert.equal(hasDisplayNone(errorDiv()), true);
+					assert.equal(displayNone(errorDiv()), true);
 					done();
 				}, 200);
 			});
