@@ -506,11 +506,13 @@
 		_onImageError(e) {
 			const errorContainer = e.currentTarget.parentElement.querySelector('.error');
 			if (e.detail.value) {
-				errorContainer.removeAttribute('hidden');
+				// errorContainer.removeAttribute('hidden');
+				errorContainer.classList.remove('hidden');
 				return;
 			}
 
-			errorContainer.setAttribute('hidden', true);
+			// errorContainer.setAttribute('hidden', true);
+			errorContainer.classList.add('hidden');
 
 			if (!e.currentTarget.dataset.src) {
 				return;
