@@ -3,7 +3,6 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
-<link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html" />
 
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
@@ -118,14 +117,6 @@ so a user can swipe to the next image.
 				}
 			}
 
-			.image {
-				background-color: gray;
-				pointer-events: none;
-				--iron-image-width: 100%;
-				--iron-image-height: auto;
-				@apply --cosmoz-image-viewer-image;
-			}
-
 			.image-zoom {
 				@apply --layout-flex-auto;
 				display: flex;
@@ -134,6 +125,24 @@ so a user can swipe to the next image.
 				pointer-events: none;
 				height: 100vh;
 				@apply --cosmoz-image-viewer-image-zoom;
+			}
+
+			.error {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				color: white;
+    			z-index: +1;
+			}
+
+			.error .desc {
+				padding-top: 1em;
+				opacity: 0.8;
+				font-size: 0.8em;
+			}
+			.hidden {
+				display: none !important;
 			}
 		</style>
 
@@ -195,17 +204,16 @@ so a user can swipe to the next image.
 				selected="{{currentImageIndex}}">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
 					<div>
-						<img-pan-zoom hidden$="[[!showZoom]]"
+						<div class="error">
+							<h2>An error occurred while loading the image.</h2>
+							<div class="desc">[[image]]</div>
+						</div>
+						<img-pan-zoom
 							class="image-zoom"
 							data-src$="[[image]]"
-							on-loaded-changed="_imageLoadedChanged">
+							on-loaded-changed="_imageLoadedChanged"
+							on-error-changed="_onImageError">
 						</img-pan-zoom>
-						<iron-image hidden$="[[showZoom]]"
-							sizing="[[sizing]]"
-							class="image"
-							data-src$="[[image]]"
-							on-loaded-changed="_imageLoadedChanged">
-						</iron-image>
 					</div>
 				</template>
 			</skeleton-carousel>

@@ -272,7 +272,12 @@
 
 		ready() {
 			this.set('_scroller', this.$.imageContainer);
-			this._dblClickListner = this.zoomToggle.bind(this);
+			this._dblClickListner = () => {
+				if (!this._showZoom) {
+					return;
+				}
+				this.zoomToggle();
+			};
 		},
 
 		attached() {
@@ -291,19 +296,23 @@
 		get imageOverlay() {
 			return imageOverlay;
 		},
+
+		get carousel() {
+			return this.$$('#carousel');
+		},
 		/**
 		 * Triggers the slide to the next image.
 		 * @returns {undefined}
 		 */
 		nextImage() {
-			this.$.carousel.next();
+			this.carousel.next();
 		},
 		/**
 		 * Triggers the slide to the previous image.
 		 * @returns {undefined}
 		 */
 		previousImage() {
-			this.$.carousel.prev();
+			this.carousel.prev();
 		},
 
 		_createImageOverlay() {
@@ -474,7 +483,7 @@
 		 * @returns {undefined}
 		 */
 		zoomToggle() {
-			const el = this.$.carousel.selectedItem.querySelector('img-pan-zoom');
+			const el = this.carousel.selectedItem.querySelector('img-pan-zoom');
 			if (!el.viewer) {
 				return;
 			}
@@ -497,6 +506,16 @@
 		_computeShowActions(show, imagesLen, height, imgsMinLen = 1) {
 			const heightOk = height ? height > 100 : true;
 			return show ? imagesLen >= imgsMinLen && heightOk : false;
+		},
+
+		_onImageError(e) {
+			const errorContainer = e.currentTarget.parentElement.querySelector('.error');
+			if (e.detail.value) {
+				errorContainer.removeAttribute('hidden');
+				return;
+			}
+
+			errorContainer.setAttribute('hidden', true);
 		},
 
 		_selectedItemChanged(selectedItem) {
