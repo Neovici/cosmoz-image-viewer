@@ -21,6 +21,9 @@ cache:
     - bower_components-1.x
     - ".eslintcache"
     - "$HOME/.cache/bower"
+install:
+  - yarn install
+
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter

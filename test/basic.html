@@ -236,7 +236,7 @@
 				imageViewer.showZoom = false;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
-					assert.equal(displayNone(errorDiv()), false);
+					assert.equal(displayNone(imageViewer.carousel.selectedItem.querySelector('.error')), false);
 					done();
 				}, 200);
 			});
@@ -246,7 +246,7 @@
 				imageViewer.currentImageIndex = 1;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
-					assert.equal(displayNone(errorDiv()), false);
+					assert.equal(displayNone(imageViewer.carousel.selectedItem.querySelector('.error')), false);
 					done();
 				}, 200);
 			});
@@ -256,7 +256,7 @@
 				imageViewer.currentImageIndex = 0;
 				imageViewer.currentImageIndex = 1;
 				Polymer.Base.async(() => {
-					assert.equal(displayNone(errorDiv()), true);
+					assert.equal(displayNone(imageViewer.carousel.selectedItem.querySelector('.error')), true);
 					done();
 				}, 200);
 			});
