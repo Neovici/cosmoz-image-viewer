@@ -236,9 +236,9 @@
 				imageViewer.showZoom = false;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
-					assert.equal(displayNone(imageViewer.carousel.selectedItem.querySelector('.error')), false);
+					assert.equal(displayNone(errorDiv()), false);
 					done();
-				}, 200);
+				}, 500);
 			});
 
 			test('error is shown with img-pan-zoom active', (done) => {
@@ -246,9 +246,9 @@
 				imageViewer.currentImageIndex = 1;
 				imageViewer.currentImageIndex = 0;
 				Polymer.Base.async(() => {
-					assert.equal(displayNone(imageViewer.carousel.selectedItem.querySelector('.error')), false);
+					assert.equal(displayNone(errorDiv()), false);
 					done();
-				}, 200);
+				}, 500);
 			});
 
 			test('error is hidden if next image loaded successfully', (done) => {
@@ -256,9 +256,9 @@
 				imageViewer.currentImageIndex = 0;
 				imageViewer.currentImageIndex = 1;
 				Polymer.Base.async(() => {
-					assert.equal(displayNone(imageViewer.carousel.selectedItem.querySelector('.error')), true);
+					assert.equal(displayNone(errorDiv()), true);
 					done();
-				}, 200);
+				}, 500);
 			});
 		});
 
