@@ -13,7 +13,7 @@
     "cosmoz-i18next": "Neovici/cosmoz-i18next#^1.0.0",
     "iron-image": "PolymerElements/iron-image#^2.1.2",
     "skeleton-carousel": "FabricElements/skeleton-carousel#hybrid",
-    "img-pan-zoom": "Neovici/img-pan-zoom#feature/livecycle",
+    "img-pan-zoom": "Neovici/img-pan-zoom#master",
     "iron-overlay-behavior": "^2.2.0",
     "nullxlsx": "Neovici/nullxlsx#^1.0.0"
   },
@@ -36,7 +36,7 @@
         "cosmoz-behaviors": "Neovici/cosmoz-behaviors#^1.0.0",
         "cosmoz-i18next": "Neovici/cosmoz-i18next#^1.0.0",
         "skeleton-carousel": "FabricElements/skeleton-carousel#hybrid",
-        "img-pan-zoom": "Neovici/img-pan-zoom#feature/livecycle"
+        "img-pan-zoom": "Neovici/img-pan-zoom#master"
        },
       "devDependencies": {
         "iron-component-page": "PolymerElements/iron-component-page#^2.0.0",

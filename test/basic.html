@@ -183,6 +183,85 @@
 			});
 		});
 
+		suite('cosmoz-image-viewer-no-images', () => {
+			let imageViewer;
+
+			setup((done) => {
+				imageViewer = fixture('cosmozImageViewer');
+				imageViewer.images = [];
+				imageViewer.showZoom = true;
+				imageViewer.showNav = true;
+				imageViewer.showFullscreen = true;
+				imageViewer.showDetach = true;
+
+				Polymer.Base.async(() => {
+					done();
+				}, 100);
+			});
+
+			test('action items are hidden', () => {
+				assert.equal(imageViewer._showNav, false);
+				assert.equal(imageViewer._showZoom, false);
+				assert.equal(imageViewer._showFullscreen, false);
+				assert.equal(imageViewer._showDetach, false);
+			});
+
+			test('no image info is shown', () => {
+				assert.equal(imageViewer._hideNoImageInfo, false);
+			});
+		});
+
+		suite('cosmoz-image-viewer-loading-error', () => {
+			let imageViewer,
+				errorDiv,
+				displayNone;
+
+			setup((done) => {
+				imageViewer = fixture('cosmozImageViewer');
+				imageViewer.images = [
+					'xyz.jpg',
+					'../../demo/images/stockholm.jpg',
+					'../../demo/images/strasbourg.jpg'
+				];
+
+				errorDiv = () => imageViewer.carousel.selectedItem.querySelector('.error');
+				displayNone = (element) => element.offsetParent === null;
+
+				Polymer.Base.async(() => {
+					done();
+				}, 100);
+			});
+
+			test('error is shown', (done) => {
+				imageViewer.showZoom = false;
+				imageViewer.currentImageIndex = 0;
+				Polymer.Base.async(() => {
+					assert.equal(displayNone(errorDiv()), false);
+					done();
+				}, 500);
+			});
+
+			test('error is shown with img-pan-zoom active', (done) => {
+				imageViewer.showZoom = true;
+				imageViewer.currentImageIndex = 1;
+				imageViewer.currentImageIndex = 0;
+				Polymer.Base.async(() => {
+					assert.equal(displayNone(errorDiv()), false);
+					done();
+				}, 500);
+			});
+
+			test('error is hidden if next image loaded successfully', (done) => {
+				imageViewer.showZoom = false;
+				imageViewer.currentImageIndex = 0;
+				imageViewer.currentImageIndex = 1;
+				Polymer.Base.async(() => {
+					assert.equal(displayNone(errorDiv()), true);
+					done();
+				}, 500);
+			});
+		});
+
 		suite('cosmoz-image-viewer-overlay', () => {
 			let overlay;
 

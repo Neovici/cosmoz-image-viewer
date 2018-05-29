@@ -135,6 +135,24 @@ so a user can swipe to the next image.
 				height: 100vh;
 				@apply --cosmoz-image-viewer-image-zoom;
 			}
+
+			.error {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			.error.pan {
+				color: white;
+    			z-index: +1;
+			}
+
+			.error .desc {
+				padding-top: 1em;
+				opacity: 0.8;
+				font-size: 0.8em;
+			}
 		</style>
 
 		<div class="nav counter" hidden$="[[!_showPageNumber]]">
@@ -195,16 +213,24 @@ so a user can swipe to the next image.
 				selected="{{currentImageIndex}}">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
 					<div>
+						<div class$="error [[_getErrorClass(showZoom)]]">
+							<h2>An error occurred while loading the image.</h2>
+							<div class="desc"></div>
+						</div>
 						<img-pan-zoom hidden$="[[!showZoom]]"
 							class="image-zoom"
-							data-src$="[[image]]"
-							on-loaded-changed="_imageLoadedChanged">
+							data-src$="[[_getImgPanZoomSrc(image, showZoom)]]"
+							on-loaded-changed="_imageLoadedChanged"
+							on-error-changed="_onImageError">
 						</img-pan-zoom>
-						<iron-image hidden$="[[showZoom]]"
+						<iron-image
+							hidden$="[[showZoom]]"
+							prevent-load="[[showZoom]]"
 							sizing="[[sizing]]"
 							class="image"
 							data-src$="[[image]]"
-							on-loaded-changed="_imageLoadedChanged">
+							on-loaded-changed="_imageLoadedChanged"
+							on-error-changed="_onImageError">
 						</iron-image>
 					</div>
 				</template>
