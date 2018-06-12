@@ -272,7 +272,12 @@
 
 		ready() {
 			this.set('_scroller', this.$.imageContainer);
-			this._dblClickListner = this.zoomToggle.bind(this);
+			this._dblClickListner = () => {
+				if (!this._showZoom) {
+					return;
+				}
+				this.zoomToggle();
+			};
 		},
 
 		attached() {
@@ -509,22 +514,7 @@
 				errorContainer.removeAttribute('hidden');
 				return;
 			}
-
 			errorContainer.setAttribute('hidden', true);
-
-			if (!e.currentTarget.dataset.src) {
-				return;
-			}
-			errorContainer.querySelector('.desc').innerHTML =  e.currentTarget.dataset.src;
-
-		},
-
-		_getErrorClass(showZoom) {
-			return showZoom ? 'pan' : '';
-		},
-
-		_getImgPanZoomSrc(image, showZoom) {
-			return showZoom ? image : null;
 		},
 
 		_selectedItemChanged(selectedItem) {
@@ -656,7 +646,7 @@
 		},
 
 		_scrollToPercent(loaded, percent, height) {
-			if (!loaded || !this._scroller) {
+			if (!loaded || !this._scroller || !percent) {
 				return;
 			}
 			const topPx = height * (percent / 100);
