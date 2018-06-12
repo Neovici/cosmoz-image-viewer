@@ -225,7 +225,7 @@
 				];
 
 				errorDiv = () => imageViewer.carousel.selectedItem.querySelector('.error');
-				displayNone = (element) => element.offsetParent === null;
+				displayNone = (element) => element.offsetParent === null || element.getAttribute('hidden') === 'true';
 
 				Polymer.Base.async(() => {
 					done();
