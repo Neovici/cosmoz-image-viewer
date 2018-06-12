@@ -646,7 +646,7 @@
 		},
 
 		_scrollToPercent(loaded, percent, height) {
-			if (!loaded || !this._scroller) {
+			if (!loaded || !this._scroller || !percent) {
 				return;
 			}
 			const topPx = height * (percent / 100);

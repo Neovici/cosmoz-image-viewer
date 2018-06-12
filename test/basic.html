@@ -234,8 +234,9 @@
 
 			test('error is shown', (done) => {
 				imageViewer.currentImageIndex = 0;
+				const errEl = errorDiv();
 				Polymer.Base.async(() => {
-					assert.equal(displayNone(errorDiv()), false);
+					assert.equal(displayNone(errEl), false);
 					done();
 				}, 500);
 			});
@@ -243,8 +244,9 @@
 			test('error is hidden if next image loaded successfully', (done) => {
 				imageViewer.currentImageIndex = 0;
 				imageViewer.currentImageIndex = 1;
+				const errEl = errorDiv();
 				Polymer.Base.async(() => {
-					assert.equal(displayNone(errorDiv()), true);
+					assert.equal(displayNone(errEl), true);
 					done();
 				}, 500);
 			});
