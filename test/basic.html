@@ -49,10 +49,6 @@
 				}, 100);
 			});
 
-			test('instantiating the element works', () => {
-				assert.equal(imageViewer.is, 'cosmoz-image-viewer');
-			});
-
 			test('nextImage updates selected', (done) => {
 				assert.equal(imageViewer.selectedImageNumber, 1);
 				imageViewer.nextImage();
@@ -90,7 +86,7 @@
 				imageViewer.openFullscreen();
 				const dialog = imageViewer.imageOverlay;
 				assert.isDefined(dialog, 'Expected openFullscreen to create dialog if it was undefined');
-				assert.equal(dialog.is, 'cosmoz-image-viewer-overlay');
+				assert.equal(dialog.tagName, 'COSMOZ-IMAGE-VIEWER-OVERLAY');
 				assert.isFunction(dialog.open, 'Expected openFullscreen to create dialog and dilog.open to be a function');
 				assert.isTrue(dialog.opened);
 				assert.equal(dialog.id, 'cosmoz-image-viewer-overlay');
@@ -274,7 +270,6 @@
 							'dy': 1000
 						}}),
 					spyClose = sinon.spy(overlay, 'close');
-
 				overlay._trackHandler(event);
 				assert.notCalled(spyClose);
 			});

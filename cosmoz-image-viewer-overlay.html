@@ -46,7 +46,8 @@
 			}
 
 			connectedCallback() {
-				this._ensureAttribute('noCancelOnOutsideClick', true);
+				super.connectedCallback();
+				this.noCancelOnOutsideClick = true;
 			}
 
 			_trackHandler(e) {
