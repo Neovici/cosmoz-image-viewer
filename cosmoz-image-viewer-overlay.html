@@ -23,31 +23,31 @@
 
     </template>
     <script>
-		Polymer({
-			is: 'cosmoz-image-viewer-overlay',
+		class CosmozImageViewerOverlay extends Polymer.mixinBehaviors([Polymer.IronOverlayBehavior], Polymer.Element) {
+			static get is() {
+				return 'cosmoz-image-viewer-overlay';
+			}
 
-			behaviors: [
-				Polymer.IronOverlayBehavior
-			],
+			static get properties() {
+				return {
+					images: {
+						type: Array
+					},
+					currentImageIndex: {
+						type: Number
+					},
+					showDetach: {
+						type: Boolean
+					},
+					loop: {
+						type: Boolean
+					}
+				};
+			}
 
-			hostAttributes: {
-				noCancelOnOutsideClick: true
-			},
-
-			properties: {
-				images: {
-					type: Array
-				},
-				currentImageIndex: {
-					type: Number
-				},
-				showDetach: {
-					type: Boolean
-				},
-				loop: {
-					type: Boolean
-				}
-			},
+			connectedCallback() {
+				this._ensureAttribute('noCancelOnOutsideClick', true);
+			}
 
 			_trackHandler(e) {
 				if (e.detail.state !== 'end') {
@@ -59,6 +59,7 @@
 				}
 			}
 
-		});
+		}
+		window.customElements.define(CosmozImageViewerOverlay.is, CosmozImageViewerOverlay);
     </script>
 </dom-module>
