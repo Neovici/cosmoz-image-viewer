@@ -202,6 +202,14 @@
 				value: false
 			},
 			/**
+			* If true, will add credentials to fetch call,
+			* defaults to true
+			*/
+			credentials: {
+				type: Boolean,
+				value: true
+			},
+			/**
 			* The filename of the zip archive when downloaded
 			* in the detached window.
 			*/
@@ -447,8 +455,9 @@
 		},
 
 		createZipFromUrls(fileUrls) {
+			const credentials = this.credentials ? { credentials: 'include' } : null;
 			const fetches = fileUrls.map(url =>
-				fetch(url)
+				fetch(url, credentials)
 					.then(response => response.arrayBuffer())
 					.then(data => ({data, url}))
 			);
