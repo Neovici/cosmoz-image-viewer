@@ -455,7 +455,7 @@
 		},
 
 		createZipFromUrls(fileUrls) {
-			const credentials = this.credentials ? { credentials: 'include' } : null;
+			const credentials = this.credentials ? { credentials: 'include' } : { credentials: 'omit' };
 			const fetches = fileUrls.map(url =>
 				fetch(url, credentials)
 					.then(response => response.arrayBuffer())
