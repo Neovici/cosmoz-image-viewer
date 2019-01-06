@@ -1,5 +1,4 @@
-/*global document, Polymer, Cosmoz, window */
-(function () {
+(()=> {
 	'use strict';
 
 	const globals = {
@@ -11,7 +10,8 @@
 	class CosmozImageViewer extends Polymer.mixinBehaviors([
 		Polymer.IronResizableBehavior,
 		Cosmoz.TemplateHelperBehavior,
-		Cosmoz.TranslatableBehavior], Polymer.Element) {
+		Cosmoz.TranslatableBehavior
+	], Polymer.Element) {
 
 		static get is() {
 			return 'cosmoz-image-viewer';
@@ -268,6 +268,12 @@
 
 				_scroller: {
 					type: Object
+				},
+				t: {
+					type: Object,
+					value: function () {
+						return {};
+					}
 				}
 			};
 		}
@@ -276,6 +282,10 @@
 			return [
 				'_scrollToPercent(imageLoaded, scrollPercent, _imageContainerHeight)'
 			];
+		}
+
+		_(){
+			return Cosmoz.TranslatableBehavior._.apply(this, arguments);
 		}
 
 		/** ELEMENT LIFECYCLE */
@@ -674,4 +684,4 @@
 	}
 
 	customElements.define(CosmozImageViewer.is, CosmozImageViewer);
-}());
+})();
