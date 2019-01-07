@@ -1,10 +1,7 @@
+---
 language: node_js
-node_js: "8"
-dist: trusty
-sudo: required
-env:
-  global:
-    - CC_TEST_REPORTER_ID=48833ad27a301e5714aa1de8de7f8b8f0a662c12aceefab9cbc37d0a7e888a0e
+node_js: "lts/*"
+
 addons:
   firefox: latest
   apt:
@@ -12,22 +9,31 @@ addons:
       - google-chrome
     packages:
       - google-chrome-stable
+
 cache:
   yarn: true
   directories:
     - node_modules
     - bower_components
-    - ".eslintcache"
-    - "$HOME/.cache/bower"
+    - .eslintcache
+    - $HOME/.cache/bower
+    - $HOME/cc
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=48833ad27a301e5714aa1de8de7f8b8f0a662c12aceefab9cbc37d0a7e888a0e
+    - NEO_CC_URL=https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+    - NEO_CC=$HOME/cc/cc-test-reporter
+
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
-  - yarn run lint
+  - yarn lint
+  - ([[ -e $NEO_CC ]] || curl -L $NEO_CC_URL > $NEO_CC) && chmod +x $NEO_CC
+  - $NEO_CC before-build
+
 script:
-  - xvfb-run yarn test
-after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - yarn test
+  - $NEO_CC after-build --exit-code $TRAVIS_TEST_RESULT
+
 notifications:
   slack:
     secure: UxLhaEffqnW5fJ3q6looP2nyN1rBcjF7JKbr+SeBBteoXXuR7fgtnSCPtifZqGX1YRA+xkuxJTWsCz/0tuxXFywhByInrziH1y6sDTf6dGCH/3iS9UHTh8F8M4cklYF14cAlbBjlur+yLZLoqgsI21jxBFE7eg0Xs0iOT7GjL9yBsFXebi7YXkwiiINjWdwYkfWkKvKg1TEw2aowtKnDFWW59phthfk528Bde8gqvGIhIl+zmW8BFmnBc971J3u6bntUvX4GWv0JmfzhDCC5u1vjsln1lrxoE0uWhxrUEonc62s5KmeWTVbY33uLMZRR0i1uDB7KeZMY/pB+uqM5K/z7XL2hxE17B9XtvnwSL62JdeFdF0E9WELvTBYK0EIxhCeq5QCgY3cgdb8SqA2FLt9DglmsGdYRI8S0PmavRpIuTCOguCwzvN1W/0unvBOkZfXCTQyTkT53l0EhRQGUkfev+WRl+BRBqA+76eSOvUs8lB7ESMo7LM9oVgYITc5OP0dKwBVS5XgG4nonIX7c9aqGWh1H99oNri4JXgEC8lgLfjcB6MOPhny13ifVEIGF9w3fdYCiX/IVhr8gqGBW8idl2UCLOkY+3R5P48gFbkmhNV8DcVEJw2HMxbNz+el35VAFdd7RxRU1Qan3UuL4bBjPsOKle+x5uh06LY2jmFw=
