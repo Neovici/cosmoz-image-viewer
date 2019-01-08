@@ -1,15 +1,16 @@
 
 {
 	"eslint.autoFixOnSave": true,
+	"files.trimTrailingWhitespace": true,
 	"eslint.packageManager": "yarn",
 	"eslint.validate": [
 		{ "language": "javascript", "autoFix": true },
 		{ "language": "html", "autoFix": true }
 	],
-    "files.watcherExclude": {
-        "**/.git/objects/**": true,
-        "**/.git/subtree-cache/**": true,
-        "**/node_modules/**": true,
-        "**/app/bower_components/**": true
-    }
+	"files.watcherExclude": {
+		"**/.git/objects/**": true,
+		"**/.git/subtree-cache/**": true,
+		"**/node_modules/**": true,
+		"**/app/bower_components/**": true
+	}
 }
