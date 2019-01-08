@@ -1,17 +1,24 @@
 {
 	"plugins": {
 		"local": {
-			"browsers": ["chrome", "firefox"]
+			"browsers": ["chrome"],
+			"browserOptions": {
+				"chrome": [
+					"headless",
+					"disable-gpu",
+					"no-sandbox"
+				]
+			}
 		},
 		"istanbul": {
-      "dir": "./coverage",
-      "reporters": ["text-summary", "lcov"],
-      "include": [
-        "cosmoz-image-viewer-overlay.html",
+			"dir": "./coverage",
+			"reporters": ["text-summary", "lcov"],
+			"include": [
+				"cosmoz-image-viewer-overlay.html",
 				"cosmoz-image-viewer.html",
 				"cosmoz-image-viewer.js"
-      ],
-      "exclude": []
-    }
+			],
+			"exclude": []
+		}
 	}
 }

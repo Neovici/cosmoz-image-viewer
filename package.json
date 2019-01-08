@@ -7,18 +7,20 @@
 		"test": "test"
 	},
 	"devDependencies": {
-		"eslint": "^4.10.0",
-		"eslint-plugin-html": "^3.2.1",
-		"eslint-plugin-mocha": "^4.11.0",
-		"polymer-cli": "^1.6.0",
+		"eslint": "^5.12.0",
+		"eslint-plugin-html": "^5.0.0",
+		"eslint-plugin-mocha": "^5.2.0",
+		"polymer-cli": "^1.9.4",
 		"web-component-tester-istanbul": "Neovici/web-component-tester-istanbul"
 	},
 	"scripts": {
-		"start": "polymer serve -o",
-		"postinstall": "polymer install --variants",
+		"analyze": "polymer analyze --input cosmoz-*.html  > analysis.json",
 		"lint": "eslint --cache --ext .js,.html . && polymer lint cosmoz-*.html",
-		"test": "polymer test",
-		"analyze": "polymer analyze --input cosmoz-*.html  > analysis.json"
+		"postinstall": "polymer install",
+		"start": "polymer serve -o",
+		"sync-npm": "rm -f package-lock.json && npm shrinkwrap && mv npm-shrinkwrap.json package-lock.json",
+		"analyze": "polymer analyze --input cosmoz-*.html  > analysis.json",
+		"test": "polymer test"
 	},
 	"repository": {
 		"type": "git",
