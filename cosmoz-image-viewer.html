@@ -4,6 +4,7 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html" />
 
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
@@ -119,13 +120,21 @@ so a user can swipe to the next image.
 				}
 			}
 
+			.image {
+				background-color: gray;
+				pointer-events: none;
+				--iron-image-width: 100%;
+				--iron-image-height: auto;
+				@apply --cosmoz-image-viewer-image;
+			}
+
 			.image-zoom {
 				@apply --layout-flex-auto;
 				display: flex;
 				justify-content: center;
 				background-color: black;
 				pointer-events: none;
-				height: 600px;
+				height: 100vh;
 				@apply --cosmoz-image-viewer-image-zoom;
 			}
 
@@ -209,11 +218,21 @@ so a user can swipe to the next image.
 							<div class="desc">[[image]]</div>
 						</div>
 						<img-pan-zoom
+							hidden$="[[ !showZoom ]]"
 							class="image-zoom"
 							data-src$="[[image]]"
 							on-loaded-changed="_imageLoadedChanged"
 							on-error-changed="_onImageError">
 						</img-pan-zoom>
+						<iron-image
+							hidden$="[[ showZoom ]]"
+							prevent-load="[[ showZoom ]]"
+							sizing="[[ sizing ]]"
+							class="image"
+							data-src$="[[ image ]]"
+							on-loaded-changed="_imageLoadedChanged"
+							on-error-changed="_onImageError">
+						</iron-image>
 					</div>
 				</template>
 			</skeleton-carousel>

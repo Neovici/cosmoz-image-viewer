@@ -14,7 +14,8 @@
     "skeleton-carousel": "FabricElements/skeleton-carousel#^2.0.7",
     "img-pan-zoom": "Neovici/img-pan-zoom#master",
     "iron-overlay-behavior": "^2.2.0",
-    "nullxlsx": "Neovici/nullxlsx#^1.0.0"
+    "nullxlsx": "Neovici/nullxlsx#^1.0.0",
+    "iron-image": "^2.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.0",
