@@ -125,6 +125,8 @@ so a user can swipe to the next image.
 				pointer-events: none;
 				--iron-image-width: 100%;
 				--iron-image-height: auto;
+				/* Needed to override Chrome 73+ handling of iron-image overflow hidden */
+				overflow: visible;
 				@apply --cosmoz-image-viewer-image;
 			}
 
