@@ -130,14 +130,7 @@
 				 */
 				selectedItem: {
 					type: Object,
-					observer: function (selectedItem) { // eslint-disable-line object-shorthand
-						if (!selectedItem) {
-							return;
-						}
-						const imgPanZoom = selectedItem.querySelector('img-pan-zoom');
-						this._initImgPanZoomInstance(imgPanZoom);
-						this.imageLoaded = imgPanZoom.loaded;
-					}
+					observer: '_selectedItemChanged'
 				},
 				/**
 				 * If true, the current image is zoomed.
@@ -566,6 +559,17 @@
 			}
 			errorContainer.setAttribute('hidden', true);
 		}
+
+		_selectedItemChanged(selectedItem) {
+			if (!selectedItem) {
+				return;
+			}
+			const imgPanZoom = selectedItem.querySelector('img-pan-zoom');
+
+			this._initImgPanZoomInstance(imgPanZoom);
+			this.imageLoaded = imgPanZoom.loaded;
+		}
+
 
 		_getZoomIcon(zoomed) {
 			return zoomed ? 'icons:zoom-out' : 'icons:zoom-in';
