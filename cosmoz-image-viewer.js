@@ -7,11 +7,10 @@
 	};
 	let imageOverlay;
 
-	class CosmozImageViewer extends Polymer.mixinBehaviors([
+	class CosmozImageViewer extends Cosmoz.Mixins.translatable(Polymer.mixinBehaviors([
 		Polymer.IronResizableBehavior,
-		Cosmoz.TemplateHelperBehavior,
-		Cosmoz.TranslatableBehavior
-	], Polymer.Element) {
+		Cosmoz.TemplateHelperBehavior
+	], Polymer.Element)) {
 
 		static get is() {
 			return 'cosmoz-image-viewer';
@@ -93,7 +92,10 @@
 					value: false,
 					readOnly: true,
 					notify: true,
-					observer: '_detachedChanged'
+					observer: function (value) { // eslint-disable-line object-shorthand
+						this.hidden = value;
+						this.notifyResize();
+					}
 				},
 				/**
 				 * The images array.
@@ -568,6 +570,7 @@
 			this.imageLoaded = imgPanZoom.loaded;
 		}
 
+
 		_getZoomIcon(zoomed) {
 			return zoomed ? 'icons:zoom-out' : 'icons:zoom-in';
 		}
@@ -636,11 +639,6 @@
 		_onResize() {
 			this.set('_imageContainerHeight', this._scroller.scrollHeight);
 			this.debounce('elementHeight', () => this._elementHeight = this.offsetHeight, 50);
-		}
-
-		_detachedChanged(value) {
-			this.hidden = value;
-			this.notifyResize();
 		}
 
 		_imageListChanged(images) {
