@@ -292,17 +292,6 @@
 			];
 		}
 
-		/**
-		 * Convenience method for gettext. Translates a text.
-		 *
-		 * @param {string} key Translation key.
-		 * @returns {string} Translated text.
-		 */
-		_(){
-			// FIXME: Remove after cosmoz-i18next update
-			return Cosmoz.TranslatableBehavior._.apply(this, arguments);
-		}
-
 		/** ELEMENT LIFECYCLE */
 
 		ready() {
