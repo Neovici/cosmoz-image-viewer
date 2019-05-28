@@ -270,18 +270,6 @@
 
 				_scroller: {
 					type: Object
-				},
-
-				/**
-				 * Changed to `t` signals an update to translations
-				 * and updates translated text.
-				*/
-				// FIXME: Remove after cosmoz-i18next update
-				t: {
-					type: Object,
-					value() {
-						return {};
-					}
 				}
 			};
 		}
@@ -290,17 +278,6 @@
 			return [
 				'_scrollToPercent(imageLoaded, scrollPercent, _imageContainerHeight)'
 			];
-		}
-
-		/**
-		 * Convenience method for gettext. Translates a text.
-		 *
-		 * @param {string} key Translation key.
-		 * @returns {string} Translated text.
-		 */
-		_(){
-			// FIXME: Remove after cosmoz-i18next update
-			return Cosmoz.TranslatableBehavior._.apply(this, arguments);
 		}
 
 		/** ELEMENT LIFECYCLE */
