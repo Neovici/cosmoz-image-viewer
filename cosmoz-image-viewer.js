@@ -270,18 +270,6 @@
 
 				_scroller: {
 					type: Object
-				},
-
-				/**
-				 * Changed to `t` signals an update to translations
-				 * and updates translated text.
-				*/
-				// FIXME: Remove after cosmoz-i18next update
-				t: {
-					type: Object,
-					value() {
-						return {};
-					}
 				}
 			};
 		}
