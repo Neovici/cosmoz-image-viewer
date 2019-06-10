@@ -519,6 +519,10 @@
     "@polymer/polymer" "^3.0.0"
     moment "^2.24.0"
 
+"@neovici/eslint-config@neovici/eslint-config#semver:~1.0.0":
+  version "1.0.1"
+  resolved "https://codeload.github.com/neovici/eslint-config/tar.gz/5446ae447956a371967e566e4d980b4136cd4857"
+
 "@neovici/img-pan-zoom@plumelo/img-pan-zoom#feature/polymer3":
   version "1.0.0"
   resolved "https://codeload.github.com/plumelo/img-pan-zoom/tar.gz/c977ba8e3eac5a21f8d31f69fec435c57554b35b"
