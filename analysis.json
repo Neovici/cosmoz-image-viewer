@@ -2,10 +2,296 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "`cosmoz-image-viewer` is an element for displaying images in a carousel while being able to detach the currently\nselected image into another window, zooming and activating a fullscreen mode.\n\nA user can enable the zoom mode by\n  a) clicking on the zoom button\n  b) double clicking on this element\n\nThe zoom mode (+ pan) gets disabled when the image is zoomed out (The initial zoom level is active.) again\nso a user can swipe to the next image.",
+      "description": "",
+      "summary": "",
+      "path": "cosmoz-image-viewer-overlay.js",
+      "properties": [
+        {
+          "name": "images",
+          "type": "Array | null | undefined",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 29,
+              "column": 3
+            },
+            "end": {
+              "line": 31,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Array"
+            }
+          }
+        },
+        {
+          "name": "currentImageIndex",
+          "type": "number | null | undefined",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 32,
+              "column": 3
+            },
+            "end": {
+              "line": 34,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "showDetach",
+          "type": "boolean | null | undefined",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 35,
+              "column": 3
+            },
+            "end": {
+              "line": 37,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          }
+        },
+        {
+          "name": "loop",
+          "type": "boolean | null | undefined",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 38,
+              "column": 3
+            },
+            "end": {
+              "line": 40,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          }
+        },
+        {
+          "name": "credentials",
+          "type": "boolean | null | undefined",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 41,
+              "column": 3
+            },
+            "end": {
+              "line": 43,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "connectedCallback",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 47,
+              "column": 1
+            },
+            "end": {
+              "line": 50,
+              "column": 2
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_trackHandler",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 52,
+              "column": 1
+            },
+            "end": {
+              "line": 60,
+              "column": 2
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 8,
+          "column": 0
+        },
+        "end": {
+          "line": 61,
+          "column": 1
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "name": "CosmozImageViewerOverlay",
+      "attributes": [
+        {
+          "name": "images",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 29,
+              "column": 3
+            },
+            "end": {
+              "line": 31,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "Array | null | undefined"
+        },
+        {
+          "name": "current-image-index",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 32,
+              "column": 3
+            },
+            "end": {
+              "line": 34,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "show-detach",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 35,
+              "column": 3
+            },
+            "end": {
+              "line": 37,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "loop",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 38,
+              "column": 3
+            },
+            "end": {
+              "line": 40,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "credentials",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 41,
+              "column": 3
+            },
+            "end": {
+              "line": 43,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "cosmoz-image-viewer-overlay"
+    },
+    {
+      "description": "`cosmoz-image-viewer` is an element for displaying images in a carousel while being able to detach the currently\nselected image into another window, zooming and activating a fullscreen mode.\n\nA user can enable the zoom mode by\na) clicking on the zoom button\nb) double clicking on this element\n\nThe zoom mode (+ pan) gets disabled when the image is zoomed out (The initial zoom level is active.) again\nso a user can swipe to the next image.",
       "summary": "",
       "path": "cosmoz-image-viewer.js",
       "properties": [
+        {
+          "name": "t",
+          "type": "Object | null | undefined",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "../@neovici/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 20,
+              "column": 3
+            },
+            "end": {
+              "line": 25,
+              "column": 4
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Object"
+            }
+          },
+          "inheritedFrom": "translatable"
+        },
         {
           "name": "imageOverlay",
           "type": "?",
@@ -13,12 +299,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 314,
-              "column": 2
+              "line": 1001,
+              "column": 1
             },
             "end": {
-              "line": 316,
-              "column": 3
+              "line": 1003,
+              "column": 2
             }
           },
           "metadata": {
@@ -34,12 +320,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 318,
-              "column": 2
+              "line": 1005,
+              "column": 1
             },
             "end": {
-              "line": 320,
-              "column": 3
+              "line": 1007,
+              "column": 2
             }
           },
           "metadata": {
@@ -55,12 +341,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 451,
-              "column": 2
+              "line": 1138,
+              "column": 1
             },
             "end": {
-              "line": 453,
-              "column": 3
+              "line": 1140,
+              "column": 2
             }
           },
           "metadata": {
@@ -76,12 +362,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 23,
-              "column": 4
+              "line": 710,
+              "column": 3
             },
             "end": {
-              "line": 27,
-              "column": 5
+              "line": 714,
+              "column": 4
             }
           },
           "metadata": {
@@ -99,12 +385,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 31,
-              "column": 4
+              "line": 718,
+              "column": 3
             },
             "end": {
-              "line": 34,
-              "column": 5
+              "line": 721,
+              "column": 4
             }
           },
           "metadata": {
@@ -121,12 +407,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 38,
-              "column": 4
+              "line": 725,
+              "column": 3
             },
             "end": {
-              "line": 41,
-              "column": 5
+              "line": 728,
+              "column": 4
             }
           },
           "metadata": {
@@ -143,12 +429,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 46,
-              "column": 4
+              "line": 733,
+              "column": 3
             },
             "end": {
-              "line": 54,
-              "column": 5
+              "line": 741,
+              "column": 4
             }
           },
           "metadata": {
@@ -164,12 +450,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 58,
-              "column": 4
+              "line": 745,
+              "column": 3
             },
             "end": {
-              "line": 61,
-              "column": 5
+              "line": 748,
+              "column": 4
             }
           },
           "metadata": {
@@ -186,12 +472,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 66,
-              "column": 4
+              "line": 753,
+              "column": 3
             },
             "end": {
-              "line": 69,
-              "column": 5
+              "line": 756,
+              "column": 4
             }
           },
           "metadata": {
@@ -208,12 +494,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 74,
-              "column": 4
+              "line": 761,
+              "column": 3
             },
             "end": {
-              "line": 77,
-              "column": 5
+              "line": 764,
+              "column": 4
             }
           },
           "metadata": {
@@ -230,12 +516,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 81,
-              "column": 4
+              "line": 768,
+              "column": 3
             },
             "end": {
-              "line": 85,
-              "column": 5
+              "line": 772,
+              "column": 4
             }
           },
           "metadata": {
@@ -253,12 +539,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 89,
-              "column": 4
+              "line": 776,
+              "column": 3
             },
             "end": {
-              "line": 98,
-              "column": 5
+              "line": 785,
+              "column": 4
             }
           },
           "metadata": {
@@ -278,12 +564,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 102,
-              "column": 4
+              "line": 789,
+              "column": 3
             },
             "end": {
-              "line": 108,
-              "column": 5
+              "line": 795,
+              "column": 4
             }
           },
           "metadata": {
@@ -300,12 +586,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 112,
-              "column": 4
+              "line": 799,
+              "column": 3
             },
             "end": {
-              "line": 115,
-              "column": 5
+              "line": 802,
+              "column": 4
             }
           },
           "metadata": {
@@ -322,12 +608,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 117,
-              "column": 4
+              "line": 804,
+              "column": 3
             },
             "end": {
-              "line": 119,
-              "column": 5
+              "line": 806,
+              "column": 4
             }
           },
           "metadata": {
@@ -343,12 +629,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 123,
-              "column": 4
+              "line": 810,
+              "column": 3
             },
             "end": {
-              "line": 126,
-              "column": 5
+              "line": 813,
+              "column": 4
             }
           },
           "metadata": {
@@ -365,12 +651,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 130,
-              "column": 4
+              "line": 817,
+              "column": 3
             },
             "end": {
-              "line": 133,
-              "column": 5
+              "line": 820,
+              "column": 4
             }
           },
           "metadata": {
@@ -387,12 +673,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 137,
-              "column": 4
+              "line": 824,
+              "column": 3
             },
             "end": {
-              "line": 140,
-              "column": 5
+              "line": 827,
+              "column": 4
             }
           },
           "metadata": {
@@ -409,12 +695,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 144,
-              "column": 4
+              "line": 831,
+              "column": 3
             },
             "end": {
-              "line": 147,
-              "column": 5
+              "line": 834,
+              "column": 4
             }
           },
           "metadata": {
@@ -431,12 +717,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 151,
-              "column": 4
+              "line": 838,
+              "column": 3
             },
             "end": {
-              "line": 154,
-              "column": 5
+              "line": 841,
+              "column": 4
             }
           },
           "metadata": {
@@ -453,12 +739,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 158,
-              "column": 4
+              "line": 845,
+              "column": 3
             },
             "end": {
-              "line": 161,
-              "column": 5
+              "line": 848,
+              "column": 4
             }
           },
           "metadata": {
@@ -475,12 +761,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 165,
-              "column": 4
+              "line": 852,
+              "column": 3
             },
             "end": {
-              "line": 168,
-              "column": 5
+              "line": 855,
+              "column": 4
             }
           },
           "metadata": {
@@ -497,12 +783,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 172,
-              "column": 4
+              "line": 859,
+              "column": 3
             },
             "end": {
-              "line": 175,
-              "column": 5
+              "line": 862,
+              "column": 4
             }
           },
           "metadata": {
@@ -519,12 +805,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 179,
-              "column": 4
+              "line": 866,
+              "column": 3
             },
             "end": {
-              "line": 182,
-              "column": 5
+              "line": 869,
+              "column": 4
             }
           },
           "metadata": {
@@ -541,12 +827,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 186,
-              "column": 4
+              "line": 873,
+              "column": 3
             },
             "end": {
-              "line": 189,
-              "column": 5
+              "line": 876,
+              "column": 4
             }
           },
           "metadata": {
@@ -563,12 +849,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 193,
-              "column": 4
+              "line": 880,
+              "column": 3
             },
             "end": {
-              "line": 197,
-              "column": 5
+              "line": 884,
+              "column": 4
             }
           },
           "metadata": {
@@ -585,12 +871,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 202,
-              "column": 4
+              "line": 889,
+              "column": 3
             },
             "end": {
-              "line": 205,
-              "column": 5
+              "line": 892,
+              "column": 4
             }
           },
           "metadata": {
@@ -607,12 +893,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 210,
-              "column": 4
+              "line": 897,
+              "column": 3
             },
             "end": {
-              "line": 213,
-              "column": 5
+              "line": 900,
+              "column": 4
             }
           },
           "metadata": {
@@ -629,12 +915,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 218,
-              "column": 4
+              "line": 905,
+              "column": 3
             },
             "end": {
-              "line": 221,
-              "column": 5
+              "line": 908,
+              "column": 4
             }
           },
           "metadata": {
@@ -651,12 +937,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 225,
-              "column": 4
+              "line": 912,
+              "column": 3
             },
             "end": {
-              "line": 228,
-              "column": 5
+              "line": 915,
+              "column": 4
             }
           },
           "metadata": {
@@ -673,12 +959,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 230,
-              "column": 4
+              "line": 917,
+              "column": 3
             },
             "end": {
-              "line": 233,
-              "column": 5
+              "line": 920,
+              "column": 4
             }
           },
           "metadata": {
@@ -695,12 +981,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 235,
-              "column": 4
+              "line": 922,
+              "column": 3
             },
             "end": {
-              "line": 238,
-              "column": 5
+              "line": 925,
+              "column": 4
             }
           },
           "metadata": {
@@ -717,12 +1003,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 240,
-              "column": 4
+              "line": 927,
+              "column": 3
             },
             "end": {
-              "line": 243,
-              "column": 5
+              "line": 930,
+              "column": 4
             }
           },
           "metadata": {
@@ -739,12 +1025,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 245,
-              "column": 4
+              "line": 932,
+              "column": 3
             },
             "end": {
-              "line": 248,
-              "column": 5
+              "line": 935,
+              "column": 4
             }
           },
           "metadata": {
@@ -761,12 +1047,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 250,
-              "column": 4
+              "line": 937,
+              "column": 3
             },
             "end": {
-              "line": 253,
-              "column": 5
+              "line": 940,
+              "column": 4
             }
           },
           "metadata": {
@@ -783,12 +1069,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 255,
-              "column": 4
+              "line": 942,
+              "column": 3
             },
             "end": {
-              "line": 258,
-              "column": 5
+              "line": 945,
+              "column": 4
             }
           },
           "metadata": {
@@ -805,12 +1091,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 262,
-              "column": 4
+              "line": 949,
+              "column": 3
             },
             "end": {
-              "line": 264,
-              "column": 5
+              "line": 951,
+              "column": 4
             }
           },
           "metadata": {
@@ -826,12 +1112,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 266,
-              "column": 4
+              "line": 953,
+              "column": 3
             },
             "end": {
-              "line": 268,
-              "column": 5
+              "line": 955,
+              "column": 4
             }
           },
           "metadata": {
@@ -847,12 +1133,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 270,
-              "column": 4
+              "line": 957,
+              "column": 3
             },
             "end": {
-              "line": 272,
-              "column": 5
+              "line": 959,
+              "column": 4
             }
           },
           "metadata": {
@@ -864,24 +1150,118 @@
       ],
       "methods": [
         {
-          "name": "ready",
-          "description": "",
+          "name": "_argumentsToObject",
+          "description": "Convert arguments to an object, skipping some argument.",
           "privacy": "protected",
           "sourceRange": {
+            "file": "../@neovici/cosmoz-i18next/cosmoz-i18next.js",
             "start": {
-              "line": 284,
-              "column": 2
+              "line": 35,
+              "column": 1
             },
             "end": {
-              "line": 297,
-              "column": 3
+              "line": 38,
+              "column": 2
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "args",
+              "type": "array",
+              "description": "Arguments."
+            },
+            {
+              "name": "skipnum",
+              "type": "number",
+              "description": "Argument number to skip."
+            }
+          ],
+          "return": {
+            "type": "object",
+            "desc": "Resulting object with arguments."
+          },
+          "inheritedFrom": "translatable"
+        },
+        {
+          "name": "_arrayToObject",
+          "description": "Convert an array to an object.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "../@neovici/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 45,
+              "column": 1
+            },
+            "end": {
+              "line": 59,
+              "column": 2
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "array",
+              "type": "array",
+              "description": "Array to convert."
+            }
+          ],
+          "return": {
+            "type": "object",
+            "desc": "Resulting object."
+          },
+          "inheritedFrom": "translatable"
+        },
+        {
+          "name": "_ensureInitialized",
+          "description": "Ensure mixin is initialized.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "../@neovici/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 65,
+              "column": 1
+            },
+            "end": {
+              "line": 71,
+              "column": 2
             }
           },
           "metadata": {},
           "params": [],
           "return": {
             "type": "void"
-          }
+          },
+          "inheritedFrom": "translatable"
+        },
+        {
+          "name": "_",
+          "description": "Convenience method for gettext. Translates a text.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "../@neovici/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 78,
+              "column": 1
+            },
+            "end": {
+              "line": 80,
+              "column": 2
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "key",
+              "type": "string",
+              "description": "Translation key."
+            }
+          ],
+          "return": {
+            "type": "string",
+            "desc": "Translated text."
+          },
+          "inheritedFrom": "translatable"
         },
         {
           "name": "connectedCallback",
@@ -889,12 +1269,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 299,
-              "column": 2
+              "line": 986,
+              "column": 1
             },
             "end": {
-              "line": 302,
-              "column": 3
+              "line": 989,
+              "column": 2
             }
           },
           "metadata": {},
@@ -909,12 +1289,202 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 304,
-              "column": 2
+              "line": 991,
+              "column": 1
             },
             "end": {
-              "line": 310,
-              "column": 3
+              "line": 997,
+              "column": 2
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "gettext",
+          "description": "Translates a text.\n\nExample of basic translation:\n`_(string, t)`\n <div>{{ _(‘My translation’, t) }}</div>\n\nExample of basic translation with interpolation:\n`_(string, [args], t)`\n <div>{{ _(‘Hello {0}’, user.name, t) }}</div>",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "../@neovici/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 115,
+              "column": 1
+            },
+            "end": {
+              "line": 117,
+              "column": 2
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "key",
+              "type": "string",
+              "description": "Text to translate."
+            }
+          ],
+          "return": {
+            "type": "string",
+            "desc": "Translated text."
+          },
+          "inheritedFrom": "translatable"
+        },
+        {
+          "name": "gettextgeneric",
+          "description": "Generic handler for text translation",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "../@neovici/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 125,
+              "column": 1
+            },
+            "end": {
+              "line": 131,
+              "column": 2
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "key",
+              "type": "string",
+              "description": "Text to translate."
+            },
+            {
+              "name": "callerArgs",
+              "type": "array",
+              "description": "Arguments from the calling function."
+            }
+          ],
+          "return": {
+            "type": "string",
+            "desc": "Translated text."
+          },
+          "inheritedFrom": "translatable"
+        },
+        {
+          "name": "ngettext",
+          "description": "Plural version of gettext. Translates a text to the current locale\nusing the first numeric argument after the two first arguments to\ndetermine if output should be singular or plural.\n\nExample of translation in singular or plural:\n`ngettext(singular, plural, count, t)`\n<div>{{ ngettext(‘My translation’,\n ‘My translations’, count, t) }}</div>\n\nExample of translation in singular or plural with interpolation:\n`ngettext(singular, plural, [count and other args], t)`\n<div>{{ ngettext(‘My translation for “{1}”’,\n ‘My {0} translations for “{1}”’, count, ‘hello’, t) }}</div>",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "../@neovici/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 151,
+              "column": 1
+            },
+            "end": {
+              "line": 169,
+              "column": 2
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "singular",
+              "type": "string",
+              "description": "Singular text variant."
+            },
+            {
+              "name": "plural",
+              "type": "string",
+              "description": "Plural text variant."
+            }
+          ],
+          "return": {
+            "type": "string",
+            "desc": "Translated text."
+          },
+          "inheritedFrom": "translatable"
+        },
+        {
+          "name": "pgettext",
+          "description": "Translates a text using a specific context.\n\nExample of translation with context:\n`pgettext(context, ‘text’, t)`\n <div>{{ pgettext(‘Cancel Invoice’, ‘Cancel’, t) }}</div>\n\nExample of translation including context with interpolation:\n`pgettext(context, ‘text’, [args], t)`\n<div>{{ pgettext(‘Cancel Invoice’, ‘Cancel {0}’,\n document.type, t) }}</div>",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "../@neovici/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 186,
+              "column": 1
+            },
+            "end": {
+              "line": 194,
+              "column": 2
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "context",
+              "type": "string",
+              "description": "Context text."
+            },
+            {
+              "name": "key",
+              "type": "string",
+              "description": "Text to translate."
+            }
+          ],
+          "return": {
+            "type": "string",
+            "desc": "Translated text."
+          },
+          "inheritedFrom": "translatable"
+        },
+        {
+          "name": "npgettext",
+          "description": "Translates a text in singular or plural with a specific context.\n\nExample of translation in singular or plural with context:\n`npgettext(context, singular, plural, count, t)`\n<div>{{ npgettext('Cancel invoice', ‘My cancellation’,\n ‘My {0} cancellations’, count, t) }}</div>\n\nExample of translation in singular or plural with context and\ninterpolation:\n`npgettext(context, singular, plural, count, t)`\n<div>{{ npgettext('Cancel invoice', ‘My {1} cancellation’,\n ‘My {0} {1} cancellations’, count, document.type, t) }}</div>",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "../@neovici/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 214,
+              "column": 1
+            },
+            "end": {
+              "line": 236,
+              "column": 2
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "context",
+              "type": "string",
+              "description": "Context text."
+            },
+            {
+              "name": "singular",
+              "type": "string",
+              "description": "Singular text variant."
+            },
+            {
+              "name": "plural",
+              "type": "string",
+              "description": "Plural text variant."
+            }
+          ],
+          "return": {
+            "type": "string",
+            "desc": "Translated text."
+          },
+          "inheritedFrom": "translatable"
+        },
+        {
+          "name": "ready",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 971,
+              "column": 1
+            },
+            "end": {
+              "line": 984,
+              "column": 2
             }
           },
           "metadata": {},
@@ -929,12 +1499,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 325,
-              "column": 2
+              "line": 1012,
+              "column": 1
             },
             "end": {
-              "line": 327,
-              "column": 3
+              "line": 1014,
+              "column": 2
             }
           },
           "metadata": {},
@@ -949,12 +1519,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 332,
-              "column": 2
+              "line": 1019,
+              "column": 1
             },
             "end": {
-              "line": 334,
-              "column": 3
+              "line": 1021,
+              "column": 2
             }
           },
           "metadata": {},
@@ -969,12 +1539,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 336,
-              "column": 2
+              "line": 1023,
+              "column": 1
             },
             "end": {
-              "line": 345,
-              "column": 3
+              "line": 1032,
+              "column": 2
             }
           },
           "metadata": {},
@@ -986,12 +1556,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 351,
-              "column": 2
+              "line": 1038,
+              "column": 1
             },
             "end": {
-              "line": 356,
-              "column": 3
+              "line": 1043,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1006,12 +1576,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 361,
-              "column": 2
+              "line": 1048,
+              "column": 1
             },
             "end": {
-              "line": 366,
-              "column": 3
+              "line": 1053,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1026,12 +1596,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 371,
-              "column": 2
+              "line": 1058,
+              "column": 1
             },
             "end": {
-              "line": 386,
-              "column": 3
+              "line": 1073,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1047,12 +1617,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 388,
-              "column": 2
+              "line": 1075,
+              "column": 1
             },
             "end": {
-              "line": 427,
-              "column": 3
+              "line": 1114,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1064,12 +1634,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 429,
-              "column": 2
+              "line": 1116,
+              "column": 1
             },
             "end": {
-              "line": 442,
-              "column": 3
+              "line": 1129,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1091,12 +1661,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 444,
-              "column": 2
+              "line": 1131,
+              "column": 1
             },
             "end": {
-              "line": 449,
-              "column": 3
+              "line": 1136,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1108,12 +1678,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 455,
-              "column": 2
+              "line": 1142,
+              "column": 1
             },
             "end": {
-              "line": 459,
-              "column": 3
+              "line": 1146,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1128,12 +1698,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 461,
-              "column": 2
+              "line": 1148,
+              "column": 1
             },
             "end": {
-              "line": 465,
-              "column": 3
+              "line": 1152,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1152,12 +1722,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 467,
-              "column": 2
+              "line": 1154,
+              "column": 1
             },
             "end": {
-              "line": 499,
-              "column": 3
+              "line": 1186,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1173,12 +1743,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 504,
-              "column": 2
+              "line": 1191,
+              "column": 1
             },
             "end": {
-              "line": 515,
-              "column": 3
+              "line": 1202,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1193,12 +1763,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 519,
-              "column": 2
+              "line": 1206,
+              "column": 1
             },
             "end": {
-              "line": 523,
-              "column": 3
+              "line": 1210,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1215,12 +1785,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 525,
-              "column": 2
+              "line": 1212,
+              "column": 1
             },
             "end": {
-              "line": 528,
-              "column": 3
+              "line": 1215,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1246,12 +1816,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 530,
-              "column": 2
+              "line": 1217,
+              "column": 1
             },
             "end": {
-              "line": 537,
-              "column": 3
+              "line": 1224,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1270,12 +1840,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 539,
-              "column": 2
+              "line": 1226,
+              "column": 1
             },
             "end": {
-              "line": 547,
-              "column": 3
+              "line": 1234,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1294,12 +1864,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 550,
-              "column": 2
+              "line": 1237,
+              "column": 1
             },
             "end": {
-              "line": 552,
-              "column": 3
+              "line": 1239,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1315,12 +1885,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 554,
-              "column": 2
+              "line": 1241,
+              "column": 1
             },
             "end": {
-              "line": 556,
-              "column": 3
+              "line": 1243,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1339,12 +1909,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 558,
-              "column": 2
+              "line": 1245,
+              "column": 1
             },
             "end": {
-              "line": 564,
-              "column": 3
+              "line": 1251,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1363,12 +1933,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 566,
-              "column": 2
+              "line": 1253,
+              "column": 1
             },
             "end": {
-              "line": 599,
-              "column": 3
+              "line": 1286,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1387,12 +1957,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 601,
-              "column": 2
+              "line": 1288,
+              "column": 1
             },
             "end": {
-              "line": 606,
-              "column": 3
+              "line": 1293,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1411,12 +1981,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 608,
-              "column": 2
+              "line": 1295,
+              "column": 1
             },
             "end": {
-              "line": 613,
-              "column": 3
+              "line": 1300,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1435,12 +2005,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 615,
-              "column": 2
+              "line": 1302,
+              "column": 1
             },
             "end": {
-              "line": 618,
-              "column": 3
+              "line": 1305,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1455,12 +2025,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 620,
-              "column": 2
+              "line": 1307,
+              "column": 1
             },
             "end": {
-              "line": 636,
-              "column": 3
+              "line": 1323,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1479,12 +2049,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 638,
-              "column": 2
+              "line": 1325,
+              "column": 1
             },
             "end": {
-              "line": 640,
-              "column": 3
+              "line": 1327,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1499,12 +2069,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 642,
-              "column": 2
+              "line": 1329,
+              "column": 1
             },
             "end": {
-              "line": 650,
-              "column": 3
+              "line": 1337,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1523,12 +2093,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 652,
-              "column": 2
+              "line": 1339,
+              "column": 1
             },
             "end": {
-              "line": 661,
-              "column": 3
+              "line": 1348,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1543,12 +2113,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 663,
-              "column": 2
+              "line": 1350,
+              "column": 1
             },
             "end": {
-              "line": 670,
-              "column": 3
+              "line": 1357,
+              "column": 2
             }
           },
           "metadata": {},
@@ -1578,12 +2148,12 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 9,
-          "column": 1
+          "line": 48,
+          "column": 0
         },
         "end": {
-          "line": 671,
-          "column": 2
+          "line": 1358,
+          "column": 1
         }
       },
       "privacy": "public",
@@ -1591,16 +2161,34 @@
       "name": "CosmozImageViewer",
       "attributes": [
         {
+          "name": "t",
+          "description": "",
+          "sourceRange": {
+            "file": "../@neovici/cosmoz-i18next/cosmoz-i18next.js",
+            "start": {
+              "line": 20,
+              "column": 3
+            },
+            "end": {
+              "line": 25,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "type": "Object | null | undefined",
+          "inheritedFrom": "translatable"
+        },
+        {
           "name": "current-image",
           "description": "The url of the currenly selected image.",
           "sourceRange": {
             "start": {
-              "line": 23,
-              "column": 4
+              "line": 710,
+              "column": 3
             },
             "end": {
-              "line": 27,
-              "column": 5
+              "line": 714,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1611,12 +2199,12 @@
           "description": "The index in the images array of the currently selected image.",
           "sourceRange": {
             "start": {
-              "line": 31,
-              "column": 4
+              "line": 718,
+              "column": 3
             },
             "end": {
-              "line": 34,
-              "column": 5
+              "line": 721,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1627,12 +2215,12 @@
           "description": "Unique name of browsing context for detached window",
           "sourceRange": {
             "start": {
-              "line": 38,
-              "column": 4
+              "line": 725,
+              "column": 3
             },
             "end": {
-              "line": 41,
-              "column": 5
+              "line": 728,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1643,12 +2231,12 @@
           "description": "Detached window features\nhttps://developer.mozilla.org/en-US/docs/Web/API/Window/open#Window_features",
           "sourceRange": {
             "start": {
-              "line": 46,
-              "column": 4
+              "line": 733,
+              "column": 3
             },
             "end": {
-              "line": 54,
-              "column": 5
+              "line": 741,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1659,12 +2247,12 @@
           "description": "Like currentImageIndex but starts at 1 instead of 0.",
           "sourceRange": {
             "start": {
-              "line": 81,
-              "column": 4
+              "line": 768,
+              "column": 3
             },
             "end": {
-              "line": 85,
-              "column": 5
+              "line": 772,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1675,12 +2263,12 @@
           "description": "If true, the detached window is open.",
           "sourceRange": {
             "start": {
-              "line": 89,
-              "column": 4
+              "line": 776,
+              "column": 3
             },
             "end": {
-              "line": 98,
-              "column": 5
+              "line": 785,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1691,12 +2279,12 @@
           "description": "The images array.",
           "sourceRange": {
             "start": {
-              "line": 102,
-              "column": 4
+              "line": 789,
+              "column": 3
             },
             "end": {
-              "line": 108,
-              "column": 5
+              "line": 795,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1707,12 +2295,12 @@
           "description": "The percent the view should scroll down after the image got loaded.",
           "sourceRange": {
             "start": {
-              "line": 112,
-              "column": 4
+              "line": 799,
+              "column": 3
             },
             "end": {
-              "line": 115,
-              "column": 5
+              "line": 802,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1723,12 +2311,12 @@
           "description": "",
           "sourceRange": {
             "start": {
-              "line": 117,
-              "column": 4
+              "line": 804,
+              "column": 3
             },
             "end": {
-              "line": 119,
-              "column": 5
+              "line": 806,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1739,12 +2327,12 @@
           "description": "If true, the currently selected image is fully loaded.",
           "sourceRange": {
             "start": {
-              "line": 123,
-              "column": 4
+              "line": 810,
+              "column": 3
             },
             "end": {
-              "line": 126,
-              "column": 5
+              "line": 813,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1755,12 +2343,12 @@
           "description": "The selected slide in the carousel",
           "sourceRange": {
             "start": {
-              "line": 130,
-              "column": 4
+              "line": 817,
+              "column": 3
             },
             "end": {
-              "line": 133,
-              "column": 5
+              "line": 820,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1771,12 +2359,12 @@
           "description": "If true, the current image is zoomed.",
           "sourceRange": {
             "start": {
-              "line": 137,
-              "column": 4
+              "line": 824,
+              "column": 3
             },
             "end": {
-              "line": 140,
-              "column": 5
+              "line": 827,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1787,12 +2375,12 @@
           "description": "If true, navigation next/prev buttons are visible.",
           "sourceRange": {
             "start": {
-              "line": 144,
-              "column": 4
+              "line": 831,
+              "column": 3
             },
             "end": {
-              "line": 147,
-              "column": 5
+              "line": 834,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1803,12 +2391,12 @@
           "description": "If true, pagination dots are visible.",
           "sourceRange": {
             "start": {
-              "line": 151,
-              "column": 4
+              "line": 838,
+              "column": 3
             },
             "end": {
-              "line": 154,
-              "column": 5
+              "line": 841,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1819,12 +2407,12 @@
           "description": "If true, a zoom button is visible.",
           "sourceRange": {
             "start": {
-              "line": 158,
-              "column": 4
+              "line": 845,
+              "column": 3
             },
             "end": {
-              "line": 161,
-              "column": 5
+              "line": 848,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1835,12 +2423,12 @@
           "description": "If true, a fullscreen button is visible.",
           "sourceRange": {
             "start": {
-              "line": 165,
-              "column": 4
+              "line": 852,
+              "column": 3
             },
             "end": {
-              "line": 168,
-              "column": 5
+              "line": 855,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1851,12 +2439,12 @@
           "description": "If true, a detach button is visible.",
           "sourceRange": {
             "start": {
-              "line": 172,
-              "column": 4
+              "line": 859,
+              "column": 3
             },
             "end": {
-              "line": 175,
-              "column": 5
+              "line": 862,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1867,12 +2455,12 @@
           "description": "If true, a close icon is visible. Useful if displayed as an overlay.",
           "sourceRange": {
             "start": {
-              "line": 179,
-              "column": 4
+              "line": 866,
+              "column": 3
             },
             "end": {
-              "line": 182,
-              "column": 5
+              "line": 869,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1883,12 +2471,12 @@
           "description": "If true, the current page number (e.g. 2/5) is visible.",
           "sourceRange": {
             "start": {
-              "line": 186,
-              "column": 4
+              "line": 873,
+              "column": 3
             },
             "end": {
-              "line": 189,
-              "column": 5
+              "line": 876,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1899,12 +2487,12 @@
           "description": "Title used as tooltip and detached window document title",
           "sourceRange": {
             "start": {
-              "line": 193,
-              "column": 4
+              "line": 880,
+              "column": 3
             },
             "end": {
-              "line": 197,
-              "column": 5
+              "line": 884,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1915,12 +2503,12 @@
           "description": "If true, clicking on next when the last image is selected,\nwill show the first image again.",
           "sourceRange": {
             "start": {
-              "line": 202,
-              "column": 4
+              "line": 889,
+              "column": 3
             },
             "end": {
-              "line": 205,
-              "column": 5
+              "line": 892,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1931,12 +2519,12 @@
           "description": "If true, will add credentials to fetch call,\ndefaults to true",
           "sourceRange": {
             "start": {
-              "line": 210,
-              "column": 4
+              "line": 897,
+              "column": 3
             },
             "end": {
-              "line": 213,
-              "column": 5
+              "line": 900,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1947,12 +2535,12 @@
           "description": "The filename of the zip archive when downloaded\nin the detached window.",
           "sourceRange": {
             "start": {
-              "line": 218,
-              "column": 4
+              "line": 905,
+              "column": 3
             },
             "end": {
-              "line": 221,
-              "column": 5
+              "line": 908,
+              "column": 4
             }
           },
           "metadata": {},
@@ -1996,270 +2584,10 @@
         "selectors": []
       },
       "slots": [],
-      "tagname": "cosmoz-image-viewer"
-    },
-    {
-      "description": "",
-      "summary": "",
-      "path": "cosmoz-image-viewer-overlay.html",
-      "properties": [
-        {
-          "name": "images",
-          "type": "Array | null | undefined",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 33,
-              "column": 5
-            },
-            "end": {
-              "line": 35,
-              "column": 6
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "attributeType": "Array"
-            }
-          }
-        },
-        {
-          "name": "currentImageIndex",
-          "type": "number | null | undefined",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 36,
-              "column": 5
-            },
-            "end": {
-              "line": 38,
-              "column": 6
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "attributeType": "Number"
-            }
-          }
-        },
-        {
-          "name": "showDetach",
-          "type": "boolean | null | undefined",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 39,
-              "column": 5
-            },
-            "end": {
-              "line": 41,
-              "column": 6
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "attributeType": "Boolean"
-            }
-          }
-        },
-        {
-          "name": "loop",
-          "type": "boolean | null | undefined",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 42,
-              "column": 5
-            },
-            "end": {
-              "line": 44,
-              "column": 6
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "attributeType": "Boolean"
-            }
-          }
-        },
-        {
-          "name": "credentials",
-          "type": "boolean | null | undefined",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 45,
-              "column": 5
-            },
-            "end": {
-              "line": 47,
-              "column": 6
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "attributeType": "Boolean"
-            }
-          }
-        }
-      ],
-      "methods": [
-        {
-          "name": "connectedCallback",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 51,
-              "column": 3
-            },
-            "end": {
-              "line": 54,
-              "column": 4
-            }
-          },
-          "metadata": {},
-          "params": [],
-          "return": {
-            "type": "void"
-          }
-        },
-        {
-          "name": "_trackHandler",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 56,
-              "column": 3
-            },
-            "end": {
-              "line": 64,
-              "column": 4
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "e"
-            }
-          ],
-          "return": {
-            "type": "void"
-          }
-        }
-      ],
-      "staticMethods": [],
-      "demos": [],
-      "metadata": {},
-      "sourceRange": {
-        "start": {
-          "line": 26,
-          "column": 2
-        },
-        "end": {
-          "line": 65,
-          "column": 3
-        }
-      },
-      "privacy": "public",
-      "superclass": "HTMLElement",
-      "name": "CosmozImageViewerOverlay",
-      "attributes": [
-        {
-          "name": "images",
-          "description": "",
-          "sourceRange": {
-            "start": {
-              "line": 33,
-              "column": 5
-            },
-            "end": {
-              "line": 35,
-              "column": 6
-            }
-          },
-          "metadata": {},
-          "type": "Array | null | undefined"
-        },
-        {
-          "name": "current-image-index",
-          "description": "",
-          "sourceRange": {
-            "start": {
-              "line": 36,
-              "column": 5
-            },
-            "end": {
-              "line": 38,
-              "column": 6
-            }
-          },
-          "metadata": {},
-          "type": "number | null | undefined"
-        },
-        {
-          "name": "show-detach",
-          "description": "",
-          "sourceRange": {
-            "start": {
-              "line": 39,
-              "column": 5
-            },
-            "end": {
-              "line": 41,
-              "column": 6
-            }
-          },
-          "metadata": {},
-          "type": "boolean | null | undefined"
-        },
-        {
-          "name": "loop",
-          "description": "",
-          "sourceRange": {
-            "start": {
-              "line": 42,
-              "column": 5
-            },
-            "end": {
-              "line": 44,
-              "column": 6
-            }
-          },
-          "metadata": {},
-          "type": "boolean | null | undefined"
-        },
-        {
-          "name": "credentials",
-          "description": "",
-          "sourceRange": {
-            "start": {
-              "line": 45,
-              "column": 5
-            },
-            "end": {
-              "line": 47,
-              "column": 6
-            }
-          },
-          "metadata": {},
-          "type": "boolean | null | undefined"
-        }
-      ],
-      "events": [],
-      "styling": {
-        "cssVariables": [],
-        "selectors": []
-      },
-      "slots": [],
-      "tagname": "cosmoz-image-viewer-overlay"
+      "tagname": "cosmoz-image-viewer",
+      "mixins": [
+        "translatable"
+      ]
     }
   ]
 }

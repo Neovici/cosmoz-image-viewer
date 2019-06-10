@@ -5,14 +5,17 @@
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 	<title>cosmoz-image-viewer basic test</title>
 
-	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-	<script src="../../web-component-tester/browser.js"></script>
-	<script src="../../test-fixture/test-fixture-mocha.js"></script>
+	<script src="/components/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+	<script src="/components/mocha/mocha.js"></script>
+	<script src="/components/wct-mocha/wct-mocha.js"></script>
+	<script src="/components/chai/chai.js"></script>
+	<script src="/components/sinon/pkg/sinon.js"></script>
+	<script src="/components/@polymer/test-fixture/test-fixture-mocha.js"></script>
 
-	<link rel="import" href="../../test-fixture/test-fixture.html">
-	<link rel="import" href="../../iron-test-helpers/iron-test-helpers.html">
+	<script type="module" src="/components/@polymer/test-fixture/test-fixture.js"></script>
+	<script type="module" src="/components/@polymer/iron-test-helpers/iron-test-helpers.js"></script>
 
-	<link rel="import" href="../cosmoz-image-viewer.html">
+	<script type="module" src="../cosmoz-image-viewer.js"></script>
 </head>
 <body>
 	<test-fixture id="cosmozImageViewer">
@@ -26,10 +29,8 @@
 		</template>
 	</test-fixture>
 
-	<script>
-	/*global sinon chai*/
-	(function () {
-		'use strict';
+	<script type="module">
+		import { Base } from '@polymer/polymer/polymer-legacy';
 
 		sinon.assert.expose(chai.assert, { prefix: '' });
 
@@ -39,12 +40,12 @@
 			setup((done) => {
 				imageViewer = fixture('cosmozImageViewer');
 				imageViewer.images = [
-					'../../demo/images/stockholm.jpg',
-					'../../demo/images/strasbourg.jpg',
-					'../../demo/images/cosmos1.jpg'
+					'../demo/images/stockholm.jpg',
+					'../demo/images/strasbourg.jpg',
+					'../demo/images/cosmos1.jpg'
 				];
 
-				Polymer.Base.async(() => {
+				Base.async(() => {
 					done();
 				}, 100);
 			});
@@ -52,7 +53,7 @@
 			test('nextImage updates selected', (done) => {
 				assert.equal(imageViewer.selectedImageNumber, 1);
 				imageViewer.nextImage();
-				Polymer.Base.async(() => {
+				Base.async(() => {
 					assert.equal(imageViewer.selectedImageNumber, 2);
 					done();
 				}, 50);
@@ -64,22 +65,22 @@
 				imageViewer.nextImage();
 				assert.equal(imageViewer.selectedImageNumber, 3);
 				imageViewer.previousImage();
-				Polymer.Base.async(() => {
+				Base.async(() => {
 					assert.equal(imageViewer.selectedImageNumber, 2);
 					done();
 				}, 50);
 			});
 
 			test('currentImage is updated', () => {
-				assert.equal(imageViewer.currentImage, '../../demo/images/stockholm.jpg');
+				assert.equal(imageViewer.currentImage, '../demo/images/stockholm.jpg');
 				imageViewer.nextImage();
-				assert.equal(imageViewer.currentImage, '../../demo/images/strasbourg.jpg');
+				assert.equal(imageViewer.currentImage, '../demo/images/strasbourg.jpg');
 			});
 
 			test('_computeCurrentImage does not update currentImage if no images', () => {
-				assert.equal(imageViewer.currentImage, '../../demo/images/stockholm.jpg');
+				assert.equal(imageViewer.currentImage, '../demo/images/stockholm.jpg');
 				imageViewer._computeCurrentImage(2, null);
-				assert.equal(imageViewer.currentImage, '../../demo/images/stockholm.jpg');
+				assert.equal(imageViewer.currentImage, '../demo/images/stockholm.jpg');
 			});
 
 			test('openFullScreen creates dialog', (done) => {
@@ -105,7 +106,7 @@
 
 			test('zip creation works', (done) => {
 				imageViewer.createZipFromUrls(imageViewer._resolvedImages).then(zip => {
-					assert.isAbove(zip.b.byteLength, 10000);
+					assert.isAbove(zip.buffer.byteLength, 10000);
 					done();
 				});
 			});
@@ -130,7 +131,7 @@
 				const waitForImages = () => {
 					const el = imageViewer.$.carousel.selectedItem.querySelector('img-pan-zoom');
 					if (el == null || el.viewer == null) {
-						Polymer.Base.async(waitForImages, 150);
+						Base.async(waitForImages, 150);
 					} else {
 						const spyResetZoom = sinon.spy(el, 'resetZoom');
 						assert.isFalse(imageViewer.isZoomed);
@@ -139,17 +140,17 @@
 						imageViewer.zoomToggle();
 
 						imageViewer.isZoomed = true;
-						Polymer.Base.async(() => {
+						Base.async(() => {
 							assert.calledOnce(spyResetZoom);
 						}, 100);
 						done();
 					}
 				};
-				Polymer.Base.async(waitForImages, 150);
+				Base.async(waitForImages, 150);
 			});
 
 			test('zoomToogle handles undefined viewer', (done) => {
-				Polymer.Base.async(() => {
+				Base.async(() => {
 					const el = imageViewer.$.carousel.selectedItem.querySelector('img-pan-zoom'),
 						spyResetZoom = sinon.spy(el, 'resetZoom');
 					assert.isFalse(imageViewer.isZoomed);
@@ -158,7 +159,7 @@
 					imageViewer.zoomToggle();
 
 					imageViewer.isZoomed = true;
-					Polymer.Base.async(() => {
+					Base.async(() => {
 						assert.notCalled(spyResetZoom);
 						done();
 					}, 100);
@@ -190,7 +191,7 @@
 				imageViewer.showFullscreen = true;
 				imageViewer.showDetach = true;
 
-				Polymer.Base.async(() => {
+				Base.async(() => {
 					done();
 				}, 100);
 			});
@@ -216,14 +217,14 @@
 				imageViewer = fixture('cosmozImageViewer');
 				imageViewer.images = [
 					'xyz.jpg',
-					'../../demo/images/stockholm.jpg',
-					'../../demo/images/strasbourg.jpg'
+					'../demo/images/stockholm.jpg',
+					'../demo/images/strasbourg.jpg'
 				];
 
 				errorDiv = () => imageViewer.carousel.selectedItem.querySelector('.error');
 				displayNone = (element) => element.offsetParent === null || element.getAttribute('hidden') === 'true';
 
-				Polymer.Base.async(() => {
+				Base.async(() => {
 					done();
 				}, 100);
 			});
@@ -231,7 +232,7 @@
 			test('error is shown', (done) => {
 				imageViewer.currentImageIndex = 0;
 				const errEl = errorDiv();
-				Polymer.Base.async(() => {
+				Base.async(() => {
 					assert.equal(displayNone(errEl), false);
 					done();
 				}, 500);
@@ -241,7 +242,7 @@
 				imageViewer.currentImageIndex = 0;
 				imageViewer.currentImageIndex = 1;
 				const errEl = errorDiv();
-				Polymer.Base.async(() => {
+				Base.async(() => {
 					assert.equal(displayNone(errEl), true);
 					done();
 				}, 500);
@@ -254,12 +255,12 @@
 			setup((done) => {
 				overlay = fixture('cosmozImageViewerOverlay');
 				overlay.images = [
-					'../../demo/images/stockholm.jpg',
-					'../../demo/images/strasbourg.jpg',
-					'../../demo/images/cosmos1.jpg'
+					'../demo/images/stockholm.jpg',
+					'../demo/images/strasbourg.jpg',
+					'../demo/images/cosmos1.jpg'
 				];
 
-				Polymer.Base.async(() => {
+				Base.async(() => {
 					done();
 				}, 90);
 			});
@@ -286,8 +287,6 @@
 			});
 
 		});
-	}());
-
 	</script>
 </body>
 </html>
