@@ -51,7 +51,7 @@
 					];
 				});
 
-				let w = imageViewer.detach();
+				const w = imageViewer.detach();
 				if (w == null) {
 					console.warn('Only gets tested without popup blocker');
 					/* eslint-disable-next-line no-invalid-this */
@@ -71,7 +71,7 @@
 			});
 
 			test('detaching to existing window works', () => {
-				let w = imageViewer.detach();
+				const w = imageViewer.detach();
 				const w2 = imageViewer.detach();
 				assert.isNotNull(w);
 				assert.deepEqual(w, w2);
@@ -79,7 +79,7 @@
 			});
 
 			test('shared detaching works', () => {
-				let w = imageViewer.detach();
+				const w = imageViewer.detach();
 				const w2 = imageViewer2.detach();
 				assert.isNotNull(w);
 				assert.deepEqual(w, w2);

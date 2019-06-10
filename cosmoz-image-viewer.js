@@ -711,7 +711,7 @@ class CosmozImageViewer extends mixin(Template, translatable(mixinBehaviors([
 			currentImage: {
 				type: String,
 				notify: true,
-				computed: '_computeCurrentImage(currentImageIndex, images)',
+				computed: '_computeCurrentImage(currentImageIndex, images)'
 			},
 			/**
 			 * The index in the images array of the currently selected image.
@@ -948,7 +948,7 @@ class CosmozImageViewer extends mixin(Template, translatable(mixinBehaviors([
 			 * The url resolved images array.
 			 */
 			_resolvedImages: {
-				type: Array,
+				type: Array
 			},
 
 			_imageContainerHeight: {
@@ -1167,7 +1167,7 @@ class CosmozImageViewer extends mixin(Template, translatable(mixinBehaviors([
 					zip = new NullZipArchive(this.downloadFileName, false);
 
 				for (const {url, data} of responses) {
-					let filename = url.replace(/^.*[\\/]/, '');
+					let filename = url.replace(/^.*[\\/]/u, '');
 					const filenameParts = filename.split('.'),
 						sameFilenames = filenames.filter(f => f === filenameParts[0]);
 
@@ -1244,7 +1244,7 @@ class CosmozImageViewer extends mixin(Template, translatable(mixinBehaviors([
 	}
 
 	_isZoomed(viewer, zoom) {
-		if (viewer === null){
+		if (viewer === null) {
 			return;
 		}
 		const initialZoomLevel = viewer.viewport.getHomeZoom();
@@ -1302,7 +1302,9 @@ class CosmozImageViewer extends mixin(Template, translatable(mixinBehaviors([
 
 	_onResize() {
 		this.set('_imageContainerHeight', this._scroller.scrollHeight);
-		this.debounce('elementHeight', () => this._elementHeight = this.offsetHeight, 50);
+		this.debounce('elementHeight', () => {
+			this._elementHeight = this.offsetHeight;
+		}, 50);
 	}
 
 	_imageListChanged(images) {

@@ -34,10 +34,11 @@
 
 		sinon.assert.expose(chai.assert, { prefix: '' });
 
+		// eslint-disable-next-line max-lines-per-function
 		suite('cosmoz-image-viewer', () => {
 			let imageViewer;
 
-			setup((done) => {
+			setup(done => {
 				imageViewer = fixture('cosmozImageViewer');
 				imageViewer.images = [
 					'../demo/images/stockholm.jpg',
@@ -50,7 +51,7 @@
 				}, 100);
 			});
 
-			test('nextImage updates selected', (done) => {
+			test('nextImage updates selected', done => {
 				assert.equal(imageViewer.selectedImageNumber, 1);
 				imageViewer.nextImage();
 				Base.async(() => {
@@ -59,7 +60,7 @@
 				}, 50);
 			});
 
-			test('previousImage updates selected', (done) => {
+			test('previousImage updates selected', done => {
 				imageViewer.nextImage();
 				assert.equal(imageViewer.selectedImageNumber, 2);
 				imageViewer.nextImage();
@@ -83,7 +84,7 @@
 				assert.equal(imageViewer.currentImage, '../demo/images/stockholm.jpg');
 			});
 
-			test('openFullScreen creates dialog', (done) => {
+			test('openFullScreen creates dialog', done => {
 				imageViewer.openFullscreen();
 				const dialog = imageViewer.imageOverlay;
 				assert.isDefined(dialog, 'Expected openFullscreen to create dialog if it was undefined');
@@ -104,7 +105,7 @@
 				imageViewer.attach();
 			});
 
-			test('zip creation works', (done) => {
+			test('zip creation works', done => {
 				imageViewer.createZipFromUrls(imageViewer._resolvedImages).then(zip => {
 					assert.isAbove(zip.buffer.byteLength, 10000);
 					done();
@@ -127,7 +128,7 @@
 				assert.equal(imageViewer.isZoomed, zoomed);
 			});
 
-			test('zoomToogle resets zoom', (done) => {
+			test('zoomToogle resets zoom', done => {
 				const waitForImages = () => {
 					const el = imageViewer.$.carousel.selectedItem.querySelector('img-pan-zoom');
 					if (el == null || el.viewer == null) {
@@ -149,7 +150,7 @@
 				Base.async(waitForImages, 150);
 			});
 
-			test('zoomToogle handles undefined viewer', (done) => {
+			test('zoomToogle handles undefined viewer', done => {
 				Base.async(() => {
 					const el = imageViewer.$.carousel.selectedItem.querySelector('img-pan-zoom'),
 						spyResetZoom = sinon.spy(el, 'resetZoom');
@@ -183,7 +184,7 @@
 		suite('cosmoz-image-viewer-no-images', () => {
 			let imageViewer;
 
-			setup((done) => {
+			setup(done => {
 				imageViewer = fixture('cosmozImageViewer');
 				imageViewer.images = [];
 				imageViewer.showZoom = true;
@@ -213,7 +214,7 @@
 				errorDiv,
 				displayNone;
 
-			setup((done) => {
+			setup(done => {
 				imageViewer = fixture('cosmozImageViewer');
 				imageViewer.images = [
 					'xyz.jpg',
@@ -222,14 +223,14 @@
 				];
 
 				errorDiv = () => imageViewer.carousel.selectedItem.querySelector('.error');
-				displayNone = (element) => element.offsetParent === null || element.getAttribute('hidden') === 'true';
+				displayNone = element => element.offsetParent === null || element.getAttribute('hidden') === 'true';
 
 				Base.async(() => {
 					done();
 				}, 100);
 			});
 
-			test('error is shown', (done) => {
+			test('error is shown', done => {
 				imageViewer.currentImageIndex = 0;
 				const errEl = errorDiv();
 				Base.async(() => {
@@ -238,7 +239,7 @@
 				}, 500);
 			});
 
-			test('error is hidden if next image loaded successfully', (done) => {
+			test('error is hidden if next image loaded successfully', done => {
 				imageViewer.currentImageIndex = 0;
 				imageViewer.currentImageIndex = 1;
 				const errEl = errorDiv();
@@ -252,7 +253,7 @@
 		suite('cosmoz-image-viewer-overlay', () => {
 			let overlay;
 
-			setup((done) => {
+			setup(done => {
 				overlay = fixture('cosmozImageViewerOverlay');
 				overlay.images = [
 					'../demo/images/stockholm.jpg',
@@ -266,20 +267,18 @@
 			});
 
 			test('_trackHandler does not call close if detail state is not end', () => {
-				const event = new CustomEvent('testEvent', {
-						detail: {
-							'dy': 1000
-						}}),
+				const event = new CustomEvent('testEvent', {detail: {
+						'dy': 1000
+					}}),
 					spyClose = sinon.spy(overlay, 'close');
 				overlay._trackHandler(event);
 				assert.notCalled(spyClose);
 			});
 			test('_trackHandler does call close', () => {
-				const event = new CustomEvent('testEvent', {
-						detail: {
-							'state': 'end',
-							'dy': 1000
-						}}),
+				const event = new CustomEvent('testEvent', {detail: {
+						'state': 'end',
+						'dy': 1000
+					}}),
 					spyClose = sinon.spy(overlay, 'close');
 
 				overlay._trackHandler(event);

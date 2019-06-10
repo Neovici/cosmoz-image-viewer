@@ -16,7 +16,11 @@ class CosmozImageViewerOverlay extends mixinBehaviors([IronOverlayBehavior], Pol
 								width: 100vw;
 						}
 				</style>
-				<cosmoz-image-viewer on-track="_trackHandler" on-close-tapped="close" images="[[images]]" sizing="contain" credentials="[[credentials]]" current-image-index="[[currentImageIndex]]" show-nav="" show-zoom="" show-close="" show-detach="[[showDetach]]" loop="[[loop]]">
+				<cosmoz-image-viewer
+					on-track="_trackHandler" on-close-tapped="close"
+					images="[[images]]" sizing="contain"
+					credentials="[[credentials]]" current-image-index="[[currentImageIndex]]"
+					show-nav show-zoom show-close show-detach="[[showDetach]]" loop="[[loop]]">
 				</cosmoz-image-viewer>
 `;
 	}
