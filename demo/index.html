@@ -6,17 +6,19 @@
 
 		<title>cosmoz-image-viewer demo</title>
 
-		<script src="/components/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
 
-		<script type="module" src="/components/@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
-		<script type="module" src="/components/@polymer/iron-demo-helpers/demo-snippet.js"></script>
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html" />
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html" />
 
-		<script type="module" src="../cosmoz-image-viewer.js"></script>
+
+		<link rel="import" href="../cosmoz-image-viewer.html" />
 
 		<custom-style>
 			<style is="custom-style" include="demo-pages-shared-styles iron-flex">
 			</style>
 		</custom-style>
+
 	</head>
 	<body>
 		<div id="container" class="vertical-section-container centered">
@@ -25,7 +27,9 @@
 				<template>
 					<dom-bind class="scope">
 						<template>
-							<cosmoz-image-viewer images="[[images]]" show-nav="" loop="" show-fullscreen="" show-detach="" show-page-number="">
+							<cosmoz-image-viewer
+								images="[[images]]"
+								show-nav loop show-fullscreen show-detach show-page-number>
 							</cosmoz-image-viewer>
 						</template>
 					</dom-bind>
@@ -45,7 +49,9 @@
 									}
 								</style>
 							</custom-style>
-							<cosmoz-image-viewer class="viewer" images="[[images]]" show-nav loop show-fullscreen show-detach show-zoom>
+							<cosmoz-image-viewer class="viewer"
+								images="[[images]]"
+								show-nav loop show-fullscreen show-detach show-zoom>
 							</cosmoz-image-viewer>
 						</template>
 					</dom-bind>
@@ -53,51 +59,51 @@
 			</demo-snippet>
 		</div>
 
-		<script type="module">
+		<script type="text/javascript">
+		(() => {
 			window.addEventListener('WebComponentsReady', () => {
 				const images = [
-					'images/stockholm.jpg',
+					'demo/images/stockholm.jpg',
 					'this-is-a-loading-error.jpg',
-					'images/a_size.png',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg',
-					'images/stockholm.jpg',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg',
-					'images/stockholm.jpg',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg',
-					'images/stockholm.jpg',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg',
-					'images/stockholm.jpg',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg',
-					'images/strasbourg.jpg',
-					'images/stockholm.jpg'
+					'demo/images/a_size.png',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg',
+					'demo/images/strasbourg.jpg',
+					'demo/images/stockholm.jpg'
 				];
-				document.querySelectorAll('.scope').forEach(s => {
-					s.images = images;
-				});
+				document.querySelectorAll('.scope').forEach(s => s.images = images);
 			});
+		})();
 		</script>
 	</body>
 </html>

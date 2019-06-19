@@ -2,60 +2,38 @@
 	"name": "cosmoz-image-viewer",
 	"version": "1.0.0",
 	"description": "[![Build Status](https://travis-ci.org/Neovici/cosmoz-image-viewer.svg?branch=master)](https://travis-ci.org/Neovici/cosmoz-image-viewer)",
-	"keywords": [
-		"polymer",
-		"web-components"
-	],
-	"homepage": "https://github.com/neovici/cosmoz-image-viewer#readme",
-	"bugs": {
-		"url": "https://github.com/neovici/cosmoz-image-viewer/issues"
+	"main": "cosmoz-image-viewer.html",
+	"directories": {
+		"test": "test"
+	},
+	"devDependencies": {
+		"eslint": "^5.12.0",
+		"eslint-plugin-html": "^5.0.0",
+		"eslint-plugin-mocha": "^5.2.0",
+		"polymer-cli": "^1.9.4",
+		"web-component-tester-istanbul": "Neovici/web-component-tester-istanbul"
+	},
+	"scripts": {
+		"analyze": "polymer analyze --input cosmoz-*.html  > analysis.json",
+		"lint": "eslint --cache --ext .js,.html . && polymer lint cosmoz-*.html",
+		"postinstall": "polymer install",
+		"start": "polymer serve -o",
+		"sync-npm": "rm -f package-lock.json && npm shrinkwrap && mv npm-shrinkwrap.json package-lock.json",
+		"analyze": "polymer analyze --input cosmoz-*.html  > analysis.json",
+		"test": "polymer test"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/neovici/cosmoz-image-viewer.git"
 	},
-	"license": "Apache-2.0",
+	"keywords": [
+		"polymer",
+		"web-components"
+	],
 	"author": "",
-	"main": "cosmoz-image-viewer.js",
-	"directories": {
-		"test": "test"
+	"license": "Apache-2.0",
+	"bugs": {
+		"url": "https://github.com/neovici/cosmoz-image-viewer/issues"
 	},
-	"scripts": {
-		"analyze": "polymer analyze --input cosmoz-*.js  > analysis.json",
-		"lint": "eslint --cache --ext .js,.html . && polymer lint cosmoz-*.js",
-		"start": "polymer serve -o",
-		"test": "polymer test"
-	},
-	"dependencies": {
-		"@fabricelements/skeleton-carousel": "^3.0.2",
-		"@neovici/cosmoz-i18next": "plumelo/cosmoz-i18next#feature/NEOV-366-upgrade-polymer-3",
-		"@neovici/cosmoz-utils": "plumelo/cosmoz-behaviors#feature/NEOV-356_upgrade_polymer3",
-		"@neovici/img-pan-zoom": "plumelo/img-pan-zoom#feature/polymer3",
-		"@neovici/nullxlsx": "plumelo/nullxlsx#feature/polymer3",
-		"@polymer/iron-flex-layout": "^3.0.0",
-		"@polymer/iron-icons": "^3.0.0",
-		"@polymer/iron-image": "^3.0.0",
-		"@polymer/iron-overlay-behavior": "^3.0.0",
-		"@polymer/iron-resizable-behavior": "^3.0.0",
-		"@polymer/paper-icon-button": "^3.0.0",
-		"@polymer/polymer": "^3.0.0"
-	},
-	"devDependencies": {
-		"@neovici/eslint-config": "neovici/eslint-config#semver:~1.0.0",
-		"@polymer/iron-component-page": "^4.0.0",
-		"@polymer/iron-demo-helpers": "^3.0.0",
-		"@polymer/iron-test-helpers": "^3.0.0",
-		"@polymer/test-fixture": "^4.0.2",
-		"@webcomponents/webcomponentsjs": "^2.0.0",
-		"chai": "^4.2.0",
-		"eslint": "^5.0.0",
-		"eslint-plugin-html": "^5.0.0",
-		"eslint-plugin-mocha": "^5.0.0",
-		"mocha": "^5.0.0",
-		"polymer-cli": "^1.9.4",
-		"sinon": "^7.3.2",
-		"wct-istanbul": "^0.14.3",
-		"wct-mocha": "^1.0.1",
-		"web-animations-js": "^2.3.1"
-	}
+	"homepage": "https://github.com/neovici/cosmoz-image-viewer#readme"
 }

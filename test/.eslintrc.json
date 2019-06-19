@@ -1,3 +1,12 @@
 {
-	"extends": "@neovici/eslint-config/test-config"
+	"env": {
+		"mocha": true
+	},
+	"globals": {
+		"a11ySuite": false,
+		"assert": false,
+		"fixture": false,
+		"MockInteractions": false,
+		"test": false
+	}
 }

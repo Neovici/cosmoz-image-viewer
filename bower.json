@@ -1,0 +1,28 @@
+{
+  "name": "cosmoz-image-viewer",
+  "description": "Image viewer",
+  "license": "Apache-2.0",
+  "main": "cosmoz-image-viewer.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0",
+    "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#^2.0.0",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.0",
+    "iron-icons": "PolymerElements/iron-icons#^2.0.0",
+    "paper-icon-button": "PolymerElements/paper-icon-button#^2.0.1",
+    "cosmoz-behaviors": "Neovici/cosmoz-behaviors#^2.0.1",
+    "cosmoz-i18next": "Neovici/cosmoz-i18next#^2.0.0",
+    "skeleton-carousel": "FabricElements/skeleton-carousel#^2.0.7",
+    "img-pan-zoom": "Neovici/img-pan-zoom#master",
+    "iron-overlay-behavior": "^2.2.0",
+    "nullxlsx": "Neovici/nullxlsx#^1.0.0",
+    "iron-image": "^2.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^3.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "iron-test-helpers": "polymerelements/iron-test-helpers#^2.0.0",
+    "web-component-tester": "^6.0.0",
+    "web-animations-js": "web-animations/web-animations-js#^2.2",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  }
+}

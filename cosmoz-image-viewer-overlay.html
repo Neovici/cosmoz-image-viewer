@@ -1,0 +1,69 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-overlay-behavior/iron-overlay-behavior.html">
+
+<link rel="import" href="cosmoz-image-viewer.html">
+
+<dom-module id="cosmoz-image-viewer-overlay">
+    <template>
+        <style>
+            :host {
+                background: rgb(0, 0, 0);
+                height: 100vh;
+                width: 100vw;
+            }
+        </style>
+        <cosmoz-image-viewer
+			on-track="_trackHandler"
+			on-close-tapped="close"
+            images="[[images]]"
+			sizing="contain"
+			credentials="[[credentials]]"
+			current-image-index="[[currentImageIndex]]"
+            show-nav show-zoom show-close show-detach="[[showDetach]]" loop="[[loop]]">
+        </cosmoz-image-viewer>
+
+    </template>
+    <script>
+		class CosmozImageViewerOverlay extends Polymer.mixinBehaviors([Polymer.IronOverlayBehavior], Polymer.Element) {
+			static get is() {
+				return 'cosmoz-image-viewer-overlay';
+			}
+
+			static get properties() {
+				return {
+					images: {
+						type: Array
+					},
+					currentImageIndex: {
+						type: Number
+					},
+					showDetach: {
+						type: Boolean
+					},
+					loop: {
+						type: Boolean
+					},
+					credentials: {
+						type: Boolean
+					}
+				};
+			}
+
+			connectedCallback() {
+				super.connectedCallback();
+				this.noCancelOnOutsideClick = true;
+			}
+
+			_trackHandler(e) {
+				if (e.detail.state !== 'end') {
+					return;
+				}
+				// Swipe down to close
+				if (e.detail.dy > window.innerHeight * 0.4) {
+					this.close();
+				}
+			}
+		}
+		window.customElements.define(CosmozImageViewerOverlay.is, CosmozImageViewerOverlay);
+    </script>
+</dom-module>
