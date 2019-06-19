@@ -5,32 +5,33 @@
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 	<title>cosmoz-image-viewer basic test</title>
 
-	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-	<script src="../../web-component-tester/browser.js"></script>
-	<script src="../../test-fixture/test-fixture-mocha.js"></script>
+	<script src="/components/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+	<script src="/components/mocha/mocha.js"></script>
+	<script src="/components/wct-mocha/wct-mocha.js"></script>
+	<script src="/components/chai/chai.js"></script>
+	<script src="/components/sinon/pkg/sinon.js"></script>
+	<script src="/components/@polymer/test-fixture/test-fixture-mocha.js"></script>
 
-	<link rel="import" href="../../test-fixture/test-fixture.html">
-	<link rel="import" href="../../iron-test-helpers/iron-test-helpers.html">
+	<script type="module" src="/components/@polymer/test-fixture/test-fixture.js"></script>
+	<script type="module" src="/components/@polymer/iron-test-helpers/iron-test-helpers.js"></script>
 
-	<link rel="import" href="../cosmoz-image-viewer.html">
+	<script type="module" src="../cosmoz-image-viewer.js"></script>
 </head>
 <body>
 	<test-fixture id="cosmozImageViewer">
 		<template>
 			<cosmoz-image-viewer show-zoom></cosmoz-image-viewer>
 		</template>
-    </test-fixture>
+		</test-fixture>
 
-    <test-fixture id="cosmozImageViewer2">
-            <template>
-                <cosmoz-image-viewer show-zoom></cosmoz-image-viewer>
-            </template>
-        </test-fixture>
+		<test-fixture id="cosmozImageViewer2">
+						<template>
+								<cosmoz-image-viewer show-zoom></cosmoz-image-viewer>
+						</template>
+				</test-fixture>
 
-	<script>
-	/*global sinon chai*/
-	(function () {
-		'use strict';
+	<script type="module">
+		import { Base } from '@polymer/polymer/polymer-legacy';
 
 		sinon.assert.expose(chai.assert, { prefix: '' });
 
@@ -44,13 +45,13 @@
 
 				[imageViewer, imageViewer2].forEach(viewer => {
 					viewer.images = [
-						'../../demo/images/stockholm.jpg',
-						'../../demo/images/strasbourg.jpg',
-						'../../demo/images/cosmos1.jpg'
+						'../demo/images/stockholm.jpg',
+						'../demo/images/strasbourg.jpg',
+						'../demo/images/cosmos1.jpg'
 					];
 				});
 
-				let w = imageViewer.detach();
+				const w = imageViewer.detach();
 				if (w == null) {
 					console.warn('Only gets tested without popup blocker');
 					/* eslint-disable-next-line no-invalid-this */
@@ -58,7 +59,7 @@
 				}
 				w.close();
 
-				Polymer.Base.async(() => {
+				Base.async(() => {
 					done();
 				}, 100);
 			});
@@ -70,7 +71,7 @@
 			});
 
 			test('detaching to existing window works', () => {
-				let w = imageViewer.detach();
+				const w = imageViewer.detach();
 				const w2 = imageViewer.detach();
 				assert.isNotNull(w);
 				assert.deepEqual(w, w2);
@@ -78,16 +79,13 @@
 			});
 
 			test('shared detaching works', () => {
-				let w = imageViewer.detach();
+				const w = imageViewer.detach();
 				const w2 = imageViewer2.detach();
 				assert.isNotNull(w);
 				assert.deepEqual(w, w2);
 				w.close();
 			});
 		});
-
-	}());
-
 	</script>
 </body>
 </html>
