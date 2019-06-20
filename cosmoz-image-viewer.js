@@ -1,3 +1,4 @@
+/* eslint-disable max-lines, max-len */
 import '@webcomponents/shadycss/entrypoints/apply-shim';
 
 import '@polymer/iron-flex-layout/iron-flex-layout';
@@ -49,7 +50,7 @@ so a user can swipe to the next image.
 class CosmozImageViewer extends mixin(Template, translatable(mixinBehaviors([
 	IronResizableBehavior
 ], PolymerElement))) {
-	static get template() {
+	static get template() { // eslint-disable-line max-lines-per-function
 		return html`
 		<style include="iron-flex iron-flex-alignment">
 			:host {
@@ -201,9 +202,11 @@ class CosmozImageViewer extends mixin(Template, translatable(mixinBehaviors([
 							<h2>An error occurred while loading the image.</h2>
 							<div class="desc">[[image]]</div>
 						</div>
-						<img-pan-zoom hidden\$="[[ !showZoom ]]" class="image-zoom" data-src\$="[[image]]" on-loaded-changed="_imageLoadedChanged" on-error-changed="_onImageError">
+						<img-pan-zoom hidden\$="[[ !showZoom ]]" class="image-zoom" data-src\$="[[image]]"
+							on-loaded-changed="_imageLoadedChanged" on-error-changed="_onImageError">
 						</img-pan-zoom>
-						<iron-image hidden\$="[[ showZoom ]]" prevent-load="[[ showZoom ]]" sizing="[[ sizing ]]" class="image" data-src\$="[[ image ]]" on-loaded-changed="_imageLoadedChanged" on-error-changed="_onImageError">
+						<iron-image hidden\$="[[ showZoom ]]" prevent-load="[[ showZoom ]]" sizing="[[ sizing ]]"
+							class="image" data-src\$="[[ image ]]" on-loaded-changed="_imageLoadedChanged" on-error-changed="_onImageError">
 						</iron-image>
 					</div>
 				</template>
@@ -516,7 +519,7 @@ class CosmozImageViewer extends mixin(Template, translatable(mixinBehaviors([
 					</div>
 					<div class="icon-only" onclick="ciw.printPage()">
 						<svg class="icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false">
-							<g><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"></path></g>
+							<g><path d="M19 8H5c-1.66 0-3 1.34-33v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"></path></g>
 						</svg>
 					</div>
 				</div>
@@ -703,7 +706,7 @@ class CosmozImageViewer extends mixin(Template, translatable(mixinBehaviors([
 		return 'cosmoz-image-viewer';
 	}
 
-	static get properties() {
+	static get properties() { // eslint-disable-line max-lines-per-function
 		return {
 			/**
 			 * The url of the currenly selected image.
