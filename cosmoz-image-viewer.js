@@ -993,6 +993,7 @@ class CosmozImageViewer extends mixin(Template, translatable(mixinBehaviors([
 	}
 
 	disconnectedCallback() {
+		super.disconnectedCallback();
 		this.removeEventListener('dblclick', this._dblClickListner);
 
 		this.cancelDebouncer('updateScrollPercent');
