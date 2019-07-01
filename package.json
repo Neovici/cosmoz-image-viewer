@@ -1,6 +1,6 @@
 {
-	"name": "cosmoz-image-viewer",
-	"version": "1.0.0",
+	"name": "@neovici/cosmoz-image-viewer",
+	"version": "3.0.2",
 	"description": "[![Build Status](https://travis-ci.org/Neovici/cosmoz-image-viewer.svg?branch=master)](https://travis-ci.org/Neovici/cosmoz-image-viewer)",
 	"keywords": [
 		"polymer",
@@ -23,15 +23,17 @@
 	"scripts": {
 		"analyze": "polymer analyze --input cosmoz-*.js  > analysis.json",
 		"lint": "eslint --cache --ext .js,.html . && polymer lint cosmoz-*.js",
+		"preversion": "npm run lint && npm run test -- --skip-plugin sauce",
+		"postversion": "git push && git push --tags",
 		"start": "polymer serve -o",
 		"test": "polymer test"
 	},
 	"dependencies": {
 		"@fabricelements/skeleton-carousel": "^3.0.2",
-		"@neovici/cosmoz-i18next": "neovici/cosmoz-i18next#semver:^3.0.0",
-		"@neovici/cosmoz-utils": "neovici/cosmoz-behaviors#semver:^3.0.0",
-		"@neovici/img-pan-zoom": "neovici/img-pan-zoom#semver:^3.0.0",
-		"@neovici/nullxlsx": "neovici/nullxlsx#semver:^3.0.0",
+		"@neovici/cosmoz-i18next": "github:neovici/cosmoz-i18next#semver:^3.0.1",
+		"@neovici/cosmoz-utils": "github:neovici/cosmoz-utils#semver:^3.0.4",
+		"@neovici/img-pan-zoom": "github:neovici/img-pan-zoom#semver:^3.0.1",
+		"@neovici/nullxlsx": "github:neovici/nullxlsx#semver:^3.0.1",
 		"@polymer/iron-flex-layout": "^3.0.0",
 		"@polymer/iron-icons": "^3.0.0",
 		"@polymer/iron-image": "^3.0.0",
@@ -42,7 +44,7 @@
 		"@webcomponents/shadycss": "^1.9.1"
 	},
 	"devDependencies": {
-		"@neovici/eslint-config": "neovici/eslint-config#semver:^1.0.0",
+		"@neovici/eslint-config": "github:neovici/eslint-config#semver:^1.0.0",
 		"@polymer/iron-component-page": "^4.0.0",
 		"@polymer/iron-demo-helpers": "^3.0.0",
 		"@polymer/iron-test-helpers": "^3.0.0",
