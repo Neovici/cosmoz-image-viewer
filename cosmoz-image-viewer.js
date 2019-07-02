@@ -173,28 +173,28 @@ class CosmozImageViewer extends mixin(Template, translatable(mixinBehaviors([
 			}
 		</style>
 
-		<div class="nav counter" hidden\$="[[!_showPageNumber]]">
+		<div class="nav counter" hidden$="[[!_showPageNumber]]">
 			[[selectedImageNumber]]/[[total]]
 		</div>
 
 		<div class="actions layout horizontal center">
-			<paper-icon-button class="nav" hidden\$="[[!_showNav]]" icon="icons:arrow-back" on-tap="previousImage">
+			<paper-icon-button class="nav" hidden$="[[!_showNav]]" icon="icons:arrow-back" on-tap="previousImage">
 			</paper-icon-button>
-			<paper-icon-button class="nav" hidden\$="[[!_showNav]]" icon="icons:arrow-forward" on-tap="nextImage">
+			<paper-icon-button class="nav" hidden$="[[!_showNav]]" icon="icons:arrow-forward" on-tap="nextImage">
 			</paper-icon-button>
 			<div class="flex"></div>
-			<paper-icon-button class="nav" hidden\$="[[!_showZoom]]" on-click="zoomToggle" icon="[[_getZoomIcon(isZoomed)]]" title="[[ _('Zoom image', t) ]]">
+			<paper-icon-button class="nav" hidden$="[[!_showZoom]]" on-click="zoomToggle" icon="[[_getZoomIcon(isZoomed)]]" title="[[ _('Zoom image', t) ]]">
 			</paper-icon-button>
-			<paper-icon-button class="nav" hidden\$="[[!_showDetach]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]">
+			<paper-icon-button class="nav" hidden$="[[!_showDetach]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]">
 			</paper-icon-button>
-			<paper-icon-button class="nav" hidden\$="[[!_showFullscreen]]" on-click="openFullscreen" icon="icons:fullscreen" title="[[ _('Fullscreen image', t) ]]">
+			<paper-icon-button class="nav" hidden$="[[!_showFullscreen]]" on-click="openFullscreen" icon="icons:fullscreen" title="[[ _('Fullscreen image', t) ]]">
 			</paper-icon-button>
-			<paper-icon-button class="nav" hidden\$="[[!showClose]]" on-click="_close" icon="icons:close" title="[[ _('Close fullscreen', t) ]]">
+			<paper-icon-button class="nav" hidden$="[[!showClose]]" on-click="_close" icon="icons:close" title="[[ _('Close fullscreen', t) ]]">
 			</paper-icon-button>
 		</div>
 
 		<div id="imageContainer" on-scroll="_scrollHandler">
-			<p hidden\$="[[_hideNoImageInfo]]">[[ _('No image loaded.', t) ]]</p>
+			<p hidden$="[[_hideNoImageInfo]]">[[ _('No image loaded.', t) ]]</p>
 			<skeleton-carousel id="carousel" selected-item="{{selectedItem}}" dots="[[showDots]]" loop="[[loop]]" total="{{total}}" selected="{{currentImageIndex}}">
 				<template is="dom-repeat" items="[[_resolvedImages]]" as="image">
 					<div>
@@ -202,11 +202,11 @@ class CosmozImageViewer extends mixin(Template, translatable(mixinBehaviors([
 							<h2>An error occurred while loading the image.</h2>
 							<div class="desc">[[image]]</div>
 						</div>
-						<img-pan-zoom hidden\$="[[ !showZoom ]]" class="image-zoom" data-src\$="[[image]]"
+						<img-pan-zoom hidden$="[[ !showZoom ]]" class="image-zoom" data-src$="[[image]]"
 							on-loaded-changed="_imageLoadedChanged" on-error-changed="_onImageError">
 						</img-pan-zoom>
-						<iron-image hidden\$="[[ showZoom ]]" prevent-load="[[ showZoom ]]" sizing="[[ sizing ]]"
-							class="image" data-src\$="[[ image ]]" on-loaded-changed="_imageLoadedChanged" on-error-changed="_onImageError">
+						<iron-image hidden$="[[ showZoom ]]" prevent-load="[[ showZoom ]]" sizing="[[ sizing ]]"
+							class="image" data-src$="[[ image ]]" on-loaded-changed="_imageLoadedChanged" on-error-changed="_onImageError">
 						</iron-image>
 					</div>
 				</template>
