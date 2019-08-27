@@ -13,6 +13,7 @@
 		<script type="module" src="/components/@polymer/iron-demo-helpers/demo-snippet.js"></script>
 
 		<script type="module" src="../cosmoz-image-viewer.js"></script>
+		<script type="module" src="../lib/haunted-image-viewer.js"></script>
 
 		<custom-style>
 			<style is="custom-style" include="demo-pages-shared-styles iron-flex">
@@ -21,6 +22,17 @@
 	</head>
 	<body>
 		<div id="container" class="vertical-section-container centered">
+			<h3>Basic <code>haunted-image-viewer</code>.</h3>
+			<demo-snippet>
+				<template>
+					<dom-bind class="scope">
+						<template>
+							<haunted-image-viewer images="[[images]]" show-nav loop show-fullscreen show-detach show-page-number>
+							</haunted-image-viewer>
+						</template>
+					</dom-bind>
+				</template>
+			</demo-snippet>
 			<h3>Basic <code>cosmoz-image-viewer</code>.</h3>
 			<demo-snippet>
 				<template>
