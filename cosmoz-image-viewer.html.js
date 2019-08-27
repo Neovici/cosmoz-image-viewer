@@ -164,14 +164,16 @@ export const template = html`
 					<h2>An error occurred while loading the image.</h2>
 					<div class="desc">[[image]]</div>
 				</div>
-				<haunted-pan-zoom hidden$="[[ !showZoom ]]" class="image-zoom" data-src$="[[image]]"
-					disabled$="[[ !isZoomed ]]"
-					on-zoom-changed="_onZoomChanged"
-					on-status-changed="_onStatusChanged">
-				</haunted-pan-zoom>
-				<iron-image hidden$="[[ showZoom ]]" prevent-load="[[ showZoom ]]" sizing="[[ sizing ]]"
-					class="image" data-src$="[[ image ]]" on-error-changed="_onImageError">
-				</iron-image>
+				<template is="dom-if" if="[[ _shouldLoad(currentImageIndex, index) ]]">
+					<haunted-pan-zoom hidden$="[[ !showZoom ]]" class="image-zoom" src$="[[image]]"
+						disabled$="[[ !isZoomed ]]"
+						on-zoom-changed="_onZoomChanged"
+						on-status-changed="_onStatusChanged">
+					</haunted-pan-zoom>
+					<iron-image hidden$="[[ showZoom ]]" prevent-load="[[ showZoom ]]" sizing="[[ sizing ]]"
+						class="image" src$="[[ image ]]" on-error-changed="_onImageError">
+					</iron-image>
+				</template>
 			</div>
 		</template>
 	</skeleton-carousel>

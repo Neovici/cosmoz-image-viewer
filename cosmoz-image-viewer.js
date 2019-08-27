@@ -599,6 +599,16 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 			this._onImageError(ev);
 		}
 	}
+
+	_shouldLoad(currentImageIndex, index) {
+		/*
+		 * Workaround for https://github.com/Neovici/cosmoz-image-viewer/issues/21
+		 * Changing the images array updates the `data-src` attribute on the items,
+		 * but if the new array has the same number of items, then the `data-src` is
+		 * not set as `src`.
+		 */
+		return Math.abs(currentImageIndex - index) <= 1;
+	}
 }
 
 customElements.define(CosmozImageViewer.is, CosmozImageViewer);
