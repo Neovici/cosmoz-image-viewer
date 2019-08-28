@@ -14,7 +14,8 @@
 			"dir": "./coverage",
 			"reporters": ["text-summary", "lcov"],
 			"include": [
-				"**/cosmoz-**.js"
+				"**/cosmoz-**.js",
+				"**/lib/**/*.js"
 			],
 			"exclude": []
 		}
