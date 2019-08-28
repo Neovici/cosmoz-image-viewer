@@ -41,7 +41,7 @@
 		"@polymer/paper-icon-button": "^3.0.0",
 		"@polymer/polymer": "^3.0.0",
 		"@webcomponents/shadycss": "^1.9.1",
-		"haunted": "^4.5.1",
+		"haunted": "^4.5.3",
 		"lit-html": "^1.1.2"
 	},
 	"devDependencies": {
