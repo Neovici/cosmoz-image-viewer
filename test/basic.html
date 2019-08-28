@@ -121,52 +121,6 @@
 				assert.isTrue(called);
 			});
 
-			test('_initImgPanZoomInstance checks is showZoom is true', () => {
-				const zoomed = imageViewer.isZoomed;
-				imageViewer.showZoom = false;
-				imageViewer._initImgPanZoomInstance();
-				assert.equal(imageViewer.isZoomed, zoomed);
-			});
-
-			test('zoomToogle resets zoom', done => {
-				const waitForImages = () => {
-					const el = imageViewer.$.carousel.selectedItem.querySelector('img-pan-zoom');
-					if (el == null || el.viewer == null) {
-						Base.async(waitForImages, 150);
-					} else {
-						const spyResetZoom = sinon.spy(el, 'resetZoom');
-						assert.isFalse(imageViewer.isZoomed);
-						assert.isDefined(el);
-						el.viewer.viewport.zoomTo(1.5);
-						imageViewer.zoomToggle();
-
-						imageViewer.isZoomed = true;
-						Base.async(() => {
-							assert.calledOnce(spyResetZoom);
-						}, 100);
-						done();
-					}
-				};
-				Base.async(waitForImages, 150);
-			});
-
-			test('zoomToogle handles undefined viewer', done => {
-				Base.async(() => {
-					const el = imageViewer.$.carousel.selectedItem.querySelector('img-pan-zoom'),
-						spyResetZoom = sinon.spy(el, 'resetZoom');
-					assert.isFalse(imageViewer.isZoomed);
-					el.viewer.viewport.zoomTo(1.5);
-					el.viewer = null;
-					imageViewer.zoomToggle();
-
-					imageViewer.isZoomed = true;
-					Base.async(() => {
-						assert.notCalled(spyResetZoom);
-						done();
-					}, 100);
-				}, 100);
-			});
-
 			test('_selectedItemChanged handles undefined', () => {
 				const selected = imageViewer.selectedItem;
 				imageViewer._selectedItemChanged();
@@ -176,7 +130,7 @@
 
 			test('_imageListChanged sets _resolvedImages if no images', () => {
 				assert.equal(imageViewer._resolvedImages.length, 3);
-				imageViewer._imageListChanged();
+				imageViewer.images = [];
 				assert.equal(imageViewer._resolvedImages.length, 0);
 			});
 		});

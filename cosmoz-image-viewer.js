@@ -540,8 +540,11 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 			return;
 		}
 
-
 		const panZoom = selectedItem.querySelector('haunted-pan-zoom');
+
+		if (!panZoom) {
+			return;
+		}
 		this.isZoomed = panZoom.zoom > 1;
 		panZoom.resize(); // NOTE: to be removed when ResizeObserver is available
 	}
