@@ -32,11 +32,12 @@
 <body>
 	<test-fixture id="basic">
 		<template>
-			<haunted-pan-zoom src="../demo/images/cosmos1.jpg" zoom-stiffness="1"></haunted-pan-zoom>
+			<haunted-pan-zoom src="../demo/images/cosmos1.jpg" zoom-stiffness="1" pan-stiffness="1"></haunted-pan-zoom>
 		</template>
 	</test-fixture>
 
 	<script type="module">
+		/* global MockInteractions */
 		import {cycle, assertFuzzyMatch} from './helpers';
 
 		const status = (el, status) => new Promise(resolve => el.addEventListener('status-changed', ({ detail: {value} }) => value === status && resolve()));
@@ -97,15 +98,16 @@
 			it('handles mouse panning', async () => {
 				const img = el.shadowRoot.querySelector('img');
 
-				scrollUp(el);
+				MockInteractions.makeMouseEvent('mousedown', {x: 10, y: 10}, img);
 				await cycle();
 
-				assertFuzzyMatch(img.getBoundingClientRect(), { top: -0.9, left: -79.5, width: 359, height: 201.94});
-
-				scrollDown(el);
+				MockInteractions.makeMouseEvent('mousemove', {x: 10, y: 20}, document);
 				await cycle();
 
-				assertFuzzyMatch(img.getBoundingClientRect(), { top: 43.75, left: 0, width: 200, height: 112.5 });
+				MockInteractions.makeMouseEvent('mouseup', {}, document);
+				await cycle();
+
+				assertFuzzyMatch(img.getBoundingClientRect(), { top: 53.75, left: 0, width: 200, height: 112.5 });
 			});
 
 		});
