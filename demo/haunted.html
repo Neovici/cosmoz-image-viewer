@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>haunted-pan-zoom demo</title>
+
+		<script src="/components/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="/components/resize-observer-polyfill/dist/ResizeObserver.js"></script>
+
+		<script type="module" src="../lib/haunted-pan-zoom.js"></script>
+	</head>
+	<body>
+		<haunted-pan-zoom src="images/a_size.png" style="height: 400px;" zoom-stiffness="0.3" pan-stiffness="1">
+		</haunted-pan-zoom>
+		<haunted-pan-zoom disabled src="images/stockholm.jpg" style="height: 400px;">
+		</haunted-pan-zoom>
+		<haunted-pan-zoom src="images/strasbourg.jpg" style="height: 400px;">
+		</haunted-pan-zoom>
+		<haunted-pan-zoom src="images/cosmos1.jpg" style="height: 400px;">
+		</haunted-pan-zoom>
+	</body>
+</html>
