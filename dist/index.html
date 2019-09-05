@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>cosmoz-image-viewer demo</title>
+
+		<script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="../node_modules/resize-observer-polyfill/dist/ResizeObserver.js"></script>
+
+		<script type="module" src="./haunted-pan-zoom.js"></script>
+
+		<custom-style>
+			<style is="custom-style" include="demo-pages-shared-styles iron-flex">
+			</style>
+		</custom-style>
+	</head>
+	<body>
+		<div id="container" class="vertical-section-container centered">
+			<custom-style>
+				<style is="custom-style">
+					.viewer {
+							height: 400px;
+					}
+				</style>
+			</custom-style>
+			<haunted-pan-zoom class="viewer" src="images/stockholm.jpg">
+			</haunted-pan-zoom>
+		</div>
+	</body>
+</html>
