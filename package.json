@@ -1,6 +1,6 @@
 {
 	"name": "@neovici/cosmoz-image-viewer",
-	"version": "3.0.3",
+	"version": "3.1.1",
 	"description": "[![Build Status](https://travis-ci.org/Neovici/cosmoz-image-viewer.svg?branch=master)](https://travis-ci.org/Neovici/cosmoz-image-viewer)",
 	"keywords": [
 		"polymer",
@@ -41,7 +41,7 @@
 		"@polymer/paper-icon-button": "^3.0.0",
 		"@polymer/polymer": "^3.0.0",
 		"@webcomponents/shadycss": "^1.9.1",
-		"haunted": "^4.5.3",
+		"haunted": "^4.5.4",
 		"lit-html": "^1.1.2"
 	},
 	"devDependencies": {
@@ -51,7 +51,7 @@
 		"@polymer/iron-test-helpers": "^3.0.0",
 		"@polymer/test-fixture": "^4.0.2",
 		"@webcomponents/webcomponentsjs": "^2.0.0",
-		"babel-eslint": "^10.0.2",
+		"babel-eslint": "^10.0.3",
 		"chai": "^4.2.0",
 		"eslint": "^5.0.0",
 		"eslint-plugin-html": "^5.0.0",
@@ -60,7 +60,7 @@
 		"mocha": "^5.0.0",
 		"polymer-cli": "^1.9.4",
 		"resize-observer-polyfill": "^1.5.1",
-		"sinon": "^7.3.2",
+		"sinon": "^7.4.2",
 		"wct-istanbul": "^0.14.3",
 		"wct-mocha": "^1.0.1",
 		"web-animations-js": "^2.3.1"
