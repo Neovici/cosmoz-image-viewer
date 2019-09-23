@@ -272,7 +272,7 @@ export const template = html`
 			fill: currentColor;
 		}
 		[hidden] {
-			display: none;
+			visibility: hidden;
 		}
 		@media print {
 			.hide-on-print {
