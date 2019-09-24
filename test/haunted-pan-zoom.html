@@ -40,13 +40,17 @@
 		/* global MockInteractions */
 		import {cycle, assertFuzzyMatch} from './helpers';
 
-		const status = (el, status) => new Promise(resolve => el.addEventListener('status-changed', ({ detail: {value} }) => value === status && resolve()));
-		const loaded = el => status(el, 'loaded');
-		const error = el => status(el, 'error');
+		const status = (el, status) => new Promise(resolve =>
+				el.addEventListener('status-changed', (
+					{ detail: { value } }) => value === status && resolve()
+				)
+			),
+			loaded = el => status(el, 'loaded'),
+			error = el => status(el, 'error'),
 
-		const scroll = (el, dir) => el.shadowRoot.querySelector('.container').dispatchEvent(new WheelEvent('wheel', {deltaY: dir}));
-		const scrollDown = el => scroll(el, 1);
-		const scrollUp = el => scroll(el, -1);
+			scroll = (el, dir) => el.shadowRoot.querySelector('.container').dispatchEvent(new WheelEvent('wheel', { deltaY: dir })),
+			scrollDown = el => scroll(el, 1),
+			scrollUp = el => scroll(el, -1);
 
 		// eslint-disable-next-line max-lines-per-function
 		describe('haunted-pan-zoom', () => {

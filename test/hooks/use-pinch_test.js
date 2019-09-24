@@ -7,12 +7,12 @@ const text = () => host.firstChild.shadowRoot.textContent;
 
 describe('use-pinch', () => {
 	it('works', async () => {
-		const tag = 'use-pinch';
+		const tag = 'use-pinch',
 
-		const App = () => {
-			const [status, delta, start] = usePinch();
-			return html`<span @touchstart=${start}>${status}, ${delta}</span>`;
-		};
+			App = () => {
+				const [status, delta, start] = usePinch();
+				return html`<span @touchstart=${start}>${status}, ${delta}</span>`;
+			};
 
 		customElements.define(tag, component(App));
 

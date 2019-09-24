@@ -72,16 +72,16 @@
 			});
 
 			test('detaching to existing window works', () => {
-				const w = imageViewer.detach();
-				const w2 = imageViewer.detach();
+				const w = imageViewer.detach(),
+					w2 = imageViewer.detach();
 				assert.isNotNull(w);
 				assert.deepEqual(w, w2);
 				w.close();
 			});
 
 			test('shared detaching works', () => {
-				const w = imageViewer.detach();
-				const w2 = imageViewer2.detach();
+				const w = imageViewer.detach(),
+					w2 = imageViewer2.detach();
 				assert.isNotNull(w);
 				assert.deepEqual(w, w2);
 				w.close();
