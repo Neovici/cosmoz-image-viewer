@@ -464,12 +464,17 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 	}
 
 	createZipFromUrls(fileUrls) {
-		const options = this.credentials ? { credentials: 'include' } : { credentials: 'omit' };
-		const fetches = fileUrls.map(url =>
-			fetch(url, options)
-				.then(response => response.arrayBuffer())
-				.then(data => ({data, url}))
-		);
+		const options = {
+				credentials: this.credentials ? 'include' : 'omit'
+			},
+			fetches = fileUrls.map(url =>
+				fetch(url, options)
+					.then(response => response.arrayBuffer())
+					.then(data => ({
+						data,
+						url
+					}))
+			);
 
 		return Promise
 			.all(fetches)

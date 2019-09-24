@@ -222,7 +222,7 @@
 
 			test('_trackHandler does not call close if detail state is not end', () => {
 				const event = new CustomEvent('testEvent', {detail: {
-						'dy': 1000
+						dy: 1000
 					}}),
 					spyClose = sinon.spy(overlay, 'close');
 				overlay._trackHandler(event);
@@ -230,8 +230,8 @@
 			});
 			test('_trackHandler does call close', () => {
 				const event = new CustomEvent('testEvent', {detail: {
-						'state': 'end',
-						'dy': 1000
+						state: 'end',
+						dy: 1000
 					}}),
 					spyClose = sinon.spy(overlay, 'close');
 

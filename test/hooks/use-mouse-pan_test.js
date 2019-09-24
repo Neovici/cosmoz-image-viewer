@@ -7,12 +7,12 @@ const text = () => host.firstChild.shadowRoot.textContent;
 
 describe('use-mouse-pan', () => {
 	it('works', async () => {
-		const tag = 'use-mouse-pan';
+		const tag = 'use-mouse-pan',
 
-		const App = () => {
-			const [status, deltaX, deltaY, , start] = useMousePan();
-			return html`<span @mousedown=${start}>${status}, ${deltaX}, ${deltaY}</span>`;
-		};
+			App = () => {
+				const [status, deltaX, deltaY, , start] = useMousePan();
+				return html`<span @mousedown=${start}>${status}, ${deltaX}, ${deltaY}</span>`;
+			};
 
 		customElements.define(tag, component(App));
 

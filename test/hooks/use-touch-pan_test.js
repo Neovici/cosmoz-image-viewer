@@ -7,12 +7,12 @@ const text = () => host.firstChild.shadowRoot.textContent;
 
 describe('use-touch-pan', () => {
 	it('works', async () => {
-		const tag = 'use-touch-pan';
+		const tag = 'use-touch-pan',
 
-		const App = () => {
-			const [status, deltaX, deltaY, , start] = useTouchPan();
-			return html`<span @touchstart=${start}>${status}, ${deltaX}, ${deltaY}</span>`;
-		};
+			App = () => {
+				const [status, deltaX, deltaY, , start] = useTouchPan();
+				return html`<span @touchstart=${start}>${status}, ${deltaX}, ${deltaY}</span>`;
+			};
 
 		customElements.define(tag, component(App));
 

@@ -48,32 +48,32 @@ export const cycle = () => {
 };
 
 const HAS_NEW_TOUCH = (() => {
-	let has = false;
-	try {
-		has = Boolean(new TouchEvent('x'));
-	} catch (_) { /**/ }
-	return has;
-})();
+		let has = false;
+		try {
+			has = Boolean(new TouchEvent('x'));
+		} catch (_) { /**/ }
+		return has;
+	})(),
 
 
-const makeTouches = (xyList, node) => {
-	let id = 0;
+	makeTouches = (xyList, node) => {
+		let id = 0;
 
-	return xyList.map(xy => {
-		const touchInit =
+		return xyList.map(xy => {
+			const touchInit =
         {identifier: id++, target: node, pageX: xy.x, pageY: xy.y};
 
-		return HAS_NEW_TOUCH ? new window.Touch(touchInit) : touchInit;
-	});
-};
+			return HAS_NEW_TOUCH ? new window.Touch(touchInit) : touchInit;
+		});
+	};
 
 export const makeMultiTouchEvent = (type, xyList, node) => {
-	const touches = makeTouches(xyList, node);
-	const touchEventInit = {
-		touches,
-		targetTouches: touches,
-		changedTouches: touches
-	};
+	const touches = makeTouches(xyList, node),
+		touchEventInit = {
+			touches,
+			targetTouches: touches,
+			changedTouches: touches
+		};
 	let event;
 
 	if (HAS_NEW_TOUCH) {
