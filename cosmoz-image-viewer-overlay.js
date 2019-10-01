@@ -19,7 +19,7 @@ class CosmozImageViewerOverlay extends mixinBehaviors([IronOverlayBehavior], Pol
 				<cosmoz-image-viewer
 					on-track="_trackHandler" on-close-tapped="close"
 					images="[[images]]" sizing="contain"
-					credentials="[[credentials]]" current-image-index="[[currentImageIndex]]"
+					credentials="[[credentials]]" current-image-index="{{currentImageIndex}}"
 					show-nav show-zoom show-close show-detach="[[showDetach]]" loop="[[loop]]"
 					on-will-detach="_preventDetach">
 				</cosmoz-image-viewer>
@@ -36,7 +36,8 @@ class CosmozImageViewerOverlay extends mixinBehaviors([IronOverlayBehavior], Pol
 				type: Array
 			},
 			currentImageIndex: {
-				type: Number
+				type: Number,
+				notify: true
 			},
 			showDetach: {
 				type: Boolean

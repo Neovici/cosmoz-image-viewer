@@ -282,6 +282,7 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 
 	constructor() {
 		super();
+		this._syncImageIndexBound = this._syncImageIndex.bind(this);
 		this._onOverlayDetachIntentBound = this._onOverlayDetachIntent.bind(this);
 		this._onOverlayClosedBound = this._onOverlayClosed.bind(this);
 	}
@@ -366,8 +367,13 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 	}
 
 	_setupDialogEvents() {
+		imageOverlay.addEventListener('current-image-index-changed', this._syncImageIndexBound);
 		imageOverlay.addEventListener('detach-intent', this._onOverlayDetachIntentBound);
 		imageOverlay.addEventListener('iron-overlay-closed', this._onOverlayClosedBound);
+	}
+
+	_syncImageIndex(event) {
+		this.currentImageIndex = event.detail.value;
 	}
 
 	_onOverlayDetachIntent() {
@@ -380,6 +386,7 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 	}
 
 	_cleanupOverlayEvents() {
+		imageOverlay.removeEventListener('current-image-index-changed', this._syncImageIndexBound);
 		imageOverlay.removeEventListener('detach-intent', this._onOverlayDetachIntentBound);
 		imageOverlay.removeEventListener('iron-overlay-closed', this._onOverlayClosedBound);
 	}
