@@ -408,7 +408,7 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 	detach() {
 		const detachPrevented = !this.dispatchEvent(new CustomEvent('will-detach', {cancelable: true}));
 		if (detachPrevented) {
-			return;
+			return false;
 		}
 
 		this._setIsDetached(true);
@@ -491,7 +491,11 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 	}
 
 	get hasWindow() {
-		return globals.window != null && !globals.window.closed && globals.window.ciw;
+		return globals.window != null && !globals.window.closed && !!globals.window.ciw;
+	}
+
+	get window() {
+		return globals.window;
 	}
 
 	syncState() {
