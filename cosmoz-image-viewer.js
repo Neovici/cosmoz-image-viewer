@@ -312,7 +312,7 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 		this.removeEventListener('dblclick', this._dblClickListner);
 
 		if (imageOverlay) {
-			this._cleanupOverlayEvents();
+			this._setupDialogEvents(false);
 		}
 
 		this.cancelDebouncer('elementHeight');
@@ -363,13 +363,14 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 		dialog.images = this.images;
 		dialog.currentImageIndex = this.currentImageIndex;
 		dialog.open();
-		this._setupDialogEvents();
+		this._setupDialogEvents(true);
 	}
 
-	_setupDialogEvents() {
-		imageOverlay.addEventListener('current-image-index-changed', this._syncImageIndexBound);
-		imageOverlay.addEventListener('detach-intent', this._onOverlayDetachIntentBound);
-		imageOverlay.addEventListener('iron-overlay-closed', this._onOverlayClosedBound);
+	_setupDialogEvents(on) {
+		const f = (on ? imageOverlay.addEventListener : imageOverlay.removeEventListener).bind(imageOverlay);
+		f('current-image-index-changed', this._syncImageIndexBound);
+		f('detach-intent', this._onOverlayDetachIntentBound);
+		f('iron-overlay-closed', this._onOverlayClosedBound);
 	}
 
 	_syncImageIndex(event) {
@@ -382,13 +383,7 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 	}
 
 	_onOverlayClosed() {
-		this._cleanupOverlayEvents();
-	}
-
-	_cleanupOverlayEvents() {
-		imageOverlay.removeEventListener('current-image-index-changed', this._syncImageIndexBound);
-		imageOverlay.removeEventListener('detach-intent', this._onOverlayDetachIntentBound);
-		imageOverlay.removeEventListener('iron-overlay-closed', this._onOverlayClosedBound);
+		this._setupDialogEvents(false);
 	}
 
 	/**
