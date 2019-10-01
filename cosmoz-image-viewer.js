@@ -280,6 +280,13 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 		};
 	}
 
+	constructor() {
+		super();
+		this._syncImageIndexBound = this._syncImageIndex.bind(this);
+		this._onOverlayDetachIntentBound = this._onOverlayDetachIntent.bind(this);
+		this._onOverlayClosedBound = this._onOverlayClosed.bind(this);
+	}
+
 	/** ELEMENT LIFECYCLE */
 
 	ready() {
@@ -303,6 +310,10 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 	disconnectedCallback() {
 		super.disconnectedCallback();
 		this.removeEventListener('dblclick', this._dblClickListner);
+
+		if (imageOverlay) {
+			this._setupDialogEvents(false);
+		}
 
 		this.cancelDebouncer('elementHeight');
 	}
@@ -352,7 +363,29 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 		dialog.images = this.images;
 		dialog.currentImageIndex = this.currentImageIndex;
 		dialog.open();
+		this._setupDialogEvents(true);
 	}
+
+	_setupDialogEvents(on) {
+		const f = (on ? imageOverlay.addEventListener : imageOverlay.removeEventListener).bind(imageOverlay);
+		f('current-image-index-changed', this._syncImageIndexBound);
+		f('detach-intent', this._onOverlayDetachIntentBound);
+		f('iron-overlay-closed', this._onOverlayClosedBound);
+	}
+
+	_syncImageIndex(event) {
+		this.currentImageIndex = event.detail.value;
+	}
+
+	_onOverlayDetachIntent() {
+		imageOverlay.close();
+		this.detach();
+	}
+
+	_onOverlayClosed() {
+		this._setupDialogEvents(false);
+	}
+
 	/**
 	 * Closes the detached window.
 	 * @returns {undefined}
@@ -368,6 +401,11 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 	 * @returns {Object} detached window object
 	 */
 	detach() {
+		const detachPrevented = !this.dispatchEvent(new CustomEvent('will-detach', {cancelable: true}));
+		if (detachPrevented) {
+			return false;
+		}
+
 		this._setIsDetached(true);
 
 		if (globals.windowOpener !== this) {
@@ -448,7 +486,11 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 	}
 
 	get hasWindow() {
-		return globals.window != null && !globals.window.closed && globals.window.ciw;
+		return globals.window != null && !globals.window.closed && !!globals.window.ciw;
+	}
+
+	get window() {
+		return globals.window;
 	}
 
 	syncState() {

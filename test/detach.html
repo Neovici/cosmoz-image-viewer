@@ -34,22 +34,23 @@
 		import { Base } from '@polymer/polymer/polymer-legacy';
 
 		sinon.assert.expose(chai.assert, { prefix: '' });
+		const createImageViewer = name => {
+			const el = fixture(name);
+
+			el.images = [
+				'../demo/images/stockholm.jpg',
+				'../demo/images/strasbourg.jpg',
+				'../demo/images/cosmos1.jpg'
+			];
+
+			return el;
+		};
 
 		suite('cosmoz-image-viewer', () => {
-			let imageViewer,
-				imageViewer2;
+			let imageViewer;
 
 			setup(function (done) {
-				imageViewer = fixture('cosmozImageViewer');
-				imageViewer2 = fixture('cosmozImageViewer2');
-
-				[imageViewer, imageViewer2].forEach(viewer => {
-					viewer.images = [
-						'../demo/images/stockholm.jpg',
-						'../demo/images/strasbourg.jpg',
-						'../demo/images/cosmos1.jpg'
-					];
-				});
+				imageViewer = createImageViewer('cosmozImageViewer');
 
 				const w = imageViewer.detach();
 				if (w == null) {
@@ -65,10 +66,13 @@
 				}, 100);
 			});
 
+			teardown(() => {
+				imageViewer.window.close();
+			});
+
 			test('detaching works', () => {
 				const w = imageViewer.detach();
 				assert.isNotNull(w);
-				w.close();
 			});
 
 			test('detaching to existing window works', () => {
@@ -76,15 +80,28 @@
 					w2 = imageViewer.detach();
 				assert.isNotNull(w);
 				assert.deepEqual(w, w2);
-				w.close();
 			});
 
 			test('shared detaching works', () => {
-				const w = imageViewer.detach(),
+				const imageViewer2 = createImageViewer('cosmozImageViewer2'),
+					w = imageViewer.detach(),
 					w2 = imageViewer2.detach();
 				assert.isNotNull(w);
 				assert.deepEqual(w, w2);
-				w.close();
+			});
+
+			test('detach from fullscreen works', () => {
+				assert.isFalse(imageViewer.hidden);
+				assert.isFalse(imageViewer.hasWindow);
+
+				imageViewer.openFullscreen();
+				assert.isFalse(imageViewer.hasWindow);
+
+				const ov = document.querySelector('cosmoz-image-viewer-overlay');
+
+				ov.shadowRoot.querySelector('cosmoz-image-viewer').detach();
+				assert.isTrue(imageViewer.hasWindow);
+				assert.isTrue(imageViewer.hidden);
 			});
 		});
 	</script>
