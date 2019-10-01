@@ -280,6 +280,12 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 		};
 	}
 
+	constructor() {
+		super();
+		this._onOverlayDetachIntentBound = this._onOverlayDetachIntent.bind(this);
+		this._onOverlayClosedBound = this._onOverlayClosed.bind(this);
+	}
+
 	/** ELEMENT LIFECYCLE */
 
 	ready() {
@@ -303,6 +309,10 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 	disconnectedCallback() {
 		super.disconnectedCallback();
 		this.removeEventListener('dblclick', this._dblClickListner);
+
+		if (imageOverlay) {
+			this._cleanupOverlayEvents();
+		}
 
 		this.cancelDebouncer('elementHeight');
 	}
@@ -352,7 +362,28 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 		dialog.images = this.images;
 		dialog.currentImageIndex = this.currentImageIndex;
 		dialog.open();
+		this._setupDialogEvents();
 	}
+
+	_setupDialogEvents() {
+		imageOverlay.addEventListener('detach-intent', this._onOverlayDetachIntentBound);
+		imageOverlay.addEventListener('iron-overlay-closed', this._onOverlayClosedBound);
+	}
+
+	_onOverlayDetachIntent() {
+		imageOverlay.close();
+		this.detach();
+	}
+
+	_onOverlayClosed() {
+		this._cleanupOverlayEvents();
+	}
+
+	_cleanupOverlayEvents() {
+		imageOverlay.removeEventListener('detach-intent', this._onOverlayDetachIntentBound);
+		imageOverlay.removeEventListener('iron-overlay-closed', this._onOverlayClosedBound);
+	}
+
 	/**
 	 * Closes the detached window.
 	 * @returns {undefined}
@@ -368,6 +399,11 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 	 * @returns {Object} detached window object
 	 */
 	detach() {
+		const detachPrevented = !this.dispatchEvent(new CustomEvent('will-detach', {cancelable: true}));
+		if (detachPrevented) {
+			return;
+		}
+
 		this._setIsDetached(true);
 
 		if (globals.windowOpener !== this) {

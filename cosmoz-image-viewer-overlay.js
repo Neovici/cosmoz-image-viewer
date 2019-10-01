@@ -20,7 +20,8 @@ class CosmozImageViewerOverlay extends mixinBehaviors([IronOverlayBehavior], Pol
 					on-track="_trackHandler" on-close-tapped="close"
 					images="[[images]]" sizing="contain"
 					credentials="[[credentials]]" current-image-index="[[currentImageIndex]]"
-					show-nav show-zoom show-close show-detach="[[showDetach]]" loop="[[loop]]">
+					show-nav show-zoom show-close show-detach="[[showDetach]]" loop="[[loop]]"
+					on-will-detach="_preventDetach">
 				</cosmoz-image-viewer>
 `;
 	}
@@ -62,6 +63,11 @@ class CosmozImageViewerOverlay extends mixinBehaviors([IronOverlayBehavior], Pol
 		if (e.detail.dy > window.innerHeight * 0.4) {
 			this.close();
 		}
+	}
+
+	_preventDetach(event) {
+		event.preventDefault();
+		this.dispatchEvent(new CustomEvent('detach-intent'));
 	}
 }
 window.customElements.define(CosmozImageViewerOverlay.is, CosmozImageViewerOverlay);
