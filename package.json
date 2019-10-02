@@ -62,6 +62,7 @@
 	},
 	"devDependencies": {
 		"@neovici/eslint-config": "github:neovici/eslint-config#semver:^1.0.0",
+		"@neovici/github-actions-eslint-annotator": "^0.2.0",
 		"@polymer/iron-component-page": "^4.0.0",
 		"@polymer/iron-demo-helpers": "^3.0.0",
 		"@polymer/iron-test-helpers": "^3.0.0",
