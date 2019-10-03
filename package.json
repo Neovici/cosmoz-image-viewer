@@ -37,6 +37,9 @@
 		],
 		"branch": "master"
 	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"dependencies": {
 		"@fabricelements/skeleton-carousel": "^3.0.2",
 		"@neovici/cosmoz-i18next": "github:neovici/cosmoz-i18next#semver:^3.0.1",
