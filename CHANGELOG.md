@@ -1,3 +1,10 @@
+## [3.1.4](https://github.com/neovici/cosmoz-image-viewer/compare/v3.1.3...v3.1.4) (2019-10-03)
+
+
+### Bug Fixes
+
+* github actions badge is missing ([6c6023c](https://github.com/neovici/cosmoz-image-viewer/commit/6c6023c))
+
 ## [3.1.3](https://github.com/neovici/cosmoz-image-viewer/compare/v3.1.2...v3.1.3) (2019-10-03)
 
 
