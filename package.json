@@ -69,7 +69,7 @@
 		"chai": "^4.2.0",
 		"eslint": "^5.0.0",
 		"eslint-plugin-html": "^5.0.0",
-		"eslint-plugin-import": "^2.17.3",
+		"eslint-plugin-import": "^2.18.2",
 		"eslint-plugin-mocha": "^5.0.0",
 		"mocha": "^5.0.0",
 		"polymer-cli": "^1.9.4",
