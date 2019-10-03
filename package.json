@@ -72,7 +72,7 @@
 		"eslint-plugin-import": "^2.17.3",
 		"eslint-plugin-mocha": "^5.0.0",
 		"mocha": "^5.0.0",
-		"polymer-cli": "^1.9.4",
+		"polymer-cli": "^1.9.11",
 		"resize-observer-polyfill": "^1.5.1",
 		"semantic-release": "^15.13.24",
 		"sinon": "^7.5.0",
