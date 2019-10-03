@@ -40,6 +40,14 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"commitlint": {
+		"extends": ["@commitlint/config-conventional"]
+	},
+	"husky": {
+		"hooks": {
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+		}
+	},
 	"dependencies": {
 		"@fabricelements/skeleton-carousel": "^3.0.2",
 		"@neovici/cosmoz-i18next": "github:neovici/cosmoz-i18next#semver:^3.0.1",
@@ -57,6 +65,8 @@
 		"lit-html": "^1.1.2"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^8.2.0",
+		"@commitlint/config-conventional": "^8.2.0",
 		"@neovici/eslint-config": "github:neovici/eslint-config#semver:^1.0.0",
 		"@neovici/github-actions-eslint-annotator": "^0.2.0",
 		"@polymer/iron-component-page": "^4.0.0",
