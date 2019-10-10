@@ -1,3 +1,10 @@
+## [3.1.5](https://github.com/neovici/cosmoz-image-viewer/compare/v3.1.4...v3.1.5) (2019-10-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependencies ([8b27030](https://github.com/neovici/cosmoz-image-viewer/commit/8b27030))
+
 ## [3.1.4](https://github.com/neovici/cosmoz-image-viewer/compare/v3.1.3...v3.1.4) (2019-10-03)
 
 
