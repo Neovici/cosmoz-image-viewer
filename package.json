@@ -61,7 +61,7 @@
 		"@polymer/iron-overlay-behavior": "^3.0.0",
 		"@polymer/iron-resizable-behavior": "^3.0.0",
 		"@polymer/paper-icon-button": "^3.0.0",
-		"@polymer/polymer": "^3.0.0",
+		"@polymer/polymer": "^3.3.1",
 		"@webcomponents/shadycss": "^1.9.2",
 		"haunted": "^4.6.2",
 		"lit-html": "^1.1.2"
@@ -76,7 +76,7 @@
 		"@polymer/iron-test-helpers": "^3.0.0",
 		"@polymer/test-fixture": "^4.0.2",
 		"@semantic-release/changelog": "^3.0.5",
-		"@semantic-release/git": "^7.0.17",
+		"@semantic-release/git": "^7.0.18",
 		"@webcomponents/webcomponentsjs": "^2.3.0",
 		"babel-eslint": "^10.0.3",
 		"chai": "^4.2.0",
