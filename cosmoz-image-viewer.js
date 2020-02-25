@@ -5,8 +5,6 @@ import { IronResizableBehavior } from '@polymer/iron-resizable-behavior';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class';
 import { translatable } from '@neovici/cosmoz-i18next';
 
-import { NullZipArchive } from '@neovici/nullxlsx';
-
 import { template } from './cosmoz-image-viewer.html';
 
 const globals = {
@@ -424,15 +422,17 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 
 	_detachToNewWindow() {
 		const
-			w = globals.window = window.open(undefined, this.detachedWindowName, this._detachedWindowFeaturesString),
-			windowTemplate = this.$$('#externalWindow'),
-			windowTemplateClone = windowTemplate.content.cloneNode(true),
-			setImages = () => w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
+			w = globals.window = window.open(undefined, this.detachedWindowName, this._detachedWindowFeaturesString);
+			// windowTemplate = this.$$('#externalWindow'),
+			// windowTemplateClone = windowTemplate.content.cloneNode(true),
+			// setImages = () => w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
 
 		if (w == null) {
 			// if window.open() is blocked (popup blocked, not emited by native user triggered event)
 			return w;
 		}
+
+		this.$.external.window = w;
 
 		if (w.ciw != null) {
 			// browser has been refreshed without closing external window, we will reuse an old window
@@ -449,15 +449,15 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 
 		w.document.title = this._detachedWindowTitle;
 
-		w.addEventListener('download', ({detail}) => this.createZipFromUrls(detail).then(zip => this.downloadZip(zip)));
+
 		w.addEventListener('beforeunload', globals.windowBeforeUnloadHandler);
 
 		if (w.ciw == null) {
-			w.addEventListener('ready', () => setImages());
-			this._appendScriptsToWindow(windowTemplateClone.childNodes, w);
+			// w.addEventListener('ready', () => setImages());
+			// this._appendScriptsToWindow(windowTemplateClone.childNodes, w);
 
 		} else {
-			setImages();
+			// setImages();
 		}
 
 		return w;
@@ -497,51 +497,6 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 		if (!this.isDetached && this.hasWindow) {
 			this.detach();
 		}
-	}
-
-	downloadZip(zip) {
-		const a = document.body.appendChild(zip.createDownloadLink());
-		a.click();
-		document.body.removeChild(a);
-	}
-
-	createZipFromUrls(fileUrls) {
-		const options = {
-				credentials: this.credentials ? 'include' : 'omit'
-			},
-			fetches = fileUrls.map(url =>
-				fetch(url, options)
-					.then(response => response.arrayBuffer())
-					.then(data => ({
-						data,
-						url
-					}))
-			);
-
-		return Promise
-			.all(fetches)
-			.then(responses => {
-				const filenames = [],
-					zip = new NullZipArchive(this.downloadFileName, false);
-
-				for (const {url, data} of responses) {
-					let filename = url.replace(/^.*[\\/]/u, '');
-					const filenameParts = filename.split('.'),
-						sameFilenames = filenames.filter(f => f === filenameParts[0]);
-
-					if (sameFilenames.length > 0) {
-						filename = `${filenameParts[0]} (${sameFilenames.length + 1}).${filenameParts[1]}`;
-					}
-
-					zip.addFileFromUint8Array(filename, new Uint8Array(data));
-					filenames.push(filenameParts[0]);
-
-					if (fileUrls.length === zip.files.length) {
-						zip.generate();
-						return zip;
-					}
-				}
-			});
 	}
 	/**
 	 * Toggles between initial zoom level and 1.5x initial zoom level.
