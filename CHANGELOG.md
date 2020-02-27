@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/neovici/cosmoz-image-viewer/compare/v3.1.5...v3.2.0) (2020-02-27)
+
+
+### Features
+
+* download images in a PDF file ([ec91f79](https://github.com/neovici/cosmoz-image-viewer/commit/ec91f797cc9a455a55b8aa7df7af949cdaaf34b7))
+
 ## [3.1.5](https://github.com/neovici/cosmoz-image-viewer/compare/v3.1.4...v3.1.5) (2019-10-10)
 
 
