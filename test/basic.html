@@ -105,9 +105,9 @@
 				imageViewer.attach();
 			});
 
-			test('zip creation works', done => {
-				imageViewer.createZipFromUrls(imageViewer._resolvedImages).then(zip => {
-					assert.isAbove(zip.buffer.byteLength, 10000);
+			test('pdf creation works', done => {
+				imageViewer.downloadPdf(imageViewer._resolvedImages).then(blob => {
+					assert.isAbove(blob.size, 10000);
 					done();
 				});
 			});

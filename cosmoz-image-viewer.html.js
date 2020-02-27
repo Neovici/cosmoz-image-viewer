@@ -149,6 +149,8 @@ export const template = html`
 	</paper-icon-button>
 	<paper-icon-button class="nav" hidden$="[[!_showDetach]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]">
 	</paper-icon-button>
+	<paper-icon-button class="nav" on-click="onDownloadPdf" icon="icons:file-download" title="[[ _('Download images', t) ]]">
+	</paper-icon-button>
 	<paper-icon-button class="nav" hidden$="[[!_showFullscreen]]" on-click="openFullscreen" icon="icons:fullscreen" title="[[ _('Fullscreen image', t) ]]">
 	</paper-icon-button>
 	<paper-icon-button class="nav" hidden$="[[!showClose]]" on-click="_close" icon="icons:close" title="[[ _('Close fullscreen', t) ]]">

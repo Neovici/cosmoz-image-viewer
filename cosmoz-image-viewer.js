@@ -4,9 +4,7 @@ import { PolymerElement } from '@polymer/polymer/polymer-element';
 import { IronResizableBehavior } from '@polymer/iron-resizable-behavior';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class';
 import { translatable } from '@neovici/cosmoz-i18next';
-
-import { NullZipArchive } from '@neovici/nullxlsx';
-
+import { download } from './lib/pdf';
 import { template } from './cosmoz-image-viewer.html';
 
 const globals = {
@@ -401,7 +399,7 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 	 * @returns {Object} detached window object
 	 */
 	detach() {
-		const detachPrevented = !this.dispatchEvent(new CustomEvent('will-detach', {cancelable: true}));
+		const detachPrevented = !this.dispatchEvent(new CustomEvent('will-detach', { cancelable: true }));
 		if (detachPrevented) {
 			return false;
 		}
@@ -449,7 +447,8 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 
 		w.document.title = this._detachedWindowTitle;
 
-		w.addEventListener('download', ({detail}) => this.createZipFromUrls(detail).then(zip => this.downloadZip(zip)));
+		w.addEventListener('download', async ({ detail }) => await this.downloadPdf(detail));
+
 		w.addEventListener('beforeunload', globals.windowBeforeUnloadHandler);
 
 		if (w.ciw == null) {
@@ -498,50 +497,11 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 			this.detach();
 		}
 	}
-
-	downloadZip(zip) {
-		const a = document.body.appendChild(zip.createDownloadLink());
-		a.click();
-		document.body.removeChild(a);
+	async onDownloadPdf() {
+		await this.downloadPdf(this._resolvedImages);
 	}
-
-	createZipFromUrls(fileUrls) {
-		const options = {
-				credentials: this.credentials ? 'include' : 'omit'
-			},
-			fetches = fileUrls.map(url =>
-				fetch(url, options)
-					.then(response => response.arrayBuffer())
-					.then(data => ({
-						data,
-						url
-					}))
-			);
-
-		return Promise
-			.all(fetches)
-			.then(responses => {
-				const filenames = [],
-					zip = new NullZipArchive(this.downloadFileName, false);
-
-				for (const {url, data} of responses) {
-					let filename = url.replace(/^.*[\\/]/u, '');
-					const filenameParts = filename.split('.'),
-						sameFilenames = filenames.filter(f => f === filenameParts[0]);
-
-					if (sameFilenames.length > 0) {
-						filename = `${filenameParts[0]} (${sameFilenames.length + 1}).${filenameParts[1]}`;
-					}
-
-					zip.addFileFromUint8Array(filename, new Uint8Array(data));
-					filenames.push(filenameParts[0]);
-
-					if (fileUrls.length === zip.files.length) {
-						zip.generate();
-						return zip;
-					}
-				}
-			});
+	async downloadPdf(urls) {
+		return await download(urls, this.downloadFileName, this.credentials);
 	}
 	/**
 	 * Toggles between initial zoom level and 1.5x initial zoom level.
