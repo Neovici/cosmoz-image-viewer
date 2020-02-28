@@ -1,3 +1,10 @@
+## [3.2.1](https://github.com/neovici/cosmoz-image-viewer/compare/v3.2.0...v3.2.1) (2020-02-28)
+
+
+### Bug Fixes
+
+* correct pdf fit ([00107d6](https://github.com/neovici/cosmoz-image-viewer/commit/00107d66b198b8f0ef461091793b87e4554fcee8))
+
 # [3.2.0](https://github.com/neovici/cosmoz-image-viewer/compare/v3.1.5...v3.2.0) (2020-02-27)
 
 
