@@ -23,7 +23,10 @@ export const afterMutations = () => {
 			mo.disconnect();
 			resolve();
 		});
-		mo.observe(host, { childList: true, subtree: true });
+		mo.observe(host, {
+			childList: true,
+			subtree: true
+		});
 	});
 };
 
@@ -60,8 +63,12 @@ const HAS_NEW_TOUCH = (() => {
 		let id = 0;
 
 		return xyList.map(xy => {
-			const touchInit =
-        {identifier: id++, target: node, pageX: xy.x, pageY: xy.y};
+			const touchInit = {
+				identifier: id++,
+				target: node,
+				pageX: xy.x,
+				pageY: xy.y
+			};
 
 			return HAS_NEW_TOUCH ? new window.Touch(touchInit) : touchInit;
 		});

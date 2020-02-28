@@ -38,11 +38,13 @@
 
 	<script type="module">
 		/* global MockInteractions */
-		import {cycle, assertFuzzyMatch} from './helpers';
+		import {
+			cycle, assertFuzzyMatch
+		} from './helpers';
 
 		const status = (el, status) => new Promise(resolve =>
 				el.addEventListener('status-changed', (
-					{ detail: { value } }) => value === status && resolve()
+					{ detail: { value }}) => value === status && resolve()
 				)
 			),
 			loaded = el => status(el, 'loaded'),
@@ -64,7 +66,12 @@
 			it('displays the image centered', () => {
 				const img = el.shadowRoot.querySelector('img');
 				assert.include(img.src, 'demo/images/cosmos1.jpg');
-				assertFuzzyMatch(img.getBoundingClientRect(), { top: 43.75, left: 0, width: 200, height: 112.5 });
+				assertFuzzyMatch(img.getBoundingClientRect(), {
+					top: 43.75,
+					left: 0,
+					width: 200,
+					height: 112.5
+				});
 			});
 
 			it('handles errors', async () => {
@@ -82,7 +89,12 @@
 
 				const img = el.shadowRoot.querySelector('img');
 				assert.include(img.src, 'demo/images/cosmos2.jpg');
-				assertFuzzyMatch(img.getBoundingClientRect(), { top: 0, left: 0, width: 200, height: 200 });
+				assertFuzzyMatch(img.getBoundingClientRect(), {
+					top: 0,
+					left: 0,
+					width: 200,
+					height: 200
+				});
 			});
 
 			it('handles scroll events', async () => {
@@ -91,29 +103,49 @@
 				scrollUp(el);
 				await cycle();
 
-				assertFuzzyMatch(img.getBoundingClientRect(), { top: -0.9, left: -79.5, width: 359, height: 201.94});
+				assertFuzzyMatch(img.getBoundingClientRect(), {
+					top: -0.9,
+					left: -79.5,
+					width: 359,
+					height: 201.94
+				});
 
 				scrollDown(el);
 				await cycle();
 
-				assertFuzzyMatch(img.getBoundingClientRect(), { top: 43.75, left: 0, width: 200, height: 112.5 });
+				assertFuzzyMatch(img.getBoundingClientRect(), {
+					top: 43.75,
+					left: 0,
+					width: 200,
+					height: 112.5
+				});
 			});
 
 			it('handles mouse panning', async () => {
 				const img = el.shadowRoot.querySelector('img');
 
-				MockInteractions.makeMouseEvent('mousedown', {x: 10, y: 10}, img);
+				MockInteractions.makeMouseEvent('mousedown', {
+					x: 10,
+					y: 10
+				}, img);
 				await cycle();
 
-				MockInteractions.makeMouseEvent('mousemove', {x: 10, y: 20}, document);
+				MockInteractions.makeMouseEvent('mousemove', {
+					x: 10,
+					y: 20
+				}, document);
 				await cycle();
 
 				MockInteractions.makeMouseEvent('mouseup', {}, document);
 				await cycle();
 
-				assertFuzzyMatch(img.getBoundingClientRect(), { top: 53.75, left: 0, width: 200, height: 112.5 });
+				assertFuzzyMatch(img.getBoundingClientRect(), {
+					top: 53.75,
+					left: 0,
+					width: 200,
+					height: 112.5
+				});
 			});
-
 		});
 	</script>
 </body>
