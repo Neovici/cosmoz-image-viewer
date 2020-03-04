@@ -1,3 +1,10 @@
+## [3.2.2](https://github.com/neovici/cosmoz-image-viewer/compare/v3.2.1...v3.2.2) (2020-03-04)
+
+
+### Bug Fixes
+
+* async jsdpf loading ([7cee65c](https://github.com/neovici/cosmoz-image-viewer/commit/7cee65c1c280ad8b534570194dc7eb6147a2d5dd))
+
 ## [3.2.1](https://github.com/neovici/cosmoz-image-viewer/compare/v3.2.0...v3.2.1) (2020-02-28)
 
 
