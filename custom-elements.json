@@ -1,0 +1,48 @@
+{
+  "version": 2,
+  "tags": [
+    {
+      "name": "cosmoz-image-viewer",
+      "properties": [
+        {
+          "name": "images",
+          "type": "Array",
+          "description": "Images"
+        },
+        {
+          "name": "loop",
+          "type": "Boolean",
+          "description": "Loop images"
+        },
+        {
+          "name": "showDetach",
+          "type": "Boolean",
+          "description": "Show detach"
+        },
+        {
+          "name": "showFullscreen",
+          "type": "Boolean",
+          "description": "Show fullscreen"
+        },
+        {
+          "name": "showNav",
+          "type": "Boolean",
+          "description": "Show navigation"
+        },
+        {
+          "name": "showPageNumber",
+          "type": "Boolean",
+          "description": "Show page number"
+        },
+        {
+          "name": "showZoom",
+          "type": "Boolean",
+          "description": "Show zoom"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "cssProperties": []
+    }
+  ]
+}

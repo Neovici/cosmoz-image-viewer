@@ -1,36 +1,40 @@
-/* global host */
 import {
 	component, html
 } from 'haunted';
 import {
-	attach, cycle, makeMultiTouchEvent
+	makeMultiTouchEvent
 } from '../helpers';
 import { usePinch } from '../../lib/hooks/use-pinch';
+import {
+	expect, fixture, aTimeout
+} from '@open-wc/testing';
 
-const text = () => host.firstChild.shadowRoot.textContent;
+suite('use-pinch', () => {
+	suiteSetup(() => {
+		const App = () => {
+			const [status, delta, start] = usePinch();
+			return html`<span @touchstart=${start}>${status}, ${delta}</span>`;
+		};
+		customElements.define('use-pinch', component(App));
+	});
 
-describe('use-pinch', () => {
-	it('works', async () => {
-		const tag = 'use-pinch',
+	let element;
+	const text = () => element.shadowRoot.textContent;
+	setup(async () => {
+		element = await fixture(html`<use-pinch></use-pinch>`);
+	});
 
-			App = () => {
-				const [status, delta, start] = usePinch();
-				return html`<span @touchstart=${start}>${status}, ${delta}</span>`;
-			};
+	test('it', async () => {
 
-		customElements.define(tag, component(App));
-
-		const teardown = attach(tag);
-		await cycle();
 		expect(text()).to.equal('init, 0', 'no touching');
 
-		const target = host.firstChild.shadowRoot.firstElementChild;
+		const target = element.shadowRoot.firstElementChild;
 
 		makeMultiTouchEvent('touchstart', [{
 			x: 10,
 			y: 10
 		}], target);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('init, 0', 'touch with one finger');
 
 		makeMultiTouchEvent('touchstart', [{
@@ -40,7 +44,7 @@ describe('use-pinch', () => {
 			x: 50,
 			y: 50
 		}], target);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('pinching, 0', 'touch with second finger');
 
 		makeMultiTouchEvent('touchmove', [{
@@ -50,21 +54,21 @@ describe('use-pinch', () => {
 			x: 100,
 			y: 100
 		}], document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('pinching, 70.71067811865476', 'move second finger');
 
 		makeMultiTouchEvent('touchend', [{
 			x: 10,
 			y: 10
 		}], document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('init, 0', 'raise one finger');
 
 		makeMultiTouchEvent('touchmove', [{
 			x: 20,
 			y: 20
 		}], document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('init, 0', 'move the finger');
 
 		makeMultiTouchEvent('touchstart', [{
@@ -74,7 +78,7 @@ describe('use-pinch', () => {
 			x: 20,
 			y: 30
 		}], target);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('pinching, 0', 'touch with second finger');
 
 		makeMultiTouchEvent('touchmove', [{
@@ -84,20 +88,18 @@ describe('use-pinch', () => {
 			x: 20,
 			y: 30
 		}], document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('pinching, 10', 'move first finger');
 
 		makeMultiTouchEvent('touchend', [{
 			x: 20,
 			y: 30
 		}], document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('init, 0', 'raise first finger');
 
 		makeMultiTouchEvent('touchend', [], document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('init, 0', 'raise second finger');
-
-		teardown();
 	});
 });

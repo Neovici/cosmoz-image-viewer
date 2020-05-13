@@ -1,54 +1,54 @@
-/* global host, MockInteractions */
 import {
 	component, html
 } from 'haunted';
-import {
-	attach, cycle
-} from '../helpers';
 import { useMousePan } from '../../lib/hooks/use-mouse-pan';
+import {
+	expect, fixture, aTimeout
+} from '@open-wc/testing';
+import { makeMouseEvent } from '@polymer/iron-test-helpers/mock-interactions.js';
 
-const text = () => host.firstChild.shadowRoot.textContent;
+suite('use-mouse-pan', () => {
+	suiteSetup(() => {
+		const App = () => {
+			const [status, deltaX, deltaY, , start] = useMousePan();
+			return html`<span @touchstart=${start}>${status}, ${deltaX}, ${deltaY}</span>`;
+		};
+		customElements.define('use-mouse-pan', component(App));
+	});
 
-describe('use-mouse-pan', () => {
-	it('works', async () => {
-		const tag = 'use-mouse-pan',
+	let element;
+	const text = () => element.shadowRoot.textContent;
+	setup(async () => {
+		element = await fixture(html`<use-mouse-pan></use-mouse-pan>`);
+	});
 
-			App = () => {
-				const [status, deltaX, deltaY, , start] = useMousePan();
-				return html`<span @mousedown=${start}>${status}, ${deltaX}, ${deltaY}</span>`;
-			};
-
-		customElements.define(tag, component(App));
-
-		const teardown = attach(tag);
-		await cycle();
+	test('it', async () => {
 		expect(text()).to.equal('init, 0, 0');
+		console.log(element.shadowRoot.firstElementChild);
 
-		MockInteractions.makeMouseEvent('mousedown', {
+		makeMouseEvent('mousedown', {
 			x: 10,
 			y: 10
-		}, host.firstChild.shadowRoot.firstElementChild);
-		await cycle();
+		}, element.shadowRoot.firstElementChild);
+		await aTimeout(100);
 		expect(text()).to.equal('dragging, 0, 0');
 
-		MockInteractions.makeMouseEvent('mousemove', {
+		makeMouseEvent('mousemove', {
 			x: 10,
 			y: 20
 		}, document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('dragging, 0, 10');
 
-		MockInteractions.makeMouseEvent('mousemove', {
+		makeMouseEvent('mousemove', {
 			x: 20,
 			y: 40
 		}, document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('dragging, 10, 20');
 
-		MockInteractions.makeMouseEvent('mouseup', {}, document);
-		await cycle();
+		makeMouseEvent('mouseup', {}, document);
+		await aTimeout();
 		expect(text()).to.equal('init, 0, 0');
-
-		teardown();
 	});
 });

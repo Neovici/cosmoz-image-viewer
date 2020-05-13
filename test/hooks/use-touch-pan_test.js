@@ -3,45 +3,50 @@ import {
 	component, html
 } from 'haunted';
 import {
-	attach, cycle, makeMultiTouchEvent
+	makeMultiTouchEvent
 } from '../helpers';
 import { useTouchPan } from '../../lib/hooks/use-touch-pan';
+import {
+	expect, fixture, aTimeout
+} from '@open-wc/testing';
 
-const text = () => host.firstChild.shadowRoot.textContent;
+suite('use-touch-pan', () => {
+	suiteSetup(() => {
+		const App = () => {
+			const [status, deltaX, deltaY, , start] = useTouchPan();
+			return html`<span @touchstart=${start}>${status}, ${deltaX}, ${deltaY}</span>`;
+		};
+		customElements.define('use-touch-pan', component(App));
+	});
 
-describe('use-touch-pan', () => {
-	it('works', async () => {
-		const tag = 'use-touch-pan',
+	let element;
+	const text = () => element.shadowRoot.textContent;
+	setup(async () => {
+		element = await fixture(html`<use-touch-pan></use-touch-pan>`);
+	});
 
-			App = () => {
-				const [status, deltaX, deltaY, , start] = useTouchPan();
-				return html`<span @touchstart=${start}>${status}, ${deltaX}, ${deltaY}</span>`;
-			};
+	test('it', async () => {
 
-		customElements.define(tag, component(App));
-
-		const teardown = attach(tag);
-		await cycle();
 		expect(text()).to.equal('init, 0, 0');
 
-		const target = host.firstChild.shadowRoot.firstElementChild;
+		const target = element.shadowRoot.firstElementChild;
 
 		makeMultiTouchEvent('touchstart', [{
 			x: 10,
 			y: 10
 		}], target);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('dragging, 0, 0', 'touch with one finger');
 
 		makeMultiTouchEvent('touchmove', [{
 			x: 20,
 			y: 10
 		}], document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('dragging, 10, 0', 'move the finger');
 
 		makeMultiTouchEvent('touchend', [], document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('init, 0, 0', 'raise the finger');
 
 		// multi fingers
@@ -50,14 +55,14 @@ describe('use-touch-pan', () => {
 			x: 10,
 			y: 10
 		}], target);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('dragging, 0, 0', 'touch with one finger');
 
 		makeMultiTouchEvent('touchmove', [{
 			x: 20,
 			y: 10
 		}], document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('dragging, 10, 0', 'move the finger');
 
 		makeMultiTouchEvent('touchstart', [{
@@ -67,7 +72,7 @@ describe('use-touch-pan', () => {
 			x: 20,
 			y: 30
 		}], document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('dragging, 10, 0', 'touch with another finger');
 
 		makeMultiTouchEvent('touchmove', [{
@@ -77,27 +82,25 @@ describe('use-touch-pan', () => {
 			x: 20,
 			y: 10
 		}], document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('dragging, 0, -10', 'move the second finger');
 
 		makeMultiTouchEvent('touchend', [{
 			x: 20,
 			y: 10
 		}], document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('dragging, 0, -10', 'raise one finger');
 
 		makeMultiTouchEvent('touchmove', [{
 			x: 20,
 			y: 20
 		}], document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('dragging, 0, 10', 'move the finger');
 
 		makeMultiTouchEvent('touchend', [], document);
-		await cycle();
+		await aTimeout();
 		expect(text()).to.equal('init, 0, 0', 'raise the finger');
-
-		teardown();
 	});
 });

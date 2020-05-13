@@ -9,21 +9,21 @@ import './cosmoz-image-viewer.js';
 class CosmozImageViewerOverlay extends mixinBehaviors([IronOverlayBehavior], PolymerElement) {
 	static get template() {
 		return html`
-				<style>
-						:host {
-								background: rgb(0, 0, 0);
-								height: 100vh;
-								width: 100vw;
-						}
-				</style>
-				<cosmoz-image-viewer
-					on-track="_trackHandler" on-close-tapped="close"
-					images="[[images]]" sizing="contain"
-					credentials="[[credentials]]" current-image-index="{{currentImageIndex}}"
-					show-nav show-zoom show-close show-detach="[[showDetach]]" loop="[[loop]]"
-					on-will-detach="_preventDetach">
-				</cosmoz-image-viewer>
-`;
+			<style>
+					:host {
+							background: rgb(0, 0, 0);
+							height: 100vh;
+							width: 100vw;
+					}
+			</style>
+			<cosmoz-image-viewer
+				on-track="_trackHandler" on-close-tapped="close"
+				images="[[images]]" sizing="contain"
+				credentials="[[credentials]]" current-image-index="{{currentImageIndex}}"
+				show-nav show-zoom show-close show-detach="[[showDetach]]" loop="[[loop]]"
+				on-will-detach="_preventDetach">
+			</cosmoz-image-viewer>
+		`;
 	}
 
 	static get is() {

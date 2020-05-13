@@ -165,13 +165,6 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 				value: false
 			},
 			/**
-			* If true, pagination dots are visible.
-			*/
-			showDots: {
-				type: Boolean,
-				value: false
-			},
-			/**
 			 * If true, a zoom button is visible.
 			 */
 			showZoom: {
