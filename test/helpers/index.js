@@ -1,13 +1,6 @@
-/* global host */
+import { assert } from '@open-wc/testing';
 
 export const
-
-	attach = element => {
-		const el = document.createElement(element);
-		host.appendChild(el);
-		return () => host.removeChild(el);
-	},
-
 	mount = str => {
 		const template = document.createElement('template');
 		template.innerHTML = str;
@@ -38,24 +31,11 @@ export const
 		});
 	},
 
-	cycle = () => {
-		return new Promise(resolve => {
-			requestAnimationFrame(() => {
-				requestAnimationFrame(() => {
-					requestAnimationFrame(() => {
-						resolve();
-					});
-				});
-			});
-		});
-	},
-
 	HAS_NEW_TOUCH = (() => {
-		let has = false;
 		try {
-			has = Boolean(new TouchEvent('x'));
+			return Boolean(new TouchEvent('x'));
 		} catch (_) { /**/ }
-		return has;
+		return false;
 	})(),
 
 
