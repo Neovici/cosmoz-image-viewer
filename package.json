@@ -20,6 +20,10 @@
 	"directories": {
 		"test": "test"
 	},
+	"files": [
+		"lib/",
+		"cosmoz-*.js"
+	],
 	"scripts": {
 		"lint": "eslint --cache --ext .js .",
 		"start": "npm run storybook",
