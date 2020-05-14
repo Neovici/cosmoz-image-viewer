@@ -24,7 +24,6 @@ suite('use-mouse-pan', () => {
 
 	test('it', async () => {
 		expect(text()).to.equal('init, 0, 0');
-		console.log(element.shadowRoot.firstElementChild);
 
 		makeMouseEvent('mousedown', {
 			x: 10,

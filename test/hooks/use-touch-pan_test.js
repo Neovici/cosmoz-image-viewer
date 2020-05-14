@@ -1,4 +1,3 @@
-/* global host */
 import {
 	component, html
 } from 'haunted';

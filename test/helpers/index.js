@@ -1,35 +1,6 @@
 import { assert } from '@open-wc/testing';
 
 export const
-	mount = str => {
-		const template = document.createElement('template');
-		template.innerHTML = str;
-		host.appendChild(template.content.cloneNode(true));
-		return () => {
-			host.innerHTML = '';
-		};
-	},
-
-	afterMutations = () => {
-		return new Promise(resolve => {
-			const mo = new MutationObserver(() => {
-				mo.disconnect();
-				resolve();
-			});
-			mo.observe(host, {
-				childList: true,
-				subtree: true
-			});
-		});
-	},
-
-	later = (fn = Function.prototype) => {
-		return new Promise(resolve => {
-			setTimeout(() => {
-				resolve(fn());
-			}, 80);
-		});
-	},
 
 	HAS_NEW_TOUCH = (() => {
 		try {
