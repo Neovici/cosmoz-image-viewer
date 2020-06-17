@@ -5,7 +5,7 @@ import {
 import { makeMouseEvent } from '@polymer/iron-test-helpers/mock-interactions.js';
 import '../lib/haunted-pan-zoom.js';
 import {
-	assert, fixture, html, aTimeout
+	assert, fixtureSync, html, aTimeout
 } from '@open-wc/testing';
 
 const status = (el, status) => new Promise(resolve =>
@@ -25,7 +25,7 @@ suite('haunted-pan-zoom', () => {
 	let el;
 
 	setup(async () => {
-		el = await fixture(html`
+		el = await fixtureSync(html`
 			<haunted-pan-zoom
 				style="width: 200px; height: 200px;"
 				src="/base/stories/images/cosmos1.jpg"
@@ -33,6 +33,7 @@ suite('haunted-pan-zoom', () => {
 				pan-stiffness="1"
 			></haunted-pan-zoom>
 		`);
+		await loaded(el);
 	});
 
 	test('displays the image centered', () => {
