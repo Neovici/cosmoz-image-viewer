@@ -11,7 +11,7 @@ suite('use-mouse-pan', () => {
 	suiteSetup(() => {
 		const App = () => {
 			const [status, deltaX, deltaY, , start] = useMousePan();
-			return html`<span @touchstart=${ start }>${ status }, ${ deltaX }, ${ deltaY }</span>`;
+			return html`<span @mousedown=${ start }>${ status }, ${ deltaX }, ${ deltaY }</span>`;
 		};
 		customElements.define('use-mouse-pan', component(App));
 	});
