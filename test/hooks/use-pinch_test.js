@@ -13,7 +13,7 @@ suite('use-pinch', () => {
 	suiteSetup(() => {
 		const App = () => {
 			const [status, delta, start] = usePinch();
-			return html`<span @touchstart=${start}>${status}, ${delta}</span>`;
+			return html`<span @touchstart=${ start }>${ status }, ${ delta }</span>`;
 		};
 		customElements.define('use-pinch', component(App));
 	});

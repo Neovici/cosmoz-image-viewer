@@ -58,6 +58,6 @@ export const
 		assert.isFalse(
 			Object.entries(targetObj)
 				.some(([key, value]) => Math.abs(obj[key] - value) >= 2),
-			`fuzzyMatch ${JSON.stringify(obj)} does not match ${JSON.stringify(targetObj)}`
+			`fuzzyMatch ${ JSON.stringify(obj) } does not match ${ JSON.stringify(targetObj) }`
 		);
 	};

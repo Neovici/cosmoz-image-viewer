@@ -13,7 +13,7 @@ suite('use-touch-pan', () => {
 	suiteSetup(() => {
 		const App = () => {
 			const [status, deltaX, deltaY, , start] = useTouchPan();
-			return html`<span @touchstart=${start}>${status}, ${deltaX}, ${deltaY}</span>`;
+			return html`<span @touchstart=${ start }>${ status }, ${ deltaX }, ${ deltaY }</span>`;
 		};
 		customElements.define('use-touch-pan', component(App));
 	});
