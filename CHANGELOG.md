@@ -1,3 +1,13 @@
+## [3.2.3](https://github.com/neovici/cosmoz-image-viewer/compare/v3.2.2...v3.2.3) (2020-06-17)
+
+
+### Bug Fixes
+
+* linting issues, drop unused test helpers ([7ada587](https://github.com/neovici/cosmoz-image-viewer/commit/7ada587bf38af5b08127c1e8a2a6e5ba32f13e8b))
+* npm packaging ([4931c7e](https://github.com/neovici/cosmoz-image-viewer/commit/4931c7eb8fd08df21ce8acf02bab070878fa48a2))
+* wip: test: convert haunted-pan-zoom and detach tests to karma ([380e75b](https://github.com/neovici/cosmoz-image-viewer/commit/380e75b32591b24e6f131694cec780d907a48455))
+* wip: upgrade repo ([fb59316](https://github.com/neovici/cosmoz-image-viewer/commit/fb593165ad3cbc559e69a0172c7489e90e7a0158))
+
 ## [3.2.2](https://github.com/neovici/cosmoz-image-viewer/compare/v3.2.1...v3.2.2) (2020-03-04)
 
 
