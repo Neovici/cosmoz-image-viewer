@@ -20,11 +20,21 @@
 	"directories": {
 		"test": "test"
 	},
+	"files": [
+		"lib/",
+		"cosmoz-*.js"
+	],
 	"scripts": {
-		"analyze": "polymer analyze --input cosmoz-*.js  > analysis.json",
-		"lint": "eslint --cache --ext .js,.html .",
-		"start": "polymer serve -o",
-		"test": "polymer test"
+		"lint": "eslint --cache --ext .js .",
+		"start": "npm run storybook",
+		"test": "karma start --coverage",
+		"test:watch": "karma start --auto-watch=true --single-run=false",
+		"test:update-snapshots": "karma start --update-snapshots",
+		"test:prune-snapshots": "karma start --prune-snapshots",
+		"test:compatibility": "karma start --compatibility all --auto-watch=true --single-run=false",
+		"storybook": "start-storybook --node-resolve --watch --open",
+		"storybook:build": "build-storybook",
+		"storybook:deploy": "storybook-to-ghpages"
 	},
 	"release": {
 		"plugins": [
@@ -70,28 +80,29 @@
 		"@commitlint/cli": "^8.3.0",
 		"@commitlint/config-conventional": "^8.3.0",
 		"@neovici/eslint-config": "^1.2.1",
-		"@neovici/github-actions-eslint-annotator": "^0.4.0",
-		"@polymer/iron-component-page": "^4.0.0",
-		"@polymer/iron-demo-helpers": "^3.0.0",
-		"@polymer/iron-test-helpers": "^3.0.0",
-		"@polymer/test-fixture": "^4.0.2",
+		"@open-wc/demoing-storybook": "^2.2.4",
+		"@open-wc/testing": "^2.5.8",
+		"@open-wc/testing-karma": "^3.3.20",
+		"@polymer/iron-test-helpers": "^3.0.1",
 		"@semantic-release/changelog": "^5.0.1",
 		"@semantic-release/git": "^9.0.0",
+		"@storybook/storybook-deployer": "^2.8.6",
 		"@webcomponents/webcomponentsjs": "^2.4.3",
 		"babel-eslint": "^10.1.0",
 		"chai": "^4.2.0",
-		"eslint": "^6.0.0",
+		"deepmerge": "^4.2.2",
+		"eslint": "^6.8.0",
 		"eslint-plugin-html": "^6.0.2",
 		"eslint-plugin-import": "^2.20.2",
 		"eslint-plugin-mocha": "^6.0.0",
 		"husky": "^4.2.5",
-		"mocha": "^6.2.3",
-		"polymer-cli": "^1.9.4",
+		"karma": "^5.0.0",
+		"karma-firefox-launcher": "^1.3.0",
+		"karma-sauce-launcher": "^4.0.0",
 		"resize-observer-polyfill": "^1.5.1",
 		"semantic-release": "^17.0.7",
-		"sinon": "^7.5.0",
-		"wct-istanbul": "^0.14.3",
-		"wct-mocha": "^1.1.0",
+		"sinon": "^9.0.2",
+		"storybook-prebuilt": "^1.5.2",
 		"web-animations-js": "^2.3.1"
 	}
 }

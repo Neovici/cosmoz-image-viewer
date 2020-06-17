@@ -1,61 +1,12 @@
-/* global host */
+import { assert } from '@open-wc/testing';
 
 export const
 
-	attach = element => {
-		const el = document.createElement(element);
-		host.appendChild(el);
-		return () => host.removeChild(el);
-	},
-
-	mount = str => {
-		const template = document.createElement('template');
-		template.innerHTML = str;
-		host.appendChild(template.content.cloneNode(true));
-		return () => {
-			host.innerHTML = '';
-		};
-	},
-
-	afterMutations = () => {
-		return new Promise(resolve => {
-			const mo = new MutationObserver(() => {
-				mo.disconnect();
-				resolve();
-			});
-			mo.observe(host, {
-				childList: true,
-				subtree: true
-			});
-		});
-	},
-
-	later = (fn = Function.prototype) => {
-		return new Promise(resolve => {
-			setTimeout(() => {
-				resolve(fn());
-			}, 80);
-		});
-	},
-
-	cycle = () => {
-		return new Promise(resolve => {
-			requestAnimationFrame(() => {
-				requestAnimationFrame(() => {
-					requestAnimationFrame(() => {
-						resolve();
-					});
-				});
-			});
-		});
-	},
-
 	HAS_NEW_TOUCH = (() => {
-		let has = false;
 		try {
-			has = Boolean(new TouchEvent('x'));
+			return Boolean(new TouchEvent('x'));
 		} catch (_) { /**/ }
-		return has;
+		return false;
 	})(),
 
 
@@ -107,6 +58,6 @@ export const
 		assert.isFalse(
 			Object.entries(targetObj)
 				.some(([key, value]) => Math.abs(obj[key] - value) >= 2),
-			`fuzzyMatch ${JSON.stringify(obj)} does not match ${JSON.stringify(targetObj)}`
+			`fuzzyMatch ${ JSON.stringify(obj) } does not match ${ JSON.stringify(targetObj) }`
 		);
 	};

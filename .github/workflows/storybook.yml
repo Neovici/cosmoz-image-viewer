@@ -1,0 +1,25 @@
+---
+name: Github CI
+on:
+  push:
+    branches:
+      - master
+jobs:
+  storybook:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+
+    - name: Install
+      run: npm ci
+
+    - name: Deploy storybook
+      run: npm run storybook:deploy -- --ci
+      env:
+         GH_TOKEN: Neovici:${{ secrets.GITHUB_TOKEN }}
