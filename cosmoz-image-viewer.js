@@ -1,8 +1,7 @@
 /* eslint-disable max-lines, max-len */
 import { PolymerElement } from '@polymer/polymer/polymer-element';
-
-import { IronResizableBehavior } from '@polymer/iron-resizable-behavior';
-import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class';
+import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
+import { timeOut } from '@polymer/polymer/lib/utils/async';
 import { translatable } from '@neovici/cosmoz-i18next';
 import { download } from './lib/pdf';
 import { template } from './cosmoz-image-viewer.html';
@@ -30,9 +29,7 @@ so a user can swipe to the next image.
 @demo demo/index.html
 @appliesMixin translatable
 */
-class CosmozImageViewer extends translatable(mixinBehaviors([
-	IronResizableBehavior
-], PolymerElement)) {
+class CosmozImageViewer extends translatable(PolymerElement) {
 	static get template() { // eslint-disable-line max-lines-per-function
 		return template;
 	}
@@ -119,7 +116,6 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 				notify: true,
 				observer: function (value) { // eslint-disable-line object-shorthand
 					this.hidden = value;
-					this.notifyResize();
 				}
 			},
 			/**
@@ -276,14 +272,13 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 		this._syncImageIndexBound = this._syncImageIndex.bind(this);
 		this._onOverlayDetachIntentBound = this._onOverlayDetachIntent.bind(this);
 		this._onOverlayClosedBound = this._onOverlayClosed.bind(this);
+		this._resizeObserver = new ResizeObserver(this._onResize.bind(this));
 	}
 
 	/** ELEMENT LIFECYCLE */
 
 	ready() {
 		super.ready();
-
-		this.addEventListener('iron-resize', this._onResize);
 
 		this._dblClickListner = () => {
 			if (!this._showZoom) {
@@ -295,18 +290,20 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 
 	connectedCallback() {
 		super.connectedCallback();
+		this._resizeObserver.observe(this);
 		this.addEventListener('dblclick', this._dblClickListner);
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
+		this._resizeObserver.unobserve(this);
 		this.removeEventListener('dblclick', this._dblClickListner);
 
 		if (imageOverlay) {
 			this._setupDialogEvents(false);
 		}
 
-		this.cancelDebouncer('elementHeight');
+		this._heightDebouncer?.cancel();
 	}
 
 	/** PUBLIC */
@@ -316,7 +313,7 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 	}
 
 	get carousel() {
-		return this.$$('#carousel');
+		return this.shadowRoot.querySelector('#carousel');
 	}
 
 	/**
@@ -416,7 +413,7 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 	_detachToNewWindow() {
 		const
 			w = globals.window = window.open(undefined, this.detachedWindowName, this._detachedWindowFeaturesString),
-			windowTemplate = this.$$('#externalWindow'),
+			windowTemplate = this.shadowRoot.querySelector('#externalWindow'),
 			windowTemplateClone = windowTemplate.content.cloneNode(true),
 			setImages = () => w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
 
@@ -571,14 +568,22 @@ class CosmozImageViewer extends translatable(mixinBehaviors([
 		return index + 1;
 	}
 
-	_onResize() {
-		this.debounce('elementHeight', () => {
-			this._elementHeight = this.offsetHeight;
-		}, 50);
+	_onResize([entry]) {
+		const height = entry.borderBoxSize?.[0]?.blockSize ?? entry.contentRect?.height;
+		if (height === 0) {
+			return;
+		}
+		this._heightDebouncer = Debouncer.debounce(
+			this._heightDebouncer,
+			timeOut.after(50), () => {
+				this._elementHeight = height;
+			}
+		);
+
 	}
 
 	_close() {
-		this.fire('close-tapped');
+		this.dispatchEvent(new CustomEvent('close-tapped'));
 	}
 
 	_resolveImages(images) {

@@ -65,14 +65,6 @@ suite('cosmoz-image-viewer', () => {
 		assert.equal(dialog.images, imageViewer.images);
 	});
 
-	test('detach calls notifyResize', () => {
-		const spyNotifyResize = sinon.spy(imageViewer, 'notifyResize');
-		assert.notCalled(spyNotifyResize);
-		imageViewer.detach();
-		assert.calledOnce(spyNotifyResize);
-		imageViewer.attach();
-	});
-
 	test('pdf creation works', async () => {
 		const blob = await imageViewer.downloadPdf(imageViewer._resolvedImages);
 		assert.isAbove(blob.size, 10000);
