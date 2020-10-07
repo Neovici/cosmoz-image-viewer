@@ -1,3 +1,10 @@
+## [3.2.4](https://github.com/neovici/cosmoz-image-viewer/compare/v3.2.3...v3.2.4) (2020-10-07)
+
+
+### Bug Fixes
+
+* replace iron-resizable-behavior with a ResizeObserver ([12a9787](https://github.com/neovici/cosmoz-image-viewer/commit/12a978716bb95e3b5a26d18ab0ef58c8d67c96c3))
+
 ## [3.2.3](https://github.com/neovici/cosmoz-image-viewer/compare/v3.2.2...v3.2.3) (2020-06-17)
 
 
