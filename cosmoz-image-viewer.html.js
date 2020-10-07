@@ -4,8 +4,6 @@ import { html } from '@polymer/polymer/lib/utils/html-tag';
 
 import '@webcomponents/shadycss/entrypoints/apply-shim';
 
-import '@polymer/iron-flex-layout/iron-flex-layout';
-import '@polymer/iron-flex-layout/iron-flex-layout-classes';
 import '@polymer/iron-icons';
 import '@polymer/iron-image';
 import '@polymer/paper-icon-button';
@@ -15,19 +13,20 @@ import './cosmoz-image-viewer-overlay.js';
 import './lib/haunted-pan-zoom';
 
 export const template = html`
-<style include="iron-flex iron-flex-alignment">
+<style>
 	:host {
-		display: block;
+		display: flex;
+		flex-direction: column;
 		position: relative;
 		overflow: auto;
-		@apply --layout-vertical;
 	}
 
 	/* For Polymer 2 */
-
 	[hidden] {
 		display: none !important;
 	}
+
+	.flex { flex: auto; }
 
 	#imageContainer {
 		overflow-y: auto;
@@ -39,6 +38,8 @@ export const template = html`
 		left: 0;
 		right: 0;
 		margin: 12px;
+		display: flex;
+		align-items: center;
 	}
 
 	.nav.counter {
@@ -110,7 +111,7 @@ export const template = html`
 	}
 
 	.image-zoom {
-		@apply --layout-flex-auto;
+		flex: auto;
 		display: flex;
 		justify-content: center;
 		background-color: black;
@@ -124,7 +125,7 @@ export const template = html`
 		left: 50%;
 		transform: translate(-50%, -50%);
 		color: white;
-			z-index: +1;
+		z-index: +1;
 		@apply --cosmoz-image-viewer-error;
 	}
 
@@ -205,11 +206,7 @@ export const template = html`
 			opacity: 0.1;
 			display: flex;
 			align-items: center;
-			-webkit-transition: opacity .25s ease-in-out;
-			-moz-transition: opacity .25s ease-in-out;
-			-ms-transition: opacity .25s ease-in-out;
-			-o-transition: opacity .25s ease-in-out;
-			transition: opacity .25s ease-in-out;
+			transition: opacity 0.25s ease-in-out;
 			transition-delay: 0s;
 			color: rgba(255, 255, 255, 0.87);
 			z-index: 10;
@@ -234,12 +231,7 @@ export const template = html`
 		}
 		.action-box {
 			padding: 0 48px;
-			display: -ms-flexbox;
-			display: -webkit-flex;
 			display: flex;
-			-ms-flex-direction: row;
-			-webkit-flex-direction: row;
-			flex-direction: row;
 		}
 		.action-box > * {
 			padding-right: 24px;
