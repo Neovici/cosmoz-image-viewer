@@ -445,9 +445,9 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 		w.addEventListener('download', async ({ detail }) => await this.downloadPdf(detail));
 
 		w.addEventListener('beforeunload', globals.windowBeforeUnloadHandler);
-		
+
 		if (this._shortCutPrint) {
-			w.addEventListener('afterprint', async ({ detail }) => await this.attach());
+			w.addEventListener('afterprint', async () => await this.attach());
 		}
 
 		if (w.ciw == null) {
