@@ -1,3 +1,10 @@
+# [3.3.0](https://github.com/neovici/cosmoz-image-viewer/compare/v3.2.4...v3.3.0) (2020-10-30)
+
+
+### Features
+
+* adds print button without manually detaching window ([#143](https://github.com/neovici/cosmoz-image-viewer/issues/143)) ([756be7e](https://github.com/neovici/cosmoz-image-viewer/commit/756be7e9ae8f4f137678f0252e6230dd55fa13d8))
+
 ## [3.2.4](https://github.com/neovici/cosmoz-image-viewer/compare/v3.2.3...v3.2.4) (2020-10-07)
 
 
