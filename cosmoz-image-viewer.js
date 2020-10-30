@@ -263,6 +263,11 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 			_showPageNumber: {
 				type: Boolean,
 				computed: '_computeShowActions(showPageNumber, images.length, _elementHeight)'
+			},
+
+			_shortCutPrint: {
+				type: Boolean,
+				value: false
 			}
 		};
 	}
@@ -441,6 +446,10 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 
 		w.addEventListener('beforeunload', globals.windowBeforeUnloadHandler);
 
+		if (this._shortCutPrint) {
+			w.addEventListener('afterprint', async () => await this.attach());
+		}
+
 		if (w.ciw == null) {
 			w.addEventListener('ready', () => setImages());
 			this._appendScriptsToWindow(windowTemplateClone.childNodes, w);
@@ -493,6 +502,13 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 	async downloadPdf(urls) {
 		return await download(urls, this.downloadFileName, this.credentials);
 	}
+	async onPrintPdf() {
+		this._shortCutPrint = true;
+		await this.detach();
+		await globals.window.ciw.printPage();
+		this._shortCutPrint = false;
+	}
+
 	/**
 	 * Toggles between initial zoom level and 1.5x initial zoom level.
 	 * @returns {undefined}
