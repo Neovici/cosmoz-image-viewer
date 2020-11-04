@@ -1,3 +1,10 @@
+## [3.3.1](https://github.com/neovici/cosmoz-image-viewer/compare/v3.3.0...v3.3.1) (2020-11-04)
+
+
+### Bug Fixes
+
+* maintain detached images and index if it's the same ([100300d](https://github.com/neovici/cosmoz-image-viewer/commit/100300d9089c1bddf1e85b8c887d8445cb5304c0))
+
 # [3.3.0](https://github.com/neovici/cosmoz-image-viewer/compare/v3.2.4...v3.3.0) (2020-10-30)
 
 
