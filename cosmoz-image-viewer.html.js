@@ -572,6 +572,11 @@ export const template = html`
 				}
 
 				setImages(images, currentImageIndex = 0) {
+					const prev = this.images,
+						isSame = prev != null && images.length === prev.length && images.every((img, i) => prev[i] === img);
+					if (isSame) {
+						return;
+					}
 					this.images = images;
 					this.currentImageIndex = currentImageIndex;
 				}
