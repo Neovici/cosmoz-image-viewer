@@ -1,3 +1,10 @@
+## [3.3.2](https://github.com/neovici/cosmoz-image-viewer/compare/v3.3.1...v3.3.2) (2021-02-17)
+
+
+### Bug Fixes
+
+* update to jspdf version without file-saver ([aec7115](https://github.com/neovici/cosmoz-image-viewer/commit/aec711536ac15b6811ea5828b14f44d4a450ff6a))
+
 ## [3.3.1](https://github.com/neovici/cosmoz-image-viewer/compare/v3.3.0...v3.3.1) (2020-11-04)
 
 
