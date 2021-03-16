@@ -1,8 +1,4 @@
-
-import {
-	assertFuzzyMatch
-} from './helpers';
-import { makeMouseEvent } from '@polymer/iron-test-helpers/mock-interactions.js';
+import { assertFuzzyMatch } from './helpers';
 import '../lib/haunted-pan-zoom.js';
 import {
 	assert, fixtureSync, html, aTimeout
@@ -25,10 +21,10 @@ suite('haunted-pan-zoom', () => {
 	let el;
 
 	setup(async () => {
-		el = await fixtureSync(html`
+		el = fixtureSync(html`
 			<haunted-pan-zoom
 				style="width: 200px; height: 200px;"
-				src="/base/stories/images/cosmos1.jpg"
+				src="/stories/images/cosmos1.jpg"
 				zoom-stiffness="1"
 				pan-stiffness="1"
 			></haunted-pan-zoom>
@@ -38,10 +34,10 @@ suite('haunted-pan-zoom', () => {
 
 	test('displays the image centered', () => {
 		const img = el.shadowRoot.querySelector('img');
-		assert.include(img.src, '/base/stories/images/cosmos1.jpg');
+		assert.include(img.src, '/stories/images/cosmos1.jpg');
 		assertFuzzyMatch(img.getBoundingClientRect(), {
-			top: 43.75,
-			left: 0,
+			top: 51.75,
+			left: 8,
 			width: 200,
 			height: 112.5
 		});
@@ -56,15 +52,15 @@ suite('haunted-pan-zoom', () => {
 	});
 
 	test('changing src changes the image and centers it', async () => {
-		el.src = '/base/stories/images/cosmos2.jpg';
+		el.src = '/stories/images/cosmos2.jpg';
 
 		await loaded(el);
 
 		const img = el.shadowRoot.querySelector('img');
-		assert.include(img.src, '/base/stories/images/cosmos2.jpg');
+		assert.include(img.src, '/stories/images/cosmos2.jpg');
 		assertFuzzyMatch(img.getBoundingClientRect(), {
-			top: 0,
-			left: 0,
+			top: 8,
+			left: 8,
 			width: 200,
 			height: 200
 		});
@@ -77,8 +73,8 @@ suite('haunted-pan-zoom', () => {
 		await aTimeout();
 
 		assertFuzzyMatch(img.getBoundingClientRect(), {
-			top: -0.9,
-			left: -79.5,
+			top: 6.75,
+			left: -72,
 			width: 359,
 			height: 201.94
 		});
@@ -87,34 +83,41 @@ suite('haunted-pan-zoom', () => {
 		await aTimeout();
 
 		assertFuzzyMatch(img.getBoundingClientRect(), {
-			top: 43.75,
-			left: 0,
+			top: 51.75,
+			left: 8,
 			width: 200,
 			height: 112.5
 		});
 	});
 
 	test('handles mouse panning', async () => {
-		const img = el.shadowRoot.querySelector('img');
+		const img = el.shadowRoot.querySelector('img'),
+			evOpts = {
+				bubbles: true,
+				cancelable: true,
+				composed: true
+			};
 
-		makeMouseEvent('mousedown', {
-			x: 10,
-			y: 10
-		}, img);
+		img.dispatchEvent(new MouseEvent('mousedown', {
+			clientX: 10,
+			clientY: 10,
+			...evOpts
+		}));
 		await aTimeout();
 
-		makeMouseEvent('mousemove', {
-			x: 10,
-			y: 20
-		}, document);
+		img.dispatchEvent(new MouseEvent('mousemove', {
+			clientX: 10,
+			clientY: 20,
+			...evOpts
+		}));
 		await aTimeout();
 
-		makeMouseEvent('mouseup', {}, document);
+		img.dispatchEvent(new MouseEvent('mouseup', evOpts));
 		await aTimeout();
 
 		assertFuzzyMatch(img.getBoundingClientRect(), {
-			top: 53.75,
-			left: 0,
+			top: 61.75,
+			left: 8,
 			width: 200,
 			height: 112.5
 		});

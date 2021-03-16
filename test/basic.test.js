@@ -17,9 +17,9 @@ suite('cosmoz-image-viewer', () => {
 	setup(async () => {
 		imageViewer = await fixture(cosmozImageViewerFixture);
 		imageViewer.images = [
-			'/base/stories/images/stockholm.jpg',
-			'/base/stories/images/strasbourg.jpg',
-			'/base/stories/images/cosmos1.jpg'
+			'/stories/images/stockholm.jpg',
+			'/stories/images/strasbourg.jpg',
+			'/stories/images/cosmos1.jpg'
 		];
 		await aTimeout();
 	});
@@ -42,15 +42,15 @@ suite('cosmoz-image-viewer', () => {
 	});
 
 	test('currentImage is updated', () => {
-		assert.equal(imageViewer.currentImage, '/base/stories/images/stockholm.jpg');
+		assert.equal(imageViewer.currentImage, '/stories/images/stockholm.jpg');
 		imageViewer.nextImage();
-		assert.equal(imageViewer.currentImage, '/base/stories/images/strasbourg.jpg');
+		assert.equal(imageViewer.currentImage, '/stories/images/strasbourg.jpg');
 	});
 
 	test('_computeCurrentImage does not update currentImage if no images', () => {
-		assert.equal(imageViewer.currentImage, '/base/stories/images/stockholm.jpg');
+		assert.equal(imageViewer.currentImage, '/stories/images/stockholm.jpg');
 		imageViewer._computeCurrentImage(2, null);
-		assert.equal(imageViewer.currentImage, '/base/stories/images/stockholm.jpg');
+		assert.equal(imageViewer.currentImage, '/stories/images/stockholm.jpg');
 	});
 
 	test('openFullScreen creates dialog', () => {
@@ -128,8 +128,8 @@ suite('cosmoz-image-viewer-loading-error', () => {
 		imageViewer = await fixture(cosmozImageViewerFixture);
 		imageViewer.images = [
 			'xyz.jpg',
-			'/base/stories/images/stockholm.jpg',
-			'/base/stories/images/strasbourg.jpg'
+			'/stories/images/stockholm.jpg',
+			'/stories/images/strasbourg.jpg'
 		];
 		await aTimeout();
 	});
@@ -156,9 +156,9 @@ suite('cosmoz-image-viewer-overlay', () => {
 	setup(async () => {
 		overlay = await fixture(html`<cosmoz-image-viewer-overlay></cosmoz-image-viewer-overlay>`);
 		overlay.images = [
-			'/base/stories/images/stockholm.jpg',
-			'/base/stories/images/strasbourg.jpg',
-			'/base/stories/images/cosmos1.jpg'
+			'/stories/images/stockholm.jpg',
+			'/stories/images/strasbourg.jpg',
+			'/stories/images/cosmos1.jpg'
 		];
 	});
 
