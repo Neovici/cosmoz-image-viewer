@@ -9,6 +9,7 @@ export default {
 	nodeResolve: true,
 	coverageConfig: {
 		reportDir: 'coverage',
+		exclude: ['test/**/*.js'],
 		threshold: {
 			statements: 70,
 			branches: 70,
@@ -18,7 +19,7 @@ export default {
 	},
 	testFramework: {
 		config: {
-			ui: 'tdd',
+			ui: 'tdd'
 		}
 	},
 	files: [
