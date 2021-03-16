@@ -4,6 +4,7 @@ cosmoz-image-viewer
 [![Build Status](https://github.com/Neovici/cosmoz-image-viewer/workflows/Github%20CI/badge.svg)](https://github.com/Neovici/cosmoz-image-viewer/actions?workflow=Github+CI)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/Neovici/cosmoz-image-viewer)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![codecov](https://codecov.io/gh/Neovici/cosmoz-image-viewer/branch/master/graph/badge.svg?token=l5LdrbgSSe)](https://codecov.io/gh/Neovici/cosmoz-image-viewer)
 
 # &lt;cosmoz-image-viewer&gt;
 
