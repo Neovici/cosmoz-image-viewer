@@ -1,5 +1,3 @@
-
-
 import '../cosmoz-image-viewer.js';
 import {
 	assert, fixture, html
@@ -13,9 +11,9 @@ const createImageViewer = async () => {
 	const el = await fixture(html`<cosmoz-image-viewer show-zoom></cosmoz-image-viewer>`);
 
 	el.images = [
-		'/base/stories/images/stockholm.jpg',
-		'/base/stories/images/strasbourg.jpg',
-		'/base/stories/images/cosmos1.jpg'
+		'/stories/images/stockholm.jpg',
+		'/stories/images/strasbourg.jpg',
+		'/stories/images/cosmos1.jpg'
 	];
 
 	return el;
@@ -38,7 +36,7 @@ suite('cosmoz-image-viewer', () => {
 	});
 
 	teardown(() => {
-		imageViewer.window.close();
+		imageViewer.window?.close();
 	});
 
 	test('detaching works', () => {

@@ -5,7 +5,6 @@ import { useMousePan } from '../../lib/hooks/use-mouse-pan';
 import {
 	expect, fixture, aTimeout
 } from '@open-wc/testing';
-import { makeMouseEvent } from '@polymer/iron-test-helpers/mock-interactions.js';
 
 suite('use-mouse-pan', () => {
 	suiteSetup(() => {
@@ -24,29 +23,38 @@ suite('use-mouse-pan', () => {
 
 	test('it', async () => {
 		expect(text()).to.equal('init, 0, 0');
+		const evOpts = {
+			bubbles: true,
+			cancelable: true,
+			composed: true
+		};
 
-		makeMouseEvent('mousedown', {
-			x: 10,
-			y: 10
-		}, element.shadowRoot.firstElementChild);
+		element.shadowRoot.firstElementChild.dispatchEvent(new MouseEvent('mousedown', {
+			clientX: 10,
+			clientY: 10,
+			...evOpts
+		}));
 		await aTimeout(100);
 		expect(text()).to.equal('dragging, 0, 0');
 
-		makeMouseEvent('mousemove', {
-			x: 10,
-			y: 20
-		}, document);
+		document.dispatchEvent(new MouseEvent('mousemove', {
+			clientX: 10,
+			clientY: 20,
+			...evOpts
+		}));
 		await aTimeout();
 		expect(text()).to.equal('dragging, 0, 10');
 
-		makeMouseEvent('mousemove', {
-			x: 20,
-			y: 40
-		}, document);
+		document.dispatchEvent(new MouseEvent('mousemove', {
+			clientX: 20,
+			clientY: 40,
+			...evOpts
+		}));
 		await aTimeout();
 		expect(text()).to.equal('dragging, 10, 20');
 
-		makeMouseEvent('mouseup', {}, document);
+		document.dispatchEvent(new MouseEvent('mouseup', evOpts));
+
 		await aTimeout();
 		expect(text()).to.equal('init, 0, 0');
 	});
