@@ -1,3 +1,10 @@
+## [3.3.3](https://github.com/neovici/cosmoz-image-viewer/compare/v3.3.2...v3.3.3) (2021-08-11)
+
+
+### Bug Fixes
+
+* **pdf:** don't download pdf if empty ([cd69f4e](https://github.com/neovici/cosmoz-image-viewer/commit/cd69f4e66243bdb5381ccf67bb3da06508fc2307))
+
 ## [3.3.2](https://github.com/neovici/cosmoz-image-viewer/compare/v3.3.1...v3.3.2) (2021-02-17)
 
 
