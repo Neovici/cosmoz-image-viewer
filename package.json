@@ -31,7 +31,8 @@
 		"test:watch": "wtr --watch",
 		"storybook": "start-storybook --node-resolve --watch --open",
 		"storybook:build": "build-storybook",
-		"storybook:deploy": "storybook-to-ghpages"
+		"storybook:deploy": "storybook-to-ghpages",
+		"prepare": "husky install"
 	},
 	"release": {
 		"plugins": [
@@ -52,11 +53,6 @@
 			"@commitlint/config-conventional"
 		]
 	},
-	"husky": {
-		"hooks": {
-			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-		}
-	},
 	"dependencies": {
 		"@fabricelements/skeleton-carousel": "^3.0.2",
 		"@neovici/cosmoz-i18next": "^3.2.2",
@@ -72,21 +68,21 @@
 		"lit-html": "^1.3.0"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^12.0.0",
-		"@commitlint/config-conventional": "^12.0.0",
+		"@commitlint/cli": "^13.0.0",
+		"@commitlint/config-conventional": "^13.0.0",
 		"@neovici/eslint-config": "^1.3.0",
 		"@open-wc/demoing-storybook": "^2.4.5",
 		"@open-wc/testing": "^2.5.29",
 		"@semantic-release/changelog": "^5.0.1",
 		"@semantic-release/git": "^9.0.0",
-		"@storybook/storybook-deployer": "^2.8.7",
-		"@web/test-runner": "^0.12.17",
-		"@web/test-runner-selenium": "^0.5.1",
+		"@storybook/storybook-deployer": "^2.8.0",
+		"@web/test-runner": "^0.13.0",
+		"@web/test-runner-selenium": "^0.5.0",
 		"eslint": "^7.22.0",
-		"husky": "^4.3.0",
+		"husky": "^7.0.0",
 		"semantic-release": "^17.4.0",
-		"sinon": "^9.2.0",
-		"storybook-prebuilt": "^1.5.2",
+		"sinon": "^11.0.0",
+		"storybook-prebuilt": "^1.5.0",
 		"web-animations-js": "^2.3.1"
 	}
 }
