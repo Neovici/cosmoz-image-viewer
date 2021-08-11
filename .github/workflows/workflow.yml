@@ -63,5 +63,6 @@ jobs:
         run: npx semantic-release
         if: success()
         env:
+          HUSKY: 0
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
