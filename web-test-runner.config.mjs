@@ -1,6 +1,4 @@
-import {
-	chromeLauncher, defaultReporter
-} from '@web/test-runner';
+import { chromeLauncher } from '@web/test-runner';
 import { seleniumLauncher } from '@web/test-runner-selenium';
 import webdriver from 'selenium-webdriver';
 import firefox from 'selenium-webdriver/firefox.js';
@@ -9,7 +7,6 @@ export default {
 	nodeResolve: true,
 	coverageConfig: {
 		reportDir: 'coverage',
-		exclude: ['test/**/*.js'],
 		threshold: {
 			statements: 70,
 			branches: 70,
@@ -22,9 +19,7 @@ export default {
 			ui: 'tdd'
 		}
 	},
-	files: [
-		'test/**/*test.js'
-	],
+	files: ['**!(node_modules)/*.test.js'],
 	browsers: [
 		chromeLauncher(),
 		seleniumLauncher({
