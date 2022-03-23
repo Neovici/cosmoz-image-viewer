@@ -265,6 +265,11 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 				computed: '_computeShowActions(showPageNumber, images.length, _elementHeight)'
 			},
 
+			_showInterfaceButtons: {
+				type: Boolean,
+				value: false
+			},
+
 			_shortCutPrint: {
 				type: Boolean,
 				value: false
@@ -596,6 +601,19 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 			}
 		);
 
+	}
+
+	_onMouse(e) {
+		this._mouseDebouncer = Debouncer.debounce(
+			this._mouseDebouncer,
+			timeOut.after(200), () => {
+				this._showInterfaceButtons = e.type === 'mouseenter';
+			}
+		);
+	}
+
+	_hidePageNumber(showPageNumber, showInterfaceButtons) {
+		return !showPageNumber || !showInterfaceButtons;
 	}
 
 	_close() {
