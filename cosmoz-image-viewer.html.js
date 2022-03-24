@@ -144,7 +144,7 @@ export const template = html`
 	}
 </style>
 
-<div></div>
+<div>
 	<div class="nav counter" hidden$="[[!_showPageNumber]]">
 		[[selectedImageNumber]]/[[total]]
 	</div>
