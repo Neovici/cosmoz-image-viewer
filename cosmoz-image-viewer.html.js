@@ -144,52 +144,54 @@ export const template = html`
 	}
 </style>
 
-<div class="nav counter" hidden$="[[!_showPageNumber]]">
-	[[selectedImageNumber]]/[[total]]
-</div>
+<div></div>
+	<div class="nav counter" hidden$="[[!_showPageNumber]]">
+		[[selectedImageNumber]]/[[total]]
+	</div>
 
-<div class="actions layout horizontal center">
-	<paper-icon-button class="nav" hidden$="[[!_showNav]]" icon="icons:arrow-back" on-tap="previousImage">
-	</paper-icon-button>
-	<paper-icon-button class="nav" hidden$="[[!_showNav]]" icon="icons:arrow-forward" on-tap="nextImage">
-	</paper-icon-button>
-	<div class="flex"></div>
-	<paper-icon-button class="nav" hidden$="[[!_showZoom]]" on-click="zoomToggle" icon="[[_getZoomIcon(isZoomed)]]" title="[[ _('Zoom image', t) ]]">
-	</paper-icon-button>
-	<paper-icon-button class="nav" hidden$="[[!_showDetach]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]">
-	</paper-icon-button>
-	<paper-icon-button class="nav" on-click="onDownloadPdf" icon="icons:file-download" title="[[ _('Download images', t) ]]">
-	</paper-icon-button>
-	<paper-icon-button class="nav" on-click="onPrintPdf" icon="icons:print" title="[[ _('Print images', t) ]]">
-	</paper-icon-button>
-	<paper-icon-button class="nav" hidden$="[[!_showFullscreen]]" on-click="openFullscreen" icon="icons:fullscreen" title="[[ _('Fullscreen image', t) ]]">
-	</paper-icon-button>
-	<paper-icon-button class="nav" hidden$="[[!showClose]]" on-click="_close" icon="icons:close" title="[[ _('Close fullscreen', t) ]]">
-	</paper-icon-button>
-</div>
+	<div class="actions layout horizontal center">
+		<paper-icon-button class="nav" hidden$="[[!_showNav]]" icon="icons:arrow-back" on-tap="previousImage">
+		</paper-icon-button>
+		<paper-icon-button class="nav" hidden$="[[!_showNav]]" icon="icons:arrow-forward" on-tap="nextImage">
+		</paper-icon-button>
+		<div class="flex"></div>
+		<paper-icon-button class="nav" hidden$="[[!_showZoom]]" on-click="zoomToggle" icon="[[_getZoomIcon(isZoomed)]]" title="[[ _('Zoom image', t) ]]">
+		</paper-icon-button>
+		<paper-icon-button class="nav" hidden$="[[!_showDetach]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]">
+		</paper-icon-button>
+		<paper-icon-button class="nav" on-click="onDownloadPdf" icon="icons:file-download" title="[[ _('Download images', t) ]]">
+		</paper-icon-button>
+		<paper-icon-button class="nav" on-click="onPrintPdf" icon="icons:print" title="[[ _('Print images', t) ]]">
+		</paper-icon-button>
+		<paper-icon-button class="nav" hidden$="[[!_showFullscreen]]" on-click="openFullscreen" icon="icons:fullscreen" title="[[ _('Fullscreen image', t) ]]">
+		</paper-icon-button>
+		<paper-icon-button class="nav" hidden$="[[!showClose]]" on-click="_close" icon="icons:close" title="[[ _('Close fullscreen', t) ]]">
+		</paper-icon-button>
+	</div>
 
-<div id="imageContainer">
-	<p hidden$="[[_hideNoImageInfo]]">[[ _('No image loaded.', t) ]]</p>
-	<skeleton-carousel id="carousel" selected-item="{{selectedItem}}" dots="[[showDots]]" loop="[[loop]]" total="{{total}}" selected="{{currentImageIndex}}">
-		<template is="dom-repeat" items="[[ _resolvedImages ]]" as="image">
-			<div>
-				<div hidden class="error">
-					<h2>An error occurred while loading the image.</h2>
-					<div class="desc">[[image]]</div>
+	<div id="imageContainer">
+		<p hidden$="[[_hideNoImageInfo]]">[[ _('No image loaded.', t) ]]</p>
+		<skeleton-carousel id="carousel" selected-item="{{selectedItem}}" dots="[[showDots]]" loop="[[loop]]" total="{{total}}" selected="{{currentImageIndex}}">
+			<template is="dom-repeat" items="[[ _resolvedImages ]]" as="image">
+				<div>
+					<div hidden class="error">
+						<h2>An error occurred while loading the image.</h2>
+						<div class="desc">[[image]]</div>
+					</div>
+					<template is="dom-if" if="[[ _shouldLoad(currentImageIndex, index) ]]">
+						<haunted-pan-zoom hidden$="[[ !showZoom ]]" class="image-zoom" src$="[[image]]"
+							disabled$="[[ !isZoomed ]]"
+							on-zoom-changed="_onZoomChanged"
+							on-status-changed="_onStatusChanged">
+						</haunted-pan-zoom>
+						<iron-image hidden$="[[ showZoom ]]" prevent-load="[[ showZoom ]]" sizing="[[ sizing ]]"
+							class="image" src$="[[ image ]]" on-error-changed="_onImageError">
+						</iron-image>
+					</template>
 				</div>
-				<template is="dom-if" if="[[ _shouldLoad(currentImageIndex, index) ]]">
-					<haunted-pan-zoom hidden$="[[ !showZoom ]]" class="image-zoom" src$="[[image]]"
-						disabled$="[[ !isZoomed ]]"
-						on-zoom-changed="_onZoomChanged"
-						on-status-changed="_onStatusChanged">
-					</haunted-pan-zoom>
-					<iron-image hidden$="[[ showZoom ]]" prevent-load="[[ showZoom ]]" sizing="[[ sizing ]]"
-						class="image" src$="[[ image ]]" on-error-changed="_onImageError">
-					</iron-image>
-				</template>
-			</div>
-		</template>
-	</skeleton-carousel>
+			</template>
+		</skeleton-carousel>
+	</div>
 </div>
 
 <template id="externalWindow" preserve-content="">
