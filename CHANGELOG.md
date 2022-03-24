@@ -1,3 +1,16 @@
+# [3.4.0](https://github.com/neovici/cosmoz-image-viewer/compare/v3.3.3...v3.4.0) (2022-03-24)
+
+
+### Bug Fixes
+
+* div ([38369d2](https://github.com/neovici/cosmoz-image-viewer/commit/38369d27e70bebf3cd2dcefe73ded3474a1e6db0))
+* small fix ([17ad1bf](https://github.com/neovici/cosmoz-image-viewer/commit/17ad1bf6ad8e248623bf07a316797cac2c0f4da1))
+
+
+### Features
+
+* **hide buttons:** only show on hover ([742252d](https://github.com/neovici/cosmoz-image-viewer/commit/742252ded445ae862fcaffbfad823e354e988d7a))
+
 ## [3.3.3](https://github.com/neovici/cosmoz-image-viewer/compare/v3.3.2...v3.3.3) (2021-08-11)
 
 
