@@ -63,6 +63,14 @@ export const template = html`
 		border-radius: 20px;
 		margin: 3px;
 	}
+	
+	.nav:not(:hover) {
+		visibility: hidden;
+	}
+
+	div:hover .nav {
+		visibility: visible;
+	}
 
 	#carousel {
 		--skeleton-carousel-item-selected: {
