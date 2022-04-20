@@ -16,7 +16,8 @@ export default {
 	},
 	testFramework: {
 		config: {
-			ui: 'tdd'
+			ui: 'tdd',
+			timeout: 20000
 		}
 	},
 	files: ['**!(node_modules)/*.test.js'],

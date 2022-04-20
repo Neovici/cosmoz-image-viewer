@@ -1,5 +1,5 @@
 import {
-	assert, fixture, html, aTimeout
+	assert, fixture, html, aTimeout, nextFrame
 } from '@open-wc/testing';
 
 import '../cosmoz-image-viewer.js';
@@ -21,36 +21,31 @@ suite('cosmoz-image-viewer', () => {
 			'/stories/images/strasbourg.jpg',
 			'/stories/images/cosmos1.jpg'
 		];
-		await aTimeout();
+		await nextFrame();
 	});
 
 	test('nextImage updates selected', async () => {
 		assert.equal(imageViewer.selectedImageNumber, 1);
 		imageViewer.nextImage();
-		await aTimeout(50);
+		await nextFrame();
 		assert.equal(imageViewer.selectedImageNumber, 2);
 	});
 
 	test('previousImage updates selected', async () => {
 		imageViewer.nextImage();
+
+		await nextFrame();
 		assert.equal(imageViewer.selectedImageNumber, 2);
+
 		imageViewer.nextImage();
+
+		await nextFrame();
 		assert.equal(imageViewer.selectedImageNumber, 3);
+
 		imageViewer.previousImage();
-		await aTimeout(50);
+		await nextFrame();
+
 		assert.equal(imageViewer.selectedImageNumber, 2);
-	});
-
-	test('currentImage is updated', () => {
-		assert.equal(imageViewer.currentImage, '/stories/images/stockholm.jpg');
-		imageViewer.nextImage();
-		assert.equal(imageViewer.currentImage, '/stories/images/strasbourg.jpg');
-	});
-
-	test('_computeCurrentImage does not update currentImage if no images', () => {
-		assert.equal(imageViewer.currentImage, '/stories/images/stockholm.jpg');
-		imageViewer._computeCurrentImage(2, null);
-		assert.equal(imageViewer.currentImage, '/stories/images/stockholm.jpg');
 	});
 
 	test('openFullScreen creates dialog', () => {
@@ -66,7 +61,7 @@ suite('cosmoz-image-viewer', () => {
 	});
 
 	test('pdf creation works', async () => {
-		const blob = await imageViewer.downloadPdf(imageViewer._resolvedImages);
+		const blob = await imageViewer.downloadPdf(imageViewer.images);
 		assert.isAbove(blob.size, 10000);
 	});
 
@@ -77,19 +72,6 @@ suite('cosmoz-image-viewer', () => {
 		});
 		imageViewer._close();
 		assert.isTrue(called);
-	});
-
-	test('_selectedItemChanged handles undefined', () => {
-		const selected = imageViewer.selectedItem;
-		imageViewer._selectedItemChanged();
-		assert.isDefined(imageViewer.selectedItem);
-		assert.equal(selected, imageViewer.selectedItem);
-	});
-
-	test('_imageListChanged sets _resolvedImages if no images', () => {
-		assert.equal(imageViewer._resolvedImages.length, 3);
-		imageViewer.images = [];
-		assert.equal(imageViewer._resolvedImages.length, 0);
 	});
 });
 
@@ -121,7 +103,7 @@ suite('cosmoz-image-viewer-no-images', () => {
 
 suite('cosmoz-image-viewer-loading-error', () => {
 	let imageViewer;
-	const errorDiv = () => imageViewer.carousel.selectedItem.querySelector('.error'),
+	const errorDiv = () => imageViewer.$.slider.querySelector('.error'),
 		displayNone = element => element.offsetParent === null || element.getAttribute('hidden') === 'true';
 
 	setup(async () => {
@@ -131,21 +113,20 @@ suite('cosmoz-image-viewer-loading-error', () => {
 			'/stories/images/stockholm.jpg',
 			'/stories/images/strasbourg.jpg'
 		];
-		await aTimeout();
+		await nextFrame();
 	});
 
 	test('error is shown', async () => {
-		imageViewer.currentImageIndex = 0;
 		const errEl = errorDiv();
 		await aTimeout(500);
 		assert.equal(displayNone(errEl), false);
 	});
 
 	test('error is hidden if next image loaded successfully', async () => {
-		imageViewer.currentImageIndex = 0;
-		imageViewer.currentImageIndex = 1;
-		const errEl = errorDiv();
+		imageViewer.nextImage();
+		await nextFrame();
 		await aTimeout(500);
+		const errEl = errorDiv();
 		assert.equal(displayNone(errEl), true);
 	});
 });

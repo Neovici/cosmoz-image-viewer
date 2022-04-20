@@ -54,11 +54,10 @@
 		]
 	},
 	"dependencies": {
-		"@fabricelements/skeleton-carousel": "^3.0.2",
 		"@neovici/cosmoz-i18next": "^3.2.2",
-		"@neovici/cosmoz-utils": "^3.13.0",
+		"@neovici/cosmoz-slider": "^2.1.0",
+		"@neovici/cosmoz-utils": "^3.29.0",
 		"@polymer/iron-icons": "^3.0.0",
-		"@polymer/iron-image": "^3.0.0",
 		"@polymer/iron-overlay-behavior": "^3.0.0",
 		"@polymer/paper-icon-button": "^3.0.0",
 		"@polymer/polymer": "^3.4.1",
