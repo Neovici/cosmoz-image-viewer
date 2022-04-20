@@ -15,8 +15,12 @@ class CosmozImageViewerOverlay extends mixinBehaviors([IronOverlayBehavior], Pol
 							height: 100vh;
 							width: 100vw;
 					}
+					cosmoz-image-viewer {
+						height: 100%;
+					}
 			</style>
 			<cosmoz-image-viewer
+				id="viewer"
 				on-track="_trackHandler" on-close-tapped="close"
 				images="[[images]]" sizing="contain"
 				credentials="[[credentials]]" current-image-index="{{currentImageIndex}}"

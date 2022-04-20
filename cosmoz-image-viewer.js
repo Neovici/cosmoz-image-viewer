@@ -1,17 +1,16 @@
 /* eslint-disable max-lines, max-len */
 import { PolymerElement } from '@polymer/polymer/polymer-element';
-import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
-import { timeOut } from '@polymer/polymer/lib/utils/async';
 import { translatable } from '@neovici/cosmoz-i18next';
 import { download } from './lib/pdf';
 import { template } from './cosmoz-image-viewer.html';
+import { hauntedPolymer } from '@neovici/cosmoz-utils';
+import { appendScriptsToWindow } from './lib/utils';
+import { useCosmozImageViewer } from './lib/hooks/use-cosmoz-image-viewer';
 
 const globals = {
 	window: null,
 	windowOpener: null
 };
-
-let imageOverlay;
 
 /**
 `cosmoz-image-viewer` is an element for displaying images in a carousel while being able to detach the currently
@@ -29,7 +28,7 @@ so a user can swipe to the next image.
 @demo demo/index.html
 @appliesMixin translatable
 */
-class CosmozImageViewer extends translatable(PolymerElement) {
+class CosmozImageViewer extends hauntedPolymer(useCosmozImageViewer)(translatable(PolymerElement)) {
 	static get template() { // eslint-disable-line max-lines-per-function
 		return template;
 	}
@@ -40,14 +39,6 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 
 	static get properties() { // eslint-disable-line max-lines-per-function
 		return {
-			/**
-			 * The url of the currenly selected image.
-			 */
-			currentImage: {
-				type: String,
-				notify: true,
-				computed: '_computeCurrentImage(currentImageIndex, images)'
-			},
 			/**
 			 * The index in the images array of the currently selected image.
 			 */
@@ -99,14 +90,6 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 				computed: '_getTitle(title, _defaultDetachedWindowTitle)'
 			},
 			/**
-			 * Like currentImageIndex but starts at 1 instead of 0.
-			 */
-			selectedImageNumber: {
-				type: Number,
-				notify: true,
-				computed: '_computeSelectedImageNumber(currentImageIndex, total)'
-			},
-			/**
 			 * If true, the detached window is open.
 			 */
 			isDetached: {
@@ -125,34 +108,9 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 				type: Array,
 				value() {
 					return [];
-				},
-				observer: () => {
-					this.currentImageIndex = 0;
 				}
 			},
 
-			_resolvedImages: {
-				type: Array,
-				computed: '_resolveImages(images)'
-			},
-
-			sizing: {
-				type: String
-			},
-			/**
-			 * The selected slide in the carousel
-			 */
-			selectedItem: {
-				type: Object,
-				observer: '_selectedItemChanged'
-			},
-			/**
-			 * If true, the current image is zoomed.
-			 */
-			isZoomed: {
-				type: Boolean,
-				value: false
-			},
 			/**
 			* If true, navigation next/prev buttons are visible.
 			*/
@@ -227,13 +185,7 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 				type: String,
 				value: 'archive'
 			},
-
 			// Private
-
-			_elementHeight: {
-				type: Number,
-				value: 0
-			},
 
 			_hideNoImageInfo: {
 				type: Boolean,
@@ -242,42 +194,35 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 
 			_showNav: {
 				type: Boolean,
-				computed: '_computeShowActions(showNav, images.length, _elementHeight, 2)'
+				computed: '_computeShowActions(showNav, images.length, 2)'
 			},
 
 			_showZoom: {
 				type: Boolean,
-				computed: '_computeShowActions(showZoom, images.length, _elementHeight)'
+				computed: '_computeShowActions(showZoom, images.length)'
 			},
 
 			_showDetach: {
 				type: Boolean,
-				computed: '_computeShowActions(showDetach, images.length, _elementHeight)'
+				computed: '_computeShowActions(showDetach, images.length)'
 			},
 
 			_showFullscreen: {
 				type: Boolean,
-				computed: '_computeShowActions(showFullscreen, images.length, _elementHeight)'
+				computed: '_computeShowActions(showFullscreen, images.length)'
 			},
 
 			_showPageNumber: {
 				type: Boolean,
-				computed: '_computeShowActions(showPageNumber, images.length, _elementHeight)'
-			},
-
-			_shortCutPrint: {
-				type: Boolean,
-				value: false
+				computed: '_computeShowActions(showPageNumber, images.length)'
 			}
 		};
 	}
 
 	constructor() {
 		super();
-		this._syncImageIndexBound = this._syncImageIndex.bind(this);
-		this._onOverlayDetachIntentBound = this._onOverlayDetachIntent.bind(this);
-		this._onOverlayClosedBound = this._onOverlayClosed.bind(this);
-		this._resizeObserver = new ResizeObserver(this._onResize.bind(this));
+		this._onOverlayDetachIntent = this._onOverlayDetachIntent.bind(this);
+		this._onOverlayClosed = this._onOverlayClosed.bind(this);
 	}
 
 	/** ELEMENT LIFECYCLE */
@@ -295,46 +240,19 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 
 	connectedCallback() {
 		super.connectedCallback();
-		this._resizeObserver.observe(this);
 		this.addEventListener('dblclick', this._dblClickListner);
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		this._resizeObserver.unobserve(this);
 		this.removeEventListener('dblclick', this._dblClickListner);
 
-		if (imageOverlay) {
-			this._setupDialogEvents(false);
+		if (this.imageOverlay) {
+			this._onOverlayClosed();
 		}
-
-		this._heightDebouncer?.cancel();
 	}
 
 	/** PUBLIC */
-
-	get imageOverlay() {
-		return imageOverlay;
-	}
-
-	get carousel() {
-		return this.shadowRoot.querySelector('#carousel');
-	}
-
-	/**
-	 * Triggers the slide to the next image.
-	 * @returns {undefined}
-	 */
-	nextImage() {
-		this.carousel.next();
-	}
-	/**
-	 * Triggers the slide to the previous image.
-	 * @returns {undefined}
-	 */
-	previousImage() {
-		this.carousel.prev();
-	}
 
 	_createImageOverlay() {
 		const dialog = document.createElement('cosmoz-image-viewer-overlay');
@@ -342,8 +260,9 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 		dialog.noCancelOnOutsideClick = true;
 		dialog.loop = this.loop;
 		dialog.showDetach = this.showDetach;
+		dialog.currentImageIndex = this.currentImageIndex;
+		dialog.images = this.images;
 		document.body.appendChild(dialog);
-		imageOverlay = dialog;
 		return dialog;
 	}
 
@@ -352,31 +271,27 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 	 * @returns {undefined}
 	 */
 	openFullscreen() {
-		const dialog = imageOverlay || this._createImageOverlay();
-		dialog.images = this.images;
-		dialog.currentImageIndex = this.currentImageIndex;
-		dialog.open();
+		this.imageOverlay = this._createImageOverlay();
+		this.imageOverlay.open();
 		this._setupDialogEvents(true);
 	}
 
 	_setupDialogEvents(on) {
-		const f = (on ? imageOverlay.addEventListener : imageOverlay.removeEventListener).bind(imageOverlay);
-		f('current-image-index-changed', this._syncImageIndexBound);
-		f('detach-intent', this._onOverlayDetachIntentBound);
-		f('iron-overlay-closed', this._onOverlayClosedBound);
-	}
-
-	_syncImageIndex(event) {
-		this.currentImageIndex = event.detail.value;
+		const f = (on ? this.imageOverlay.addEventListener : this.imageOverlay.removeEventListener).bind(this.imageOverlay);
+		f('current-image-index-changed', this._syncImageIndex);
+		f('detach-intent', this._onOverlayDetachIntent);
+		f('iron-overlay-closed', this._onOverlayClosed);
 	}
 
 	_onOverlayDetachIntent() {
-		imageOverlay.close();
+		this.imageOverlay.close();
 		this.detach();
 	}
 
 	_onOverlayClosed() {
 		this._setupDialogEvents(false);
+		this.imageOverlay.parentElement.removeChild(this.imageOverlay);
+		this.imageOverlay = undefined;
 	}
 
 	/**
@@ -415,12 +330,13 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 		return this._detachToNewWindow();
 	}
 
+	// eslint-disable-next-line max-statements
 	_detachToNewWindow() {
 		const
 			w = globals.window = window.open(undefined, this.detachedWindowName, this._detachedWindowFeaturesString),
 			windowTemplate = this.shadowRoot.querySelector('#externalWindow'),
 			windowTemplateClone = windowTemplate.content.cloneNode(true),
-			setImages = () => w.ciw.setImages(this._resolvedImages, this.currentImageIndex);
+			setImages = () => w.ciw.setImages(this.images, this.currentImageIndex);
 
 		if (w == null) {
 			// if window.open() is blocked (popup blocked, not emited by native user triggered event)
@@ -452,7 +368,7 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 
 		if (w.ciw == null) {
 			w.addEventListener('ready', () => setImages());
-			this._appendScriptsToWindow(windowTemplateClone.childNodes, w);
+			appendScriptsToWindow(windowTemplateClone.childNodes, w);
 
 		} else {
 			setImages();
@@ -461,24 +377,9 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 		return w;
 	}
 
-	_appendScriptsToWindow(nodes, w) {
-		Array.from(nodes)
-			.forEach(node => {
-				if (node.tagName === 'SCRIPT') {
-					// Needed for Firefox
-					// otherwise the script would not be evaluated
-					const sc = document.createElement('script');
-					sc.innerHTML = node.innerHTML;
-					w.document.body.appendChild(sc);
-					return;
-				}
-				w.document.body.appendChild(node);
-			});
-	}
-
 	_detachToExistingWindow() {
 		globals.window.document.title = this._detachedWindowTitle;
-		globals.window.ciw.setImages(this._resolvedImages, this.currentImageIndex);
+		globals.window.ciw.setImages(this.images, this.currentImageIndex);
 		globals.window.focus();
 		return globals.window;
 	}
@@ -497,7 +398,7 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 		}
 	}
 	async onDownloadPdf() {
-		await this.downloadPdf(this._resolvedImages);
+		await this.downloadPdf(this.images);
 	}
 	async downloadPdf(urls) {
 		return await download(urls, this.downloadFileName, this.credentials);
@@ -514,7 +415,7 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 	 * @returns {undefined}
 	 */
 	zoomToggle() {
-		const el = this.carousel.selectedItem.querySelector('haunted-pan-zoom');
+		const el = this.$.slider.querySelector('haunted-pan-zoom');
 
 		if (el.zoom > 1) {
 			return el.zoomTo(1);
@@ -525,41 +426,13 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 	/** ELEMENT BEHAVIOR */
 
 	_computeDetachedWindowFeaturesString(featues = {}) {
-		return Object.keys(featues)
-			.map(key => key + '=' + featues[key])
+		return Object.entries(featues)
+			.map(([key, value]) => key + '=' + value)
 			.join(',');
 	}
 
-	_computeShowActions(show, imagesLen, height, imgsMinLen = 1) {
-		const heightOk = height ? height > 100 : true;
-		return show ? imagesLen >= imgsMinLen && heightOk : false;
-	}
-
-	_onImageError(e) {
-		if (!e.currentTarget.parentElement) {
-			return;
-		}
-
-		const errorContainer = e.currentTarget.parentElement.querySelector('.error');
-		if (e.detail.value) {
-			errorContainer.removeAttribute('hidden');
-			return;
-		}
-		errorContainer.setAttribute('hidden', true);
-	}
-
-	_selectedItemChanged(selectedItem) {
-		if (!selectedItem) {
-			return;
-		}
-
-		const panZoom = selectedItem.querySelector('haunted-pan-zoom');
-
-		if (!panZoom) {
-			return;
-		}
-		this.isZoomed = panZoom.zoom > 1;
-		panZoom.resize(); // NOTE: to be removed when ResizeObserver is available
+	_computeShowActions(show, imagesLen, imgsMinLen = 1) {
+		return show ? imagesLen >= imgsMinLen : false;
 	}
 
 	_getZoomIcon(zoomed) {
@@ -570,68 +443,8 @@ class CosmozImageViewer extends translatable(PolymerElement) {
 		return title1 || title2;
 	}
 
-	_computeCurrentImage(index, array) {
-		if (!array) {
-			return;
-		}
-		return array[index];
-	}
-
-	_computeSelectedImageNumber(index, total) {
-		if (!total) {
-			return 0;
-		}
-		return index + 1;
-	}
-
-	_onResize([entry]) {
-		const height = entry.borderBoxSize?.[0]?.blockSize ?? entry.contentRect?.height;
-		if (height === 0) {
-			return;
-		}
-		this._heightDebouncer = Debouncer.debounce(
-			this._heightDebouncer,
-			timeOut.after(50), () => {
-				this._elementHeight = height;
-			}
-		);
-
-	}
-
 	_close() {
 		this.dispatchEvent(new CustomEvent('close-tapped'));
-	}
-
-	_resolveImages(images) {
-		return images.map(i => this.resolveUrl(i));
-	}
-
-	_onZoomChanged(ev) {
-		if (!ev.target.src.includes(this.currentImage)) {
-			return;
-		}
-
-		if (ev.detail.value > 1) {
-			this.isZoomed = true;
-		} else {
-			this.isZoomed = false;
-		}
-	}
-
-	_onStatusChanged(ev) {
-		if (ev.detail.value === 'error') {
-			this._onImageError(ev);
-		}
-	}
-
-	_shouldLoad(currentImageIndex, index) {
-		/*
-		 * Workaround for https://github.com/Neovici/cosmoz-image-viewer/issues/21
-		 * Changing the images array updates the `data-src` attribute on the items,
-		 * but if the new array has the same number of items, then the `data-src` is
-		 * not set as `src`.
-		 */
-		return Math.abs(currentImageIndex - index) <= 1;
 	}
 }
 

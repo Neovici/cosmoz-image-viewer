@@ -5,12 +5,12 @@ import { html } from '@polymer/polymer/lib/utils/html-tag';
 import '@webcomponents/shadycss/entrypoints/apply-shim';
 
 import '@polymer/iron-icons';
-import '@polymer/iron-image';
 import '@polymer/paper-icon-button';
-import '@fabricelements/skeleton-carousel';
 
 import './cosmoz-image-viewer-overlay.js';
 import './lib/haunted-pan-zoom';
+
+import '@neovici/cosmoz-slider';
 
 export const template = html`
 <style>
@@ -29,8 +29,8 @@ export const template = html`
 	.flex { flex: auto; }
 
 	#imageContainer {
+		height: 100%;
 		overflow-y: auto;
-		will-change: transform;
 	}
 
 	.actions {
@@ -68,51 +68,13 @@ export const template = html`
 		visibility: hidden;
 	}
 
-	div:hover .nav {
+	:host(:hover) .nav {
 		visibility: visible;
-	}
-
-	#carousel {
-		--skeleton-carousel-item-selected: {
-			height: auto;
-			text-align: center;
-		};
-
-		--skeleton-carousel-item: {
-			height: 0;
-			text-align: center;
-		};
-
-		--skeleton-carousel-nav: {
-			background-color: rgba(0, 0, 0, 0.44);
-			color: rgba(255, 255, 255, 0.87);
-			top: 12px;
-			position: absolute;
-		};
-
-		--skeleton-carousel-nav-disabled: {
-			/* otherwise fullscreen gets triggerd on tap */
-			pointer-events: all !important;
-		};
-
-		--skeleton-carousel-nav-next: {
-			left: 56px;
-		};
-
-		--skeleton-carousel-nav-prev: {
-			left: 12px;
-		};
-
-		--skeleton-carousel-controls: {
-			padding: 0;
-		}
 	}
 
 	.image {
 		background-color: gray;
 		pointer-events: none;
-		--iron-image-width: 100%;
-		--iron-image-height: auto;
 		/* Needed to override Chrome 73+ handling of iron-image overflow hidden */
 		overflow: visible;
 		@apply --cosmoz-image-viewer-image;
@@ -134,6 +96,7 @@ export const template = html`
 		transform: translate(-50%, -50%);
 		color: white;
 		z-index: +1;
+		text-align: center;
 		@apply --cosmoz-image-viewer-error;
 	}
 
@@ -142,56 +105,41 @@ export const template = html`
 		opacity: 0.8;
 		font-size: 0.8em;
 	}
+
+	cosmoz-slider { 
+		min-height: 150px;
+		overflow-y: auto !important;
+		height:100%;
+	}
 </style>
 
-<div>
-	<div class="nav counter" hidden$="[[!_showPageNumber]]">
-		[[selectedImageNumber]]/[[total]]
-	</div>
+<div class="nav counter" hidden$="[[!_showPageNumber]]">
+	[[selectedImageNumber]]/[[total]]
+</div>
 
-	<div class="actions layout horizontal center">
-		<paper-icon-button class="nav" hidden$="[[!_showNav]]" icon="icons:arrow-back" on-tap="previousImage">
-		</paper-icon-button>
-		<paper-icon-button class="nav" hidden$="[[!_showNav]]" icon="icons:arrow-forward" on-tap="nextImage">
-		</paper-icon-button>
-		<div class="flex"></div>
-		<paper-icon-button class="nav" hidden$="[[!_showZoom]]" on-click="zoomToggle" icon="[[_getZoomIcon(isZoomed)]]" title="[[ _('Zoom image', t) ]]">
-		</paper-icon-button>
-		<paper-icon-button class="nav" hidden$="[[!_showDetach]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]">
-		</paper-icon-button>
-		<paper-icon-button class="nav" on-click="onDownloadPdf" icon="icons:file-download" title="[[ _('Download images', t) ]]">
-		</paper-icon-button>
-		<paper-icon-button class="nav" on-click="onPrintPdf" icon="icons:print" title="[[ _('Print images', t) ]]">
-		</paper-icon-button>
-		<paper-icon-button class="nav" hidden$="[[!_showFullscreen]]" on-click="openFullscreen" icon="icons:fullscreen" title="[[ _('Fullscreen image', t) ]]">
-		</paper-icon-button>
-		<paper-icon-button class="nav" hidden$="[[!showClose]]" on-click="_close" icon="icons:close" title="[[ _('Close fullscreen', t) ]]">
-		</paper-icon-button>
-	</div>
+<div class="actions layout horizontal center">
+	<paper-icon-button class="nav" hidden$="[[!_showNav]]" icon="icons:arrow-back" on-tap="previousImage">
+	</paper-icon-button>
+	<paper-icon-button class="nav" hidden$="[[!_showNav]]" icon="icons:arrow-forward" on-tap="nextImage">
+	</paper-icon-button>
+	<div class="flex"></div>
+	<paper-icon-button class="nav" hidden$="[[!_showZoom]]" on-click="zoomToggle" icon="[[_getZoomIcon(isZoomed)]]" title="[[ _('Zoom image', t) ]]">
+	</paper-icon-button>
+	<paper-icon-button class="nav" hidden$="[[!_showDetach]]" on-click="detach" icon="launch" title="[[ _('Detach image to separate window', t) ]]">
+	</paper-icon-button>
+	<paper-icon-button class="nav" on-click="onDownloadPdf" icon="icons:file-download" title="[[ _('Download images', t) ]]">
+	</paper-icon-button>
+	<paper-icon-button class="nav" on-click="onPrintPdf" icon="icons:print" title="[[ _('Print images', t) ]]">
+	</paper-icon-button>
+	<paper-icon-button class="nav" hidden$="[[!_showFullscreen]]" on-click="openFullscreen" icon="icons:fullscreen" title="[[ _('Fullscreen image', t) ]]">
+	</paper-icon-button>
+	<paper-icon-button class="nav" hidden$="[[!showClose]]" on-click="_close" icon="icons:close" title="[[ _('Close fullscreen', t) ]]">
+	</paper-icon-button>
+</div>
 
-	<div id="imageContainer">
-		<p hidden$="[[_hideNoImageInfo]]">[[ _('No image loaded.', t) ]]</p>
-		<skeleton-carousel id="carousel" selected-item="{{selectedItem}}" dots="[[showDots]]" loop="[[loop]]" total="{{total}}" selected="{{currentImageIndex}}">
-			<template is="dom-repeat" items="[[ _resolvedImages ]]" as="image">
-				<div>
-					<div hidden class="error">
-						<h2>An error occurred while loading the image.</h2>
-						<div class="desc">[[image]]</div>
-					</div>
-					<template is="dom-if" if="[[ _shouldLoad(currentImageIndex, index) ]]">
-						<haunted-pan-zoom hidden$="[[ !showZoom ]]" class="image-zoom" src$="[[image]]"
-							disabled$="[[ !isZoomed ]]"
-							on-zoom-changed="_onZoomChanged"
-							on-status-changed="_onStatusChanged">
-						</haunted-pan-zoom>
-						<iron-image hidden$="[[ showZoom ]]" prevent-load="[[ showZoom ]]" sizing="[[ sizing ]]"
-							class="image" src$="[[ image ]]" on-error-changed="_onImageError">
-						</iron-image>
-					</template>
-				</div>
-			</template>
-		</skeleton-carousel>
-	</div>
+<div id="imageContainer">
+	<p hidden$="[[_hideNoImageInfo]]">[[ _('No image loaded.', t) ]]</p>
+	<cosmoz-slider id="slider" slide="[[ currentSlide ]]"></cosmoz-slider>
 </div>
 
 <template id="externalWindow" preserve-content="">
