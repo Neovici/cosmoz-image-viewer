@@ -1,3 +1,13 @@
+# [4.0.0](https://github.com/neovici/cosmoz-image-viewer/compare/v3.4.0...v4.0.0) (2022-04-20)
+
+
+* feat!: replace skeleton-carousel with cosmoz-slider ([91d1664](https://github.com/neovici/cosmoz-image-viewer/commit/91d166424125b5f69d1ac783d6f8285d54b33f86))
+
+
+### BREAKING CHANGES
+
+* dropped show-dots and currentImage
+
 # [3.4.0](https://github.com/neovici/cosmoz-image-viewer/compare/v3.3.3...v3.4.0) (2022-03-24)
 
 
