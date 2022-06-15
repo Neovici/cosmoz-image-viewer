@@ -1,3 +1,1 @@
-import cfg from '@neovici/cfg/web/test-runner.mjs';
-
-export default cfg;
+export { default } from '@neovici/cfg/web/test-runner.mjs';
