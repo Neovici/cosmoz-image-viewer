@@ -1,6 +1,6 @@
 {
 	"name": "@neovici/cosmoz-image-viewer",
-	"version": "5.0.0-beta.1",
+	"version": "5.0.0",
 	"description": "[![Build Status](https://travis-ci.org/Neovici/cosmoz-image-viewer.svg?branch=master)](https://travis-ci.org/Neovici/cosmoz-image-viewer)",
 	"keywords": [
 		"polymer",
@@ -52,7 +52,11 @@
 			"@commitlint/config-conventional"
 		],
 		"rules": {
-			"body-max-line-length": [1, "always", 100]
+			"body-max-line-length": [
+				1,
+				"always",
+				100
+			]
 		}
 	},
 	"dependencies": {

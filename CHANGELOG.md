@@ -1,3 +1,16 @@
+# [5.0.0](https://github.com/neovici/cosmoz-image-viewer/compare/v4.0.0...v5.0.0) (2022-06-22)
+
+
+### Features
+
+* upgrade to lit@^2 ([75643d2](https://github.com/neovici/cosmoz-image-viewer/commit/75643d2515a01a497bd05b48da5378be2314dc02))
+* upgrade to lit2 ([8819bc5](https://github.com/neovici/cosmoz-image-viewer/commit/8819bc5e55db258c26323c36445f419acb8366c1))
+
+
+### BREAKING CHANGES
+
+* Upgrade to lit2
+
 # [5.0.0-beta.1](https://github.com/neovici/cosmoz-image-viewer/compare/v4.0.0...v5.0.0-beta.1) (2022-06-16)
 
 
