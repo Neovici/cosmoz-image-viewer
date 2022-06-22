@@ -8,7 +8,7 @@ import sinon from 'sinon';
 
 const cosmozImageViewerFixture = html`<cosmoz-image-viewer show-zoom></cosmoz-image-viewer>`;
 
-sinon.assert.expose(chai.assert, { prefix: '' });
+sinon.assert.expose(assert, { prefix: '' });
 
 // eslint-disable-next-line max-lines-per-function
 suite('cosmoz-image-viewer', () => {

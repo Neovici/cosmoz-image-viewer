@@ -5,7 +5,7 @@ import {
 
 import sinon from 'sinon';
 
-sinon.assert.expose(chai.assert, { prefix: '' });
+sinon.assert.expose(assert, { prefix: '' });
 
 const createImageViewer = async () => {
 	const el = await fixture(html`<cosmoz-image-viewer show-zoom></cosmoz-image-viewer>`);
