@@ -50,7 +50,10 @@
 	"commitlint": {
 		"extends": [
 			"@commitlint/config-conventional"
-		]
+		],
+		"rules": {
+			"body-max-line-length": [1, "always", 100]
+		}
 	},
 	"dependencies": {
 		"@neovici/cfg": "^1.13.1",
