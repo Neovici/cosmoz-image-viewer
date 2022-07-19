@@ -1,3 +1,15 @@
+# [6.0.0](https://github.com/neovici/cosmoz-image-viewer/compare/v5.0.0...v6.0.0) (2022-07-19)
+
+
+### Features
+
+* **deps:** upgrade cosmoz-utils ([92184ab](https://github.com/neovici/cosmoz-image-viewer/commit/92184abbba8fc744167b0a30911d1479f7923a5f))
+
+
+### BREAKING CHANGES
+
+* **deps:** cosmoz-utils upgrade.
+
 # [5.0.0](https://github.com/neovici/cosmoz-image-viewer/compare/v4.0.0...v5.0.0) (2022-06-22)
 
 
