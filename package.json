@@ -82,7 +82,7 @@
 		"@web/dev-server": "^0.1.31",
 		"@web/dev-server-storybook": "^0.5.1",
 		"husky": "^8.0.0",
-		"semantic-release": "^19.0.0",
+		"semantic-release": "^21.0.7",
 		"sinon": "^14.0.0"
 	}
 }
