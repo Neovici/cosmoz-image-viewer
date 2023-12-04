@@ -60,7 +60,7 @@
 		}
 	},
 	"dependencies": {
-		"@neovici/cfg": "^1.13.1",
+		"@neovici/cfg": "^1.42.0",
 		"@neovici/cosmoz-i18next": "^3.2.2",
 		"@neovici/cosmoz-slider": "^4.0.0",
 		"@neovici/cosmoz-utils": "^5.0.0",

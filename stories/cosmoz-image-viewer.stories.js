@@ -17,6 +17,15 @@ export const Basic = () => html`
 		loop
 		.images=${images}
 	></cosmoz-image-viewer>
+	
+	<cosmoz-image-viewer
+		show-detach
+		show-fullscreen
+		show-page-number
+		show-nav
+		loop
+		.images=${['stories/images/cosmos1.jpg', 'stories/images/cosmos2.jpg']}
+	></cosmoz-image-viewer>
 `;
 
 export const Issue21 = () => {
