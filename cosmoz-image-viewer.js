@@ -1,17 +1,24 @@
 import '@neovici/cosmoz-slider';
-import '@polymer/iron-icons';
-import '@polymer/paper-icon-button';
 import './lib/haunted-pan-zoom';
 
 import { _ } from '@neovici/cosmoz-i18next';
 import { portal } from '@neovici/cosmoz-utils/directives/portal';
 import { component, html } from 'haunted';
+import { nothing } from 'lit-html';
 import { when } from 'lit-html/directives/when.js';
 import { style } from './cosmoz-image-viewer.style';
 import { useCosmozImageViewer } from './lib/hooks/use-cosmoz-image-viewer';
-import { nothing } from 'lit-html';
+import { leftArrow } from './lib/icons/left-arrow';
+import { rightArrow } from './lib/icons/right-arrow';
+import { launch } from './lib/icons/launch';
+import { fileDownload } from './lib/icons/file-download';
+import { printFile } from './lib/icons/print-file';
+import { magnifierPlus } from './lib/icons/magnifier-plus';
+import { magnifierMinus } from './lib/icons/magnifier-minus';
+import { fullscreen } from './lib/icons/fullscreen';
+import { close as closeIcon } from './lib/icons/close';
 
-const getZoomIcon = (zoomed) => (zoomed ? 'icons:zoom-out' : 'icons:zoom-in');
+const getZoomIcon = (zoomed) => (zoomed ? magnifierMinus : magnifierPlus);
 
 const shouldShow = (show, imagesLen, imgsMinLen = 1) => {
 	return show ? imagesLen >= imgsMinLen : false;
@@ -63,70 +70,64 @@ const renderCosmozImageViewer = ({
 					${when(
 						shouldShow(host.showNav, total, 2),
 						() => html`
-							<paper-icon-button
-								class="nav"
-								icon="icons:arrow-back"
-								@click=${previousImage}
-							></paper-icon-button>
-							<paper-icon-button
-								class="nav"
-								icon="icons:arrow-forward"
-								@click="${nextImage}"
-							></paper-icon-button>
+							<button class="nav" @click=${previousImage}>${leftArrow}</button>
+							<button class="nav" @click=${nextImage}>${rightArrow}</button>
 						`,
 					)}
 					<div class="flex"></div>
 					${when(
 						shouldShow(host.showZoom, total),
 						() =>
-							html`<paper-icon-button
+							html`<button
 								class="nav"
 								@click="${toggleZoom}"
-								icon="${getZoomIcon(isZoomed)}"
 								title="${_('Zoom image')}"
-							></paper-icon-button>`,
+							>
+								${getZoomIcon(isZoomed)}
+							</button>`,
 					)}
 					${when(
 						shouldShow(host.showDetach, total),
 						() =>
-							html` <paper-icon-button
+							html`<button
 								class="nav"
-								@click="${detach}"
-								icon="launch"
+								@click=${detach}
 								title="${_('Detach image to separate window')}"
-							></paper-icon-button>`,
+							>
+								${launch}
+							</button>`,
 					)}
-					<paper-icon-button
+					<button
 						class="nav"
-						@click="${onDownloadPdf}"
-						icon="icons:file-download"
+						@click=${onDownloadPdf}
 						title="${_('Download images')}"
-					></paper-icon-button>
-					<paper-icon-button
-						class="nav"
-						@click="${onPrintPdf}"
-						icon="icons:print"
-						title="${_('Print images')}"
-					></paper-icon-button>
+					>
+						${fileDownload}
+					</button>
+					<button class="nav" @click=${onPrintPdf} title="${_('Print images')}">
+						${printFile}
+					</button>
 					${when(
 						shouldShow(host.showFullscreen, total),
 						() =>
-							html` <paper-icon-button
+							html`<button
 								class="nav"
 								@click="${openFullscreen}"
-								icon="icons:fullscreen"
 								title="${_('Fullscreen image')}"
-							></paper-icon-button>`,
+							>
+								${fullscreen}
+							</button>`,
 					)}
 					${when(
 						shouldShow(host.showClose, total),
 						() =>
-							html` <paper-icon-button
+							html` <button
 								class="nav"
 								@click="${() => host.dispatchEvent(new CustomEvent('close'))}"
-								icon="icons:close"
 								title="${_('Close fullscreen')}"
-							></paper-icon-button>`,
+							>
+								${closeIcon}
+							</button>`,
 					)}
 				</div>
 

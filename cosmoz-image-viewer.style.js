@@ -53,6 +53,18 @@ export const style = `:host {
     margin: 3px;
 }
 
+button.nav {
+    border: none;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: background-color 100ms;
+}
+
+button.nav:active {
+    background-color: rgba(0, 0, 0, 0.60);
+}
+
 .nav:not(:hover) {
     visibility: hidden;
 }
@@ -66,7 +78,6 @@ export const style = `:host {
     pointer-events: none;
     /* Needed to override Chrome 73+ handling of iron-image overflow hidden */
     overflow: visible;
-    @apply --cosmoz-image-viewer-image;
 }
 
 .image-zoom {
@@ -75,7 +86,6 @@ export const style = `:host {
     justify-content: center;
     background-color: black;
     height: 100vh;
-    @apply --cosmoz-image-viewer-image-zoom;
 }
 
 .error {
@@ -86,7 +96,8 @@ export const style = `:host {
     color: white;
     z-index: +1;
     text-align: center;
-    @apply --cosmoz-image-viewer-error;
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
 }
 
 .error .desc {
