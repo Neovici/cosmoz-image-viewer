@@ -1,169 +1,151 @@
-import {
-	assert, fixture, html, aTimeout, nextFrame
-} from '@open-wc/testing';
-
 import '../cosmoz-image-viewer.js';
 
-import sinon from 'sinon';
+import { perform } from '@neovici/cfg/web/perform.js';
+import { assert, fixture, html } from '@open-wc/testing';
+import { absolute, ignoreResizeLoopError } from './helpers/index.js';
 
-const cosmozImageViewerFixture = html`<cosmoz-image-viewer show-zoom></cosmoz-image-viewer>`;
-
-sinon.assert.expose(assert, { prefix: '' });
-
-// eslint-disable-next-line max-lines-per-function
 suite('cosmoz-image-viewer', () => {
-	let imageViewer;
-
+	suiteSetup(ignoreResizeLoopError);
 	setup(async () => {
-		imageViewer = await fixture(cosmozImageViewerFixture);
-		imageViewer.images = [
-			'/stories/images/stockholm.jpg',
-			'/stories/images/strasbourg.jpg',
-			'/stories/images/cosmos1.jpg'
-		];
-		await nextFrame();
+		await fixture(
+			html`<cosmoz-image-viewer
+				show-zoom
+				show-nav
+				show-fullscreen
+				show-page-number
+				show-detach
+				.images=${[
+					'/stories/images/stockholm.jpg',
+					'/stories/images/strasbourg.jpg',
+					'/stories/images/cosmos1.jpg',
+				].map(absolute)}
+			></cosmoz-image-viewer>`,
+		);
 	});
 
-	test('nextImage updates selected', async () => {
-		assert.equal(imageViewer.selectedImageNumber, 1);
-		imageViewer.nextImage();
-		await nextFrame();
-		assert.equal(imageViewer.selectedImageNumber, 2);
-	});
+	test('can move through images', async () => {
+		await perform(async ({ page, expect }) => {
+			await expect(
+				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
 
-	test('previousImage updates selected', async () => {
-		imageViewer.nextImage();
+			await page.locator('cosmoz-image-viewer').hover();
+			await page.locator('button[name="next"]').click();
+			await expect(
+				page.locator('img[src$="/stories/images/strasbourg.jpg"]'),
+			).toBeVisible();
 
-		await nextFrame();
-		assert.equal(imageViewer.selectedImageNumber, 2);
+			await page.locator('button[name="next"]').click();
+			await expect(
+				page.locator('img[src$="/stories/images/cosmos1.jpg"]'),
+			).toBeVisible();
 
-		imageViewer.nextImage();
+			// wait for the slider to finish the animation
+			await expect(page.locator('img')).toHaveCount(1);
 
-		await nextFrame();
-		assert.equal(imageViewer.selectedImageNumber, 3);
+			await page.locator('button[name="prev"]').click();
 
-		imageViewer.previousImage();
-		await nextFrame();
+			await expect(
+				page.locator('img[src$="/stories/images/strasbourg.jpg"]'),
+			).toBeVisible();
 
-		assert.equal(imageViewer.selectedImageNumber, 2);
-	});
-
-	test('openFullScreen creates dialog', () => {
-		imageViewer.openFullscreen();
-		const dialog = imageViewer.imageOverlay;
-		assert.isDefined(dialog, 'Expected openFullscreen to create dialog if it was undefined');
-		assert.equal(dialog.tagName, 'COSMOZ-IMAGE-VIEWER-OVERLAY');
-		assert.isFunction(dialog.open, 'Expected openFullscreen to create dialog and dilog.open to be a function');
-		assert.isTrue(dialog.opened);
-		assert.equal(dialog.id, 'cosmoz-image-viewer-overlay');
-		assert.equal(dialog.images.length, 3);
-		assert.equal(dialog.images, imageViewer.images);
-	});
-
-	test('pdf creation works', async () => {
-		const blob = await imageViewer.downloadPdf(imageViewer.images);
-		assert.isAbove(blob.size, 10000);
-	});
-
-	test('_close fires event close-tapped', () => {
-		let called = false;
-		imageViewer.addEventListener('close-tapped', () => {
-			called = true;
+			await page.locator('button[name="prev"]').click();
+			await expect(
+				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
 		});
-		imageViewer._close();
-		assert.isTrue(called);
+	});
+
+	test('can open and close fullscreen', async () => {
+		await perform(async ({ page, expect }) => {
+			await page.locator('cosmoz-image-viewer').hover();
+			await page.locator('button[title="Fullscreen image"]').click();
+
+			await expect(page.locator('cosmoz-image-viewer')).toHaveCount(2);
+			await expect(
+				page
+					.locator('cosmoz-image-viewer[fullscreen]')
+					.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
+
+			await page.locator('button[title="Close fullscreen"]').click();
+			await expect(page.locator('cosmoz-image-viewer')).toHaveCount(1);
+		});
+	});
+
+	test('can create pdf', async () => {
+		const filename = await perform(async ({ page }) => {
+			const downloadPromise = page.waitForEvent('download');
+			await page.locator('button[title="Download images"]').click();
+			const download = await downloadPromise;
+			return download.suggestedFilename();
+		});
+
+		assert.equal(filename, 'archive.pdf');
 	});
 });
 
-suite('cosmoz-image-viewer-no-images', () => {
-	let imageViewer;
-
+suite('cosmoz-image-viewer with no images', () => {
 	setup(async () => {
-		imageViewer = await fixture(cosmozImageViewerFixture);
-		Object.assign(imageViewer, {
-			images: [],
-			showZoom: true,
-			showNav: true,
-			showFullscreen: true,
-			showDetach: true
+		await fixture(
+			html`<cosmoz-image-viewer
+				show-zoom
+				show-nav
+				show-fullscreen
+				show-page-number
+				show-detach
+				.images=${[]}
+			></cosmoz-image-viewer>`,
+		);
+	});
+
+	test('action items are hidden', async () => {
+		await perform(async ({ page, expect }) => {
+			await page.locator('cosmoz-image-viewer').hover();
+			await expect(page.locator('button[name="next"]')).not.toBeVisible();
+			await expect(page.locator('button[name="prev"]')).not.toBeVisible();
+			await expect(
+				page.locator('button[title="Fullscreen image"]'),
+			).not.toBeVisible();
+			await expect(
+				page.locator('button[title="Download images"]'),
+			).not.toBeVisible();
+			await expect(
+				page.locator('button[title="Detach image to separate window"]'),
+			).not.toBeVisible();
 		});
-	});
-
-	test('action items are hidden', () => {
-		assert.equal(imageViewer._showNav, false);
-		assert.equal(imageViewer._showZoom, false);
-		assert.equal(imageViewer._showFullscreen, false);
-		assert.equal(imageViewer._showDetach, false);
-	});
-
-	test('no image info is shown', () => {
-		assert.equal(imageViewer._hideNoImageInfo, false);
 	});
 });
 
 suite('cosmoz-image-viewer-loading-error', () => {
-	let imageViewer;
-	const errorDiv = () => imageViewer.$.slider.querySelector('.error'),
-		displayNone = element => element.offsetParent === null || element.getAttribute('hidden') === 'true';
-
 	setup(async () => {
-		imageViewer = await fixture(cosmozImageViewerFixture);
-		imageViewer.images = [
-			'xyz.jpg',
-			'/stories/images/stockholm.jpg',
-			'/stories/images/strasbourg.jpg'
-		];
-		await nextFrame();
+		await fixture(
+			html`<cosmoz-image-viewer
+				show-zoom
+				show-nav
+				show-fullscreen
+				show-page-number
+				show-detach
+				.images=${[
+					'xyz.jpg',
+					'/stories/images/stockholm.jpg',
+					'/stories/images/strasbourg.jpg',
+				].map(absolute)}
+			></cosmoz-image-viewer>`,
+		);
 	});
 
 	test('error is shown', async () => {
-		const errEl = errorDiv();
-		await aTimeout(500);
-		assert.equal(displayNone(errEl), false);
+		await perform(async ({ page, expect }) => {
+			await expect(
+				page.locator('"An error occurred while loading the image."'),
+			).toBeVisible();
+
+			await page.locator('cosmoz-image-viewer').hover();
+			await page.locator('button[name="next"]').click();
+			await expect(
+				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
+		});
 	});
-
-	test('error is hidden if next image loaded successfully', async () => {
-		imageViewer.nextImage();
-		await nextFrame();
-		await aTimeout(500);
-		const errEl = errorDiv();
-		assert.equal(displayNone(errEl), true);
-	});
-});
-
-suite('cosmoz-image-viewer-overlay', () => {
-	let overlay;
-
-	setup(async () => {
-		overlay = await fixture(html`<cosmoz-image-viewer-overlay></cosmoz-image-viewer-overlay>`);
-		overlay.images = [
-			'/stories/images/stockholm.jpg',
-			'/stories/images/strasbourg.jpg',
-			'/stories/images/cosmos1.jpg'
-		];
-	});
-
-	test('_trackHandler does not call close if detail state is not end', () => {
-		const event = new CustomEvent('testEvent', {
-				detail: {
-					dy: 1000
-				}
-			}),
-			spyClose = sinon.spy(overlay, 'close');
-		overlay._trackHandler(event);
-		assert.notCalled(spyClose);
-	});
-	test('_trackHandler does call close', () => {
-		const event = new CustomEvent('testEvent', {
-				detail: {
-					state: 'end',
-					dy: 1000
-				}
-			}),
-			spyClose = sinon.spy(overlay, 'close');
-
-		overlay._trackHandler(event);
-		assert.calledOnce(spyClose);
-	});
-
 });
