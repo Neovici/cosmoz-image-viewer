@@ -1,75 +1,212 @@
 import '../cosmoz-image-viewer.js';
-import {
-	assert, fixture, html
-} from '@open-wc/testing';
 
-import sinon from 'sinon';
+import { perform } from '@neovici/cfg/web/perform.js';
+import { fixture, html } from '@open-wc/testing';
+import { absolute, ignoreResizeLoopError } from './helpers/index.js';
 
-sinon.assert.expose(assert, { prefix: '' });
+suite('cosmoz-image-viewer detach', () => {
+	suiteSetup(ignoreResizeLoopError);
 
-const createImageViewer = async () => {
-	const el = await fixture(html`<cosmoz-image-viewer show-zoom></cosmoz-image-viewer>`);
+	test('can detach to separate window', async () => {
+		await fixture(
+			html`<cosmoz-image-viewer
+				show-zoom
+				show-nav
+				show-fullscreen
+				show-page-number
+				show-detach
+				.images=${[
+					'/stories/images/stockholm.jpg',
+					'/stories/images/strasbourg.jpg',
+					'/stories/images/cosmos1.jpg',
+				].map(absolute)}
+			></cosmoz-image-viewer>`,
+		);
 
-	el.images = [
-		'/stories/images/stockholm.jpg',
-		'/stories/images/strasbourg.jpg',
-		'/stories/images/cosmos1.jpg'
-	];
+		await perform(async ({ page, expect }) => {
+			// detach to popup
+			await page.locator('cosmoz-image-viewer').hover();
+			const popupPromise = page.waitForEvent('popup');
+			await page
+				.locator('button[title="Detach image to separate window"]')
+				.click();
+			const popup = await popupPromise;
 
-	return el;
-};
+			// the viewer is visible only in the popup
+			await expect(popup.locator('cosmoz-image-viewer')).toBeVisible();
+			await expect(
+				popup.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
+			await expect(
+				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).not.toBeVisible();
 
-suite('cosmoz-image-viewer', () => {
-	let imageViewer;
+			// you can navigate the images in the popup
+			await popup.locator('cosmoz-image-viewer').hover();
+			await popup.locator('button[name="next"]').click();
+			await expect(
+				popup.locator('img[src$="/stories/images/strasbourg.jpg"]'),
+			).toBeVisible();
 
-	setup(async function () {
-		imageViewer = await createImageViewer();
+			// you can close the popp
+			await popup.close({ runBeforeUnload: true });
 
-		const w = imageViewer.detach();
-		if (w == null) {
-			/* eslint-disable-next-line no-console */
-			console.warn('Only gets tested without popup blocker');
-			/* eslint-disable-next-line no-invalid-this */
-			this.skip();
-		}
-		w.close();
+			// the main instance is synchronized to the popup
+			await expect(
+				page.locator('img[src$="/stories/images/strasbourg.jpg"]'),
+			).toBeVisible();
+		});
 	});
 
-	teardown(() => {
-		imageViewer.window?.close();
+	test('shared detach functionality', async () => {
+		await fixture(
+			html`<cosmoz-image-viewer
+					id="first"
+					show-zoom
+					show-nav
+					show-fullscreen
+					show-page-number
+					show-detach
+					.images=${[
+						'/stories/images/stockholm.jpg',
+						'/stories/images/strasbourg.jpg',
+					].map(absolute)}
+				></cosmoz-image-viewer>
+				<cosmoz-image-viewer
+					id="second"
+					show-zoom
+					show-nav
+					show-fullscreen
+					show-page-number
+					show-detach
+					.images=${[
+						'/stories/images/cosmos1.jpg',
+						'/stories/images/cosmos2.jpg',
+					].map(absolute)}
+				></cosmoz-image-viewer>`,
+		);
+
+		await perform(async ({ page, expect }) => {
+			// detach to popup
+			await page.locator('#first').hover();
+			const popupPromise = page.waitForEvent('popup');
+			await page
+				.locator('#first button[title="Detach image to separate window"]')
+				.click();
+			const popup = await popupPromise;
+
+			// the viewer is visible only in the popup
+			await expect(popup.locator('cosmoz-image-viewer')).toBeVisible();
+			await expect(
+				popup.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
+			await expect(
+				page.locator('#first img[src$="/stories/images/stockholm.jpg"]'),
+			).not.toBeVisible();
+
+			// the other viewer is not affected
+			await expect(
+				page.locator('#second img[src$="/stories/images/cosmos1.jpg"]'),
+			).toBeVisible();
+
+			// the detach popup is shared by all instances
+			await page.locator('#second').hover();
+			await page
+				.locator('#second button[title="Detach image to separate window"]')
+				.click();
+			await expect(
+				popup.locator('img[src$="/stories/images/cosmos1.jpg"]'),
+			).toBeVisible();
+			await expect(
+				page.locator('#first img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
+			await expect(
+				page.locator('#second img[src$="/stories/images/cosmos1.jpg"]'),
+			).not.toBeVisible();
+
+			// you can navigate the popup slideshow
+			await popup.locator('cosmoz-image-viewer').hover();
+			await popup.locator('button[name="next"]').click();
+			await expect(
+				popup.locator('img[src$="/stories/images/cosmos2.jpg"]'),
+			).toBeVisible();
+
+			// you can close the popup
+			await popup.locator('cosmoz-image-viewer').hover();
+			await popup.close({ runBeforeUnload: true });
+
+			// the slideshow state is synced to the original instance, independently
+			await expect(
+				page.locator('#first img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
+			await expect(
+				page.locator('#second img[src$="/stories/images/cosmos2.jpg"]'),
+			).toBeVisible();
+		});
 	});
 
-	test('detaching works', () => {
-		const w = imageViewer.detach();
-		assert.isNotNull(w);
-	});
+	test('detach from fullscreen works', async () => {
+		await fixture(
+			html`<cosmoz-image-viewer
+				show-zoom
+				show-nav
+				show-fullscreen
+				show-page-number
+				show-detach
+				.images=${[
+					'/stories/images/stockholm.jpg',
+					'/stories/images/strasbourg.jpg',
+					'/stories/images/cosmos1.jpg',
+				].map(absolute)}
+			></cosmoz-image-viewer>`,
+		);
 
-	test('detaching to existing window works', () => {
-		const w = imageViewer.detach(),
-			w2 = imageViewer.detach();
-		assert.isNotNull(w);
-		assert.deepEqual(w, w2);
-	});
+		await perform(async ({ page, expect }) => {
+			// go fullscreen
+			await page.locator('cosmoz-image-viewer').hover();
+			await page.locator('button[title="Fullscreen image"]').click();
 
-	test('shared detaching works', async () => {
-		const imageViewer2 = await createImageViewer(),
-			w = imageViewer.detach(),
-			w2 = imageViewer2.detach();
-		assert.isNotNull(w);
-		assert.deepEqual(w, w2);
-	});
+			await expect(page.locator('cosmoz-image-viewer')).toHaveCount(2);
+			await expect(
+				page.locator('[fullscreen] img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
 
-	test('detach from fullscreen works', () => {
-		assert.isFalse(imageViewer.hidden);
-		assert.isFalse(imageViewer.hasWindow);
+			// detach to popup
+			await page.locator('[fullscreen]').hover();
+			const popupPromise = page.waitForEvent('popup');
+			await page
+				.locator('[fullscreen] button[title="Detach image to separate window"]')
+				.click();
+			const popup = await popupPromise;
 
-		imageViewer.openFullscreen();
-		assert.isFalse(imageViewer.hasWindow);
+			// expect to see the image in the popup
+			await expect(
+				popup.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
 
-		const ov = document.querySelector('cosmoz-image-viewer-overlay');
+			// expect to not see the image in the page
+			await expect(
+				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).not.toBeVisible();
 
-		ov.shadowRoot.querySelector('cosmoz-image-viewer').detach();
-		assert.isTrue(imageViewer.hasWindow);
-		assert.isTrue(imageViewer.hidden);
+			// close the popup
+			await popup.close({ runBeforeUnload: true });
+
+			// expect to see the image in fullscreen mode
+			await expect(
+				page
+					.locator('cosmoz-image-viewer[fullscreen]')
+					.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
+
+			// exit fullscreen
+			await page.locator('cosmoz-image-viewer[fullscreen]').hover();
+			await page.locator('button[title="Close fullscreen"]').click();
+
+			// expect to see the image in normal mode
+			await expect(
+				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
+		});
 	});
 });

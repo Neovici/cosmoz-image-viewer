@@ -50,6 +50,7 @@ const renderCosmozImageViewer = ({
 	onPrintPdf,
 	detach,
 	detached,
+	syncDetachedState,
 }) =>
 	detached
 		? nothing
@@ -70,8 +71,12 @@ const renderCosmozImageViewer = ({
 					${when(
 						shouldShow(host.showNav, total, 2),
 						() => html`
-							<button class="nav" @click=${previousImage}>${leftArrow}</button>
-							<button class="nav" @click=${nextImage}>${rightArrow}</button>
+							<button class="nav" name="prev" @click=${previousImage}>
+								${leftArrow}
+							</button>
+							<button class="nav" name="next" @click=${nextImage}>
+								${rightArrow}
+							</button>
 						`,
 					)}
 					<div class="flex"></div>
@@ -97,16 +102,28 @@ const renderCosmozImageViewer = ({
 								${launch}
 							</button>`,
 					)}
-					<button
-						class="nav"
-						@click=${onDownloadPdf}
-						title="${_('Download images')}"
-					>
-						${fileDownload}
-					</button>
-					<button class="nav" @click=${onPrintPdf} title="${_('Print images')}">
-						${printFile}
-					</button>
+					${when(
+						shouldShow(true, total),
+						() =>
+							html`<button
+								class="nav"
+								@click=${onDownloadPdf}
+								title="${_('Download images')}"
+							>
+								${fileDownload}
+							</button>`,
+					)}
+					${when(
+						shouldShow(true, total),
+						() =>
+							html`<button
+								class="nav"
+								@click=${onPrintPdf}
+								title="${_('Print images')}"
+							>
+								${printFile}
+							</button>`,
+					)}
 					${when(
 						shouldShow(host.showFullscreen, total),
 						() =>
@@ -147,6 +164,7 @@ const renderCosmozImageViewer = ({
 							@close=${closeFullscreen}
 							.currentImageIndex=${currentImageIndex}
 							@current-image-index-changed=${syncImageIndex}
+							@detached-changed=${syncDetachedState}
 							?show-detach=${host.showDetach}
 							?loop=${host.loop}
 						></cosmoz-image-viewer>`,
