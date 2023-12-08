@@ -1,3 +1,10 @@
+## [7.0.1](https://github.com/neovici/cosmoz-image-viewer/compare/v7.0.0...v7.0.1) (2023-12-08)
+
+
+### Bug Fixes
+
+* upgrade packages ([2a0af87](https://github.com/neovici/cosmoz-image-viewer/commit/2a0af8726280098070b5d34a98950eab4da726f8))
+
 # [7.0.0](https://github.com/neovici/cosmoz-image-viewer/compare/v6.0.0...v7.0.0) (2023-12-08)
 
 
