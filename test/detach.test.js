@@ -210,3 +210,73 @@ suite('cosmoz-image-viewer detach', () => {
 		});
 	});
 });
+
+suite('syncState', () => {
+	let el;
+	setup(async () => {
+		el = await fixture(
+			html`<cosmoz-image-viewer
+					id="first"
+					show-zoom
+					show-nav
+					show-fullscreen
+					show-page-number
+					show-detach
+					.images=${[
+						'/stories/images/stockholm.jpg',
+						'/stories/images/strasbourg.jpg',
+					]}
+				></cosmoz-image-viewer>
+				<cosmoz-image-viewer
+					id="second"
+					show-zoom
+					show-nav
+					show-fullscreen
+					show-page-number
+					show-detach
+					.images=${[
+						'/stories/images/cosmos1.jpg',
+						'/stories/images/cosmos2.jpg',
+					]}
+				></cosmoz-image-viewer>`,
+		);
+	});
+
+	test.only('syncState only opens the detached window if already detached', async () => {
+		el.syncState();
+		await perform(async ({ page, expect }) => {
+			await expect(
+				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
+		});
+
+		await perform(async ({ page }) => {
+			await page.locator('#first').hover();
+			await page
+				.locator('#first button[title="Detach image to separate window"]')
+				.click();
+		});
+
+		el.syncState();
+
+		await perform(async ({ page, expect }) => {
+			await expect(
+				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).not.toBeVisible();
+			await expect(
+				page.locator('img[src$="/stories/images/cosmos1.jpg"]'),
+			).toBeVisible();
+		});
+
+		el.nextElementSibling.syncState();
+
+		await perform(async ({ page, expect }) => {
+			await expect(
+				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
+			await expect(
+				page.locator('img[src$="/stories/images/cosmos1.jpg"]'),
+			).not.toBeVisible();
+		});
+	});
+});
