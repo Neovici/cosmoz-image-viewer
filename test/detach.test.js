@@ -242,7 +242,7 @@ suite('syncState', () => {
 		);
 	});
 
-	test.only('syncState only opens the detached window if already detached', async () => {
+	test('syncState only opens the detached window if already detached', async () => {
 		el.syncState();
 		await perform(async ({ page, expect }) => {
 			await expect(
