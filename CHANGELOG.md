@@ -1,3 +1,13 @@
+# [7.0.0](https://github.com/neovici/cosmoz-image-viewer/compare/v6.0.0...v7.0.0) (2023-12-08)
+
+
+* feat!: refactor to haunted ([577b27c](https://github.com/neovici/cosmoz-image-viewer/commit/577b27cf51a5635637a23b399b3b2c328f7c03e1))
+
+
+### BREAKING CHANGES
+
+* dropped all polymer code
+
 # [6.0.0](https://github.com/neovici/cosmoz-image-viewer/compare/v5.0.0...v6.0.0) (2022-07-19)
 
 
