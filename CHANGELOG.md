@@ -1,3 +1,10 @@
+## [7.0.3](https://github.com/neovici/cosmoz-image-viewer/compare/v7.0.2...v7.0.3) (2023-12-08)
+
+
+### Bug Fixes
+
+* detached zoom should not be on by default ([798c6f4](https://github.com/neovici/cosmoz-image-viewer/commit/798c6f43e7f0ef533ea45c2146f1982104bbb86a))
+
 ## [7.0.2](https://github.com/neovici/cosmoz-image-viewer/compare/v7.0.1...v7.0.2) (2023-12-08)
 
 
