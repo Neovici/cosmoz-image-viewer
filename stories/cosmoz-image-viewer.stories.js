@@ -8,25 +8,47 @@ export default {
 	component: 'cosmoz-image-viewer',
 };
 
-export const Basic = () => html`
+export const Basic = ({
+	showDetach,
+	showFullscreen,
+	showPageNumber,
+	showNav,
+	loop,
+	showZoom,
+	detachedShowZoom,
+}) => html`
 	<cosmoz-image-viewer
-		show-detach
-		show-fullscreen
-		show-page-number
-		show-nav
-		loop
+		?show-detach=${showDetach}
+		?show-fullscreen=${showFullscreen}
+		?show-page-number=${showPageNumber}
+		?show-nav=${showNav}
+		?loop=${loop}
+		?show-zoom=${showZoom}
+		?detached-show-zoom=${detachedShowZoom}
 		.images=${images}
 	></cosmoz-image-viewer>
-	
+
 	<cosmoz-image-viewer
-		show-detach
-		show-fullscreen
-		show-page-number
-		show-nav
-		loop
+		?show-detach=${showDetach}
+		?show-fullscreen=${showFullscreen}
+		?show-page-number=${showPageNumber}
+		?show-nav=${showNav}
+		?loop=${loop}
+		?show-zoom=${showZoom}
+		?detached-show-zoom=${detachedShowZoom}
 		.images=${['stories/images/cosmos1.jpg', 'stories/images/cosmos2.jpg']}
 	></cosmoz-image-viewer>
 `;
+
+Basic.args = {
+	showDetach: true,
+	showFullscreen: true,
+	showPageNumber: true,
+	showNav: true,
+	loop: true,
+	showZoom: false,
+	detachedShowZoom: false,
+};
 
 export const Issue21 = () => {
 	const images1 = [
