@@ -65,19 +65,19 @@
 		"@neovici/cosmoz-utils": "^5.0.0",
 		"haunted": "^5.0.0",
 		"jspdf": "^2.3.0",
-		"lit-html": "^2.0.0"
+		"lit-html": "^2.0.0 || ^3.1.0"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^17.0.0",
-		"@commitlint/config-conventional": "^17.0.0",
+		"@commitlint/cli": "^18.4.3",
+		"@commitlint/config-conventional": "^18.4.3",
 		"@open-wc/testing": "^3.0.0",
 		"@semantic-release/changelog": "^6.0.0",
 		"@semantic-release/git": "^10.0.0",
 		"@storybook/storybook-deployer": "^2.8.0",
 		"@web/dev-server": "^0.1.31",
-		"@web/dev-server-storybook": "^2.0.1",
+		"@web/dev-server-storybook": "^1.1.0",
 		"husky": "^8.0.0",
-		"semantic-release": "^21.0.7",
-		"sinon": "^14.0.0"
+		"semantic-release": "^22.0.0",
+		"sinon": "^17.0.0"
 	}
 }
