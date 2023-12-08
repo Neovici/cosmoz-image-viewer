@@ -186,6 +186,7 @@ customElements.define(
 			'show-nav',
 			'show-page-number',
 			'show-zoom',
+			'detached-show-zoom',
 			'loop',
 			'title',
 		],
