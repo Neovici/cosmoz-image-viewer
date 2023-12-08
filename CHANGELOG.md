@@ -1,3 +1,10 @@
+## [7.0.2](https://github.com/neovici/cosmoz-image-viewer/compare/v7.0.1...v7.0.2) (2023-12-08)
+
+
+### Bug Fixes
+
+* syncState opens popup even if the image-viewer was never detached ([99ecd98](https://github.com/neovici/cosmoz-image-viewer/commit/99ecd98f490c60c26844ee0ed7fa75b6abd57be2))
+
 ## [7.0.1](https://github.com/neovici/cosmoz-image-viewer/compare/v7.0.0...v7.0.1) (2023-12-08)
 
 
