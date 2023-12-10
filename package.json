@@ -61,7 +61,7 @@
 	"dependencies": {
 		"@neovici/cfg": "^1.43.0",
 		"@neovici/cosmoz-i18next": "^3.2.2",
-		"@neovici/cosmoz-slider": "^4.0.0",
+		"@neovici/cosmoz-slider": "^4.5.0",
 		"@neovici/cosmoz-utils": "^5.0.0",
 		"haunted": "^5.0.0",
 		"jspdf": "^2.3.0",
