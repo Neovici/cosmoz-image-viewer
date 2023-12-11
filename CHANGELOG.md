@@ -1,3 +1,19 @@
+# [7.1.0](https://github.com/neovici/cosmoz-image-viewer/compare/v7.0.3...v7.1.0) (2023-12-11)
+
+
+### Bug Fixes
+
+* component breaks when images is undefined ([b9aad79](https://github.com/neovici/cosmoz-image-viewer/commit/b9aad79288cfc30f8c9b9b1ff0467b7a31111c5e))
+* disabled state is missing ([91e718b](https://github.com/neovici/cosmoz-image-viewer/commit/91e718ba4cf90602aedd253ae29f49176e0330f3))
+* handle lazy images in download and print pdf ([1d5a54f](https://github.com/neovici/cosmoz-image-viewer/commit/1d5a54faad0b4e8ae1d1dc2fd0db8657e809f483))
+* loop does not work ([175c437](https://github.com/neovici/cosmoz-image-viewer/commit/175c4371332a42e6a0b51f3c738a9c1e07607c92))
+* upgrade to latest cosmoz-slider ([87ddf62](https://github.com/neovici/cosmoz-image-viewer/commit/87ddf624460eff838266614f119ef0af175560eb))
+
+
+### Features
+
+* async images ([195cd99](https://github.com/neovici/cosmoz-image-viewer/commit/195cd990bbe16eb5f83274d862df3739c66aff87))
+
 ## [7.0.3](https://github.com/neovici/cosmoz-image-viewer/compare/v7.0.2...v7.0.3) (2023-12-08)
 
 
