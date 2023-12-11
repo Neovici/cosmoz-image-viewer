@@ -1,3 +1,10 @@
+## [7.1.2](https://github.com/neovici/cosmoz-image-viewer/compare/v7.1.1...v7.1.2) (2023-12-11)
+
+
+### Bug Fixes
+
+* component breaks when images is undefined ([aa1c076](https://github.com/neovici/cosmoz-image-viewer/commit/aa1c076973b420ebb1a758a1918095ddfc791edb))
+
 ## [7.1.1](https://github.com/neovici/cosmoz-image-viewer/compare/v7.1.0...v7.1.1) (2023-12-11)
 
 
