@@ -57,11 +57,18 @@ button.nav {
     border: none;
     width: 40px;
     height: 40px;
-    cursor: pointer;
     transition: background-color 100ms;
 }
 
-button.nav:active {
+button.nav:not([disabled]) {
+    cursor: pointer;
+}
+
+button.nav[disabled] {
+    opacity: 0.5;
+}
+
+button.nav:active:not([disabled]) {
     background-color: rgba(0, 0, 0, 0.60);
 }
 
@@ -108,7 +115,8 @@ button.nav:active {
 
 cosmoz-slider { 
     min-height: 150px;
-    // overflow-y: auto !important;
     height:100%;
     overflow-y: hidden;
-}`;
+}
+
+`;

@@ -40,6 +40,8 @@ const renderCosmozImageViewer = ({
 	nextImage,
 	previousImage,
 	total,
+	first,
+	last,
 	currentImageIndex,
 	selectedImageNumber,
 	syncImageIndex,
@@ -71,10 +73,20 @@ const renderCosmozImageViewer = ({
 					${when(
 						shouldShow(host.showNav, total, 2),
 						() => html`
-							<button class="nav" name="prev" @click=${previousImage}>
+							<button
+								class="nav"
+								name="prev"
+								?disabled=${first}
+								@click=${previousImage}
+							>
 								${leftArrow}
 							</button>
-							<button class="nav" name="next" @click=${nextImage}>
+							<button
+								class="nav"
+								name="next"
+								?disabled=${last}
+								@click=${nextImage}
+							>
 								${rightArrow}
 							</button>
 						`,
