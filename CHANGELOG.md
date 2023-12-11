@@ -1,3 +1,10 @@
+## [7.1.1](https://github.com/neovici/cosmoz-image-viewer/compare/v7.1.0...v7.1.1) (2023-12-11)
+
+
+### Bug Fixes
+
+* cz-spinner is off ([60afc38](https://github.com/neovici/cosmoz-image-viewer/commit/60afc38b462c030da923be244d4e5d5edf2b2e87))
+
 # [7.1.0](https://github.com/neovici/cosmoz-image-viewer/compare/v7.0.3...v7.1.0) (2023-12-11)
 
 
