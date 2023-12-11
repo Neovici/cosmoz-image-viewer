@@ -115,8 +115,13 @@ button.nav:active:not([disabled]) {
 
 cosmoz-slider { 
     min-height: 150px;
+    overflow-y: auto !important;
     height:100%;
-    overflow-y: hidden;
 }
 
+cz-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
 `;
