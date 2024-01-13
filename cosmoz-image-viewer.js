@@ -3,7 +3,7 @@ import './lib/haunted-pan-zoom';
 
 import { _ } from '@neovici/cosmoz-i18next';
 import { portal } from '@neovici/cosmoz-utils/directives/portal';
-import { component, html } from 'haunted';
+import { component, html } from '@pionjs/pion';
 import { nothing } from 'lit-html';
 import { when } from 'lit-html/directives/when.js';
 import { style } from './cosmoz-image-viewer.style';

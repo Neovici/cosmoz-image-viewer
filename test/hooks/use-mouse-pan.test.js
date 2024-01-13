@@ -1,6 +1,6 @@
 import {
 	component, html
-} from 'haunted';
+} from '@pionjs/pion';
 import { useMousePan } from '../../lib/hooks/use-mouse-pan';
 import {
 	expect, fixture, aTimeout

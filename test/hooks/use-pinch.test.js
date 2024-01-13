@@ -1,6 +1,6 @@
 import {
 	component, html
-} from 'haunted';
+} from '@pionjs/pion';
 import {
 	makeMultiTouchEvent
 } from '../helpers';
