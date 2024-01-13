@@ -1,3 +1,15 @@
+# [8.0.0](https://github.com/neovici/cosmoz-image-viewer/compare/v7.1.2...v8.0.0) (2024-01-13)
+
+
+### Features
+
+* update to pion ([64955a1](https://github.com/neovici/cosmoz-image-viewer/commit/64955a1c0c6fedebc188fdab3538a85e04343da5))
+
+
+### BREAKING CHANGES
+
+* Update to @pionjs/pion.
+
 ## [7.1.2](https://github.com/neovici/cosmoz-image-viewer/compare/v7.1.1...v7.1.2) (2023-12-11)
 
 
