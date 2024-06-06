@@ -60,23 +60,23 @@
 	},
 	"dependencies": {
 		"@neovici/cosmoz-i18next": "^3.2.2",
-		"@neovici/cosmoz-slider": "^5.0.0",
-		"@neovici/cosmoz-utils": "^6.0.0",
-		"@pionjs/pion": "^2.0.0",
+		"@neovici/cosmoz-slider": "^5.2.0",
+		"@neovici/cosmoz-utils": "^6.9.0",
+		"@pionjs/pion": "^2.5.2",
 		"jspdf": "^2.3.0",
-		"lit-html": "^2.0.0 || ^3.1.0"
+		"lit-html": "^2.0.0 || ^3.1.4"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^18.4.3",
-		"@commitlint/config-conventional": "^18.4.3",
-		"@neovici/cfg": "^1.44.0",
+		"@commitlint/cli": "^19.3.0",
+		"@commitlint/config-conventional": "^19.2.2",
+		"@neovici/cfg": "^1.54.1",
 		"@open-wc/testing": "^4.0.0",
 		"@semantic-release/changelog": "^6.0.0",
 		"@semantic-release/git": "^10.0.0",
 		"@storybook/storybook-deployer": "^2.8.0",
 		"@web/dev-server-storybook": "^2.0.0",
-		"husky": "^8.0.0",
-		"semantic-release": "^23.0.0",
-		"sinon": "^17.0.0"
+		"husky": "^9.0.11",
+		"semantic-release": "^24.0.0",
+		"sinon": "^18.0.0"
 	}
 }
