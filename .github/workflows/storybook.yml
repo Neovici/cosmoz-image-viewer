@@ -8,3 +8,5 @@ jobs:
   storybook:
     uses: Neovici/cfg/.github/workflows/story.yml@master
     secrets: inherit
+    with:
+      skip_dist: true
