@@ -32,7 +32,7 @@
 		"storybook:start": "storybook dev -p 6006",
 		"storybook:build": "storybook build",
 		"storybook:deploy": "storybook-to-ghpages",
-		"storybook:preview": "npm run storybook:build && http-server -c-1 -p 6006 -so ./storybook-static",
+		"storybook:preview": "npm run storybook:build && http-server -c-1 -p 6006 -o",
 		"prepare": "husky install"
 	},
 	"release": {
