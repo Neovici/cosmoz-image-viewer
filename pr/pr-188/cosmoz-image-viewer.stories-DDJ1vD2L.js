@@ -2,11 +2,11 @@ import { x } from './directive-helpers-BXW8nDWk.js';
 import './cosmoz-image-viewer-BHlHs0XA.js';
 
 const images = [
-  "../stories/images/stockholm.jpg",
+  "stories/images/stockholm.jpg",
   "this-is-a-loading-error.jpg",
-  () => "../stories/images/a_size.png",
+  () => "stories/images/a_size.png",
   () => new Promise(
-    (resolve) => setTimeout(() => resolve("../stories/images/strasbourg.jpg"), 500)
+    (resolve) => setTimeout(() => resolve("stories/images/strasbourg.jpg"), 500)
   )
 ];
 
@@ -42,10 +42,7 @@ const Basic = ({
 		?loop=${loop}
 		?show-zoom=${showZoom}
 		?detached-show-zoom=${detachedShowZoom}
-		.images=${[
-  "../stories/images/cosmos1.jpg",
-  "../stories/images/cosmos2.jpg"
-]}
+		.images=${["stories/images/cosmos1.jpg", "stories/images/cosmos2.jpg"]}
 	></cosmoz-image-viewer>
 `;
 Basic.args = {
@@ -59,12 +56,9 @@ Basic.args = {
 };
 const Issue21 = () => {
   const images1 = [
-    "../stories/images/stockholm.jpg",
-    "../stories/images/strasbourg.jpg"
-  ], images2 = [
-    "../stories/images/cosmos1.jpg",
-    "../stories/images/cosmos2.jpg"
-  ];
+    "stories/images/stockholm.jpg",
+    "stories/images/strasbourg.jpg"
+  ], images2 = ["stories/images/cosmos1.jpg", "stories/images/cosmos2.jpg"];
   return x`
 		<cosmoz-image-viewer
 			show-detach
