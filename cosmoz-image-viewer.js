@@ -182,7 +182,7 @@ const renderCosmozImageViewer = ({
 						></cosmoz-image-viewer>`,
 					),
 				)}
-		  `;
+			`;
 
 const CosmozImageViewer = (host) =>
 	renderCosmozImageViewer(useCosmozImageViewer(host));
