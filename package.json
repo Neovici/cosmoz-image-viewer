@@ -74,7 +74,6 @@
 		"@commitlint/config-conventional": "^19.2.2",
 		"@neovici/cfg": "^1.55.0",
 		"@open-wc/testing": "^4.0.0",
-		"@rollup/plugin-commonjs": "^26.0.1",
 		"@semantic-release/changelog": "^6.0.0",
 		"@semantic-release/git": "^10.0.0",
 		"@storybook/addon-essentials": "^8.2.7",
@@ -84,10 +83,8 @@
 		"@storybook/web-components-vite": "^8.2.7",
 		"@types/mocha": "^10.0.7",
 		"@types/node": "^22.0.2",
-		"esbuild": "^0.23.0",
 		"http-server": "^14.1.1",
 		"husky": "^9.1.4",
-		"rollup-plugin-esbuild": "^6.1.1",
 		"semantic-release": "^24.0.0",
 		"sinon": "^18.0.0",
 		"storybook": "^8.2.7"
