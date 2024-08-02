@@ -1,12 +1,12 @@
 import rollupCommonjs from '@rollup/plugin-commonjs';
 import esbuild from 'rollup-plugin-esbuild';
 
-/** @type { import('@web/storybook-framework-web-components').StorybookConfig } */
+/** @type { import('@storybook/web-components-vite').StorybookConfig } */
 const config = {
 	stories: ['../stories/**/*.stories.{js,ts,mdx}'],
 	addons: ['@storybook/addon-essentials', '@storybook/addon-links'],
 	framework: {
-		name: '@web/storybook-framework-web-components',
+		name: '@storybook/web-components-vite',
 	},
 	docs: {
 		autodocs: true,
