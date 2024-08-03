@@ -1,8 +1,8 @@
-import{x as u}from"./lit-html-CuJYtJU3.js";import"./cosmoz-image-viewer-BymX94oz.js";import"./directive-helpers-CE2IdeAx.js";import"./iframe-DC_Ex_ws.js";import"../sb-preview/runtime.js";const $=["stockholm.jpg","this-is-a-loading-error.jpg",()=>"a_size.png",()=>new Promise(o=>setTimeout(()=>o("strasbourg.jpg"),500))],f={title:"Cosmoz Image Viewer",component:"cosmoz-image-viewer"},s=({showDetach:o,showFullscreen:m,showPageNumber:a,showNav:e,loop:n,showZoom:c,detachedShowZoom:i})=>u`
+import{x as u}from"./lit-html-CuJYtJU3.js";import"./cosmoz-image-viewer-R5Bg3q3B.js";import"./directive-helpers-CE2IdeAx.js";import"./iframe-DS2aY6Zw.js";import"../sb-preview/runtime.js";const $=["stockholm.jpg","this-is-a-loading-error.jpg",()=>"a_size.png",()=>new Promise(o=>setTimeout(()=>o("strasbourg.jpg"),500))],f={title:"Cosmoz Image Viewer",component:"cosmoz-image-viewer",tags:["autodocs"]},s=({showDetach:o,showFullscreen:a,showPageNumber:m,showNav:e,loop:n,showZoom:c,detachedShowZoom:i})=>u`
     <cosmoz-image-viewer
         ?show-detach=${o}
-        ?show-fullscreen=${m}
-        ?show-page-number=${a}
+        ?show-fullscreen=${a}
+        ?show-page-number=${m}
         ?show-nav=${e}
         ?loop=${n}
         ?show-zoom=${c}
@@ -12,15 +12,15 @@ import{x as u}from"./lit-html-CuJYtJU3.js";import"./cosmoz-image-viewer-BymX94oz
 
     <cosmoz-image-viewer
         ?show-detach=${o}
-        ?show-fullscreen=${m}
-        ?show-page-number=${a}
+        ?show-fullscreen=${a}
+        ?show-page-number=${m}
         ?show-nav=${e}
         ?loop=${n}
         ?show-zoom=${c}
         ?detached-show-zoom=${i}
         .images=${["cosmos1.jpg","cosmos2.jpg"]}
     ></cosmoz-image-viewer>
-`;s.args={showDetach:!0,showFullscreen:!0,showPageNumber:!0,showNav:!0,loop:!0,showZoom:!1,detachedShowZoom:!1};const r=()=>{const o=["stockholm.jpg","strasbourg.jpg"],m=["cosmos1.jpg","cosmos2.jpg"];return u`
+`;s.args={showDetach:!0,showFullscreen:!0,showPageNumber:!0,showNav:!0,loop:!0,showZoom:!1,detachedShowZoom:!1};const r=()=>{const o=["stockholm.jpg","strasbourg.jpg"],a=["cosmos1.jpg","cosmos2.jpg"];return u`
         <cosmoz-image-viewer
             show-detach
             show-fullscreen
@@ -30,7 +30,7 @@ import{x as u}from"./lit-html-CuJYtJU3.js";import"./cosmoz-image-viewer-BymX94oz
             .images=${o}
         ></cosmoz-image-viewer>
         <button
-            @click=${a=>{const e=a.target.previousElementSibling,n=e.images===o?m:o;return e.images=n,!1}}
+            @click=${m=>{const e=m.target.previousElementSibling,n=e.images===o?a:o;return e.images=n,!1}}
         >
             Switch images
         </button>
