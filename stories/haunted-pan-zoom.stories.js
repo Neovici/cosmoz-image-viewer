@@ -4,7 +4,9 @@ import '../cosmoz-image-viewer.js';
 export default {
 	title: 'Pan Zoom',
 	component: 'haunted-pan-zoom',
+	tags: ['autodocs'],
 };
+
 const Template = ({ disabled, height, zoomStiffness, panStiffness }) => html`
 	<haunted-pan-zoom
 		src="a_size.png"
