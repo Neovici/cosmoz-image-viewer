@@ -1,4 +1,4 @@
-import{x as u}from"./lit-html-CuJYtJU3.js";import"./cosmoz-image-viewer-594xMIeL.js";import"./directive-helpers-CE2IdeAx.js";import"./iframe-COMQx1JQ.js";import"../sb-preview/runtime.js";const $=["stockholm.jpg","this-is-a-loading-error.jpg",()=>"a_size.png",()=>new Promise(o=>setTimeout(()=>o("strasbourg.jpg"),500))],f={title:"Cosmoz Image Viewer",component:"cosmoz-image-viewer"},s=({showDetach:o,showFullscreen:m,showPageNumber:a,showNav:e,loop:n,showZoom:c,detachedShowZoom:i})=>u`
+import{x as u}from"./lit-html-CuJYtJU3.js";import"./cosmoz-image-viewer-BymX94oz.js";import"./directive-helpers-CE2IdeAx.js";import"./iframe-DC_Ex_ws.js";import"../sb-preview/runtime.js";const $=["stockholm.jpg","this-is-a-loading-error.jpg",()=>"a_size.png",()=>new Promise(o=>setTimeout(()=>o("strasbourg.jpg"),500))],f={title:"Cosmoz Image Viewer",component:"cosmoz-image-viewer"},s=({showDetach:o,showFullscreen:m,showPageNumber:a,showNav:e,loop:n,showZoom:c,detachedShowZoom:i})=>u`
     <cosmoz-image-viewer
         ?show-detach=${o}
         ?show-fullscreen=${m}
