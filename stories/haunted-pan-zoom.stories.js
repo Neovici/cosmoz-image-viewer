@@ -7,7 +7,7 @@ export default {
 };
 const Template = ({ disabled, height, zoomStiffness, panStiffness }) => html`
 	<haunted-pan-zoom
-		src="stories/images/a_size.png"
+		src="a_size.png"
 		style="height: ${height}px;"
 		?disabled=${disabled}
 		.zoomStiffness=${zoomStiffness}
