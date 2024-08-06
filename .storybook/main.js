@@ -23,6 +23,7 @@ const config = {
 
 		return config;
 	},
+	staticDirs: ['../stories/images'],
 };
 
 export default config;

@@ -36,7 +36,7 @@ export const Basic = ({
 		?loop=${loop}
 		?show-zoom=${showZoom}
 		?detached-show-zoom=${detachedShowZoom}
-		.images=${['stories/images/cosmos1.jpg', 'stories/images/cosmos2.jpg']}
+		.images=${['cosmos1.jpg', 'cosmos2.jpg']}
 	></cosmoz-image-viewer>
 `;
 
@@ -51,11 +51,8 @@ Basic.args = {
 };
 
 export const Issue21 = () => {
-	const images1 = [
-			'stories/images/stockholm.jpg',
-			'stories/images/strasbourg.jpg',
-		],
-		images2 = ['stories/images/cosmos1.jpg', 'stories/images/cosmos2.jpg'];
+	const images1 = ['stockholm.jpg', 'strasbourg.jpg'],
+		images2 = ['cosmos1.jpg', 'cosmos2.jpg'];
 	return html`
 		<cosmoz-image-viewer
 			show-detach
