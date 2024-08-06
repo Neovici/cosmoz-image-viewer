@@ -7,7 +7,7 @@ var hauntedPanZoom_stories = {
 };
 const Template = ({ disabled, height, zoomStiffness, panStiffness }) => x`
 	<haunted-pan-zoom
-		src="stories/images/a_size.png"
+		src="a_size.png"
 		style="height: ${height}px;"
 		?disabled=${disabled}
 		.zoomStiffness=${zoomStiffness}

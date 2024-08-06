@@ -11,8 +11,8 @@ if (SERVER_CHANNEL_URL) {
 }
 
 const importers = {
-  "./stories/cosmoz-image-viewer.stories.js": () => import('./cosmoz-image-viewer.stories-T5AlEZKM.js'),
-  "./stories/haunted-pan-zoom.stories.js": () => import('./haunted-pan-zoom.stories-V2wgCi3A.js')
+  "./stories/cosmoz-image-viewer.stories.js": () => import('./cosmoz-image-viewer.stories-7krUH0Nh.js'),
+  "./stories/haunted-pan-zoom.stories.js": () => import('./haunted-pan-zoom.stories-wWnTRryZ.js')
 };
 function importFn(path) {
   return importers[path]();
