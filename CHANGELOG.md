@@ -1,3 +1,18 @@
+# [8.1.0](https://github.com/neovici/cosmoz-image-viewer/compare/v8.0.0...v8.1.0) (2024-08-16)
+
+
+### Bug Fixes
+
+* build error ([2a0fbf6](https://github.com/neovici/cosmoz-image-viewer/commit/2a0fbf6016aa629b50391408a2c00efa13b05739))
+* correct path to be on live or local ([5a46636](https://github.com/neovici/cosmoz-image-viewer/commit/5a466361fd9e2cfdcc1efa4f935438f49d653ad4))
+
+
+### Features
+
+* add `preview` github workflow ([c55bdbb](https://github.com/neovici/cosmoz-image-viewer/commit/c55bdbba56d98b03ecd6353a126598b5c9c47abf))
+* make storybook 7 work ([9804e7a](https://github.com/neovici/cosmoz-image-viewer/commit/9804e7a0bda264aee30f724bc5f559e5ae1f01f3))
+* update dependencies ([b59eedb](https://github.com/neovici/cosmoz-image-viewer/commit/b59eedbb0f941f30c37147b6dc900691caec51ba))
+
 # [8.0.0](https://github.com/neovici/cosmoz-image-viewer/compare/v7.1.2...v8.0.0) (2024-01-13)
 
 
