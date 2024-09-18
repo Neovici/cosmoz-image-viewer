@@ -1,5 +1,5 @@
 import { x } from './directive-helpers-mVbraAne.js';
-import './cosmoz-image-viewer-Is1tbblg.js';
+import './cosmoz-image-viewer--XrmASyK.js';
 
 const images = [
   "stockholm.jpg",

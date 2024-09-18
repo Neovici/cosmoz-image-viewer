@@ -1,4 +1,4 @@
-import { _ as _typeof$1 } from './jspdf.es.min-MTTj136Q.js';
+import { _ as _typeof$1 } from './jspdf.es.min-AI8T2KTG.js';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 

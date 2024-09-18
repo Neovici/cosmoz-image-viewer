@@ -11146,7 +11146,7 @@ const fit = (rect, bounds) => {
   };
 }, create = async (urls, credentials) => {
   const options = { credentials: credentials ? "include" : "omit" }, [{ jsPDF }, ...responses$] = await Promise.all([
-    import('./jspdf.es.min-MTTj136Q.js').then(function (n) { return n.j; }),
+    import('./jspdf.es.min-AI8T2KTG.js').then(function (n) { return n.j; }),
     ...urls.map(async (_url) => {
       const url = await Promise.resolve(invoke(_url));
       const response = await fetch(url, options);
