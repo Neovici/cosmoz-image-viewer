@@ -1,3 +1,10 @@
+## [8.1.1](https://github.com/neovici/cosmoz-image-viewer/compare/v8.1.0...v8.1.1) (2024-09-18)
+
+
+### Bug Fixes
+
+* upgrade jspdf ([23d61e9](https://github.com/neovici/cosmoz-image-viewer/commit/23d61e92758a6771a48474ed9f8ffac878de5465))
+
 # [8.1.0](https://github.com/neovici/cosmoz-image-viewer/compare/v8.0.0...v8.1.0) (2024-08-16)
 
 
