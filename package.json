@@ -65,7 +65,7 @@
 		"@neovici/cosmoz-slider": "^5.2.0",
 		"@neovici/cosmoz-utils": "^6.9.0",
 		"@pionjs/pion": "^2.5.2",
-		"jspdf": "^2.3.0",
+		"jspdf": "^3.0.1",
 		"lit-html": "^2.0.0 || ^3.1.4"
 	},
 	"devDependencies": {
