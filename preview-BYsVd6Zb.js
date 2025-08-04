@@ -1,4 +1,4 @@
-import { d as dedent } from './index-PiJ8i7Ux.js';
+import { d as dedent } from './index-Kjm4kNkQ.js';
 
 var clearStyles=selector=>{(Array.isArray(selector)?selector:[selector]).forEach(clearStyle);},clearStyle=input=>{let selector=typeof input=="string"?input:input.join(""),element=__STORYBOOK_MODULE_GLOBAL__.global.document.getElementById(selector);element&&element.parentElement&&element.parentElement.removeChild(element);},addOutlineStyles=(selector,css)=>{let existingStyle=__STORYBOOK_MODULE_GLOBAL__.global.document.getElementById(selector);if(existingStyle)existingStyle.innerHTML!==css&&(existingStyle.innerHTML=css);else {let style=__STORYBOOK_MODULE_GLOBAL__.global.document.createElement("style");style.setAttribute("id",selector),style.innerHTML=css,__STORYBOOK_MODULE_GLOBAL__.global.document.head.appendChild(style);}};var PARAM_KEY="outline";function outlineCSS(selector){return dedent`
     ${selector} body {
@@ -395,6 +395,6 @@ var clearStyles=selector=>{(Array.isArray(selector)?selector:[selector]).forEach
 
     ${selector} wbr {
       outline: 1px solid #db175b !important;
-    }`}var withOutline=(StoryFn,context)=>{let{globals:globals2}=context,isActive=[!0,"true"].includes(globals2[PARAM_KEY]),isInDocs=context.viewMode==="docs",outlineStyles=__STORYBOOK_MODULE_PREVIEW_API__.useMemo(()=>outlineCSS(isInDocs?'[data-story-block="true"]':".sb-show-main"),[context]);return __STORYBOOK_MODULE_PREVIEW_API__.useEffect(()=>{let selectorId=isInDocs?`addon-outline-docs-${context.id}`:"addon-outline";return isActive?addOutlineStyles(selectorId,outlineStyles):clearStyles(selectorId),()=>{clearStyles(selectorId);}},[isActive,outlineStyles,context]),StoryFn()};var decorators=[withOutline],globals={[PARAM_KEY]:!1};
+    }`}var withOutline=(StoryFn,context)=>{let{globals:globals2}=context,isActive=[true,"true"].includes(globals2[PARAM_KEY]),isInDocs=context.viewMode==="docs",outlineStyles=__STORYBOOK_MODULE_PREVIEW_API__.useMemo(()=>outlineCSS(isInDocs?'[data-story-block="true"]':".sb-show-main"),[context]);return __STORYBOOK_MODULE_PREVIEW_API__.useEffect(()=>{let selectorId=isInDocs?`addon-outline-docs-${context.id}`:"addon-outline";return isActive?addOutlineStyles(selectorId,outlineStyles):clearStyles(selectorId),()=>{clearStyles(selectorId);}},[isActive,outlineStyles,context]),StoryFn()};var decorators=[withOutline],globals={[PARAM_KEY]:false};
 
 export { decorators, globals };

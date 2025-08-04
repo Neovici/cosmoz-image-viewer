@@ -1,4 +1,4 @@
-import { f as f$1, j, p, v, r as r$1, h as h$2, m as m$1, w, T, x, a as j$1, i as i$4 } from './directive-helpers-mVbraAne.js';
+import { f as f$1, j, p, v, r as r$1, h as h$2, w, m as m$1, T, x, a as j$1, i as i$4 } from './directive-helpers-DTirirN5.js';
 
 let current;
 let currentId = 0;
@@ -560,15 +560,15 @@ function pion({ render }) {
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const t={ATTRIBUTE:1,CHILD:2,PROPERTY:3,BOOLEAN_ATTRIBUTE:4,EVENT:5,ELEMENT:6},e$1=t=>(...e)=>({_$litDirective$:t,values:e});let i$3 = class i{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,i){this._$Ct=t,this._$AM=e,this._$Ci=i;}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}};
+const t={ATTRIBUTE:1,CHILD:2},e$1=t=>(...e)=>({_$litDirective$:t,values:e});let i$3 = class i{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,i){this._$Ct=t,this._$AM=e,this._$Ci=i;}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}};
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const s$1=(i,t)=>{const e=i._$AN;if(void 0===e)return !1;for(const i of e)i._$AO?.(t,!1),s$1(i,t);return !0},o$2=i=>{let t,e;do{if(void 0===(t=i._$AM))break;e=t._$AN,e.delete(i),i=t;}while(0===e?.size)},r=i=>{for(let t;t=i._$AM;i=t){let e=t._$AN;if(void 0===e)t._$AN=e=new Set;else if(e.has(i))break;e.add(i),c$2(t);}};function h$1(i){void 0!==this._$AN?(o$2(this),this._$AM=i,r(this)):this._$AM=i;}function n$4(i,t=!1,e=0){const r=this._$AH,h=this._$AN;if(void 0!==h&&0!==h.size)if(t)if(Array.isArray(r))for(let i=e;i<r.length;i++)s$1(r[i],!1),o$2(r[i]);else null!=r&&(s$1(r,!1),o$2(r));else s$1(this,i);}const c$2=i=>{i.type==t.CHILD&&(i._$AP??=n$4,i._$AQ??=h$1);};class f extends i$3{constructor(){super(...arguments),this._$AN=void 0;}_$AT(i,t,e){super._$AT(i,t,e),r(this),this.isConnected=i._$AU;}_$AO(i,t=!0){i!==this.isConnected&&(this.isConnected=i,i?this.reconnected?.():this.disconnected?.()),t&&(s$1(this,i),o$2(this));}setValue(t){if(f$1(this._$Ct))this._$Ct._$AI(t,this);else {const i=[...this._$Ct._$AH];i[this._$Ci]=t,this._$Ct._$AI(i,this,0);}}disconnected(){}reconnected(){}}
+ */const s$1=(i,t)=>{const e=i._$AN;if(void 0===e)return  false;for(const i of e)i._$AO?.(t,false),s$1(i,t);return  true},o$2=i=>{let t,e;do{if(void 0===(t=i._$AM))break;e=t._$AN,e.delete(i),i=t;}while(0===e?.size)},r=i=>{for(let t;t=i._$AM;i=t){let e=t._$AN;if(void 0===e)t._$AN=e=new Set;else if(e.has(i))break;e.add(i),c$2(t);}};function h$1(i){ void 0!==this._$AN?(o$2(this),this._$AM=i,r(this)):this._$AM=i;}function n$4(i,t=false,e=0){const r=this._$AH,h=this._$AN;if(void 0!==h&&0!==h.size)if(t)if(Array.isArray(r))for(let i=e;i<r.length;i++)s$1(r[i],false),o$2(r[i]);else null!=r&&(s$1(r,false),o$2(r));else s$1(this,i);}const c$2=i=>{i.type==t.CHILD&&(i._$AP??=n$4,i._$AQ??=h$1);};class f extends i$3{constructor(){super(...arguments),this._$AN=void 0;}_$AT(i,t,e){super._$AT(i,t,e),r(this),this.isConnected=i._$AU;}_$AO(i,t=true){i!==this.isConnected&&(this.isConnected=i,i?this.reconnected?.():this.disconnected?.()),t&&(s$1(this,i),o$2(this));}setValue(t){if(f$1(this._$Ct))this._$Ct._$AI(t,this);else {const i=[...this._$Ct._$AH];i[this._$Ci]=t,this._$Ct._$AI(i,this,0);}}disconnected(){}reconnected(){}}
 
-const { component, createContext } = pion({ render: j });
+const { component} = pion({ render: j });
 
 /**
  * @license
@@ -8449,8 +8449,7 @@ function pushPath(object, path, newValue, concat) {
     k
   } = getLastOfPath(object, path, Object);
   obj[k] = obj[k] || [];
-  if (concat) obj[k] = obj[k].concat(newValue);
-  if (!concat) obj[k].push(newValue);
+  obj[k].push(newValue);
 }
 function getPath(object, path) {
   const {
@@ -11145,8 +11144,8 @@ const fit = (rect, bounds) => {
     height: bounds.height
   };
 }, create = async (urls, credentials) => {
-  const options = { credentials: credentials ? "include" : "omit" }, [{ jsPDF }, ...responses$] = await Promise.all([
-    import('./jspdf.es.min-AI8T2KTG.js').then(function (n) { return n.j; }),
+  const options = { credentials: "include"  }, [{ jsPDF }, ...responses$] = await Promise.all([
+    import('./jspdf.es.min-B2E7MRSj.js').then(function (n) { return n.j; }),
     ...urls.map(async (_url) => {
       const url = await Promise.resolve(invoke(_url));
       const response = await fetch(url, options);
@@ -11188,7 +11187,7 @@ const fit = (rect, bounds) => {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }, download = async (urls, filename, credentials) => {
-  const blob = await create(urls, credentials);
+  const blob = await create(urls);
   if (blob) {
     downloadBlob(blob, filename);
     return blob;
@@ -11391,7 +11390,7 @@ const onImageError = (e) => {
     currentImageIndex: index,
     selectedImageNumber: index + 1,
     syncImageIndex,
-    onDownloadPdf: () => download(images, downloadFileName, true),
+    onDownloadPdf: () => download(images, downloadFileName),
     isFullscreen,
     openFullscreen,
     closeFullscreen,

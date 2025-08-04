@@ -1197,9 +1197,6 @@ var stringToPath = memoizeCapped_default(function(string) {
   return result;
 });
 var stringToPath_default = stringToPath;
-
-// node_modules/lodash-es/_baseToString.js
-var INFINITY = 1 / 0;
 var symbolProto2 = Symbol_default ? Symbol_default.prototype : void 0;
 var symbolToString = symbolProto2 ? symbolProto2.toString : void 0;
 function baseToString(value) {
@@ -1213,7 +1210,7 @@ function baseToString(value) {
     return symbolToString ? symbolToString.call(value) : "";
   }
   var result = value + "";
-  return result == "0" && 1 / value == -INFINITY ? "-0" : result;
+  return result == "0" && 1 / value == -Infinity ? "-0" : result;
 }
 var baseToString_default = baseToString;
 
@@ -1231,15 +1228,12 @@ function castPath(value, object) {
   return isKey_default(value, object) ? [value] : stringToPath_default(toString_default(value));
 }
 var castPath_default = castPath;
-
-// node_modules/lodash-es/_toKey.js
-var INFINITY2 = 1 / 0;
 function toKey(value) {
   if (typeof value == "string" || isSymbol_default(value)) {
     return value;
   }
   var result = value + "";
-  return result == "0" && 1 / value == -INFINITY2 ? "-0" : result;
+  return result == "0" && 1 / value == -Infinity ? "-0" : result;
 }
 var toKey_default = toKey;
 
@@ -3552,4 +3546,4 @@ import_doctrine.type;
 import_doctrine.unwrapComment;
 import_doctrine.version;
 
-export { cacheHas_default as A, Symbol_default as B, nodeUtil_default as C, getTag_default as D, isBuffer_default as E, Stack_default as F, isArray_default as G, getAllKeys_default as H, keys_default as I, baseUnary_default as J, isObjectLike_default as K, Set_default as S, Uint8Array_default as U, __commonJS as _, isSymbol_default as a, __export as b, __esm as c, __toESM as d, __toCommonJS as e, __require as f, baseGetAllKeys_default as g, arrayPush_default as h, isObject_default as i, getSymbols_default as j, isArrayLike_default as k, arrayLikeKeys_default as l, eq_default as m, baseAssignValue_default as n, overArg_default as o, isPrototype_default as p, arrayMap_default as q, root_default as r, stubArray_default as s, baseIteratee_default as t, baseGet_default as u, castPath_default as v, toKey_default as w, isIndex_default as x, setToArray_default as y, SetCache_default as z };
+export { cacheHas_default as A, getTag_default as B, isBuffer_default as C, Stack_default as D, baseUnary_default as E, getAllKeys_default as F, keys_default as G, isArray_default as H, nodeUtil_default as I, isObjectLike_default as J, Symbol_default as K, SetCache_default as S, Uint8Array_default as U, __commonJS as _, isSymbol_default as a, __export as b, __esm as c, __toESM as d, __toCommonJS as e, __require as f, baseGetAllKeys_default as g, eq_default as h, isObject_default as i, baseAssignValue_default as j, arrayLikeKeys_default as k, isArrayLike_default as l, arrayPush_default as m, getSymbols_default as n, overArg_default as o, isPrototype_default as p, arrayMap_default as q, root_default as r, stubArray_default as s, baseIteratee_default as t, baseGet_default as u, castPath_default as v, toKey_default as w, isIndex_default as x, setToArray_default as y, Set_default as z };

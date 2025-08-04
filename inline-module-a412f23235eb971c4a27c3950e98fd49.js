@@ -11,8 +11,8 @@ if (SERVER_CHANNEL_URL) {
 }
 
 const importers = {
-  "./stories/cosmoz-image-viewer.stories.js": () => import('./cosmoz-image-viewer.stories-LYtBoZot.js'),
-  "./stories/haunted-pan-zoom.stories.js": () => import('./haunted-pan-zoom.stories-BHOMDOwz.js')
+  "./stories/cosmoz-image-viewer.stories.js": () => import('./cosmoz-image-viewer.stories-CrLCfYSq.js'),
+  "./stories/haunted-pan-zoom.stories.js": () => import('./haunted-pan-zoom.stories-BB_wWZaa.js')
 };
 function importFn(path) {
   return importers[path]();
@@ -20,15 +20,15 @@ function importFn(path) {
 
 const getProjectAnnotations = async () => {
   const configs = await Promise.all([
-    import('./entry-preview-UHbUvXwy.js'),
-    import('./entry-preview-docs-hBTbfxOx.js'),
-    import('./preview-Z882EUFE.js'),
-    import('./preview-LSB5aSA_.js'),
-    import('./preview-fr89Ma8P.js'),
-    import('./preview-MTg22G6e.js'),
-    import('./preview-nPmPU166.js'),
-    import('./preview-GQUB9WQH.js'),
-    import('./preview-I57bIBGH.js')
+    import('./entry-preview-CkMu6tQy.js'),
+    import('./entry-preview-docs-D0IFHmiH.js'),
+    import('./preview-CehLVis7.js'),
+    import('./preview-BbsZ1HGL.js'),
+    import('./preview-BlJG9B2P.js'),
+    import('./preview-Dhf5Fisp.js'),
+    import('./preview-BYsVd6Zb.js'),
+    import('./preview-CDagOaLU.js'),
+    import('./preview-CCogJvEi.js')
   ]);
   return __STORYBOOK_MODULE_PREVIEW_API__.composeConfigs(configs);
 };
