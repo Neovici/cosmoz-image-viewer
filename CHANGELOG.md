@@ -1,3 +1,10 @@
+## [8.2.1](https://github.com/neovici/cosmoz-image-viewer/compare/v8.2.0...v8.2.1) (2025-08-04)
+
+
+### Bug Fixes
+
+* automerge workflow ([a6898f1](https://github.com/neovici/cosmoz-image-viewer/commit/a6898f103d0e055b3dc3960c9d877c589557c3f9))
+
 # [8.2.0](https://github.com/neovici/cosmoz-image-viewer/compare/v8.1.1...v8.2.0) (2025-07-21)
 
 
