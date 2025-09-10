@@ -7,8 +7,8 @@ export default {
 };
 const Template = ({ disabled, height, zoomStiffness, panStiffness }) => html`
 	<haunted-pan-zoom
-		src="a_size.png"
-		style="height: ${height}px;"
+		src="stories/images/a_size.png"
+		style="${height};"
 		?disabled=${disabled}
 		.zoomStiffness=${zoomStiffness}
 		.panStiffness=${panStiffness}
@@ -19,7 +19,7 @@ const Template = ({ disabled, height, zoomStiffness, panStiffness }) => html`
 export const PanZoom = Template.bind({});
 PanZoom.args = {
 	disabled: false,
-	height: 400,
+	height: 'height: 70vh;',
 	zoomStiffness: 0.3,
 	panStiffness: 1,
 };
