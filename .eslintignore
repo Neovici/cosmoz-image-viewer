@@ -1,1 +1,4 @@
-/coverage/
+coverage/
+storybook-static/
+dist/
+node_modules/

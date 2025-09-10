@@ -1,9 +1,9 @@
 export const images = [
-	'stockholm.jpg',
+	'stories/images/stockholm.jpg',
 	'this-is-a-loading-error.jpg',
-	() => 'a_size.png',
+	() => 'stories/images/a_size.png',
 	() =>
 		new Promise((resolve) =>
-			setTimeout(() => resolve('strasbourg.jpg'), 500),
+			setTimeout(() => resolve('stories/images/strasbourg.jpg'), 500),
 		),
 ];

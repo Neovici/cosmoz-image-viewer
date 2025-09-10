@@ -76,20 +76,16 @@
 		"@rollup/plugin-commonjs": "^26.0.1",
 		"@semantic-release/changelog": "^6.0.0",
 		"@semantic-release/git": "^10.0.0",
-		"@storybook/addon-essentials": "^7.6.19",
-		"@storybook/addon-links": "^7.6.19",
-		"@storybook/storybook-deployer": "^2.8.16",
-		"@storybook/web-components": "7.6.17",
+		"@storybook/addon-docs": "^9.1.5",
+		"@storybook/web-components-vite": "^9.1.5",
 		"@types/mocha": "^10.0.6",
 		"@types/node": "^20.12.13",
-		"@web/storybook-builder": "^0.1.16",
-		"@web/storybook-framework-web-components": "^0.1.2",
 		"esbuild": "^0.21.4",
 		"http-server": "^14.1.1",
 		"husky": "^9.0.11",
 		"rollup-plugin-esbuild": "^6.1.1",
 		"semantic-release": "^24.0.0",
 		"sinon": "^18.0.0",
-		"storybook": "^7.6.19"
+		"storybook": "^9.1.5"
 	}
 }
