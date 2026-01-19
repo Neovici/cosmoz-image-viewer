@@ -1,4 +1,4 @@
-name:  CI
+name: CI
 on:
   pull_request:
     branches:
@@ -8,7 +8,7 @@ on:
       - beta
       - master
 permissions:
-  contents: write 
+  contents: write
   issues: write
   pull-requests: write
   id-token: write
