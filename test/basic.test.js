@@ -6,6 +6,7 @@ import { absolute, ignoreResizeLoopError } from './helpers/index.js';
 
 suite('cosmoz-image-viewer', () => {
 	suiteSetup(ignoreResizeLoopError);
+
 	setup(async () => {
 		await fixture(
 			html`<cosmoz-image-viewer

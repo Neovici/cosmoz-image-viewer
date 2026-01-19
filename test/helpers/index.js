@@ -3,7 +3,7 @@ import { assert } from '@open-wc/testing';
 export const HAS_NEW_TOUCH = (() => {
 		try {
 			return Boolean(new TouchEvent('x'));
-		} catch (_) {
+		} catch {
 			/**/
 		}
 		return false;

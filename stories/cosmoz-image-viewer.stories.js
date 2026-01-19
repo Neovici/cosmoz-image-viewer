@@ -1,4 +1,4 @@
-/* eslint-disable import/group-exports */
+ 
 import { html } from 'lit-html';
 import '../cosmoz-image-viewer.js';
 import { images } from './data.js';

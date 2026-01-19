@@ -213,6 +213,7 @@ suite('cosmoz-image-viewer detach', () => {
 
 suite('syncState', () => {
 	let el;
+
 	setup(async () => {
 		el = await fixture(
 			html`<cosmoz-image-viewer
