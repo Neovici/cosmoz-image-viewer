@@ -17,6 +17,7 @@ suite('use-mouse-pan', () => {
 
 	let element;
 	const text = () => element.shadowRoot.textContent;
+
 	setup(async () => {
 		element = await fixture(html`<use-mouse-pan></use-mouse-pan>`);
 	});

@@ -20,6 +20,7 @@ suite('use-pinch', () => {
 
 	let element;
 	const text = () => element.shadowRoot.textContent;
+
 	setup(async () => {
 		element = await fixture(html`<use-pinch></use-pinch>`);
 	});

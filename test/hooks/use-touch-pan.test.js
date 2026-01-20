@@ -20,6 +20,7 @@ suite('use-touch-pan', () => {
 
 	let element;
 	const text = () => element.shadowRoot.textContent;
+
 	setup(async () => {
 		element = await fixture(html`<use-touch-pan></use-touch-pan>`);
 	});

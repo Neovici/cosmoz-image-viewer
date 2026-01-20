@@ -19,7 +19,7 @@ const status = (el, status) =>
 	scrollDown = (el) => scroll(el, 1),
 	scrollUp = (el) => scroll(el, -1);
 
-// eslint-disable-next-line max-lines-per-function
+ 
 suite('haunted-pan-zoom', () => {
 	let el;
 
