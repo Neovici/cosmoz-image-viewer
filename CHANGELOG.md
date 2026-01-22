@@ -1,3 +1,13 @@
+## [8.3.0](https://github.com/neovici/cosmoz-image-viewer/compare/v8.2.1...v8.3.0) (2026-01-22)
+
+### Features
+
+* workflow permissions and job configuration ([a5ae9c6](https://github.com/neovici/cosmoz-image-viewer/commit/a5ae9c643129181fe7ad96a80e58bd5d1268bfab))
+
+### Bug Fixes
+
+* resolve commitlint and eslint errors ([0914824](https://github.com/neovici/cosmoz-image-viewer/commit/09148243b6efe357f10a36a8e6f3d98194d32641))
+
 ## [8.2.1](https://github.com/neovici/cosmoz-image-viewer/compare/v8.2.0...v8.2.1) (2025-08-04)
 
 

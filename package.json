@@ -1,6 +1,6 @@
 {
 	"name": "@neovici/cosmoz-image-viewer",
-	"version": "8.2.1",
+	"version": "8.3.0",
 	"type": "module",
 	"description": "[![Build Status](https://travis-ci.org/Neovici/cosmoz-image-viewer.svg?branch=master)](https://travis-ci.org/Neovici/cosmoz-image-viewer)",
 	"keywords": [
