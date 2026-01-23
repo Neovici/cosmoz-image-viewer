@@ -1,3 +1,9 @@
+## [8.3.2](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.3.1...v8.3.2) (2026-01-23)
+
+### Bug Fixes
+
+* provenance urls ([f8d201c](https://github.com/Neovici/cosmoz-image-viewer/commit/f8d201c50884d16b557b3fd44aa983caa0411e07))
+
 ## [8.3.1](https://github.com/neovici/cosmoz-image-viewer/compare/v8.3.0...v8.3.1) (2026-01-23)
 
 ### Bug Fixes
