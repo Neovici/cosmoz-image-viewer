@@ -8,15 +8,15 @@ import { nothing } from 'lit-html';
 import { when } from 'lit-html/directives/when.js';
 import { style } from './cosmoz-image-viewer.style';
 import { useCosmozImageViewer } from './lib/hooks/use-cosmoz-image-viewer';
-import { leftArrow } from './lib/icons/left-arrow';
-import { rightArrow } from './lib/icons/right-arrow';
-import { launch } from './lib/icons/launch';
-import { fileDownload } from './lib/icons/file-download';
-import { printFile } from './lib/icons/print-file';
-import { magnifierPlus } from './lib/icons/magnifier-plus';
-import { magnifierMinus } from './lib/icons/magnifier-minus';
-import { fullscreen } from './lib/icons/fullscreen';
 import { close as closeIcon } from './lib/icons/close';
+import { fileDownload } from './lib/icons/file-download';
+import { fullscreen } from './lib/icons/fullscreen';
+import { launch } from './lib/icons/launch';
+import { leftArrow } from './lib/icons/left-arrow';
+import { magnifierMinus } from './lib/icons/magnifier-minus';
+import { magnifierPlus } from './lib/icons/magnifier-plus';
+import { printFile } from './lib/icons/print-file';
+import { rightArrow } from './lib/icons/right-arrow';
 
 const getZoomIcon = (zoomed) => (zoomed ? magnifierMinus : magnifierPlus);
 
@@ -182,7 +182,7 @@ const renderCosmozImageViewer = ({
 						></cosmoz-image-viewer>`,
 					),
 				)}
-		  `;
+			`;
 
 const CosmozImageViewer = (host) =>
 	renderCosmozImageViewer(useCosmozImageViewer(host));
