@@ -1,13 +1,15 @@
-
 {
-	"eslint.packageManager": "npm",
-	"eslint.validate": [ "javascript", "html" ],
-	"files.watcherExclude": {
-		"**/.git/objects/**": true,
-		"**/.git/subtree-cache/**": true,
-		"**/node_modules/**": true
-	},
-	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": true
-	}
+  "eslint.packageManager": "npm",
+  "eslint.validate": [
+    "javascript",
+    "html"
+  ],
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
 }
