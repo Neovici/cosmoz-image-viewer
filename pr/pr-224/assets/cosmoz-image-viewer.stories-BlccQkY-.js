@@ -1,4 +1,4 @@
-import{b as g}from"./iframe-DJ1FsQqM.js";import"./cosmoz-image-viewer-DQFN3h-H.js";const c=["stories/images/stockholm.jpg","this-is-a-loading-error.jpg",()=>"stories/images/a_size.png",()=>new Promise(e=>setTimeout(()=>e("stories/images/strasbourg.jpg"),500))],l={title:"Cosmoz Image Viewer",component:"cosmoz-image-viewer"},o=({showDetach:e,showFullscreen:a,showPageNumber:m,showNav:s,loop:i,showZoom:n,detachedShowZoom:t})=>g`
+import{b as g}from"./iframe-DWfiveKH.js";import"./cosmoz-image-viewer-DoMNqS4O.js";const c=["stories/images/stockholm.jpg","this-is-a-loading-error.jpg",()=>"stories/images/a_size.png",()=>new Promise(e=>setTimeout(()=>e("stories/images/strasbourg.jpg"),500))],l={title:"Cosmoz Image Viewer",component:"cosmoz-image-viewer"},o=({showDetach:e,showFullscreen:a,showPageNumber:m,showNav:s,loop:i,showZoom:n,detachedShowZoom:t})=>g`
     <cosmoz-image-viewer
         ?show-detach=${e}
         ?show-fullscreen=${a}
