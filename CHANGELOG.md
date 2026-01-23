@@ -1,3 +1,9 @@
+## [8.3.1](https://github.com/neovici/cosmoz-image-viewer/compare/v8.3.0...v8.3.1) (2026-01-23)
+
+### Bug Fixes
+
+* correct npm deps lock ([a48a8af](https://github.com/neovici/cosmoz-image-viewer/commit/a48a8af82142900bce7f6512cbd2885d9aa147a6))
+
 ## [8.3.0](https://github.com/neovici/cosmoz-image-viewer/compare/v8.2.1...v8.3.0) (2026-01-22)
 
 ### Features
