@@ -26,6 +26,7 @@
   ],
   "scripts": {
     "lint": "eslint --cache .",
+    "check:duplicates": "check-duplicate-components",
     "start": "npm run storybook:start",
     "test": "wtr --coverage",
     "test:watch": "wtr --watch",
@@ -75,7 +76,7 @@
   "devDependencies": {
     "@commitlint/cli": "^20.0.0",
     "@commitlint/config-conventional": "^20.0.0",
-    "@neovici/cfg": "^2.0.0",
+    "@neovici/cfg": "^2.8.0",
     "@open-wc/testing": "^4.0.0",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@semantic-release/changelog": "^6.0.0",
@@ -88,6 +89,7 @@
     "eslint": "^9.0.0",
     "http-server": "^14.1.1",
     "husky": "^9.0.11",
+    "lint-staged": "^16.2.7",
     "rollup-plugin-esbuild": "^6.1.1",
     "semantic-release": "^25.0.0",
     "sinon": "^19.0.0",
