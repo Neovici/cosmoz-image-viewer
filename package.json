@@ -1,101 +1,101 @@
 {
-  "name": "@neovici/cosmoz-image-viewer",
-  "version": "8.4.0",
-  "type": "module",
-  "description": "[![Build Status](https://travis-ci.org/Neovici/cosmoz-image-viewer.svg?branch=master)](https://travis-ci.org/Neovici/cosmoz-image-viewer)",
-  "keywords": [
-    "web-components"
-  ],
-  "homepage": "https://github.com/Neovici/cosmoz-image-viewer#readme",
-  "bugs": {
-    "url": "https://github.com/Neovici/cosmoz-image-viewer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Neovici/cosmoz-image-viewer.git"
-  },
-  "license": "Apache-2.0",
-  "author": "",
-  "main": "cosmoz-image-viewer.js",
-  "directories": {
-    "test": "test"
-  },
-  "files": [
-    "lib/",
-    "cosmoz-*.js"
-  ],
-  "scripts": {
-    "lint": "eslint --cache .",
-    "check:duplicates": "check-duplicate-components",
-    "start": "npm run storybook:start",
-    "test": "wtr --coverage",
-    "test:watch": "wtr --watch",
-    "prepare": "husky",
-    "prettier": "prettier --write \"**/*.{js,ts,json,css,md}\"",
-    "prettier:check": "prettier --check \"**/*.{js,ts,json,css,md}\"",
-    "storybook:start": "storybook dev -p 8000",
-    "storybook:build": "storybook build",
-    "storybook:deploy": "storybook-to-ghpages",
-    "storybook:preview": "npm run storybook:build && http-server ./storybook-static/ --silent"
-  },
-  "release": {
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/changelog",
-      "@semantic-release/github",
-      "@semantic-release/npm",
-      "@semantic-release/git"
-    ],
-    "branch": "master",
-    "preset": "conventionalcommits"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ],
-    "rules": {
-      "body-max-line-length": [
-        1,
-        "always",
-        600
-      ]
-    }
-  },
-  "dependencies": {
-    "@neovici/cosmoz-i18next": "^3.2.2",
-    "@neovici/cosmoz-slider": "^5.2.0",
-    "@neovici/cosmoz-utils": "^6.9.0",
-    "@pionjs/pion": "^2.5.2",
-    "jspdf": "^4.0.0",
-    "lit-html": "^2.0.0 || ^3.1.4"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^20.0.0",
-    "@commitlint/config-conventional": "^20.0.0",
-    "@neovici/cfg": "^2.8.0",
-    "@open-wc/testing": "^4.0.0",
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@semantic-release/changelog": "^6.0.0",
-    "@semantic-release/git": "^10.0.0",
-    "@storybook/addon-docs": "^9.1.5",
-    "@storybook/web-components-vite": "^9.1.5",
-    "@types/mocha": "^10.0.6",
-    "@types/node": "^20.12.13",
-    "esbuild": "^0.24.0",
-    "eslint": "^9.0.0",
-    "http-server": "^14.1.1",
-    "husky": "^9.0.11",
-    "lint-staged": "^16.2.7",
-    "rollup-plugin-esbuild": "^6.1.1",
-    "semantic-release": "^25.0.0",
-    "sinon": "^19.0.0",
-    "storybook": "^9.1.5"
-  },
-  "overrides": {
-    "conventional-changelog-conventionalcommits": ">= 8.0.0"
-  }
+	"name": "@neovici/cosmoz-image-viewer",
+	"version": "8.4.0",
+	"type": "module",
+	"description": "[![Build Status](https://travis-ci.org/Neovici/cosmoz-image-viewer.svg?branch=master)](https://travis-ci.org/Neovici/cosmoz-image-viewer)",
+	"keywords": [
+		"web-components"
+	],
+	"homepage": "https://github.com/Neovici/cosmoz-image-viewer#readme",
+	"bugs": {
+		"url": "https://github.com/Neovici/cosmoz-image-viewer/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Neovici/cosmoz-image-viewer.git"
+	},
+	"license": "Apache-2.0",
+	"author": "",
+	"main": "cosmoz-image-viewer.js",
+	"directories": {
+		"test": "test"
+	},
+	"files": [
+		"lib/",
+		"cosmoz-*.js"
+	],
+	"scripts": {
+		"lint": "eslint --cache .",
+		"check:duplicates": "check-duplicate-components",
+		"start": "npm run storybook:start",
+		"test": "wtr --coverage",
+		"test:watch": "wtr --watch",
+		"prepare": "husky",
+		"prettier": "prettier --write \"**/*.{js,ts,json,css,md}\"",
+		"prettier:check": "prettier --check \"**/*.{js,ts,json,css,md}\"",
+		"storybook:start": "storybook dev -p 8000",
+		"storybook:build": "storybook build",
+		"storybook:deploy": "storybook-to-ghpages",
+		"storybook:preview": "npm run storybook:build && http-server ./storybook-static/ --silent"
+	},
+	"release": {
+		"plugins": [
+			"@semantic-release/commit-analyzer",
+			"@semantic-release/release-notes-generator",
+			"@semantic-release/changelog",
+			"@semantic-release/github",
+			"@semantic-release/npm",
+			"@semantic-release/git"
+		],
+		"branch": "master",
+		"preset": "conventionalcommits"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		],
+		"rules": {
+			"body-max-line-length": [
+				1,
+				"always",
+				600
+			]
+		}
+	},
+	"dependencies": {
+		"@neovici/cosmoz-i18next": "^3.2.2",
+		"@neovici/cosmoz-slider": "^5.2.0",
+		"@neovici/cosmoz-utils": "^6.9.0",
+		"@pionjs/pion": "^2.5.2",
+		"jspdf": "^4.1.0",
+		"lit-html": "^2.0.0 || ^3.1.4"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^20.0.0",
+		"@commitlint/config-conventional": "^20.0.0",
+		"@neovici/cfg": "^2.8.0",
+		"@open-wc/testing": "^4.0.0",
+		"@rollup/plugin-commonjs": "^26.0.1",
+		"@semantic-release/changelog": "^6.0.0",
+		"@semantic-release/git": "^10.0.0",
+		"@storybook/addon-docs": "^9.1.5",
+		"@storybook/web-components-vite": "^9.1.5",
+		"@types/mocha": "^10.0.6",
+		"@types/node": "^20.12.13",
+		"esbuild": "^0.24.0",
+		"eslint": "^9.0.0",
+		"http-server": "^14.1.1",
+		"husky": "^9.0.11",
+		"lint-staged": "^16.2.7",
+		"rollup-plugin-esbuild": "^6.1.1",
+		"semantic-release": "^25.0.0",
+		"sinon": "^19.0.0",
+		"storybook": "^9.1.5"
+	},
+	"overrides": {
+		"conventional-changelog-conventionalcommits": ">= 8.0.0"
+	}
 }
