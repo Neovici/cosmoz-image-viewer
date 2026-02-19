@@ -1,3 +1,9 @@
+## [8.5.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.4.1...v8.5.0) (2026-02-19)
+
+### Features
+
+* **pdf:** add native PDF rendering support via pdfjs-dist ([#238](https://github.com/Neovici/cosmoz-image-viewer/issues/238)) ([1b85a87](https://github.com/Neovici/cosmoz-image-viewer/commit/1b85a872d9595423548d2ad97287e6c0c33243dc))
+
 ## [8.4.1](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.4.0...v8.4.1) (2026-02-03)
 
 ### Bug Fixes
