@@ -171,6 +171,7 @@ const renderCosmozImageViewer = ({
 							fullscreen
 							.images="${host.images}"
 							.pdf="${host.pdf}"
+							.pdfOptions="${host.pdfOptions}"
 							show-nav
 							show-zoom
 							show-close
