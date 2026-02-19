@@ -1,3 +1,9 @@
+## [8.6.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.5.0...v8.6.0) (2026-02-19)
+
+### Features
+
+* **pdf:** add pdfOptions support for authenticated PDF loading ([#239](https://github.com/Neovici/cosmoz-image-viewer/issues/239)) ([21ad1db](https://github.com/Neovici/cosmoz-image-viewer/commit/21ad1db98c8a12816dcffd46be8666979c03c794))
+
 ## [8.5.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.4.1...v8.5.0) (2026-02-19)
 
 ### Features
