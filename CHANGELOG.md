@@ -1,3 +1,9 @@
+## [8.6.2](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.6.1...v8.6.2) (2026-03-02)
+
+### Bug Fixes
+
+* lazy PDF page rendering via thunks instead of eager Promise.all ([#245](https://github.com/Neovici/cosmoz-image-viewer/issues/245)) ([5e687d0](https://github.com/Neovici/cosmoz-image-viewer/commit/5e687d00b44ce23c2b42e3212100a6181ebb12f0))
+
 ## [8.6.1](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.6.0...v8.6.1) (2026-03-02)
 
 ### Bug Fixes
