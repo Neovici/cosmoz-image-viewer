@@ -1,7 +1,12 @@
- 
 import { html } from 'lit-html';
+import { GlobalWorkerOptions } from 'pdfjs-dist';
 import '../cosmoz-image-viewer.js';
 import { images } from './data.js';
+
+GlobalWorkerOptions.workerSrc = new URL(
+	'pdfjs-dist/build/pdf.worker.min.mjs',
+	import.meta.url,
+).href;
 
 export default {
 	title: 'Cosmoz Image Viewer',
@@ -50,8 +55,42 @@ Basic.args = {
 	detachedShowZoom: false,
 };
 
+export const Pdf = ({
+	showDetach,
+	showFullscreen,
+	showPageNumber,
+	showNav,
+	loop,
+	showZoom,
+	detachedShowZoom,
+}) => html`
+	<cosmoz-image-viewer
+		?show-detach=${showDetach}
+		?show-fullscreen=${showFullscreen}
+		?show-page-number=${showPageNumber}
+		?show-nav=${showNav}
+		?loop=${loop}
+		?show-zoom=${showZoom}
+		?detached-show-zoom=${detachedShowZoom}
+		pdf="stories/images/sample.pdf"
+	></cosmoz-image-viewer>
+`;
+
+Pdf.args = {
+	showDetach: true,
+	showFullscreen: true,
+	showPageNumber: true,
+	showNav: true,
+	loop: true,
+	showZoom: false,
+	detachedShowZoom: false,
+};
+
 export const Issue21 = () => {
-	const images1 = ['stories/images/stockholm.jpg', 'stories/images/strasbourg.jpg'],
+	const images1 = [
+			'stories/images/stockholm.jpg',
+			'stories/images/strasbourg.jpg',
+		],
 		images2 = ['stories/images/cosmos1.jpg', 'stories/images/cosmos2.jpg'];
 	return html`
 		<cosmoz-image-viewer

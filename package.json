@@ -98,6 +98,7 @@
 		"http-server": "^14.1.1",
 		"husky": "^9.0.11",
 		"lint-staged": "^16.2.7",
+		"pdfjs-dist": "^4.10.38",
 		"rollup-plugin-esbuild": "^6.1.1",
 		"semantic-release": "^25.0.0",
 		"sinon": "^19.0.0",
