@@ -1,3 +1,9 @@
+## [8.6.1](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.6.0...v8.6.1) (2026-03-02)
+
+### Bug Fixes
+
+* include pdfOptions httpHeaders in downloadUrl fetch request ([#244](https://github.com/Neovici/cosmoz-image-viewer/issues/244)) ([3c8bdbc](https://github.com/Neovici/cosmoz-image-viewer/commit/3c8bdbc692274e77ae30f61a9401584551e8e003))
+
 ## [8.6.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.5.0...v8.6.0) (2026-02-19)
 
 ### Features
