@@ -1,3 +1,9 @@
+## [8.6.3](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.6.2...v8.6.3) (2026-03-27)
+
+### Bug Fixes
+
+* use print intent for offscreen PDF rendering to avoid rAF throttling ([#262](https://github.com/Neovici/cosmoz-image-viewer/issues/262)) ([04a2c26](https://github.com/Neovici/cosmoz-image-viewer/commit/04a2c26779dde213041f036e7ccf0b3bd150aa84))
+
 ## [8.6.2](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.6.1...v8.6.2) (2026-03-02)
 
 ### Bug Fixes
