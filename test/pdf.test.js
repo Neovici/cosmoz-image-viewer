@@ -5,19 +5,6 @@ import { perform } from '@neovici/cfg/web/perform.js';
 import { fixture, html } from '@open-wc/testing';
 import { absolute, ignoreResizeLoopError } from './helpers/index.js';
 
-// Polyfill Map.prototype.getOrInsertComputed for older Chromium versions
-// that don't yet support this TC39 Stage 4 proposal (required by pdfjs-dist v5).
-if (!Map.prototype.getOrInsertComputed) {
-	Map.prototype.getOrInsertComputed = function (key, callbackFn) {
-		if (this.has(key)) {
-			return this.get(key);
-		}
-		const value = callbackFn(key);
-		this.set(key, value);
-		return value;
-	};
-}
-
 GlobalWorkerOptions.workerSrc = new URL(
 	'../node_modules/pdfjs-dist/build/pdf.worker.min.mjs',
 	window.location.href,
