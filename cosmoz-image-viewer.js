@@ -63,186 +63,193 @@ const renderCosmozImageViewer = ({
 	onSelect,
 	images,
 }) =>
-	detached
-		? nothing
-		: html`
-				<style>
-					${style}
-				</style>
+	html`
+		<style>
+			${style}
+		</style>
 
-				${when(
-					loading,
-					() =>
-						html`<div class="loading-overlay">
-							<cz-spinner></cz-spinner>
-						</div>`,
-				)}
-				${when(
-					error,
-					() =>
-						html`<div class="source-error">
-							<h2>${_('Failed to load attachments.')}</h2>
-							<div class="desc">${error?.message ?? error}</div>
-						</div>`,
-				)}
-				${when(
-					!loading && !error,
-					() => html`
-						${when(
-							shouldShow(host.showPageNumber, total),
-							() =>
-								html` <div class="nav counter">
-									${selectedImageNumber}/${total}
-								</div>`,
-						)}
+		${detached
+			? nothing
+			: html`
+					${when(
+						loading,
+						() =>
+							html`<div class="loading-overlay">
+								<cz-spinner></cz-spinner>
+							</div>`,
+					)}
+					${when(
+						error,
+						() =>
+							html`<div class="source-error">
+								<h2>${_('Failed to load attachments.')}</h2>
+								<div class="desc">
+									${error?.message ?? error}
+								</div>
+							</div>`,
+					)}
+					${when(
+						!loading && !error,
+						() => html`
+							${when(
+								shouldShow(host.showPageNumber, total),
+								() =>
+									html` <div class="nav counter">
+										${selectedImageNumber}/${total}
+									</div>`,
+							)}
 
-						<div class="actions layout horizontal center">
-							${when(
-								attachments.length > 1,
-								() =>
-									html`<cosmoz-autocomplete
-										class="attachment-select"
-										text-property="title"
-										limit="1"
-										min="1"
-										show-single
-										preserve-order
-										.source=${attachments}
-										.value=${value}
-										@value=${onSelect}
-									></cosmoz-autocomplete>`,
-							)}
-							${when(
-								shouldShow(host.showNav, total, 2),
-								() => html`
-									<button
-										class="nav"
-										name="prev"
-										?disabled=${first}
-										@click=${previousImage}
-									>
-										${leftArrow}
-									</button>
-									<button
-										class="nav"
-										name="next"
-										?disabled=${last}
-										@click=${nextImage}
-									>
-										${rightArrow}
-									</button>
-								`,
-							)}
-							<div class="flex"></div>
-							${when(
-								shouldShow(host.showZoom, total),
-								() =>
-									html`<button
-										class="nav"
-										@click="${toggleZoom}"
-										title="${_('Zoom image')}"
-									>
-										${getZoomIcon(isZoomed)}
-									</button>`,
-							)}
-							${when(
-								shouldShow(host.showDetach, total),
-								() =>
-									html`<button
-										class="nav"
-										@click=${detach}
-										title="${_(
-											'Detach image to separate window',
-										)}"
-									>
-										${launch}
-									</button>`,
-							)}
-							${when(
-								shouldShow(true, total),
-								() =>
-									html`<button
-										class="nav"
-										@click=${onDownloadPdf}
-										title="${_('Download images')}"
-									>
-										${fileDownload}
-									</button>`,
-							)}
-							${when(
-								shouldShow(true, total),
-								() =>
-									html`<button
-										class="nav"
-										@click=${onPrintPdf}
-										title="${_('Print images')}"
-									>
-										${printFile}
-									</button>`,
-							)}
-							${when(
-								shouldShow(host.showFullscreen, total),
-								() =>
-									html`<button
-										class="nav"
-										@click="${openFullscreen}"
-										title="${_('Fullscreen image')}"
-									>
-										${fullscreen}
-									</button>`,
-							)}
-							${when(
-								shouldShow(host.showClose, total),
-								() =>
-									html` <button
-										class="nav"
-										@click="${() =>
-											host.dispatchEvent(
-												new CustomEvent('close'),
+							<div class="actions layout horizontal center">
+								${when(
+									attachments.length > 1,
+									() =>
+										html`<cosmoz-autocomplete
+											class="attachment-select"
+											text-property="title"
+											limit="1"
+											min="1"
+											show-single
+											preserve-order
+											.source=${attachments}
+											.value=${value}
+											@value=${onSelect}
+										></cosmoz-autocomplete>`,
+								)}
+								${when(
+									shouldShow(host.showNav, total, 2),
+									() => html`
+										<button
+											class="nav"
+											name="prev"
+											?disabled=${first}
+											@click=${previousImage}
+										>
+											${leftArrow}
+										</button>
+										<button
+											class="nav"
+											name="next"
+											?disabled=${last}
+											@click=${nextImage}
+										>
+											${rightArrow}
+										</button>
+									`,
+								)}
+								<div class="flex"></div>
+								${when(
+									shouldShow(host.showZoom, total),
+									() =>
+										html`<button
+											class="nav"
+											@click="${toggleZoom}"
+											title="${_('Zoom image')}"
+										>
+											${getZoomIcon(isZoomed)}
+										</button>`,
+								)}
+								${when(
+									shouldShow(host.showDetach, total),
+									() =>
+										html`<button
+											class="nav"
+											@click=${detach}
+											title="${_(
+												'Detach image to separate window',
 											)}"
-										title="${_('Close fullscreen')}"
-									>
-										${closeIcon}
-									</button>`,
-							)}
-						</div>
+										>
+											${launch}
+										</button>`,
+								)}
+								${when(
+									shouldShow(true, total),
+									() =>
+										html`<button
+											class="nav"
+											@click=${onDownloadPdf}
+											title="${_('Download images')}"
+										>
+											${fileDownload}
+										</button>`,
+								)}
+								${when(
+									shouldShow(true, total),
+									() =>
+										html`<button
+											class="nav"
+											@click=${onPrintPdf}
+											title="${_('Print images')}"
+										>
+											${printFile}
+										</button>`,
+								)}
+								${when(
+									shouldShow(host.showFullscreen, total),
+									() =>
+										html`<button
+											class="nav"
+											@click="${openFullscreen}"
+											title="${_('Fullscreen image')}"
+										>
+											${fullscreen}
+										</button>`,
+								)}
+								${when(
+									shouldShow(host.showClose, total),
+									() =>
+										html` <button
+											class="nav"
+											@click="${() =>
+												host.dispatchEvent(
+													new CustomEvent('close'),
+												)}"
+											title="${_('Close fullscreen')}"
+										>
+											${closeIcon}
+										</button>`,
+								)}
+							</div>
 
-						<div id="imageContainer">
-							${when(
-								total === 0,
-								() => html`<p>${_('No image loaded.')}</p>`,
-							)}
-							<cosmoz-slider
-								id="slider"
-								.slide="${currentSlide}"
-							></cosmoz-slider>
-						</div>
+							<div id="imageContainer">
+								${when(
+									total === 0,
+									() =>
+										html`<p>
+											${_('No image loaded.')}
+										</p>`,
+								)}
+								<cosmoz-slider
+									id="slider"
+									.slide="${currentSlide}"
+								></cosmoz-slider>
+							</div>
+						`,
+					)}
+				`}
 
-						${when(isFullscreen, () =>
-							portal(
-								html`<cosmoz-image-viewer
-									fullscreen
-									.source=${[
-										{
-											title: selected?.title,
-											images,
-										},
-									]}
-									show-nav
-									show-zoom
-									show-close
-									@close=${closeFullscreen}
-									.currentImageIndex=${currentImageIndex}
-									@current-image-index-changed=${syncImageIndex}
-									@detached-changed=${syncDetachedState}
-									?show-detach=${host.showDetach}
-									?loop=${host.loop}
-								></cosmoz-image-viewer>`,
-							),
-						)}
-					`,
-				)}
-			`;
+		${when(isFullscreen, () =>
+			portal(
+				html`<cosmoz-image-viewer
+					fullscreen
+					.source=${[
+						{
+							title: selected?.title,
+							images,
+						},
+					]}
+					show-nav
+					show-zoom
+					show-close
+					@close=${closeFullscreen}
+					.currentImageIndex=${currentImageIndex}
+					@current-image-index-changed=${syncImageIndex}
+					@detached-changed=${syncDetachedState}
+					?show-detach=${host.showDetach}
+					?loop=${host.loop}
+				></cosmoz-image-viewer>`,
+			),
+		)}
+	`;
 
 const CosmozImageViewer = (host) =>
 	renderCosmozImageViewer(useCosmozImageViewer(host));
