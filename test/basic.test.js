@@ -15,11 +15,16 @@ suite('cosmoz-image-viewer', () => {
 				show-fullscreen
 				show-page-number
 				show-detach
-				.images=${[
-					'/stories/images/stockholm.jpg',
-					'/stories/images/strasbourg.jpg',
-					'/stories/images/cosmos1.jpg',
-				].map(absolute)}
+				.source=${[
+					{
+						title: 'Test',
+						images: [
+							'/stories/images/stockholm.jpg',
+							'/stories/images/strasbourg.jpg',
+							'/stories/images/cosmos1.jpg',
+						].map(absolute),
+					},
+				]}
 			></cosmoz-image-viewer>`,
 		);
 	});
@@ -95,7 +100,7 @@ suite('cosmoz-image-viewer with no images', () => {
 				show-fullscreen
 				show-page-number
 				show-detach
-				.images=${[]}
+				.source=${[{ title: 'Empty', images: [] }]}
 			></cosmoz-image-viewer>`,
 		);
 	});
@@ -127,11 +132,16 @@ suite('cosmoz-image-viewer-loading-error', () => {
 				show-fullscreen
 				show-page-number
 				show-detach
-				.images=${[
-					'xyz.jpg',
-					'/stories/images/stockholm.jpg',
-					'/stories/images/strasbourg.jpg',
-				].map(absolute)}
+				.source=${[
+					{
+						title: 'Errors',
+						images: [
+							'xyz.jpg',
+							'/stories/images/stockholm.jpg',
+							'/stories/images/strasbourg.jpg',
+						].map(absolute),
+					},
+				]}
 			></cosmoz-image-viewer>`,
 		);
 	});

@@ -3,6 +3,8 @@ export const style = `:host {
     flex-direction: column;
     position: relative;
     overflow: auto;
+    font-family: var(--cz-font-body);
+    font-size: var(--cz-text-sm);
 }
 
 :host([fullscreen]) {
@@ -29,6 +31,7 @@ export const style = `:host {
     margin: 12px;
     display: flex;
     align-items: center;
+    gap: 4px;
 }
 
 .nav.counter {
@@ -37,7 +40,7 @@ export const style = `:host {
     margin-top: 22px;
     width: 40px;
     padding: 4px 10px;
-    border-radius: 30px;
+    border-radius: var(--cz-radius-full);
     text-align: center;
     font-weight: 100;
     font-size: 1em;
@@ -45,12 +48,11 @@ export const style = `:host {
 
 .nav {
     z-index: +1;
-    opacity: 0.5;
-    color: rgba(255, 255, 255, 0.87);
-    opacity: 1;
-    background-color: rgba(0, 0, 0, 0.44);
-    border-radius: 20px;
+    color: var(--cz-color-fg-white);
+    background-color: var(--cz-color-bg-overlay);
+    border-radius: var(--cz-radius-full);
     margin: 3px;
+    fill: var(--cz-color-fg-white);
 }
 
 button.nav {
@@ -83,7 +85,6 @@ button.nav:active:not([disabled]) {
 .image {
     background-color: gray;
     pointer-events: none;
-    /* Needed to override Chrome 73+ handling of iron-image overflow hidden */
     overflow: visible;
 }
 
@@ -100,10 +101,10 @@ button.nav:active:not([disabled]) {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white;
+    color: var(--cz-color-text-error);
     z-index: +1;
     text-align: center;
-    background: rgba(0,0,0,0.5);
+    background: var(--cz-color-bg-error);
     padding: 20px;
 }
 
@@ -113,10 +114,10 @@ button.nav:active:not([disabled]) {
     font-size: 0.8em;
 }
 
-cosmoz-slider { 
+cosmoz-slider {
     min-height: 150px;
     overflow-y: auto !important;
-    height:100%;
+    height: 100%;
 }
 
 cz-spinner {
@@ -124,5 +125,42 @@ cz-spinner {
     top: 50%;
     left: 50%;
     translate: -50% -50%;
+}
+
+/* Loading overlay */
+.loading-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    background: var(--cz-color-bg-overlay);
+}
+
+/* Source-level error */
+.source-error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--cz-color-text-error);
+    z-index: 2;
+    text-align: center;
+    background: var(--cz-color-bg-error);
+    padding: 20px;
+    border-radius: var(--cz-radius-md, 8px);
+}
+
+.source-error .desc {
+    padding-top: 1em;
+    opacity: 0.8;
+    font-size: 0.8em;
+}
+
+/* Attachment selector dropdown */
+.attachment-select {
+    z-index: 2;
+    max-width: 250px;
 }
 `;
