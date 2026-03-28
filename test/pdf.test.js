@@ -20,7 +20,7 @@ suite('cosmoz-image-viewer pdf', () => {
 			html`<cosmoz-image-viewer
 				show-nav
 				show-page-number
-				.pdf=${pdfUrl}
+				.source=${[{ title: 'PDF', pdf: pdfUrl }]}
 			></cosmoz-image-viewer>`,
 		);
 
@@ -49,7 +49,7 @@ suite('cosmoz-image-viewer pdf', () => {
 				show-nav
 				show-page-number
 				show-detach
-				.pdf=${pdfUrl}
+				.source=${[{ title: 'PDF', pdf: pdfUrl }]}
 			></cosmoz-image-viewer>`,
 		);
 
