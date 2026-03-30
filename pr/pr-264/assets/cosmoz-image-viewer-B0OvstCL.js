@@ -1,5 +1,5 @@
 const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./jspdf.es-C8lXQ5JU.js","./preload-helper-PPVm8Dsz.js","./pdf-loader-BSiQZefA.js"])))=>i.map(i=>d[i]);
-import{r as oi,D as dt,A as G,b as y,E as H,p as ai,n as pn,M as fn,u as re,v as xe,h as Ke,j as gn}from"./iframe-B6PIwe6V.js";import{_ as Gt}from"./preload-helper-PPVm8Dsz.js";let We,li=0;function us(t){We=t}function ds(){We=null,li=0}function mn(){return li++}const Pt=Symbol("haunted.phase"),Je=Symbol("haunted.hook"),hs=Symbol("haunted.update"),ps=Symbol("haunted.commit"),le=Symbol("haunted.effects"),$e=Symbol("haunted.layoutEffects"),kt="haunted.context";class _n{update;host;virtual;[Je];[le];[$e];constructor(e,s){this.update=e,this.host=s,this[Je]=new Map,this[le]=[],this[$e]=[]}run(e){us(this);let s=e();return ds(),s}_runEffects(e){let s=this[e];us(this);for(let i of s)i.call(this);ds()}runEffects(){this._runEffects(le)}runLayoutEffects(){this._runEffects($e)}teardown(){this[Je].forEach(s=>{typeof s.teardown=="function"&&s.teardown(!0)})}}const yn=Promise.resolve().then.bind(Promise.resolve());function ci(){let t=[],e;function s(){e=null;let i=t;t=[];for(var n=0,r=i.length;n<r;n++)i[n]()}return function(i){t.push(i),e==null&&(e=yn(s))}}const bn=ci(),fs=ci();class vn{renderer;host;state;[Pt];_updateQueued;_active;constructor(e,s){this.renderer=e,this.host=s,this.state=new _n(this.update.bind(this),s),this[Pt]=null,this._updateQueued=!1,this._active=!1}update(){this._active&&(this._updateQueued||(bn(()=>{let e=this.handlePhase(hs);fs(()=>{this.handlePhase(ps,e),fs(()=>{this.handlePhase(le)})}),this._updateQueued=!1}),this._updateQueued=!0))}handlePhase(e,s){switch(this[Pt]=e,e){case ps:this.commit(s),this.runEffects($e);return;case hs:return this.render();case le:return this.runEffects(le)}}render(){return this.state.run(()=>this.renderer.call(this.host,this.host))}runEffects(e){this.state._runEffects(e)}teardown(){this.state.teardown()}pause(){this._active=!1}resume(){this._active=!0}}const Wt=(...t)=>{const e=new CSSStyleSheet;return e.replaceSync(t.join("")),e},wn=t=>t?.map(e=>typeof e=="string"?Wt(e):e),xn=(t,...e)=>t.flatMap((s,i)=>[s,e[i]||""]).join(""),de=xn,Sn=(t="")=>t.replace(/-+([a-z])?/g,(e,s)=>s?s.toUpperCase():"");function Pn(t){class e extends vn{frag;renderResult;constructor(n,r,o){super(n,o||r),this.frag=r}commit(n){this.renderResult=t(n,this.frag)}}function s(i,n,r){const o=(r||n||{}).baseElement||HTMLElement,{observedAttributes:a=[],useShadowDOM:l=!0,shadowRootInit:c={},styleSheets:u}=r||n||{},d=wn(i.styleSheets||u);class h extends o{_scheduler;static get observedAttributes(){return i.observedAttributes||a||[]}constructor(){if(super(),l===!1)this._scheduler=new e(i,this);else{const m=this.attachShadow({mode:"open",...c});d&&(m.adoptedStyleSheets=d),this._scheduler=new e(i,m,this)}}connectedCallback(){this._scheduler.resume(),this._scheduler.update(),this._scheduler.renderResult?.setConnected(!0)}disconnectedCallback(){this._scheduler.pause(),this._scheduler.teardown(),this._scheduler.renderResult?.setConnected(!1)}attributeChangedCallback(m,_,b){if(_===b)return;let w=b===""?!0:b;Reflect.set(this,Sn(m),w)}}function p(f){let m=f,_=!1;return Object.freeze({enumerable:!0,configurable:!0,get(){return m},set(b){_&&m===b||(_=!0,m=b,this._scheduler&&this._scheduler.update())}})}const g=new Proxy(o.prototype,{getPrototypeOf(f){return f},set(f,m,_,b){let w;return m in f?(w=Object.getOwnPropertyDescriptor(f,m),w&&w.set?(w.set.call(b,_),!0):(Reflect.set(f,m,_,b),!0)):(typeof m=="symbol"||m[0]==="_"?w={enumerable:!0,configurable:!0,writable:!0,value:_}:w=p(_),Object.defineProperty(b,m,w),w.set&&w.set.call(b,_),!0)}});return Object.setPrototypeOf(h.prototype,g),h}return s}class Q{id;state;constructor(e,s){this.id=e,this.state=s}}function Cn(t,...e){let s=mn(),i=We[Je],n=i.get(s);return n||(n=new t(s,We,...e),i.set(s,n)),n.update(...e)}function ee(t){return Cn.bind(null,t)}function ui(t){return ee(class extends Q{callback;lastValues;values;_teardown;constructor(e,s,i,n){super(e,s),t(s,this)}update(e,s){this.callback=e,this.values=s}call(){const e=!this.values||this.hasChanged();this.lastValues=this.values,e&&this.run()}run(){this.teardown(),this._teardown=this.callback.call(this.state)}teardown(e){typeof this._teardown=="function"&&(this._teardown(),this._teardown=void 0),e&&(this.lastValues=this.values=void 0)}hasChanged(){return!this.lastValues||this.values.some((e,s)=>this.lastValues[s]!==e)}})}function di(t,e){t[le].push(e)}const C=ui(di),En=t=>t instanceof Element?t:t.startNode||t.endNode||t.parentNode,hi=ee(class extends Q{Context;value;_ranEffect;_unsubscribe;constructor(t,e,s){super(t,e),this._updater=this._updater.bind(this),this._ranEffect=!1,this._unsubscribe=null,di(e,this)}update(t){return this.Context!==t&&(this._subscribe(t),this.Context=t),this.value}call(){this._ranEffect||(this._ranEffect=!0,this._unsubscribe&&this._unsubscribe(),this._subscribe(this.Context),this.state.update())}_updater(t){this.value=t,this.state.update()}_subscribe(t){const e={Context:t,callback:this._updater};En(this.state.host).dispatchEvent(new CustomEvent(kt,{detail:e,bubbles:!0,cancelable:!0,composed:!0}));const{unsubscribe:i=null,value:n}=e;this.value=i?n:t.defaultValue,this._unsubscribe=i}teardown(){this._unsubscribe&&this._unsubscribe()}});function On(t){return e=>{const s={Provider:class extends HTMLElement{listeners;_value;constructor(){super(),this.style.display="contents",this.listeners=new Set,this.addEventListener(kt,this)}disconnectedCallback(){this.removeEventListener(kt,this)}handleEvent(i){const{detail:n}=i;n.Context===s&&(n.value=this.value,n.unsubscribe=this.unsubscribe.bind(this,n.callback),this.listeners.add(n.callback),i.stopPropagation())}unsubscribe(i){this.listeners.delete(i)}set value(i){this._value=i;for(let n of this.listeners)n(i)}get value(){return this._value}},Consumer:t(function({render:i}){const n=hi(s);return i(n)},{useShadowDOM:!1}),defaultValue:e};return s}}const k=ee(class extends Q{value;values;constructor(t,e,s,i){super(t,e),this.value=s(),this.values=i}update(t,e){return this.hasChanged(e)&&(this.values=e,this.value=t()),this.value}hasChanged(t=[]){return t.some((e,s)=>this.values[s]!==e)}}),v=(t,e)=>k(()=>t,e);function $n(t,e){t[$e].push(e)}const qe=ui($n),V=ee(class extends Q{args;constructor(t,e,s){super(t,e),this.updater=this.updater.bind(this),typeof s=="function"&&(s=s()),this.makeArgs(s)}update(){return this.args}updater(t){const[e]=this.args;typeof t=="function"&&(t=t(e)),!Object.is(e,t)&&(this.makeArgs(t),this.state.update())}makeArgs(t){this.args=Object.freeze([t,this.updater])}}),De=ee(class extends Q{reducer;currentState;constructor(t,e,s,i,n){super(t,e),this.dispatch=this.dispatch.bind(this),this.currentState=n!==void 0?n(i):i}update(t){return this.reducer=t,[this.currentState,this.dispatch]}dispatch(t){this.currentState=this.reducer(this.currentState,t),this.state.update()}}),zn=/([A-Z])/gu,qt=ee(class extends Q{property;eventName;constructor(t,e,s,i){if(super(t,e),this.state.virtual)throw new Error("Can't be used with virtual components.");this.updater=this.updater.bind(this),this.property=s,this.eventName=s.replace(zn,"-$1").toLowerCase()+"-changed",this.state.host[this.property]==null&&(typeof i=="function"&&(i=i()),i!=null&&this.updateProp(i))}update(t,e){return[this.state.host[this.property],this.updater]}updater(t){const e=this.state.host[this.property];typeof t=="function"&&(t=t(e)),!Object.is(e,t)&&this.updateProp(t)}updateProp(t){this.notify(t).defaultPrevented||(this.state.host[this.property]=t)}notify(t){const e=new CustomEvent(this.eventName,{detail:{value:t,path:this.property},cancelable:!0});return this.state.host.dispatchEvent(e),e}});function Tn(t){let e=t;return{get current(){return e},set current(s){e=s},get value(){return e},set value(s){e=s}}}function ye(t){return k(()=>Tn(t),[])}ee(class extends Q{update(){return this.state.host}});function Ln({render:t}){const e=Pn(t),s=On(e);return{component:e,createContext:s}}/**
+import{r as oi,D as dt,A as G,b as y,E as H,p as ai,n as pn,M as fn,u as re,v as xe,h as Ke,j as gn}from"./iframe-JlegO3LA.js";import{_ as Gt}from"./preload-helper-PPVm8Dsz.js";let We,li=0;function us(t){We=t}function ds(){We=null,li=0}function mn(){return li++}const Pt=Symbol("haunted.phase"),Je=Symbol("haunted.hook"),hs=Symbol("haunted.update"),ps=Symbol("haunted.commit"),le=Symbol("haunted.effects"),$e=Symbol("haunted.layoutEffects"),kt="haunted.context";class _n{update;host;virtual;[Je];[le];[$e];constructor(e,s){this.update=e,this.host=s,this[Je]=new Map,this[le]=[],this[$e]=[]}run(e){us(this);let s=e();return ds(),s}_runEffects(e){let s=this[e];us(this);for(let i of s)i.call(this);ds()}runEffects(){this._runEffects(le)}runLayoutEffects(){this._runEffects($e)}teardown(){this[Je].forEach(s=>{typeof s.teardown=="function"&&s.teardown(!0)})}}const yn=Promise.resolve().then.bind(Promise.resolve());function ci(){let t=[],e;function s(){e=null;let i=t;t=[];for(var n=0,r=i.length;n<r;n++)i[n]()}return function(i){t.push(i),e==null&&(e=yn(s))}}const bn=ci(),fs=ci();class vn{renderer;host;state;[Pt];_updateQueued;_active;constructor(e,s){this.renderer=e,this.host=s,this.state=new _n(this.update.bind(this),s),this[Pt]=null,this._updateQueued=!1,this._active=!1}update(){this._active&&(this._updateQueued||(bn(()=>{let e=this.handlePhase(hs);fs(()=>{this.handlePhase(ps,e),fs(()=>{this.handlePhase(le)})}),this._updateQueued=!1}),this._updateQueued=!0))}handlePhase(e,s){switch(this[Pt]=e,e){case ps:this.commit(s),this.runEffects($e);return;case hs:return this.render();case le:return this.runEffects(le)}}render(){return this.state.run(()=>this.renderer.call(this.host,this.host))}runEffects(e){this.state._runEffects(e)}teardown(){this.state.teardown()}pause(){this._active=!1}resume(){this._active=!0}}const Wt=(...t)=>{const e=new CSSStyleSheet;return e.replaceSync(t.join("")),e},wn=t=>t?.map(e=>typeof e=="string"?Wt(e):e),xn=(t,...e)=>t.flatMap((s,i)=>[s,e[i]||""]).join(""),de=xn,Sn=(t="")=>t.replace(/-+([a-z])?/g,(e,s)=>s?s.toUpperCase():"");function Pn(t){class e extends vn{frag;renderResult;constructor(n,r,o){super(n,o||r),this.frag=r}commit(n){this.renderResult=t(n,this.frag)}}function s(i,n,r){const o=(r||n||{}).baseElement||HTMLElement,{observedAttributes:a=[],useShadowDOM:l=!0,shadowRootInit:c={},styleSheets:u}=r||n||{},d=wn(i.styleSheets||u);class h extends o{_scheduler;static get observedAttributes(){return i.observedAttributes||a||[]}constructor(){if(super(),l===!1)this._scheduler=new e(i,this);else{const m=this.attachShadow({mode:"open",...c});d&&(m.adoptedStyleSheets=d),this._scheduler=new e(i,m,this)}}connectedCallback(){this._scheduler.resume(),this._scheduler.update(),this._scheduler.renderResult?.setConnected(!0)}disconnectedCallback(){this._scheduler.pause(),this._scheduler.teardown(),this._scheduler.renderResult?.setConnected(!1)}attributeChangedCallback(m,_,b){if(_===b)return;let w=b===""?!0:b;Reflect.set(this,Sn(m),w)}}function p(f){let m=f,_=!1;return Object.freeze({enumerable:!0,configurable:!0,get(){return m},set(b){_&&m===b||(_=!0,m=b,this._scheduler&&this._scheduler.update())}})}const g=new Proxy(o.prototype,{getPrototypeOf(f){return f},set(f,m,_,b){let w;return m in f?(w=Object.getOwnPropertyDescriptor(f,m),w&&w.set?(w.set.call(b,_),!0):(Reflect.set(f,m,_,b),!0)):(typeof m=="symbol"||m[0]==="_"?w={enumerable:!0,configurable:!0,writable:!0,value:_}:w=p(_),Object.defineProperty(b,m,w),w.set&&w.set.call(b,_),!0)}});return Object.setPrototypeOf(h.prototype,g),h}return s}class Q{id;state;constructor(e,s){this.id=e,this.state=s}}function Cn(t,...e){let s=mn(),i=We[Je],n=i.get(s);return n||(n=new t(s,We,...e),i.set(s,n)),n.update(...e)}function ee(t){return Cn.bind(null,t)}function ui(t){return ee(class extends Q{callback;lastValues;values;_teardown;constructor(e,s,i,n){super(e,s),t(s,this)}update(e,s){this.callback=e,this.values=s}call(){const e=!this.values||this.hasChanged();this.lastValues=this.values,e&&this.run()}run(){this.teardown(),this._teardown=this.callback.call(this.state)}teardown(e){typeof this._teardown=="function"&&(this._teardown(),this._teardown=void 0),e&&(this.lastValues=this.values=void 0)}hasChanged(){return!this.lastValues||this.values.some((e,s)=>this.lastValues[s]!==e)}})}function di(t,e){t[le].push(e)}const C=ui(di),En=t=>t instanceof Element?t:t.startNode||t.endNode||t.parentNode,hi=ee(class extends Q{Context;value;_ranEffect;_unsubscribe;constructor(t,e,s){super(t,e),this._updater=this._updater.bind(this),this._ranEffect=!1,this._unsubscribe=null,di(e,this)}update(t){return this.Context!==t&&(this._subscribe(t),this.Context=t),this.value}call(){this._ranEffect||(this._ranEffect=!0,this._unsubscribe&&this._unsubscribe(),this._subscribe(this.Context),this.state.update())}_updater(t){this.value=t,this.state.update()}_subscribe(t){const e={Context:t,callback:this._updater};En(this.state.host).dispatchEvent(new CustomEvent(kt,{detail:e,bubbles:!0,cancelable:!0,composed:!0}));const{unsubscribe:i=null,value:n}=e;this.value=i?n:t.defaultValue,this._unsubscribe=i}teardown(){this._unsubscribe&&this._unsubscribe()}});function On(t){return e=>{const s={Provider:class extends HTMLElement{listeners;_value;constructor(){super(),this.style.display="contents",this.listeners=new Set,this.addEventListener(kt,this)}disconnectedCallback(){this.removeEventListener(kt,this)}handleEvent(i){const{detail:n}=i;n.Context===s&&(n.value=this.value,n.unsubscribe=this.unsubscribe.bind(this,n.callback),this.listeners.add(n.callback),i.stopPropagation())}unsubscribe(i){this.listeners.delete(i)}set value(i){this._value=i;for(let n of this.listeners)n(i)}get value(){return this._value}},Consumer:t(function({render:i}){const n=hi(s);return i(n)},{useShadowDOM:!1}),defaultValue:e};return s}}const k=ee(class extends Q{value;values;constructor(t,e,s,i){super(t,e),this.value=s(),this.values=i}update(t,e){return this.hasChanged(e)&&(this.values=e,this.value=t()),this.value}hasChanged(t=[]){return t.some((e,s)=>this.values[s]!==e)}}),v=(t,e)=>k(()=>t,e);function $n(t,e){t[$e].push(e)}const qe=ui($n),V=ee(class extends Q{args;constructor(t,e,s){super(t,e),this.updater=this.updater.bind(this),typeof s=="function"&&(s=s()),this.makeArgs(s)}update(){return this.args}updater(t){const[e]=this.args;typeof t=="function"&&(t=t(e)),!Object.is(e,t)&&(this.makeArgs(t),this.state.update())}makeArgs(t){this.args=Object.freeze([t,this.updater])}}),De=ee(class extends Q{reducer;currentState;constructor(t,e,s,i,n){super(t,e),this.dispatch=this.dispatch.bind(this),this.currentState=n!==void 0?n(i):i}update(t){return this.reducer=t,[this.currentState,this.dispatch]}dispatch(t){this.currentState=this.reducer(this.currentState,t),this.state.update()}}),zn=/([A-Z])/gu,qt=ee(class extends Q{property;eventName;constructor(t,e,s,i){if(super(t,e),this.state.virtual)throw new Error("Can't be used with virtual components.");this.updater=this.updater.bind(this),this.property=s,this.eventName=s.replace(zn,"-$1").toLowerCase()+"-changed",this.state.host[this.property]==null&&(typeof i=="function"&&(i=i()),i!=null&&this.updateProp(i))}update(t,e){return[this.state.host[this.property],this.updater]}updater(t){const e=this.state.host[this.property];typeof t=="function"&&(t=t(e)),!Object.is(e,t)&&this.updateProp(t)}updateProp(t){this.notify(t).defaultPrevented||(this.state.host[this.property]=t)}notify(t){const e=new CustomEvent(this.eventName,{detail:{value:t,path:this.property},cancelable:!0});return this.state.host.dispatchEvent(e),e}});function Tn(t){let e=t;return{get current(){return e},set current(s){e=s},get value(){return e},set value(s){e=s}}}function ye(t){return k(()=>Tn(t),[])}ee(class extends Q{update(){return this.state.host}});function Ln({render:t}){const e=Pn(t),s=On(e);return{component:e,createContext:s}}/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
@@ -1085,13 +1085,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     z-index: 1000;
 }
 
-.flex { flex: auto; }
-
-#imageContainer {
-    height: 100%;
-    overflow-y: auto;
-}
-
 .actions {
     position: absolute;
     left: 0;
@@ -1102,43 +1095,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     gap: 4px;
 }
 
-.nav.counter {
+.counter {
     position: absolute;
     left: calc(50% - 32px);
-    margin-top: 22px;
+    margin: 22px 3px 3px;
     width: 40px;
     padding: 4px 10px;
-    border-radius: var(--cz-radius-full);
     text-align: center;
     font-weight: 100;
-    font-size: 1em;
+    z-index: 1;
+    color: var(--cz-color-fg-white);
+    background-color: rgba(0, 0, 0, 0.44);
+    border-radius: var(--cz-radius-full);
+    fill: var(--cz-color-fg-white);
 }
 
 .nav {
-    z-index: +1;
+    z-index: 1;
     color: var(--cz-color-fg-white);
     background-color: rgba(0, 0, 0, 0.44);
     border-radius: var(--cz-radius-full);
     margin: 3px;
     fill: var(--cz-color-fg-white);
-}
-
-button.nav {
     border: none;
     width: 40px;
     height: 40px;
     transition: background-color 100ms;
 }
 
-button.nav:not([disabled]) {
+.nav:not([disabled]) {
     cursor: pointer;
 }
 
-button.nav[disabled] {
+.nav[disabled] {
     opacity: 0.5;
 }
 
-button.nav:active:not([disabled]) {
+.nav:active:not([disabled]) {
     background-color: rgba(0, 0, 0, 0.60);
 }
 
@@ -1150,96 +1143,14 @@ button.nav:active:not([disabled]) {
     visibility: visible;
 }
 
-.image {
-    background-color: gray;
-    pointer-events: none;
-    overflow: visible;
-}
-
-.image-zoom {
-    flex: auto;
-    display: flex;
-    justify-content: center;
-    background-color: black;
-    height: 100vh;
-}
-
-.error {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--cz-color-text-error);
-    z-index: +1;
-    text-align: center;
-    background: var(--cz-color-bg-error);
-    padding: 20px;
-}
-
-.error .desc {
-    padding-top: 1em;
-    opacity: 0.8;
-    font-size: 0.8em;
-}
-
-cosmoz-slider {
-    min-height: 150px;
-    overflow-y: auto !important;
-    height: 100%;
-}
-
-cz-spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-}
-
-/* Loading overlay */
-.loading-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    background: var(--cz-color-bg-overlay);
-}
-
-/* Source-level error */
-.source-error {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--cz-color-text-error);
-    z-index: 2;
-    text-align: center;
-    background: var(--cz-color-bg-error);
-    padding: 20px;
-    border-radius: var(--cz-radius-md, 8px);
-}
-
-.source-error .desc {
-    padding-top: 1em;
-    opacity: 0.8;
-    font-size: 0.8em;
-}
-
-/* Attachment selector dropdown - contour style */
-.attachment-select {
+cosmoz-autocomplete {
     visibility: hidden;
+    position: relative;
+    z-index: 1;
     max-width: 250px;
-    --cosmoz-input-color: #aeacac;
-    --cosmoz-input-border-radius: var(--cz-radius-full);
-    --cosmoz-input-wrap-padding: 0 12px;
-    --cosmoz-input-padding: 14px 0px;
-    --cosmoz-input-line-display: none;
-    --cosmoz-input-contour-size: 1px;
-    --cosmoz-input-label-translate-y: 8px;
+    --cosmoz-input-padding: 0;
     --cosmoz-input-float-display: none;
     --cosmoz-autocomplete-chip-translate-y: 0;
-    --cosmoz-autocomplete-chip-border-radius: 4px;
     --cosmoz-autocomplete-chip-bg-color: transparent;
     --cosmoz-autocomplete-chip-color: var(--cz-color-fg-white);
     --cosmoz-autocomplete-chip-text-font-size: 0.875rem;
@@ -1248,15 +1159,15 @@ cz-spinner {
     --cosmoz-autocomplete-chip-clear-bg-color: transparent;
 }
 
-:host(:hover) .attachment-select {
+:host(:hover) cosmoz-autocomplete {
     visibility: visible;
 }
 
-.attachment-select::part(chip) {
+cosmoz-autocomplete::part(chip) {
     flex: none;
 }
 
-.attachment-select::part(input-wrap) {
+cosmoz-autocomplete::part(input-wrap) {
     padding: 0 12px;
     height: 40px;
     background: rgba(0, 0, 0, 0.44);
@@ -1268,15 +1179,15 @@ cz-spinner {
     box-shadow: none;
 }
 
-.attachment-select::part(input-wrap):focus-within {
+cosmoz-autocomplete::part(input-wrap):focus-within {
     box-shadow: none;
 }
 
-.attachment-select::part(input-line) {
+cosmoz-autocomplete::part(input-line) {
     display: none;
 }
 
-.attachment-select::part(input-input) {
+cosmoz-autocomplete::part(input-input) {
     cursor: pointer;
     background: transparent;
     border: none;
@@ -1291,12 +1202,66 @@ cz-spinner {
     flex: 1;
 }
 
-.attachment-select::part(input-control) {
+cosmoz-autocomplete::part(input-control) {
     width: 100%;
     min-width: 0;
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+img {
+    background-color: gray;
+    pointer-events: none;
+    overflow: visible;
+}
+
+haunted-pan-zoom {
+    flex: auto;
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    height: 100vh;
+}
+
+.error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--cz-color-text-error);
+    z-index: 2;
+    text-align: center;
+    background: var(--cz-color-bg-error);
+    padding: 20px;
+    border-radius: var(--cz-radius-md, 8px);
+}
+
+.error .desc {
+    padding-top: 1em;
+    opacity: 0.8;
+    font-size: 0.8em;
+}
+
+/* overflow: hidden is set inline by cosmoz-slider host styles */
+cosmoz-slider {
+    min-height: 150px;
+    overflow-y: auto !important;
+    height: 100%;
+}
+
+cz-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+}
+
+.loading {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: var(--cz-color-bg-overlay);
 }
 `,Ql=Symbol("memo"),sn=t=>{let e=Ql,s;return function(i){if(e===i)return s;const n=t(i);return s=n,e=i,n}},ec=(t,e)=>{const s=t.width/t.height,i=e.width/e.height;return s>i?{width:e.width,height:t.height*(e.width/t.width)}:{width:t.width*(e.height/t.height),height:e.height}},tc=async(t,e)=>{const s={credentials:"include"},[{jsPDF:i},...n]=await Promise.all([Gt(()=>import("./jspdf.es-C8lXQ5JU.js").then(a=>a.j),__vite__mapDeps([0,1]),import.meta.url),...t.map(async a=>{const l=await Promise.resolve(es(a)),c=await fetch(l,s);return c.ok?{url:l,data:new Uint8Array(await c.arrayBuffer())}:void 0})]),r=n.filter(Boolean);if(r.length<1)return;const o=new i;return r.filter(Boolean).forEach(({url:a,data:l},c)=>{const{internal:{pageSize:d}}=o,{width:h,height:p}=ec(o.getImageProperties(l),{width:d.getWidth()-4,height:d.getHeight()-4});c>0&&o.addPage(),o.addImage(l,a.split(".").pop().toUpperCase(),2,2,h,p)}),o.output("blob")},nn=(t,e)=>{const s=URL.createObjectURL(t),i=document.body.appendChild(document.createElement("a"));i.href=s,i.download=`${e}.pdf`,i.click(),document.body.removeChild(i),URL.revokeObjectURL(s)},sc=async(t,e,s)=>{const i=await tc(t);if(i)return nn(i,e),i},ic=async(t,e,s={})=>{const{httpHeaders:i,withCredentials:n=!0}=s,r=await fetch(t,{credentials:n?"include":"omit",headers:i});if(!r.ok)return;const o=await r.blob();return nn(o,e),o},nc=t=>Object.entries(t).map(([e,s])=>e+"="+s).join(",");let Kt=!1;const rc=({source:t,index:e,syncImageIndex:s,title:i,loop:n,detachedShowZoom:r,onDetach:o,onClose:a})=>{const l=window.open(void 0,"czimgviewer",nc({height:700,width:800}));dt(y`<style>
 				html {
@@ -1323,13 +1288,11 @@ cz-spinner {
 				}
 			</style>
 			${t.map(s=>y`<img src="${Re(Promise.resolve(es(s)))}" />`)}`,e.document.body),oc(()=>Array.from(e.document.querySelectorAll("img")).every(s=>s.src&&s.complete)).then(()=>e.print()).then(()=>e.close())},Jt=[],lc=t=>{const e=k(()=>typeof t=="function"?Promise.resolve(t()):void 0,[t]),[s,i,n]=Oi(e);return typeof t!="function"?{attachments:t??Jt,loading:!1,error:void 0}:{attachments:s??Jt,loading:n==="pending",error:i}},cc=t=>{const[e,s]=V(void 0);C(()=>{s(t[0])},[t]);const i=v(n=>{const r=n.detail?.[0];r&&t.includes(r)&&s(r)},[t]);return{selected:e,value:e?[e]:Jt,onSelect:i}},rn=t=>{if(!t.currentTarget.parentElement)return;t.currentTarget.parentElement.querySelector(".error").removeAttribute("hidden"),t.currentTarget.setAttribute("hidden",!0)},uc=t=>t.detail.value==="error"&&rn(t),dc=({src$:t,showZoom:e,isZoomed:s,_onZoomChanged:i})=>{const n=_e(t,()=>Re(t));return[e?y`<haunted-pan-zoom
-						class="image-zoom"
 						.src=${n}
 						?disabled=${!s}
 						@zoom-changed=${i}
 						@status-changed=${uc}
 					></haunted-pan-zoom>`:y`<img
-						class="image"
 						.src=${n}
 						style="width:100%"
 						@error=${rn}
@@ -1458,21 +1421,21 @@ cz-spinner {
 		</style>
 
 		${_?G:y`
-					${R(w,()=>y`<div class="loading-overlay">
+					${R(w,()=>y`<div class="loading">
 								<cz-spinner></cz-spinner>
 							</div>`)}
-					${R(x,()=>y`<div class="source-error">
+					${R(x,()=>y`<div class="error">
 								<h2>${X("Failed to load attachments.")}</h2>
 								<div class="desc">
 									${x?.message??x}
 								</div>
 							</div>`)}
 					${R(!w&&!x,()=>y`
-							${R(ne(t.showPageNumber,r),()=>y` <div class="nav counter">
+							${R(ne(t.showPageNumber,r),()=>y` <div class="counter">
 										${c}/${r}
 									</div>`)}
 
-							<div class="actions layout horizontal center">
+							<div class="actions">
 								${R(ne(t.showNav,r,2),()=>y`
 										<button
 											class="nav"
@@ -1492,7 +1455,6 @@ cz-spinner {
 										</button>
 									`)}
 								${R(E.length>1,()=>y`<cosmoz-autocomplete
-											class="attachment-select"
 											text-property="title"
 											limit="1"
 											.min=${1}
@@ -1502,7 +1464,7 @@ cz-spinner {
 											.value=${$}
 											@value=${L}
 										></cosmoz-autocomplete>`)}
-								<div class="flex"></div>
+								<span style="flex:auto"></span>
 								${R(ne(t.showZoom,r),()=>y`<button
 											class="nav"
 											@click="${Cc}"
@@ -1547,15 +1509,13 @@ cz-spinner {
 										</button>`)}
 							</div>
 
-							<div id="imageContainer">
-								${R(r===0,()=>y`<p>
+							${R(r===0,()=>y`<p>
 											${X("No image loaded.")}
 										</p>`)}
 								<cosmoz-slider
 									id="slider"
 									.slide="${s}"
 								></cosmoz-slider>
-							</div>
 						`)}
 				`}
 
