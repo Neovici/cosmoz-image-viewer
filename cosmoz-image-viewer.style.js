@@ -173,7 +173,7 @@ cz-spinner {
     --cosmoz-input-float-display: none;
     --cosmoz-autocomplete-chip-translate-y: 0;
     --cosmoz-autocomplete-chip-border-radius: 4px;
-    --cosmoz-autocomplete-chip-bg-color: rgba(255, 255, 255, 0.2);
+    --cosmoz-autocomplete-chip-bg-color: transparent;
     --cosmoz-autocomplete-chip-color: var(--cz-color-fg-white);
     --cosmoz-autocomplete-chip-text-font-size: 0.875rem;
     --cosmoz-autocomplete-chip-text-font-weight: 400;
