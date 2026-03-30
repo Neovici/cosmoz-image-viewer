@@ -171,31 +171,35 @@ cz-spinner {
     --cosmoz-input-contour-size: 1px;
     --cosmoz-input-label-translate-y: 8px;
     --cosmoz-input-float-display: none;
-    --cosmoz-autocomplete-chip-translate-y: 10px;
+    --cosmoz-autocomplete-chip-translate-y: 0;
     --cosmoz-autocomplete-chip-border-radius: 4px;
-    --cosmoz-autocomplete-chip-bg-color: var(--cosmoz-input-background, #fff);
-    --cosmoz-autocomplete-chip-color: var(--cz-text-color, #333);
+    --cosmoz-autocomplete-chip-bg-color: rgba(255, 255, 255, 0.2);
+    --cosmoz-autocomplete-chip-color: var(--cz-color-fg-white);
     --cosmoz-autocomplete-chip-text-font-size: 0.875rem;
     --cosmoz-autocomplete-chip-text-font-weight: 400;
     --cosmoz-autocomplete-chip-clear-display: none;
     --cosmoz-autocomplete-chip-clear-bg-color: transparent;
 }
 
+.attachment-select::part(chip) {
+    flex: none;
+}
+
 .attachment-select::part(input-wrap) {
     padding: 12px 16px;
-    background: var(--cosmoz-input-background, #fff);
-    border: 1px solid var(--cz-c-silver-a, #ddd);
+    background: rgba(0, 0, 0, 0.44);
+    border: 1px solid transparent;
     border-radius: 8px;
     font-family: inherit;
-    color: var(--cz-text-color, #333);
+    color: var(--cz-color-fg-white);
     cursor: pointer;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
 }
 
 .attachment-select::part(input-wrap):focus-within {
-    border-color: var(--cz-c-blue, #007aff);
-    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: none;
 }
 
 .attachment-select::part(input-line) {
@@ -210,7 +214,7 @@ cz-spinner {
     padding: 0;
     font-size: 1rem;
     line-height: 1.5;
-    color: inherit;
+    color: var(--cz-color-fg-white);
     font-weight: 400;
     width: 100%;
     min-width: 0;
