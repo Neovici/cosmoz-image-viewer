@@ -5,7 +5,7 @@ import './lib/haunted-pan-zoom';
 
 import { _ } from '@neovici/cosmoz-i18next';
 import { portal } from '@neovici/cosmoz-utils/directives/portal';
-import { component, html } from '@pionjs/pion';
+import { component, html, lift } from '@pionjs/pion';
 import { nothing } from 'lit-html';
 import { when } from 'lit-html/directives/when.js';
 import { style } from './cosmoz-image-viewer.style';
@@ -46,7 +46,6 @@ const renderCosmozImageViewer = ({
 	last,
 	currentImageIndex,
 	selectedImageNumber,
-	syncImageIndex,
 	onDownloadPdf,
 	isFullscreen,
 	openFullscreen,
@@ -55,10 +54,13 @@ const renderCosmozImageViewer = ({
 	detach,
 	detached,
 	syncDetachedState,
+	setAttachmentIndex,
+	setImageIndex,
 	loading,
 	error,
 	attachments,
 	selected,
+	selectedIndex,
 	value,
 	onSelect,
 	images,
@@ -101,7 +103,8 @@ const renderCosmozImageViewer = ({
 
 							<div class="actions">
 								${when(
-									shouldShow(host.showNav, total, 2),
+									shouldShow(host.showNav, total, 2) ||
+										attachments.length > 1,
 									() => html`
 										<button
 											class="nav"
@@ -210,16 +213,16 @@ const renderCosmozImageViewer = ({
 							</div>
 
 							${when(
-									total === 0,
-									() =>
-										html`<p>
-											${_('No image loaded.')}
-										</p>`,
-								)}
-								<cosmoz-slider
-									id="slider"
-									.slide="${currentSlide}"
-								></cosmoz-slider>
+								total === 0,
+								() =>
+									html`<p>
+										${_('No image loaded.')}
+									</p>`,
+							)}
+							<cosmoz-slider
+								id="slider"
+								.slide="${currentSlide}"
+							></cosmoz-slider>
 						`,
 					)}
 				`}
@@ -228,19 +231,16 @@ const renderCosmozImageViewer = ({
 			portal(
 				html`<cosmoz-image-viewer
 					fullscreen
-					.source=${[
-						{
-							title: selected?.title,
-							images,
-						},
-					]}
+					.source=${attachments}
+					.currentAttachmentIndex=${selectedIndex}
+					.currentImageIndex=${currentImageIndex}
+					@current-attachment-index-changed=${lift(setAttachmentIndex)}
+					@current-image-index-changed=${lift(setImageIndex)}
+					@detached-changed=${syncDetachedState}
 					show-nav
 					show-zoom
 					show-close
 					@close=${closeFullscreen}
-					.currentImageIndex=${currentImageIndex}
-					@current-image-index-changed=${syncImageIndex}
-					@detached-changed=${syncDetachedState}
 					?show-detach=${host.showDetach}
 					?loop=${host.loop}
 				></cosmoz-image-viewer>`,

@@ -144,6 +144,142 @@ suite('cosmoz-image-viewer source', () => {
 		});
 	});
 
+	test('slides across attachments when pressing next at last image', async () => {
+		await fixture(
+			html`<cosmoz-image-viewer
+				show-nav
+				show-page-number
+				loop
+				.source=${[
+					{
+						title: 'Set A',
+						images: ['/stories/images/stockholm.jpg'].map(
+							absolute,
+						),
+					},
+					{
+						title: 'Set B',
+						images: ['/stories/images/cosmos1.jpg'].map(absolute),
+					},
+				]}
+			></cosmoz-image-viewer>`,
+		);
+
+		await perform(async ({ page, expect }) => {
+			// first attachment, first image
+			await expect(
+				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
+
+			// next crosses to Set B
+			await page.locator('cosmoz-image-viewer').hover();
+			await page.locator('button[name="next"]').click();
+
+			// wait for transition to complete (old slide removed)
+			await expect(page.locator('.slide')).toHaveCount(1);
+			await expect(
+				page.locator('img[src$="/stories/images/cosmos1.jpg"]'),
+			).toBeVisible();
+
+			// dropdown should show Set B
+			await expect(
+				page.locator('cosmoz-autocomplete'),
+			).toContainText('Set B');
+		});
+	});
+
+	test('slides backward across attachments, landing on last image', async () => {
+		await fixture(
+			html`<cosmoz-image-viewer
+				show-nav
+				show-page-number
+				loop
+				.source=${[
+					{
+						title: 'Set A',
+						images: [
+							'/stories/images/stockholm.jpg',
+							'/stories/images/strasbourg.jpg',
+						].map(absolute),
+					},
+					{
+						title: 'Set B',
+						images: ['/stories/images/cosmos1.jpg'].map(absolute),
+					},
+				]}
+			></cosmoz-image-viewer>`,
+		);
+
+		await perform(async ({ page, expect }) => {
+			// navigate to Set B first (Set A has 2 images, skip both)
+			await page.locator('cosmoz-image-viewer').hover();
+			await page.locator('button[name="next"]').click();
+			await expect(page.locator('.slide')).toHaveCount(1);
+
+			await page.locator('cosmoz-image-viewer').hover();
+			await page.locator('button[name="next"]').click();
+			await expect(page.locator('.slide')).toHaveCount(1);
+
+			await expect(
+				page.locator('img[src$="/stories/images/cosmos1.jpg"]'),
+			).toBeVisible();
+
+			// prev crosses back to Set A, last image
+			await page.locator('cosmoz-image-viewer').hover();
+			await page.locator('button[name="prev"]').click();
+			await expect(page.locator('.slide')).toHaveCount(1);
+
+			await expect(
+				page.locator('img[src$="/stories/images/strasbourg.jpg"]'),
+			).toBeVisible();
+
+			// dropdown should show Set A
+			await expect(
+				page.locator('cosmoz-autocomplete'),
+			).toContainText('Set A');
+		});
+	});
+
+	test('loop wraps from last attachment to first', async () => {
+		await fixture(
+			html`<cosmoz-image-viewer
+				show-nav
+				show-page-number
+				loop
+				.source=${[
+					{
+						title: 'Set A',
+						images: ['/stories/images/stockholm.jpg'].map(
+							absolute,
+						),
+					},
+					{
+						title: 'Set B',
+						images: ['/stories/images/cosmos1.jpg'].map(absolute),
+					},
+				]}
+			></cosmoz-image-viewer>`,
+		);
+
+		await perform(async ({ page, expect }) => {
+			// navigate to Set B
+			await page.locator('cosmoz-image-viewer').hover();
+			await page.locator('button[name="next"]').click();
+			await expect(page.locator('.slide')).toHaveCount(1);
+			await expect(
+				page.locator('img[src$="/stories/images/cosmos1.jpg"]'),
+			).toBeVisible();
+
+			// next wraps to Set A
+			await page.locator('cosmoz-image-viewer').hover();
+			await page.locator('button[name="next"]').click();
+			await expect(page.locator('.slide')).toHaveCount(1);
+			await expect(
+				page.locator('img[src$="stockholm.jpg"]').first(),
+			).toBeVisible();
+		});
+	});
+
 	test('sync source renders immediately without loading', async () => {
 		await fixture(
 			html`<cosmoz-image-viewer
