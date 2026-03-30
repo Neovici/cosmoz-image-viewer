@@ -43,7 +43,7 @@ suite('cosmoz-image-viewer source', () => {
 
 		await perform(async ({ page, expect }) => {
 			// spinner should disappear
-			await expect(page.locator('.loading-overlay')).not.toBeVisible();
+			await expect(page.locator('.loading')).not.toBeVisible();
 
 			// image should be visible
 			await expect(
@@ -162,7 +162,7 @@ suite('cosmoz-image-viewer source', () => {
 
 		await perform(async ({ page, expect }) => {
 			// no loading overlay
-			await expect(page.locator('.loading-overlay')).toHaveCount(0);
+			await expect(page.locator('.loading')).toHaveCount(0);
 
 			// image should be visible
 			await expect(

@@ -74,14 +74,14 @@ const renderCosmozImageViewer = ({
 					${when(
 						loading,
 						() =>
-							html`<div class="loading-overlay">
+							html`<div class="loading">
 								<cz-spinner></cz-spinner>
 							</div>`,
 					)}
 					${when(
 						error,
 						() =>
-							html`<div class="source-error">
+							html`<div class="error">
 								<h2>${_('Failed to load attachments.')}</h2>
 								<div class="desc">
 									${error?.message ?? error}
@@ -94,12 +94,12 @@ const renderCosmozImageViewer = ({
 							${when(
 								shouldShow(host.showPageNumber, total),
 								() =>
-									html` <div class="nav counter">
+									html` <div class="counter">
 										${selectedImageNumber}/${total}
 									</div>`,
 							)}
 
-							<div class="actions layout horizontal center">
+							<div class="actions">
 								${when(
 									shouldShow(host.showNav, total, 2),
 									() => html`
@@ -125,7 +125,6 @@ const renderCosmozImageViewer = ({
 									attachments.length > 1,
 									() =>
 										html`<cosmoz-autocomplete
-											class="attachment-select"
 											text-property="title"
 											limit="1"
 											.min=${1}
@@ -136,7 +135,7 @@ const renderCosmozImageViewer = ({
 											@value=${onSelect}
 										></cosmoz-autocomplete>`,
 								)}
-								<div class="flex"></div>
+								<span style="flex:auto"></span>
 								${when(
 									shouldShow(host.showZoom, total),
 									() =>
@@ -210,8 +209,7 @@ const renderCosmozImageViewer = ({
 								)}
 							</div>
 
-							<div id="imageContainer">
-								${when(
+							${when(
 									total === 0,
 									() =>
 										html`<p>
@@ -222,7 +220,6 @@ const renderCosmozImageViewer = ({
 									id="slider"
 									.slide="${currentSlide}"
 								></cosmoz-slider>
-							</div>
 						`,
 					)}
 				`}

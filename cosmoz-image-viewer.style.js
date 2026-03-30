@@ -18,13 +18,6 @@ export const style = `:host {
     z-index: 1000;
 }
 
-.flex { flex: auto; }
-
-#imageContainer {
-    height: 100%;
-    overflow-y: auto;
-}
-
 .actions {
     position: absolute;
     left: 0;
@@ -35,43 +28,43 @@ export const style = `:host {
     gap: 4px;
 }
 
-.nav.counter {
+.counter {
     position: absolute;
     left: calc(50% - 32px);
-    margin-top: 22px;
+    margin: 22px 3px 3px;
     width: 40px;
     padding: 4px 10px;
-    border-radius: var(--cz-radius-full);
     text-align: center;
     font-weight: 100;
-    font-size: 1em;
+    z-index: 1;
+    color: var(--cz-color-fg-white);
+    background-color: rgba(0, 0, 0, 0.44);
+    border-radius: var(--cz-radius-full);
+    fill: var(--cz-color-fg-white);
 }
 
 .nav {
-    z-index: +1;
+    z-index: 1;
     color: var(--cz-color-fg-white);
     background-color: rgba(0, 0, 0, 0.44);
     border-radius: var(--cz-radius-full);
     margin: 3px;
     fill: var(--cz-color-fg-white);
-}
-
-button.nav {
     border: none;
     width: 40px;
     height: 40px;
     transition: background-color 100ms;
 }
 
-button.nav:not([disabled]) {
+.nav:not([disabled]) {
     cursor: pointer;
 }
 
-button.nav[disabled] {
+.nav[disabled] {
     opacity: 0.5;
 }
 
-button.nav:active:not([disabled]) {
+.nav:active:not([disabled]) {
     background-color: rgba(0, 0, 0, 0.60);
 }
 
@@ -83,96 +76,14 @@ button.nav:active:not([disabled]) {
     visibility: visible;
 }
 
-.image {
-    background-color: gray;
-    pointer-events: none;
-    overflow: visible;
-}
-
-.image-zoom {
-    flex: auto;
-    display: flex;
-    justify-content: center;
-    background-color: black;
-    height: 100vh;
-}
-
-.error {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--cz-color-text-error);
-    z-index: +1;
-    text-align: center;
-    background: var(--cz-color-bg-error);
-    padding: 20px;
-}
-
-.error .desc {
-    padding-top: 1em;
-    opacity: 0.8;
-    font-size: 0.8em;
-}
-
-cosmoz-slider {
-    min-height: 150px;
-    overflow-y: auto !important;
-    height: 100%;
-}
-
-cz-spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-}
-
-/* Loading overlay */
-.loading-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    background: var(--cz-color-bg-overlay);
-}
-
-/* Source-level error */
-.source-error {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--cz-color-text-error);
-    z-index: 2;
-    text-align: center;
-    background: var(--cz-color-bg-error);
-    padding: 20px;
-    border-radius: var(--cz-radius-md, 8px);
-}
-
-.source-error .desc {
-    padding-top: 1em;
-    opacity: 0.8;
-    font-size: 0.8em;
-}
-
-/* Attachment selector dropdown - contour style */
-.attachment-select {
+cosmoz-autocomplete {
     visibility: hidden;
+    position: relative;
+    z-index: 1;
     max-width: 250px;
-    --cosmoz-input-color: #aeacac;
-    --cosmoz-input-border-radius: var(--cz-radius-full);
-    --cosmoz-input-wrap-padding: 0 12px;
-    --cosmoz-input-padding: 14px 0px;
-    --cosmoz-input-line-display: none;
-    --cosmoz-input-contour-size: 1px;
-    --cosmoz-input-label-translate-y: 8px;
+    --cosmoz-input-padding: 0;
     --cosmoz-input-float-display: none;
     --cosmoz-autocomplete-chip-translate-y: 0;
-    --cosmoz-autocomplete-chip-border-radius: 4px;
     --cosmoz-autocomplete-chip-bg-color: transparent;
     --cosmoz-autocomplete-chip-color: var(--cz-color-fg-white);
     --cosmoz-autocomplete-chip-text-font-size: 0.875rem;
@@ -181,15 +92,15 @@ cz-spinner {
     --cosmoz-autocomplete-chip-clear-bg-color: transparent;
 }
 
-:host(:hover) .attachment-select {
+:host(:hover) cosmoz-autocomplete {
     visibility: visible;
 }
 
-.attachment-select::part(chip) {
+cosmoz-autocomplete::part(chip) {
     flex: none;
 }
 
-.attachment-select::part(input-wrap) {
+cosmoz-autocomplete::part(input-wrap) {
     padding: 0 12px;
     height: 40px;
     background: rgba(0, 0, 0, 0.44);
@@ -201,15 +112,15 @@ cz-spinner {
     box-shadow: none;
 }
 
-.attachment-select::part(input-wrap):focus-within {
+cosmoz-autocomplete::part(input-wrap):focus-within {
     box-shadow: none;
 }
 
-.attachment-select::part(input-line) {
+cosmoz-autocomplete::part(input-line) {
     display: none;
 }
 
-.attachment-select::part(input-input) {
+cosmoz-autocomplete::part(input-input) {
     cursor: pointer;
     background: transparent;
     border: none;
@@ -224,11 +135,65 @@ cz-spinner {
     flex: 1;
 }
 
-.attachment-select::part(input-control) {
+cosmoz-autocomplete::part(input-control) {
     width: 100%;
     min-width: 0;
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+img {
+    background-color: gray;
+    pointer-events: none;
+    overflow: visible;
+}
+
+haunted-pan-zoom {
+    flex: auto;
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    height: 100vh;
+}
+
+.error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--cz-color-text-error);
+    z-index: 2;
+    text-align: center;
+    background: var(--cz-color-bg-error);
+    padding: 20px;
+    border-radius: var(--cz-radius-md, 8px);
+}
+
+.error .desc {
+    padding-top: 1em;
+    opacity: 0.8;
+    font-size: 0.8em;
+}
+
+/* overflow: hidden is set inline by cosmoz-slider host styles */
+cosmoz-slider {
+    min-height: 150px;
+    overflow-y: auto !important;
+    height: 100%;
+}
+
+cz-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+}
+
+.loading {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: var(--cz-color-bg-overlay);
 }
 `;
