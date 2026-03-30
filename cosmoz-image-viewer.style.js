@@ -83,10 +83,6 @@ button.nav:active:not([disabled]) {
     visibility: visible;
 }
 
-:host(:hover) .attachment-select {
-    visibility: visible;
-}
-
 .image {
     background-color: gray;
     pointer-events: none;
@@ -183,6 +179,10 @@ cz-spinner {
     --cosmoz-autocomplete-chip-text-font-weight: 400;
     --cosmoz-autocomplete-chip-clear-display: none;
     --cosmoz-autocomplete-chip-clear-bg-color: transparent;
+}
+
+:host(:hover) .attachment-select {
+    visibility: visible;
 }
 
 .attachment-select::part(chip) {
