@@ -161,11 +161,11 @@ cz-spinner {
 
 /* Attachment selector dropdown - contour style */
 .attachment-select {
-    z-index: 2;
+    background: transparent;
     max-width: 250px;
     --cosmoz-input-color: #aeacac;
-    --cosmoz-input-border-radius: 8px;
-    --cosmoz-input-wrap-padding: 12px 16px;
+    --cosmoz-input-border-radius: var(--cz-radius-full);
+    --cosmoz-input-wrap-padding: 0 12px;
     --cosmoz-input-padding: 14px 0px;
     --cosmoz-input-line-display: none;
     --cosmoz-input-contour-size: 1px;
@@ -186,19 +186,18 @@ cz-spinner {
 }
 
 .attachment-select::part(input-wrap) {
-    padding: 12px 16px;
+    padding: 0 12px;
+    height: 40px;
     background: rgba(0, 0, 0, 0.44);
-    border: 1px solid transparent;
-    border-radius: 8px;
+    border: none;
+    border-radius: var(--cz-radius-full);
     font-family: inherit;
     color: var(--cz-color-fg-white);
     cursor: pointer;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
     box-shadow: none;
 }
 
 .attachment-select::part(input-wrap):focus-within {
-    border-color: rgba(255, 255, 255, 0.6);
     box-shadow: none;
 }
 

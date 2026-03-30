@@ -100,6 +100,9 @@ suite('cosmoz-image-viewer source', () => {
 		);
 
 		await perform(async ({ page, expect }) => {
+			// hover to reveal toolbar
+			await page.locator('cosmoz-image-viewer').hover();
+
 			// dropdown should be visible
 			await expect(
 				page.locator('cosmoz-autocomplete'),

@@ -101,21 +101,6 @@ const renderCosmozImageViewer = ({
 
 							<div class="actions layout horizontal center">
 								${when(
-									attachments.length > 1,
-									() =>
-										html`<cosmoz-autocomplete
-											class="attachment-select"
-											text-property="title"
-											limit="1"
-											min="1"
-											show-single
-											preserve-order
-											.source=${attachments}
-											.value=${value}
-											@value=${onSelect}
-										></cosmoz-autocomplete>`,
-								)}
-								${when(
 									shouldShow(host.showNav, total, 2),
 									() => html`
 										<button
@@ -135,6 +120,21 @@ const renderCosmozImageViewer = ({
 											${rightArrow}
 										</button>
 									`,
+								)}
+								${when(
+									attachments.length > 1,
+									() =>
+										html`<cosmoz-autocomplete
+											class="attachment-select nav"
+											text-property="title"
+											limit="1"
+											min="1"
+											show-single
+											preserve-order
+											.source=${attachments}
+											.value=${value}
+											@value=${onSelect}
+										></cosmoz-autocomplete>`,
 								)}
 								<div class="flex"></div>
 								${when(
