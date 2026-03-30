@@ -128,7 +128,7 @@ const renderCosmozImageViewer = ({
 											class="attachment-select"
 											text-property="title"
 											limit="1"
-											min="1"
+											.min=${1}
 											show-single
 											preserve-order
 											.source=${attachments}
