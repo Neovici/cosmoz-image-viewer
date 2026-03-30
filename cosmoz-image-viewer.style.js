@@ -6,6 +6,7 @@ export const style = `:host {
     font-family: var(--cz-font-body);
     font-size: var(--cz-text-sm);
     min-height: 250px;
+    touch-action: pan-y pinch-zoom;
 }
 
 :host([fullscreen]) {
