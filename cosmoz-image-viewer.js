@@ -125,7 +125,7 @@ const renderCosmozImageViewer = ({
 									attachments.length > 1,
 									() =>
 										html`<cosmoz-autocomplete
-											class="attachment-select nav"
+											class="attachment-select"
 											text-property="title"
 											limit="1"
 											min="1"

@@ -83,6 +83,10 @@ button.nav:active:not([disabled]) {
     visibility: visible;
 }
 
+:host(:hover) .attachment-select {
+    visibility: visible;
+}
+
 .image {
     background-color: gray;
     pointer-events: none;
@@ -161,7 +165,7 @@ cz-spinner {
 
 /* Attachment selector dropdown - contour style */
 .attachment-select {
-    background: transparent;
+    visibility: hidden;
     max-width: 250px;
     --cosmoz-input-color: #aeacac;
     --cosmoz-input-border-radius: var(--cz-radius-full);
