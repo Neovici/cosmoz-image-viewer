@@ -5,6 +5,7 @@ export const style = `:host {
     overflow: auto;
     font-family: var(--cz-font-body);
     font-size: var(--cz-text-sm);
+    min-height: 250px;
 }
 
 :host([fullscreen]) {
@@ -49,7 +50,7 @@ export const style = `:host {
 .nav {
     z-index: +1;
     color: var(--cz-color-fg-white);
-    background-color: var(--cz-color-bg-overlay);
+    background-color: rgba(0, 0, 0, 0.44);
     border-radius: var(--cz-radius-full);
     margin: 3px;
     fill: var(--cz-color-fg-white);
@@ -158,9 +159,69 @@ cz-spinner {
     font-size: 0.8em;
 }
 
-/* Attachment selector dropdown */
+/* Attachment selector dropdown - contour style */
 .attachment-select {
     z-index: 2;
     max-width: 250px;
+    --cosmoz-input-color: #aeacac;
+    --cosmoz-input-border-radius: 8px;
+    --cosmoz-input-wrap-padding: 12px 16px;
+    --cosmoz-input-padding: 14px 0px;
+    --cosmoz-input-line-display: none;
+    --cosmoz-input-contour-size: 1px;
+    --cosmoz-input-label-translate-y: 8px;
+    --cosmoz-input-float-display: none;
+    --cosmoz-autocomplete-chip-translate-y: 10px;
+    --cosmoz-autocomplete-chip-border-radius: 4px;
+    --cosmoz-autocomplete-chip-bg-color: var(--cosmoz-input-background, #fff);
+    --cosmoz-autocomplete-chip-color: var(--cz-text-color, #333);
+    --cosmoz-autocomplete-chip-text-font-size: 0.875rem;
+    --cosmoz-autocomplete-chip-text-font-weight: 400;
+    --cosmoz-autocomplete-chip-clear-display: none;
+    --cosmoz-autocomplete-chip-clear-bg-color: transparent;
+}
+
+.attachment-select::part(input-wrap) {
+    padding: 12px 16px;
+    background: var(--cosmoz-input-background, #fff);
+    border: 1px solid var(--cz-c-silver-a, #ddd);
+    border-radius: 8px;
+    font-family: inherit;
+    color: var(--cz-text-color, #333);
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.attachment-select::part(input-wrap):focus-within {
+    border-color: var(--cz-c-blue, #007aff);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.attachment-select::part(input-line) {
+    display: none;
+}
+
+.attachment-select::part(input-input) {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: inherit;
+    font-weight: 400;
+    width: 100%;
+    min-width: 0;
+    flex: 1;
+}
+
+.attachment-select::part(input-control) {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 `;
