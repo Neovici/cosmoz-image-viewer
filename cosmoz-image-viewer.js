@@ -59,11 +59,9 @@ const renderCosmozImageViewer = ({
 	loading,
 	error,
 	attachments,
-	selected,
 	selectedIndex,
 	value,
 	onSelect,
-	images,
 }) =>
 	html`
 		<style>
