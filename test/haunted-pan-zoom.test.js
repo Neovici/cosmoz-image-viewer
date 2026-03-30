@@ -12,10 +12,16 @@ const status = (el, status) =>
 		),
 	loaded = (el) => status(el, 'loaded'),
 	error = (el) => status(el, 'error'),
-	scroll = (el, dir) =>
+	scroll = (el, dir) => {
+		const rect = el.getBoundingClientRect();
 		el.shadowRoot
 			.querySelector('.container')
-			.dispatchEvent(new WheelEvent('wheel', { deltaY: dir })),
+			.dispatchEvent(new WheelEvent('wheel', {
+				deltaY: dir,
+				clientX: rect.left + rect.width / 2,
+				clientY: rect.top + rect.height / 2,
+			}));
+	},
 	scrollDown = (el) => scroll(el, 1),
 	scrollUp = (el) => scroll(el, -1);
 
