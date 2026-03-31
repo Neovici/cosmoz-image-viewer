@@ -191,4 +191,47 @@ suite('pan-zoom-reducer', () => {
 			assert.equal(state.interaction, IDLE);
 		});
 	});
+
+	suite('wheel zoom', () => {
+		const makeWheel = (delta, originX, originY) => ({
+			type: 'wheel',
+			delta,
+			originX,
+			originY,
+		});
+
+		test('wheel zoom in increases zoom level', () => {
+			const state0 = createLoadedState(400, 400, 400, 400);
+			const state = panZoomReducer(state0, makeWheel(0.5, 0, 0));
+			assert.closeTo(state.zoom, 1.5, 0.001, 'zoom should increase');
+		});
+
+		test('wheel zoom preserves focal point at origin', () => {
+			const state0 = createLoadedState(400, 400, 400, 400);
+			const focalX = 50,
+				focalY = -30;
+
+			const state = panZoomReducer(state0, makeWheel(0.5, focalX, focalY));
+
+			assert.closeTo(state.zoom, 1.5, 0.001, 'zoom should increase');
+			assert.closeTo(state.panX, focalX * (1 - 1.5), 0.01, 'panX should preserve focal point');
+			assert.closeTo(state.panY, focalY * (1 - 1.5), 0.01, 'panY should preserve focal point');
+		});
+
+		test('wheel zoom past max cap preserves focal point', () => {
+			const maxZoom = 2.2;
+			const state0 = createLoadedState(400, 400, 400, 400, 1.9);
+			const focalX = 100,
+				focalY = -50;
+
+			const state = panZoomReducer(state0, makeWheel(1.5, focalX, focalY));
+
+			assert.isAtMost(state.zoom, maxZoom + 0.01, 'zoom should be clamped to max');
+
+			const ratio = state.zoom / (1.9 * 2.5);
+			const expectedPanX = focalX + (focalX * (1 - 2.5) - focalX) * ratio;
+
+			assert.closeTo(state.panX, expectedPanX, 0.5, 'panX should adjust proportionally when zoom clamped');
+		});
+	});
 });
