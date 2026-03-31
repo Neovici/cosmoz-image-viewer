@@ -82,7 +82,7 @@ cosmoz-autocomplete {
     visibility: hidden;
     position: relative;
     z-index: 1;
-    max-width: 250px;
+    max-width: 180px;
     --cosmoz-input-padding: 0;
     --cosmoz-input-float-display: none;
     --cosmoz-autocomplete-chip-translate-y: 0;
