@@ -103,23 +103,32 @@ suite('haunted-pan-zoom', () => {
 	test('handles mouse panning', async () => {
 		const img = el.shadowRoot.querySelector('img');
 
+		// At zoom 1: image is 200x112.5 in a 200x200 container.
+		// X bounds are [0,0] (image fills width), Y bounds are [-43.75, 43.75].
+		// Drag down by 20px: X pan clamped to 0, Y pan of 20 is within bounds.
 		await perform(async ({ page }) => {
 			await page.mouse.move(100, 100);
 			await page.mouse.down();
 			await page.mouse.move(120, 120);
+			await page.mouse.up();
 		});
+		await aTimeout();
 
 		assertFuzzyMatch(img.getBoundingClientRect(), {
-			top: 51.75,
+			top: 71.75,
 			left: 8,
 			width: 200,
 			height: 112.5,
 		});
 
+		// Drag up by 60px from center: Y pan = 20 + (-60) = -40, within bounds.
 		await perform(async ({ page }) => {
+			await page.mouse.move(100, 120);
+			await page.mouse.down();
 			await page.mouse.move(100, 60);
 			await page.mouse.up();
 		});
+		await aTimeout();
 
 		assertFuzzyMatch(img.getBoundingClientRect(), {
 			top: 11.75,
