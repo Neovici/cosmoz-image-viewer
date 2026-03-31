@@ -233,5 +233,68 @@ suite('pan-zoom-reducer', () => {
 
 			assert.closeTo(state.panX, expectedPanX, 0.5, 'panX should adjust proportionally when zoom clamped');
 		});
+
+		test('pinch pan past boundary uses rubber-band (no jump on release)', () => {
+			// When pinch-zooming past max AND panning past pan bounds,
+			// pan should be rubber-banded during pinch, not jump on release
+			// Use a tall image so pan has room to go past bounds
+			const state0 = createLoadedState(400, 800, 400, 400, 2);
+			const centerX = 200,
+				centerY = 200;
+
+			// At zoom=2, image is 800x1600 scaled, pan bounds for Y are [-600, 600]
+			// Start with pan at boundary
+			const startPanY = 600;
+			let state = { ...state0, panY: startPanY };
+
+			// Start pinch
+			state = panZoomReducer(state, makePointerdown(1, 100, 200));
+			state = panZoomReducer(state, makePointerdown(2, 300, 200));
+
+			// Pinch and pan down: move both fingers down while zooming
+			// This pushes panY further down past the bottom boundary
+			const p1End = { x: 50, y: 400 },
+				p2End = { x: 350, y: 400 },
+				origin1 = toOrigin(p1End.x, p1End.y, centerX, centerY),
+				origin2 = toOrigin(p2End.x, p2End.y, centerX, centerY);
+
+			state = panZoomReducer(state, makePointermove(1, p1End.x, p1End.y, origin1.x, origin1.y));
+			state = panZoomReducer(state, makePointermove(2, p2End.x, p2End.y, origin2.x, origin2.y));
+
+			const panYDuringPinch = state.panY;
+
+			// Release both fingers
+			state = panZoomReducer(state, makePointerup(1, 0, 0));
+			state = panZoomReducer(state, makePointerup(2, 0, 0));
+
+			// The panY on release should be close to what it was during pinch
+			// If rubber-band was applied, the difference should be small (snap from rubber-band to clamp)
+			// If NO rubber-band, the difference would be large (jump from unrestricted to clamp)
+			const panYAfterRelease = state.panY;
+
+			// Calculate what the bounds would be at this zoom
+			const getBounds = (zoom) => {
+				const scale = zoom; // fitScale = 1 for 400x400 container, 400x800 image
+				const sih = 800 * scale;
+				const minY = sih < 400 ? (-400 + sih) / 2 : (400 - sih) / 2;
+				const maxY = sih < 400 ? (400 - sih) / 2 : (-400 + sih) / 2;
+				return { minY, maxY };
+			};
+
+			// After release, panY should be clamped to bounds
+			const bounds = getBounds(state.zoom);
+			assert.isAtMost(panYAfterRelease, bounds.maxY + 0.01, 'panY should be within bounds after release');
+
+			// During pinch, if rubber-band was applied, panY should have had resistance
+			// The jump from rubber-band to clamp should be small (factor 2 = half the distance)
+			const jumpAmount = Math.abs(panYDuringPinch - panYAfterRelease);
+			const expectedMaxJump = Math.abs(panYDuringPinch - bounds.maxY) / 2 + 1; // rubber-band factor 2 + tolerance
+
+			assert.isAtMost(
+				jumpAmount,
+				expectedMaxJump,
+				`panY jumped ${jumpAmount.toFixed(1)} on release, expected max ${expectedMaxJump.toFixed(1)} - rubber-band should prevent large jumps`,
+			);
+		});
 	});
 });
