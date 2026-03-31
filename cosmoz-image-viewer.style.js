@@ -7,6 +7,7 @@ export const style = `:host {
     font-size: var(--cz-text-sm);
     min-height: 250px;
     touch-action: pan-y pinch-zoom;
+    container-type: inline-size;
 }
 
 :host([fullscreen]) {
@@ -142,6 +143,20 @@ cosmoz-autocomplete::part(input-control) {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+/* Narrow container layout: wrap attachment dropdown to second row */
+@container (max-width: 500px) {
+    .actions {
+        flex-wrap: wrap;
+        row-gap: 8px;
+    }
+
+    cosmoz-autocomplete {
+        order: 1;
+        flex: 1 1 100%;
+        max-width: none;
+    }
 }
 
 img {
