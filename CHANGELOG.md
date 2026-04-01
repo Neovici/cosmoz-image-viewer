@@ -1,3 +1,9 @@
+## [8.6.4](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.6.3...v8.6.4) (2026-04-01)
+
+### Bug Fixes
+
+* add PDF compression to reduce generated file size (FE-306) ([#266](https://github.com/Neovici/cosmoz-image-viewer/issues/266)) ([4d8f65f](https://github.com/Neovici/cosmoz-image-viewer/commit/4d8f65f09232706ea702b84cba63eb105d9a11fa))
+
 ## [8.6.3](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.6.2...v8.6.3) (2026-03-27)
 
 ### Bug Fixes
