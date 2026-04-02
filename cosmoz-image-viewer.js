@@ -253,6 +253,9 @@ customElements.define(
 	'cosmoz-image-viewer',
 	component(CosmozImageViewer, {
 		observedAttributes: [
+			'source',
+			'download-file-name',
+			'pdf',
 			'show-close',
 			'show-detach',
 			'show-fullscreen',
