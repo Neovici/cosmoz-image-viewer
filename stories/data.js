@@ -7,3 +7,44 @@ export const images = [
 			setTimeout(() => resolve('stories/images/strasbourg.jpg'), 500),
 		),
 ];
+
+export const singleAttachment = [
+	{
+		title: 'Stockholm photos',
+		images,
+	},
+];
+
+export const multipleAttachments = [
+	{
+		title: 'Stockholm photos',
+		images: [
+			'stories/images/stockholm.jpg',
+			'stories/images/strasbourg.jpg',
+		],
+	},
+	{
+		title: 'Cosmos photos',
+		images: [
+			'stories/images/cosmos1.jpg',
+			'stories/images/cosmos2.jpg',
+		],
+	},
+];
+
+export const pdfAttachment = [
+	{
+		title: 'Sample PDF',
+		pdf: 'stories/images/sample.pdf',
+	},
+];
+
+export const lazySource = () =>
+	new Promise((resolve) =>
+		setTimeout(() => resolve(multipleAttachments), 1500),
+	);
+
+export const failingSource = () =>
+	new Promise((_, reject) =>
+		setTimeout(() => reject(new Error('Network error')), 1000),
+	);
