@@ -172,6 +172,7 @@ const renderCosmozImageViewer = ({
 							.images="${host.images}"
 							.pdf="${host.pdf}"
 							.pdfOptions="${host.pdfOptions}"
+							.textLayers=${host.textLayers}
 							show-nav
 							show-zoom
 							show-close
