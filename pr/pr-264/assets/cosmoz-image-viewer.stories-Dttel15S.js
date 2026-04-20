@@ -1,4 +1,4 @@
-import{b as t}from"./iframe-CMeK9S_P.js";import{GlobalWorkerOptions as p}from"./pdf-DreA9CGo.js";import"./cosmoz-image-viewer-CECJAhX5.js";import"./preload-helper-PPVm8Dsz.js";const d=["stories/images/stockholm.jpg","this-is-a-loading-error.jpg",()=>"stories/images/a_size.png",()=>new Promise(e=>setTimeout(()=>e("stories/images/strasbourg.jpg"),500))],$=[{title:"Stockholm photos",images:d}],g=[{title:"Stockholm photos",images:["stories/images/stockholm.jpg","stories/images/strasbourg.jpg"]},{title:"Cosmos photos",images:["stories/images/cosmos1.jpg","stories/images/cosmos2.jpg"]}],v=[{title:"Sample PDF",pdf:"stories/images/sample.pdf"}],z=()=>new Promise(e=>setTimeout(()=>e(g),1500)),f=()=>new Promise((e,o)=>setTimeout(()=>o(new Error("Network error")),1e3));p.workerSrc=new URL(""+new URL("pdf.worker.min-B_fnEKel.mjs",import.meta.url).href,import.meta.url).href;const j={title:"Cosmoz Image Viewer",component:"cosmoz-image-viewer"},c=({showDetach:e,showFullscreen:o,showPageNumber:r,showNav:s,loop:a,showZoom:n,detachedShowZoom:m})=>t`
+import{b as t}from"./iframe-Bf1O2fT1.js";import{GlobalWorkerOptions as p}from"./pdf-C4heYEAT.js";import"./cosmoz-image-viewer-Dq54jylL.js";import"./preload-helper-PPVm8Dsz.js";const d=["stories/images/stockholm.jpg","this-is-a-loading-error.jpg",()=>"stories/images/a_size.png",()=>new Promise(e=>setTimeout(()=>e("stories/images/strasbourg.jpg"),500))],$=[{title:"Stockholm photos",images:d}],g=[{title:"Stockholm photos",images:["stories/images/stockholm.jpg","stories/images/strasbourg.jpg"]},{title:"Cosmos photos",images:["stories/images/cosmos1.jpg","stories/images/cosmos2.jpg"]}],v=[{title:"Sample PDF",pdf:"stories/images/sample.pdf"}],z=()=>new Promise(e=>setTimeout(()=>e(g),1500)),b=()=>new Promise((e,o)=>setTimeout(()=>o(new Error("Network error")),1e3));p.workerSrc=new URL(""+new URL("pdf.worker.min-FHbmGBN0.mjs",import.meta.url).href,import.meta.url).href;const j={title:"Cosmoz Image Viewer",component:"cosmoz-image-viewer"},c=({showDetach:e,showFullscreen:o,showPageNumber:r,showNav:s,loop:a,showZoom:n,detachedShowZoom:m})=>t`
     <cosmoz-image-viewer
         ?show-detach=${e}
         ?show-fullscreen=${o}
@@ -47,7 +47,7 @@ import{b as t}from"./iframe-CMeK9S_P.js";import{GlobalWorkerOptions as p}from"./
         show-page-number
         show-nav
         loop
-        .source=${f}
+        .source=${b}
     ></cosmoz-image-viewer>
 `,l=()=>{const e=[{title:"Set 1",images:["stories/images/stockholm.jpg","stories/images/strasbourg.jpg"]}],o=[{title:"Set 2",images:["stories/images/cosmos1.jpg","stories/images/cosmos2.jpg"]}];return t`
         <cosmoz-image-viewer
