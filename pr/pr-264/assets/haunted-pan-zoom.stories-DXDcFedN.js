@@ -1,4 +1,4 @@
-import{b as a}from"./iframe-B95WLjY0.js";import"./cosmoz-image-viewer-DLt-eFXi.js";import"./preload-helper-PPVm8Dsz.js";const d={title:"Pan Zoom",component:"haunted-pan-zoom"},t=({disabled:e,height:s,zoomStiffness:n})=>a`
+import{b as a}from"./iframe-khmzWOpr.js";import"./cosmoz-image-viewer-DdKA5vub.js";import"./preload-helper-PPVm8Dsz.js";const d={title:"Pan Zoom",component:"haunted-pan-zoom"},t=({disabled:e,height:s,zoomStiffness:n})=>a`
     <haunted-pan-zoom
         src="stories/images/a_size.png"
         style="${s};"
