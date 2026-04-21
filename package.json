@@ -47,7 +47,6 @@
 			"@semantic-release/npm",
 			"@semantic-release/git"
 		],
-		"branch": "master",
 		"preset": "conventionalcommits"
 	},
 	"publishConfig": {
