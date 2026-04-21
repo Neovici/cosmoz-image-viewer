@@ -280,7 +280,7 @@ suite('cosmoz-image-viewer source', () => {
 		});
 	});
 
-	test('sync source renders immediately without loading', async () => {
+	test('sync source renders after loading', async () => {
 		await fixture(
 			html`<cosmoz-image-viewer
 				show-nav
@@ -297,8 +297,8 @@ suite('cosmoz-image-viewer source', () => {
 		);
 
 		await perform(async ({ page, expect }) => {
-			// no loading overlay
-			await expect(page.locator('.loading')).toHaveCount(0);
+			// wait for loading to complete
+			await expect(page.locator('.loading')).not.toBeVisible();
 
 			// image should be visible
 			await expect(

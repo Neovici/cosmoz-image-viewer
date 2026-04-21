@@ -1,4 +1,6 @@
-export const style = `:host {
+import { sheet } from '@pionjs/pion/lib/util';
+
+export const styleSheet = sheet`:host {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -211,5 +213,4 @@ cz-spinner {
     position: absolute;
     inset: 0;
     z-index: 2;
-}
-`;
+}`;
