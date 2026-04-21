@@ -1,37 +1,37 @@
-import{b as t}from"./iframe-DwPysnSw.js";import{GlobalWorkerOptions as p}from"./pdf-C4heYEAT.js";import"./cosmoz-image-viewer-CbbPDILh.js";import"./preload-helper-PPVm8Dsz.js";const d=["stories/images/stockholm.jpg","this-is-a-loading-error.jpg",()=>"stories/images/a_size.png",()=>new Promise(e=>setTimeout(()=>e("stories/images/strasbourg.jpg"),500))],$=[{title:"Stockholm photos",images:d}],g=[{title:"Stockholm photos",images:["stories/images/stockholm.jpg","stories/images/strasbourg.jpg"]},{title:"Cosmos photos",images:["stories/images/cosmos1.jpg","stories/images/cosmos2.jpg"]}],v=[{title:"Sample PDF",pdf:"stories/images/sample.pdf"}],z=()=>new Promise(e=>setTimeout(()=>e(g),1500)),b=()=>new Promise((e,o)=>setTimeout(()=>o(new Error("Network error")),1e3));p.workerSrc=new URL(""+new URL("pdf.worker.min-FHbmGBN0.mjs",import.meta.url).href,import.meta.url).href;const j={title:"Cosmoz Image Viewer",component:"cosmoz-image-viewer"},c=({showDetach:e,showFullscreen:o,showPageNumber:r,showNav:s,loop:a,showZoom:n,detachedShowZoom:m})=>t`
+import{b as n}from"./iframe-C9Pd5CXh.js";import{GlobalWorkerOptions as p}from"./pdf-C4heYEAT.js";import"./cosmoz-image-viewer-BFAhm2UH.js";import"./preload-helper-PPVm8Dsz.js";const d=["stories/images/stockholm.jpg","this-is-a-loading-error.jpg",()=>"stories/images/a_size.png",()=>new Promise(e=>setTimeout(()=>e("stories/images/strasbourg.jpg"),500))],$=[{title:"Stockholm photos",images:d}],g=[{title:"Stockholm photos",images:["stories/images/stockholm.jpg","stories/images/strasbourg.jpg"]},{title:"Cosmos photos",images:["stories/images/cosmos1.jpg","stories/images/cosmos2.jpg"]}],v=[{title:"Sample PDF",pdf:"stories/images/sample.pdf"}],z=()=>new Promise(e=>setTimeout(()=>e(g),1500)),b=()=>new Promise((e,o)=>setTimeout(()=>o(new Error("Network error")),1e3));p.workerSrc=new URL(""+new URL("pdf.worker.min-FHbmGBN0.mjs",import.meta.url).href,import.meta.url).href;const Z={title:"Cosmoz Image Viewer",component:"cosmoz-image-viewer"},t=({showDetach:e,showFullscreen:o,showPageNumber:r,showNav:s,loop:a,showZoom:m,detachedShowZoom:c})=>n`
     <cosmoz-image-viewer
         ?show-detach=${e}
         ?show-fullscreen=${o}
         ?show-page-number=${r}
         ?show-nav=${s}
         ?loop=${a}
-        ?show-zoom=${n}
-        ?detached-show-zoom=${m}
+        ?show-zoom=${m}
+        ?detached-show-zoom=${c}
         .source=${$}
     ></cosmoz-image-viewer>
-`;c.args={showDetach:!0,showFullscreen:!0,showPageNumber:!0,showNav:!0,loop:!0,showZoom:!1,detachedShowZoom:!1};const h=({showDetach:e,showFullscreen:o,showPageNumber:r,showNav:s,loop:a,showZoom:n,detachedShowZoom:m})=>t`
+`;t.args={showDetach:!0,showFullscreen:!0,showPageNumber:!0,showNav:!0,loop:!0,showZoom:!1,detachedShowZoom:!1};const h=({showDetach:e,showFullscreen:o,showPageNumber:r,showNav:s,loop:a,showZoom:m,detachedShowZoom:c})=>n`
     <cosmoz-image-viewer
         ?show-detach=${e}
         ?show-fullscreen=${o}
         ?show-page-number=${r}
         ?show-nav=${s}
         ?loop=${a}
-        ?show-zoom=${n}
-        ?detached-show-zoom=${m}
+        ?show-zoom=${m}
+        ?detached-show-zoom=${c}
         .source=${g}
     ></cosmoz-image-viewer>
-`;h.args={showDetach:!0,showFullscreen:!0,showPageNumber:!0,showNav:!0,loop:!0,showZoom:!1,detachedShowZoom:!1};const i=({showDetach:e,showFullscreen:o,showPageNumber:r,showNav:s,loop:a,showZoom:n,detachedShowZoom:m})=>t`
+`;h.args={showDetach:!0,showFullscreen:!0,showPageNumber:!0,showNav:!0,loop:!0,showZoom:!1,detachedShowZoom:!1};const i=({showDetach:e,showFullscreen:o,showPageNumber:r,showNav:s,loop:a,showZoom:m,detachedShowZoom:c})=>n`
     <cosmoz-image-viewer
         ?show-detach=${e}
         ?show-fullscreen=${o}
         ?show-page-number=${r}
         ?show-nav=${s}
         ?loop=${a}
-        ?show-zoom=${n}
-        ?detached-show-zoom=${m}
+        ?show-zoom=${m}
+        ?detached-show-zoom=${c}
         .source=${v}
     ></cosmoz-image-viewer>
-`;i.args={showDetach:!0,showFullscreen:!0,showPageNumber:!0,showNav:!0,loop:!0,showZoom:!1,detachedShowZoom:!1};const w=()=>t`
+`;i.args={showDetach:!0,showFullscreen:!0,showPageNumber:!0,showNav:!0,loop:!0,showZoom:!1,detachedShowZoom:!1};const w=()=>n`
     <cosmoz-image-viewer
         show-detach
         show-fullscreen
@@ -40,7 +40,7 @@ import{b as t}from"./iframe-DwPysnSw.js";import{GlobalWorkerOptions as p}from"./
         loop
         .source=${z}
     ></cosmoz-image-viewer>
-`,u=()=>t`
+`,u=()=>n`
     <cosmoz-image-viewer
         show-detach
         show-fullscreen
@@ -49,7 +49,7 @@ import{b as t}from"./iframe-DwPysnSw.js";import{GlobalWorkerOptions as p}from"./
         loop
         .source=${b}
     ></cosmoz-image-viewer>
-`,l=()=>{const e=[{title:"Set 1",images:["stories/images/stockholm.jpg","stories/images/strasbourg.jpg"]}],o=[{title:"Set 2",images:["stories/images/cosmos1.jpg","stories/images/cosmos2.jpg"]}];return t`
+`,l=()=>{const e=[{title:"Set 1",images:["stories/images/stockholm.jpg","stories/images/strasbourg.jpg"]}],o=[{title:"Set 2",images:["stories/images/cosmos1.jpg","stories/images/cosmos2.jpg"]}];return n`
         <cosmoz-image-viewer
             show-detach
             show-fullscreen
@@ -63,7 +63,7 @@ import{b as t}from"./iframe-DwPysnSw.js";import{GlobalWorkerOptions as p}from"./
         >
             Switch source
         </button>
-    `};c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`({
+    `};t.parameters={...t.parameters,docs:{...t.parameters?.docs,source:{originalSource:`({
   showDetach,
   showFullscreen,
   showPageNumber,
@@ -80,9 +80,9 @@ import{b as t}from"./iframe-DwPysnSw.js";import{GlobalWorkerOptions as p}from"./
         ?loop=\${loop}
         ?show-zoom=\${showZoom}
         ?detached-show-zoom=\${detachedShowZoom}
-        .source=\${singleAttachment}
+        .source=\${singleFile}
     ></cosmoz-image-viewer>
-\``,...c.parameters?.docs?.source}}};h.parameters={...h.parameters,docs:{...h.parameters?.docs,source:{originalSource:`({
+\``,...t.parameters?.docs?.source}}};h.parameters={...h.parameters,docs:{...h.parameters?.docs,source:{originalSource:`({
   showDetach,
   showFullscreen,
   showPageNumber,
@@ -99,7 +99,7 @@ import{b as t}from"./iframe-DwPysnSw.js";import{GlobalWorkerOptions as p}from"./
         ?loop=\${loop}
         ?show-zoom=\${showZoom}
         ?detached-show-zoom=\${detachedShowZoom}
-        .source=\${multipleAttachments}
+        .source=\${multipleFiles}
     ></cosmoz-image-viewer>
 \``,...h.parameters?.docs?.source}}};i.parameters={...i.parameters,docs:{...i.parameters?.docs,source:{originalSource:`({
   showDetach,
@@ -118,7 +118,7 @@ import{b as t}from"./iframe-DwPysnSw.js";import{GlobalWorkerOptions as p}from"./
         ?loop=\${loop}
         ?show-zoom=\${showZoom}
         ?detached-show-zoom=\${detachedShowZoom}
-        .source=\${pdfAttachment}
+        .source=\${pdfFile}
     ></cosmoz-image-viewer>
 \``,...i.parameters?.docs?.source}}};w.parameters={...w.parameters,docs:{...w.parameters?.docs,source:{originalSource:`() => html\`
     <cosmoz-image-viewer
@@ -167,4 +167,4 @@ import{b as t}from"./iframe-DwPysnSw.js";import{GlobalWorkerOptions as p}from"./
             Switch source
         </button>
     \`;
-}`,...l.parameters?.docs?.source}}};const P=["Basic","MultiAttachment","Pdf","Loading","Error","Issue21"];export{c as Basic,u as Error,l as Issue21,w as Loading,h as MultiAttachment,i as Pdf,P as __namedExportsOrder,j as default};
+}`,...l.parameters?.docs?.source}}};const j=["Basic","MultiFile","Pdf","Loading","Error","Issue21"];export{t as Basic,u as Error,l as Issue21,w as Loading,h as MultiFile,i as Pdf,j as __namedExportsOrder,Z as default};
