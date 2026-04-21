@@ -4,9 +4,9 @@ import '../cosmoz-image-viewer.js';
 import {
 	failingSource,
 	lazySource,
-	multipleAttachments,
-	pdfAttachment,
-	singleAttachment,
+	multipleFiles,
+	pdfFile,
+	singleFile,
 } from './data.js';
 
 GlobalWorkerOptions.workerSrc = new URL(
@@ -36,7 +36,7 @@ export const Basic = ({
 		?loop=${loop}
 		?show-zoom=${showZoom}
 		?detached-show-zoom=${detachedShowZoom}
-		.source=${singleAttachment}
+		.source=${singleFile}
 	></cosmoz-image-viewer>
 `;
 
@@ -50,7 +50,7 @@ Basic.args = {
 	detachedShowZoom: false,
 };
 
-export const MultiAttachment = ({
+export const MultiFile = ({
 	showDetach,
 	showFullscreen,
 	showPageNumber,
@@ -67,11 +67,11 @@ export const MultiAttachment = ({
 		?loop=${loop}
 		?show-zoom=${showZoom}
 		?detached-show-zoom=${detachedShowZoom}
-		.source=${multipleAttachments}
+		.source=${multipleFiles}
 	></cosmoz-image-viewer>
 `;
 
-MultiAttachment.args = {
+MultiFile.args = {
 	showDetach: true,
 	showFullscreen: true,
 	showPageNumber: true,
@@ -98,7 +98,7 @@ export const Pdf = ({
 		?loop=${loop}
 		?show-zoom=${showZoom}
 		?detached-show-zoom=${detachedShowZoom}
-		.source=${pdfAttachment}
+		.source=${pdfFile}
 	></cosmoz-image-viewer>
 `;
 

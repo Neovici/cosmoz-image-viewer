@@ -47,12 +47,12 @@ const renderCosmozImageViewer = ({
 	detach,
 	detached,
 	syncDetachedState,
-	setAttachmentIndex,
+	setFileIndex,
 	setImageIndex,
 	loading,
 	error,
 	contentError,
-	attachments,
+	files,
 	selectedIndex,
 	value,
 	onSelect,
@@ -75,7 +75,7 @@ const renderCosmozImageViewer = ({
 					error,
 					() =>
 						html`<div class="error">
-							<h2>${_('Failed to load attachments.')}</h2>
+							<h2>${_('Failed to load files.')}</h2>
 							<div class="desc">${error?.message ?? error}</div>
 						</div>`,
 				)}
@@ -113,7 +113,7 @@ const renderCosmozImageViewer = ({
 								`,
 							)}
 							${when(
-								attachments.length > 1,
+								files.length > 1,
 								() =>
 									html`<cosmoz-autocomplete
 										text-property="title"
@@ -121,7 +121,7 @@ const renderCosmozImageViewer = ({
 										.min=${1}
 										show-single
 										preserve-order
-										.source=${attachments}
+										.source=${files}
 										.value=${value}
 										@value=${onSelect}
 									></cosmoz-autocomplete>`,
@@ -214,10 +214,10 @@ const renderCosmozImageViewer = ({
 		portal(
 			html`<cosmoz-image-viewer
 				fullscreen
-				.source=${attachments}
-				.currentAttachmentIndex=${selectedIndex}
+				.source=${files}
+				.currentFileIndex=${selectedIndex}
 				.currentImageIndex=${currentImageIndex}
-				@current-attachment-index-changed=${lift(setAttachmentIndex)}
+				@current-file-index-changed=${lift(setFileIndex)}
 				@current-image-index-changed=${lift(setImageIndex)}
 				@detached-changed=${syncDetachedState}
 				show-nav

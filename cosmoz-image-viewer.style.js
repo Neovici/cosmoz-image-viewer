@@ -146,7 +146,7 @@ cosmoz-autocomplete::part(input-control) {
     gap: 8px;
 }
 
-/* Narrow container layout: wrap attachment dropdown to second row */
+/* Narrow container layout: wrap file dropdown to second row */
 @container (max-width: 500px) {
     .actions {
         flex-wrap: wrap;

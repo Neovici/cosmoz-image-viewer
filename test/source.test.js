@@ -66,7 +66,7 @@ suite('cosmoz-image-viewer source', () => {
 
 		await perform(async ({ page, expect }) => {
 			await expect(
-				page.locator('"Failed to load attachments."'),
+				page.locator('"Failed to load files."'),
 			).toBeVisible();
 
 			await expect(
@@ -75,7 +75,7 @@ suite('cosmoz-image-viewer source', () => {
 		});
 	});
 
-	test('shows dropdown when multiple attachments', async () => {
+	test('shows dropdown when multiple files', async () => {
 		await fixture(
 			html`<cosmoz-image-viewer
 				show-nav
@@ -108,14 +108,14 @@ suite('cosmoz-image-viewer source', () => {
 				page.locator('cosmoz-autocomplete'),
 			).toBeVisible();
 
-			// first attachment images should be visible
+			// first file images should be visible
 			await expect(
 				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
 			).toBeVisible();
 		});
 	});
 
-	test('does not show dropdown for single attachment', async () => {
+	test('does not show dropdown for single file', async () => {
 		await fixture(
 			html`<cosmoz-image-viewer
 				show-nav
@@ -144,7 +144,7 @@ suite('cosmoz-image-viewer source', () => {
 		});
 	});
 
-	test('slides across attachments when pressing next at last image', async () => {
+	test('slides across files when pressing next at last image', async () => {
 		await fixture(
 			html`<cosmoz-image-viewer
 				show-nav
@@ -166,7 +166,7 @@ suite('cosmoz-image-viewer source', () => {
 		);
 
 		await perform(async ({ page, expect }) => {
-			// first attachment, first image
+			// first file, first image
 			await expect(
 				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
 			).toBeVisible();
@@ -188,7 +188,7 @@ suite('cosmoz-image-viewer source', () => {
 		});
 	});
 
-	test('slides backward across attachments, landing on last image', async () => {
+	test('slides backward across files, landing on last image', async () => {
 		await fixture(
 			html`<cosmoz-image-viewer
 				show-nav
@@ -240,7 +240,7 @@ suite('cosmoz-image-viewer source', () => {
 		});
 	});
 
-	test('loop wraps from last attachment to first', async () => {
+	test('loop wraps from last file to first', async () => {
 		await fixture(
 			html`<cosmoz-image-viewer
 				show-nav

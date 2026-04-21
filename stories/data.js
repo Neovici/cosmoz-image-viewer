@@ -8,14 +8,14 @@ export const images = [
 		),
 ];
 
-export const singleAttachment = [
+export const singleFile = [
 	{
 		title: 'Stockholm photos',
 		images,
 	},
 ];
 
-export const multipleAttachments = [
+export const multipleFiles = [
 	{
 		title: 'Stockholm photos',
 		images: [
@@ -32,7 +32,7 @@ export const multipleAttachments = [
 	},
 ];
 
-export const pdfAttachment = [
+export const pdfFile = [
 	{
 		title: 'Sample PDF',
 		pdf: 'stories/images/sample.pdf',
@@ -41,7 +41,7 @@ export const pdfAttachment = [
 
 export const lazySource = () =>
 	new Promise((resolve) =>
-		setTimeout(() => resolve(multipleAttachments), 1500),
+		setTimeout(() => resolve(multipleFiles), 1500),
 	);
 
 export const failingSource = () =>
