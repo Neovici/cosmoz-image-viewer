@@ -26,18 +26,10 @@ const shouldShow = (show, imagesLen, imgsMinLen = 1) => {
 	return show ? imagesLen >= imgsMinLen : false;
 };
 
-const toggleZoom = (e) => {
-	const el = e.target.getRootNode().querySelector('haunted-pan-zoom');
-
-	if (el.zoom > 1) {
-		return el.zoomTo(1);
-	}
-	el.zoomTo(1.5);
-};
-
 const renderCosmozImageViewer = ({
 	host,
 	isZoomed,
+	toggleZoom,
 	currentSlide,
 	nextImage,
 	previousImage,
@@ -140,7 +132,11 @@ const renderCosmozImageViewer = ({
 								() =>
 									html`<button
 										class="nav"
-										@click="${toggleZoom}"
+										@click=${(e) =>
+											e.target
+												.getRootNode()
+												.querySelector('haunted-pan-zoom')
+												.zoomTo(toggleZoom())}
 										title="${_('Zoom image')}"
 									>
 										${getZoomIcon(isZoomed)}
