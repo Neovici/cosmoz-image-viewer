@@ -1,3 +1,9 @@
+## [8.7.0-beta.1](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.6.4...v8.7.0-beta.1) (2026-04-23)
+
+### Features
+
+* replace images/pdf/pdfOptions/downloadFileName with source API ([#264](https://github.com/Neovici/cosmoz-image-viewer/issues/264)) ([a23afe6](https://github.com/Neovici/cosmoz-image-viewer/commit/a23afe6b80f60b5ed48c0d3750eec4ca006cf4b3))
+
 ## [8.6.4](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.6.3...v8.6.4) (2026-04-01)
 
 ### Bug Fixes
