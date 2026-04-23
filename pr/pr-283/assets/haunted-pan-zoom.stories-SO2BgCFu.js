@@ -1,23 +1,23 @@
-import{b as a}from"./iframe-C3xDermh.js";import"./cosmoz-image-viewer-Deiz-fYW.js";import"./preload-helper-PPVm8Dsz.js";const p={title:"Pan Zoom",component:"haunted-pan-zoom"},i=({disabled:s,height:t,zoomStiffness:n})=>a`
+import{b as a}from"./iframe-CaUfsFFH.js";import"./cosmoz-image-viewer-DMm6w0fh.js";import"./preload-helper-PPVm8Dsz.js";const p={title:"Pan Zoom",component:"haunted-pan-zoom"},i=({disabled:s,height:n,zoomStiffness:t})=>a`
     <haunted-pan-zoom
         src="stories/images/a_size.png"
-        style="${t};"
+        style="${n};"
         ?disabled=${s}
-        .zoomStiffness=${n}
+        .zoomStiffness=${t}
     >
     </haunted-pan-zoom>
-`,e=i.bind({});e.args={disabled:!1,height:"height: 70vh;",zoomStiffness:.3};const o=({disabled:s,height:t,zoomStiffness:n})=>a`
+`,e=i.bind({});e.args={disabled:!1,height:"height: 70vh;",zoomStiffness:.3};const o=({disabled:s,height:n,zoomStiffness:t})=>a`
     <haunted-pan-zoom
         src="stories/images/a_size.png"
-        style="${t};"
+        style="${n};"
         ?disabled=${s}
-        .zoomStiffness=${n}
+        .zoomStiffness=${t}
     >
         <div style="color: white; font-size: 14px; pointer-events: auto;">
             <div
                 style="position: absolute; top: 15%; left: 15%; background: rgba(0,0,0,0.5); padding: 8px 12px; border-radius: 4px;"
             >
-                Overlay text — select me! Use Ctrl+drag to pan.
+                Overlay text — select me! Drag to pan.
             </div>
         </div>
     </haunted-pan-zoom>
@@ -48,7 +48,7 @@ import{b as a}from"./iframe-C3xDermh.js";import"./cosmoz-image-viewer-Deiz-fYW.j
             <div
                 style="position: absolute; top: 15%; left: 15%; background: rgba(0,0,0,0.5); padding: 8px 12px; border-radius: 4px;"
             >
-                Overlay text — select me! Use Ctrl+drag to pan.
+                Overlay text — select me! Drag to pan.
             </div>
         </div>
     </haunted-pan-zoom>
