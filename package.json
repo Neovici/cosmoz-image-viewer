@@ -47,7 +47,6 @@
 			"@semantic-release/npm",
 			"@semantic-release/git"
 		],
-		"branch": "master",
 		"preset": "conventionalcommits"
 	},
 	"publishConfig": {
@@ -66,8 +65,10 @@
 		}
 	},
 	"dependencies": {
+		"@neovici/cosmoz-autocomplete": "^13.4.1",
 		"@neovici/cosmoz-i18next": "^3.2.2",
 		"@neovici/cosmoz-slider": "^5.2.0",
+		"@neovici/cosmoz-tokens": "^3.3.2",
 		"@neovici/cosmoz-utils": "^6.9.0",
 		"@pionjs/pion": "^2.5.2",
 		"jspdf": "^4.1.0",
