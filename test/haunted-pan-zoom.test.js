@@ -75,7 +75,7 @@ suite('haunted-pan-zoom', () => {
 	});
 
 	test('handles scroll events', async () => {
-		const img = el.shadowRoot.querySelector('img');
+		const img = el.shadowRoot.querySelector('.transform-group img');
 
 		scrollUp(el);
 		await aTimeout();
@@ -99,11 +99,8 @@ suite('haunted-pan-zoom', () => {
 	});
 
 	test('handles mouse panning', async () => {
-		const img = el.shadowRoot.querySelector('img');
+		const img = el.shadowRoot.querySelector('.transform-group img');
 
-		// At zoom 1: image is 200x112.5 in a 200x200 container.
-		// X bounds are [0,0] (image fills width), Y bounds are [-43.75, 43.75].
-		// Drag down by 20px: X pan clamped to 0, Y pan of 20 is within bounds.
 		await perform(async ({ page }) => {
 			await page.mouse.move(100, 100);
 			await page.mouse.down();
@@ -119,7 +116,6 @@ suite('haunted-pan-zoom', () => {
 			height: 112.5,
 		});
 
-		// Drag up by 60px from center: Y pan = 20 + (-60) = -40, within bounds.
 		await perform(async ({ page }) => {
 			await page.mouse.move(100, 120);
 			await page.mouse.down();
@@ -134,5 +130,11 @@ suite('haunted-pan-zoom', () => {
 			width: 200,
 			height: 112.5,
 		});
+	});
+
+	test('renders slot inside transform-group', () => {
+		const transformGroup = el.shadowRoot.querySelector('.transform-group');
+		const slot = transformGroup?.querySelector('slot');
+		assert.exists(slot, 'default slot should exist inside transform-group');
 	});
 });
