@@ -1,3 +1,9 @@
+## [8.9.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.8.0...v8.9.0) (2026-04-24)
+
+### Features
+
+* add overlay slot support for non-zoom mode ([#284](https://github.com/Neovici/cosmoz-image-viewer/issues/284)) ([311994b](https://github.com/Neovici/cosmoz-image-viewer/commit/311994b302a584bfd83e78d77cb681e16001a7f7))
+
 ## [8.8.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.7.0...v8.8.0) (2026-04-24)
 
 ### Features
