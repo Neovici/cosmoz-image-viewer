@@ -134,6 +134,44 @@ export const Error = () => html`
 	></cosmoz-image-viewer>
 `;
 
+export const OverlaySlots = ({ showZoom, showNav, showPageNumber }) => html`
+	<cosmoz-image-viewer
+		?show-zoom=${showZoom}
+		?show-nav=${showNav}
+		?show-page-number=${showPageNumber}
+		.source=${[
+			{
+				title: 'With overlay',
+				images: [
+					'stories/images/stockholm.jpg',
+					'stories/images/strasbourg.jpg',
+				],
+			},
+		]}
+	>
+		<div slot="overlay-page-0" style="color: white; font-size: 14px;">
+			<div
+				style="position: absolute; top: 10%; left: 10%; background: rgba(0,0,0,0.5); padding: 8px 12px; border-radius: 4px; pointer-events: auto;"
+			>
+				Page 0 overlay — select this text!
+			</div>
+		</div>
+		<div slot="overlay-page-1" style="color: white; font-size: 14px;">
+			<div
+				style="position: absolute; bottom: 10%; right: 10%; background: rgba(0,0,0,0.5); padding: 8px 12px; border-radius: 4px; pointer-events: auto;"
+			>
+				Page 1 overlay — select this text!
+			</div>
+		</div>
+	</cosmoz-image-viewer>
+`;
+
+OverlaySlots.args = {
+	showZoom: true,
+	showNav: true,
+	showPageNumber: true,
+};
+
 export const Issue21 = () => {
 	const source1 = [
 			{
@@ -147,10 +185,7 @@ export const Issue21 = () => {
 		source2 = [
 			{
 				title: 'Set 2',
-				images: [
-					'stories/images/cosmos1.jpg',
-					'stories/images/cosmos2.jpg',
-				],
+				images: ['stories/images/cosmos1.jpg', 'stories/images/cosmos2.jpg'],
 			},
 		];
 	return html`
