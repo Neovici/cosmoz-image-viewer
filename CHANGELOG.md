@@ -1,3 +1,9 @@
+## [8.8.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.7.0...v8.8.0) (2026-04-24)
+
+### Features
+
+* add per-page overlay slot support to cosmoz-image-viewer ([#283](https://github.com/Neovici/cosmoz-image-viewer/issues/283)) ([c350621](https://github.com/Neovici/cosmoz-image-viewer/commit/c35062188c90a257b975d0ebbe2b5e3a37c93270))
+
 ## [8.7.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.6.4...v8.7.0) (2026-04-23)
 
 ### Features
