@@ -168,6 +168,23 @@ img {
     overflow: visible;
 }
 
+.image-container {
+    position: relative;
+}
+
+.image-container img {
+    width: 100%;
+    display: block;
+}
+
+.image-container ::slotted(*) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 haunted-pan-zoom {
     flex: auto;
     display: flex;
