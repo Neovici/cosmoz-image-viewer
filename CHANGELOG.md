@@ -1,3 +1,9 @@
+## [8.10.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.9.0...v8.10.0) (2026-04-25)
+
+### Features
+
+* add user-select none to non-zoom image ([#286](https://github.com/Neovici/cosmoz-image-viewer/issues/286)) ([757641e](https://github.com/Neovici/cosmoz-image-viewer/commit/757641e9bdd81b64b5d51205da0fb3e0a3eb6ecb))
+
 ## [8.9.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.8.0...v8.9.0) (2026-04-24)
 
 ### Features
