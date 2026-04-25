@@ -175,6 +175,7 @@ img {
 .image-container img {
     width: 100%;
     display: block;
+    user-select: none;
 }
 
 .image-container ::slotted(*) {
