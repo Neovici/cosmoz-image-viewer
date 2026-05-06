@@ -1,3 +1,9 @@
+## [8.10.1](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.10.0...v8.10.1) (2026-05-06)
+
+### Bug Fixes
+
+* loop navigation bug and add page count to detached viewer ([#293](https://github.com/Neovici/cosmoz-image-viewer/issues/293)) ([0a69dd4](https://github.com/Neovici/cosmoz-image-viewer/commit/0a69dd492458b4f5793aa8383167dda2e58508f1))
+
 ## [8.10.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.9.0...v8.10.0) (2026-04-25)
 
 ### Features
