@@ -1,4 +1,10 @@
 import { assert } from '@open-wc/testing';
+import i18next from 'i18next';
+i18next.init({
+	lng: 'en',
+	resources: { en: { translation: {} } },
+	fallbackLng: false,
+});
 
 export const HAS_NEW_TOUCH = (() => {
 		try {
