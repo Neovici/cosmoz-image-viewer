@@ -1,3 +1,9 @@
+## [8.11.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.10.1...v8.11.0) (2026-05-08)
+
+### Features
+
+* replace @neovici/cosmoz-i18next with i18next direct dependency ([#297](https://github.com/Neovici/cosmoz-image-viewer/issues/297)) ([2a7c5b0](https://github.com/Neovici/cosmoz-image-viewer/commit/2a7c5b0eeeb421178bd12b9845be2e52365a4ded))
+
 ## [8.10.1](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.10.0...v8.10.1) (2026-05-06)
 
 ### Bug Fixes
