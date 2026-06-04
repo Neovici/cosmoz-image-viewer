@@ -84,7 +84,7 @@
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^20.0.0",
-		"@commitlint/config-conventional": "^20.0.0",
+		"@commitlint/config-conventional": "^21.0.2",
 		"@neovici/cfg": "^2.11.0",
 		"@open-wc/testing": "^4.0.0",
 		"@rollup/plugin-commonjs": "^29.0.2",
