@@ -81,7 +81,7 @@
 		"@playwright/test": "1.60.0",
 		"@rollup/plugin-commonjs": "^29.0.2",
 		"@storybook/addon-docs": "^9.1.5",
-		"@storybook/web-components-vite": "^9.1.5",
+		"@storybook/web-components-vite": "^10.4.6",
 		"@types/mocha": "^10.0.6",
 		"@types/node": "^25.7.0",
 		"esbuild": "^0.28.0",
