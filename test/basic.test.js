@@ -123,6 +123,43 @@ suite('cosmoz-image-viewer with no images', () => {
 	});
 });
 
+suite('cosmoz-image-viewer-non-zoom-loading-error', () => {
+	setup(async () => {
+		await fixture(
+			html`<cosmoz-image-viewer
+				show-nav
+				show-fullscreen
+				show-page-number
+				show-detach
+				.source=${[
+					{
+						title: 'Errors',
+						images: [
+							'xyz.jpg',
+							'/stories/images/stockholm.jpg',
+							'/stories/images/strasbourg.jpg',
+						].map(absolute),
+					},
+				]}
+			></cosmoz-image-viewer>`,
+		);
+	});
+
+	test('error is shown when image fails to load without zoom', async () => {
+		await perform(async ({ page, expect }) => {
+			await expect(
+				page.locator('"An error occurred while loading the image."'),
+			).toBeVisible();
+
+			await page.locator('cosmoz-image-viewer').hover();
+			await page.locator('button[name="next"]').click();
+			await expect(
+				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
+			).toBeVisible();
+		});
+	});
+});
+
 suite('cosmoz-image-viewer-loading-error', () => {
 	setup(async () => {
 		await fixture(
