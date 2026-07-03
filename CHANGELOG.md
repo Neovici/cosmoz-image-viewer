@@ -1,5 +1,15 @@
 ## [8.11.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.10.1...v8.11.0) (2026-05-08)
 
+## 8.11.2
+
+### Patch Changes
+
+- bdae899: Fix crash when image fails to load in non-zoom path
+
+  Split error handlers so the non-zoom `<img>` error handler correctly
+  traverses the DOM to find the `.error` container, instead of returning
+  null and crashing on `removeAttribute`.
+
 ## 8.11.1
 
 ### Patch Changes
