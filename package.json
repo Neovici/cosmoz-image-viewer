@@ -56,7 +56,7 @@
 	},
 	"dependencies": {
 		"@neovici/cosmoz-autocomplete": "^14.0.1",
-		"i18next": "23.16.8",
+		"i18next": "26.4.2",
 		"@neovici/cosmoz-slider": "^5.2.0",
 		"@neovici/cosmoz-tokens": "^3.3.2",
 		"@neovici/cosmoz-utils": "^6.9.0",
