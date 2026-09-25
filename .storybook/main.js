@@ -5,7 +5,7 @@ export default {
 		name: '@storybook/web-components-vite',
 		options: {},
 	},
-	addons: ['@storybook/addon-docs'],
+	addons: ['@storybook/addon-docs', '@neovici/cfg/storybook/preset.mjs'],
 	docs: {
 		autodocs: 'tag',
 	},
