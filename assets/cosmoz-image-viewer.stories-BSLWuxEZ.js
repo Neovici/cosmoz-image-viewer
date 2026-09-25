@@ -1,60 +1,60 @@
-import{b as t}from"./iframe-BC2PHcgw.js";import{GlobalWorkerOptions as d}from"./pdf-C4heYEAT.js";import"./cosmoz-image-viewer-BClBAKGk.js";import"./preload-helper-PPVm8Dsz.js";const v=["stories/images/stockholm.jpg","this-is-a-loading-error.jpg",()=>"stories/images/a_size.png",()=>new Promise(e=>setTimeout(()=>e("stories/images/strasbourg.jpg"),500))],$=[{title:"Stockholm photos",images:v}],p=[{title:"Stockholm photos",images:["stories/images/stockholm.jpg","stories/images/strasbourg.jpg"]},{title:"Cosmos photos",images:["stories/images/cosmos1.jpg","stories/images/cosmos2.jpg"]}],b=[{title:"Sample PDF",pdf:"stories/images/sample.pdf"}],z=()=>new Promise(e=>setTimeout(()=>e(p),1500)),f=()=>new Promise((e,o)=>setTimeout(()=>o(new Error("Network error")),1e3));d.workerSrc=new URL(""+new URL("pdf.worker.min-FHbmGBN0.mjs",import.meta.url).href,import.meta.url).href;const P={title:"Cosmoz Image Viewer",component:"cosmoz-image-viewer"},m=({showDetach:e,showFullscreen:o,showPageNumber:s,showNav:r,loop:a,showZoom:n,detachedShowZoom:i})=>t`
+import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{g as t,h as n}from"./directive-helpers-pE8CwW2P.js";import{t as r}from"./cosmoz-image-viewer-C_U5wnz2.js";import{J as i,m as a}from"./pdf-D1QFqxOv.js";var o,s,c,l,u,d;function f(){return(f=e((()=>{o=[`stories/images/stockholm.jpg`,`this-is-a-loading-error.jpg`,()=>`stories/images/a_size.png`,()=>new Promise(e=>setTimeout(()=>e(`stories/images/strasbourg.jpg`),500))],s=[{title:`Stockholm photos`,images:o}],c=[{title:`Stockholm photos`,images:[`stories/images/stockholm.jpg`,`stories/images/strasbourg.jpg`]},{title:`Cosmos photos`,images:[`stories/images/cosmos1.jpg`,`stories/images/cosmos2.jpg`]}],l=[{title:`Sample PDF`,pdf:`stories/images/sample.pdf`}],u=()=>new Promise(e=>setTimeout(()=>e(c),1500)),d=()=>new Promise((e,t)=>setTimeout(()=>t(Error(`Network error`)),1e3))})))()}var p,m,h,g,_,v,y,b,x;function S(){return(S=e((()=>{t(),i(),r(),f(),a.workerSrc=new URL(``+new URL(`pdf.worker.min-Dswkl-cV.mjs`,import.meta.url).href,``+import.meta.url).href,p={title:`Cosmoz Image Viewer`,component:`cosmoz-image-viewer`},m=({showDetach:e,showFullscreen:t,showPageNumber:r,showNav:i,loop:a,showZoom:o,detachedShowZoom:c})=>n`
     <cosmoz-image-viewer
         ?show-detach=${e}
-        ?show-fullscreen=${o}
-        ?show-page-number=${s}
-        ?show-nav=${r}
+        ?show-fullscreen=${t}
+        ?show-page-number=${r}
+        ?show-nav=${i}
         ?loop=${a}
-        ?show-zoom=${n}
-        ?detached-show-zoom=${i}
-        .source=${$}
+        ?show-zoom=${o}
+        ?detached-show-zoom=${c}
+        .source=${s}
     ></cosmoz-image-viewer>
-`;m.args={showDetach:!0,showFullscreen:!0,showPageNumber:!0,showNav:!0,loop:!0,showZoom:!1,detachedShowZoom:!1};const c=({showDetach:e,showFullscreen:o,showPageNumber:s,showNav:r,loop:a,showZoom:n,detachedShowZoom:i})=>t`
+`,m.args={showDetach:!0,showFullscreen:!0,showPageNumber:!0,showNav:!0,loop:!0,showZoom:!1,detachedShowZoom:!1},h=({showDetach:e,showFullscreen:t,showPageNumber:r,showNav:i,loop:a,showZoom:o,detachedShowZoom:s})=>n`
     <cosmoz-image-viewer
         ?show-detach=${e}
-        ?show-fullscreen=${o}
-        ?show-page-number=${s}
-        ?show-nav=${r}
+        ?show-fullscreen=${t}
+        ?show-page-number=${r}
+        ?show-nav=${i}
         ?loop=${a}
-        ?show-zoom=${n}
-        ?detached-show-zoom=${i}
-        .source=${p}
+        ?show-zoom=${o}
+        ?detached-show-zoom=${s}
+        .source=${c}
     ></cosmoz-image-viewer>
-`;c.args={showDetach:!0,showFullscreen:!0,showPageNumber:!0,showNav:!0,loop:!0,showZoom:!1,detachedShowZoom:!1};const h=({showDetach:e,showFullscreen:o,showPageNumber:s,showNav:r,loop:a,showZoom:n,detachedShowZoom:i})=>t`
+`,h.args={showDetach:!0,showFullscreen:!0,showPageNumber:!0,showNav:!0,loop:!0,showZoom:!1,detachedShowZoom:!1},g=({showDetach:e,showFullscreen:t,showPageNumber:r,showNav:i,loop:a,showZoom:o,detachedShowZoom:s})=>n`
     <cosmoz-image-viewer
         ?show-detach=${e}
-        ?show-fullscreen=${o}
-        ?show-page-number=${s}
-        ?show-nav=${r}
+        ?show-fullscreen=${t}
+        ?show-page-number=${r}
+        ?show-nav=${i}
         ?loop=${a}
-        ?show-zoom=${n}
-        ?detached-show-zoom=${i}
-        .source=${b}
+        ?show-zoom=${o}
+        ?detached-show-zoom=${s}
+        .source=${l}
     ></cosmoz-image-viewer>
-`;h.args={showDetach:!0,showFullscreen:!0,showPageNumber:!0,showNav:!0,loop:!0,showZoom:!1,detachedShowZoom:!1};const l=()=>t`
+`,g.args={showDetach:!0,showFullscreen:!0,showPageNumber:!0,showNav:!0,loop:!0,showZoom:!1,detachedShowZoom:!1},_=()=>n`
     <cosmoz-image-viewer
         show-detach
         show-fullscreen
         show-page-number
         show-nav
         loop
-        .source=${z}
+        .source=${u}
     ></cosmoz-image-viewer>
-`,u=()=>t`
+`,v=()=>n`
     <cosmoz-image-viewer
         show-detach
         show-fullscreen
         show-page-number
         show-nav
         loop
-        .source=${f}
+        .source=${d}
     ></cosmoz-image-viewer>
-`,w=({showZoom:e,showNav:o,showPageNumber:s})=>t`
+`,y=({showZoom:e,showNav:t,showPageNumber:r})=>n`
     <cosmoz-image-viewer
         ?show-zoom=${e}
-        ?show-nav=${o}
-        ?show-page-number=${s}
-        .source=${[{title:"With overlay",images:["stories/images/stockholm.jpg","stories/images/strasbourg.jpg"]}]}
+        ?show-nav=${t}
+        ?show-page-number=${r}
+        .source=${[{title:`With overlay`,images:[`stories/images/stockholm.jpg`,`stories/images/strasbourg.jpg`]}]}
     >
         <div slot="overlay-page-0" style="color: white; font-size: 14px;">
             <div
@@ -71,7 +71,7 @@ import{b as t}from"./iframe-BC2PHcgw.js";import{GlobalWorkerOptions as d}from"./
             </div>
         </div>
     </cosmoz-image-viewer>
-`;w.args={showZoom:!0,showNav:!0,showPageNumber:!0};const g=()=>{const e=[{title:"Set 1",images:["stories/images/stockholm.jpg","stories/images/strasbourg.jpg"]}],o=[{title:"Set 2",images:["stories/images/cosmos1.jpg","stories/images/cosmos2.jpg"]}];return t`
+`,y.args={showZoom:!0,showNav:!0,showPageNumber:!0},b=()=>{let e=[{title:`Set 1`,images:[`stories/images/stockholm.jpg`,`stories/images/strasbourg.jpg`]}],t=[{title:`Set 2`,images:[`stories/images/cosmos1.jpg`,`stories/images/cosmos2.jpg`]}];return n`
         <cosmoz-image-viewer
             show-detach
             show-fullscreen
@@ -81,11 +81,11 @@ import{b as t}from"./iframe-BC2PHcgw.js";import{GlobalWorkerOptions as d}from"./
             .source=${e}
         ></cosmoz-image-viewer>
         <button
-            @click=${s=>{const r=s.target.previousElementSibling,a=r.source===e?o:e;return r.source=a,!1}}
+            @click=${n=>{let r=n.target.previousElementSibling;return r.source=r.source===e?t:e,!1}}
         >
             Switch source
         </button>
-    `};m.parameters={...m.parameters,docs:{...m.parameters?.docs,source:{originalSource:`({
+    `},x=[`Basic`,`MultiFile`,`Pdf`,`Loading`,`Error`,`OverlaySlots`,`Issue21`],m.parameters={...m.parameters,docs:{...m.parameters?.docs,source:{originalSource:`({
   showDetach,
   showFullscreen,
   showPageNumber,
@@ -104,7 +104,7 @@ import{b as t}from"./iframe-BC2PHcgw.js";import{GlobalWorkerOptions as d}from"./
         ?detached-show-zoom=\${detachedShowZoom}
         .source=\${singleFile}
     ></cosmoz-image-viewer>
-\``,...m.parameters?.docs?.source}}};c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`({
+\``,...m.parameters?.docs?.source}}},h.parameters={...h.parameters,docs:{...h.parameters?.docs,source:{originalSource:`({
   showDetach,
   showFullscreen,
   showPageNumber,
@@ -123,7 +123,7 @@ import{b as t}from"./iframe-BC2PHcgw.js";import{GlobalWorkerOptions as d}from"./
         ?detached-show-zoom=\${detachedShowZoom}
         .source=\${multipleFiles}
     ></cosmoz-image-viewer>
-\``,...c.parameters?.docs?.source}}};h.parameters={...h.parameters,docs:{...h.parameters?.docs,source:{originalSource:`({
+\``,...h.parameters?.docs?.source}}},g.parameters={...g.parameters,docs:{...g.parameters?.docs,source:{originalSource:`({
   showDetach,
   showFullscreen,
   showPageNumber,
@@ -142,7 +142,7 @@ import{b as t}from"./iframe-BC2PHcgw.js";import{GlobalWorkerOptions as d}from"./
         ?detached-show-zoom=\${detachedShowZoom}
         .source=\${pdfFile}
     ></cosmoz-image-viewer>
-\``,...h.parameters?.docs?.source}}};l.parameters={...l.parameters,docs:{...l.parameters?.docs,source:{originalSource:`() => html\`
+\``,...g.parameters?.docs?.source}}},_.parameters={..._.parameters,docs:{..._.parameters?.docs,source:{originalSource:`() => html\`
     <cosmoz-image-viewer
         show-detach
         show-fullscreen
@@ -151,7 +151,7 @@ import{b as t}from"./iframe-BC2PHcgw.js";import{GlobalWorkerOptions as d}from"./
         loop
         .source=\${lazySource}
     ></cosmoz-image-viewer>
-\``,...l.parameters?.docs?.source}}};u.parameters={...u.parameters,docs:{...u.parameters?.docs,source:{originalSource:`() => html\`
+\``,..._.parameters?.docs?.source}}},v.parameters={...v.parameters,docs:{...v.parameters?.docs,source:{originalSource:`() => html\`
     <cosmoz-image-viewer
         show-detach
         show-fullscreen
@@ -160,7 +160,7 @@ import{b as t}from"./iframe-BC2PHcgw.js";import{GlobalWorkerOptions as d}from"./
         loop
         .source=\${failingSource}
     ></cosmoz-image-viewer>
-\``,...u.parameters?.docs?.source}}};w.parameters={...w.parameters,docs:{...w.parameters?.docs,source:{originalSource:`({
+\``,...v.parameters?.docs?.source}}},y.parameters={...y.parameters,docs:{...y.parameters?.docs,source:{originalSource:`({
   showZoom,
   showNav,
   showPageNumber
@@ -189,7 +189,7 @@ import{b as t}from"./iframe-BC2PHcgw.js";import{GlobalWorkerOptions as d}from"./
             </div>
         </div>
     </cosmoz-image-viewer>
-\``,...w.parameters?.docs?.source}}};g.parameters={...g.parameters,docs:{...g.parameters?.docs,source:{originalSource:`() => {
+\``,...y.parameters?.docs?.source}}},b.parameters={...b.parameters,docs:{...b.parameters?.docs,source:{originalSource:`() => {
   const source1 = [{
       title: 'Set 1',
       images: ['stories/images/stockholm.jpg', 'stories/images/strasbourg.jpg']
@@ -218,4 +218,4 @@ import{b as t}from"./iframe-BC2PHcgw.js";import{GlobalWorkerOptions as d}from"./
             Switch source
         </button>
     \`;
-}`,...g.parameters?.docs?.source}}};const Z=["Basic","MultiFile","Pdf","Loading","Error","OverlaySlots","Issue21"];export{m as Basic,u as Error,g as Issue21,l as Loading,c as MultiFile,w as OverlaySlots,h as Pdf,Z as __namedExportsOrder,P as default};
+}`,...b.parameters?.docs?.source}}}})))()}S();export{m as Basic,v as Error,b as Issue21,_ as Loading,h as MultiFile,y as OverlaySlots,g as Pdf,x as __namedExportsOrder,p as default};
