@@ -36,12 +36,12 @@ suite('cosmoz-image-viewer', () => {
 			).toBeVisible();
 
 			await page.locator('cosmoz-image-viewer').hover();
-			await page.locator('button[name="next"]').click();
+			await page.locator('cosmoz-button[name="next"]').click();
 			await expect(
 				page.locator('img[src$="/stories/images/strasbourg.jpg"]'),
 			).toBeVisible();
 
-			await page.locator('button[name="next"]').click();
+			await page.locator('cosmoz-button[name="next"]').click();
 			await expect(
 				page.locator('img[src$="/stories/images/cosmos1.jpg"]'),
 			).toBeVisible();
@@ -49,13 +49,13 @@ suite('cosmoz-image-viewer', () => {
 			// wait for the slider to finish the animation
 			await expect(page.locator('img')).toHaveCount(1);
 
-			await page.locator('button[name="prev"]').click();
+			await page.locator('cosmoz-button[name="prev"]').click();
 
 			await expect(
 				page.locator('img[src$="/stories/images/strasbourg.jpg"]'),
 			).toBeVisible();
 
-			await page.locator('button[name="prev"]').click();
+			await page.locator('cosmoz-button[name="prev"]').click();
 			await expect(
 				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
 			).toBeVisible();
@@ -65,7 +65,7 @@ suite('cosmoz-image-viewer', () => {
 	test('can open and close fullscreen', async () => {
 		await perform(async ({ page, expect }) => {
 			await page.locator('cosmoz-image-viewer').hover();
-			await page.locator('button[title="Fullscreen image"]').click();
+			await page.locator('cosmoz-button[title="Fullscreen image"]').click();
 
 			await expect(page.locator('cosmoz-image-viewer')).toHaveCount(2);
 			await expect(
@@ -74,7 +74,7 @@ suite('cosmoz-image-viewer', () => {
 					.locator('img[src$="/stories/images/stockholm.jpg"]'),
 			).toBeVisible();
 
-			await page.locator('button[title="Close fullscreen"]').click();
+			await page.locator('cosmoz-button[title="Close fullscreen"]').click();
 			await expect(page.locator('cosmoz-image-viewer')).toHaveCount(1);
 		});
 	});
@@ -82,7 +82,7 @@ suite('cosmoz-image-viewer', () => {
 	test('can create pdf', async () => {
 		const filename = await perform(async ({ page }) => {
 			const downloadPromise = page.waitForEvent('download');
-			await page.locator('button[title="Download images"]').click();
+			await page.locator('cosmoz-button[title="Download images"]').click();
 			const download = await downloadPromise;
 			return download.suggestedFilename();
 		});
@@ -108,16 +108,20 @@ suite('cosmoz-image-viewer with no images', () => {
 	test('action items are hidden', async () => {
 		await perform(async ({ page, expect }) => {
 			await page.locator('cosmoz-image-viewer').hover();
-			await expect(page.locator('button[name="next"]')).not.toBeVisible();
-			await expect(page.locator('button[name="prev"]')).not.toBeVisible();
 			await expect(
-				page.locator('button[title="Fullscreen image"]'),
+				page.locator('cosmoz-button[name="next"]'),
 			).not.toBeVisible();
 			await expect(
-				page.locator('button[title="Download images"]'),
+				page.locator('cosmoz-button[name="prev"]'),
 			).not.toBeVisible();
 			await expect(
-				page.locator('button[title="Detach image to separate window"]'),
+				page.locator('cosmoz-button[title="Fullscreen image"]'),
+			).not.toBeVisible();
+			await expect(
+				page.locator('cosmoz-button[title="Download images"]'),
+			).not.toBeVisible();
+			await expect(
+				page.locator('cosmoz-button[title="Detach image to separate window"]'),
 			).not.toBeVisible();
 		});
 	});
@@ -152,7 +156,7 @@ suite('cosmoz-image-viewer-non-zoom-loading-error', () => {
 			).toBeVisible();
 
 			await page.locator('cosmoz-image-viewer').hover();
-			await page.locator('button[name="next"]').click();
+			await page.locator('cosmoz-button[name="next"]').click();
 			await expect(
 				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
 			).toBeVisible();
@@ -190,7 +194,7 @@ suite('cosmoz-image-viewer-loading-error', () => {
 			).toBeVisible();
 
 			await page.locator('cosmoz-image-viewer').hover();
-			await page.locator('button[name="next"]').click();
+			await page.locator('cosmoz-button[name="next"]').click();
 			await expect(
 				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
 			).toBeVisible();

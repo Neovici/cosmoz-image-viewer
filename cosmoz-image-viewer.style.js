@@ -48,7 +48,8 @@ export const styleSheet = sheet`:host {
     fill: var(--cz-color-fg-white);
 }
 
-.nav {
+cosmoz-button.nav::part(button),
+	.nav:not(cosmoz-button) {
     z-index: 1;
     color: var(--cz-color-fg-white);
     background-color: rgba(0, 0, 0, 0.44);
@@ -60,24 +61,31 @@ export const styleSheet = sheet`:host {
     height: 40px;
     transition: background-color 100ms;
 }
+	cosmoz-button.nav::part(button) { margin: 0; }
+	cosmoz-button.nav { margin: 3px; width: 40px; height: 40px; }
 
-.nav:not([disabled]) {
+cosmoz-button.nav:not([disabled])::part(button),
+	.nav:not([disabled]):not(cosmoz-button) {
     cursor: pointer;
 }
 
-.nav[disabled] {
+cosmoz-button.nav[disabled]::part(button),
+	.nav[disabled]:not(cosmoz-button) {
     opacity: 0.5;
 }
 
-.nav:active:not([disabled]) {
+cosmoz-button.nav:not([disabled])::part(button):active,
+	.nav:active:not([disabled]):not(cosmoz-button) {
     background-color: rgba(0, 0, 0, 0.60);
 }
 
-.nav:not(:hover) {
+cosmoz-button.nav:not()::part(button):hover,
+	.nav:not(:hover):not(cosmoz-button) {
     visibility: hidden;
 }
 
-:host(:hover) .nav {
+:host(:hover) cosmoz-button.nav::part(button),
+	:host(:hover) .nav:not(cosmoz-button) {
     visibility: visible;
 }
 

@@ -1,8 +1,8 @@
 import '../cosmoz-image-viewer.js';
 
-import { GlobalWorkerOptions } from 'pdfjs-dist';
 import { perform } from '@neovici/cfg/web/perform.js';
 import { fixture, html } from '@open-wc/testing';
+import { GlobalWorkerOptions } from 'pdfjs-dist';
 import { absolute, ignoreResizeLoopError } from './helpers/index.js';
 
 GlobalWorkerOptions.workerSrc = new URL(
@@ -32,11 +32,11 @@ suite('cosmoz-image-viewer pdf', () => {
 
 			// navigate to next page and verify it renders too
 			await page.locator('cosmoz-image-viewer').hover();
-			await page.locator('button[name="next"]').click();
+			await page.locator('cosmoz-button[name="next"]').click();
 			// wait for slide transition to settle (old slide removed from DOM)
-			await expect(
-				page.locator('cosmoz-image-viewer img'),
-			).toHaveCount(1, { timeout: 15000 });
+			await expect(page.locator('cosmoz-image-viewer img')).toHaveCount(1, {
+				timeout: 15000,
+			});
 			await expect(
 				page.locator('cosmoz-image-viewer img[src^="data:image/"]'),
 			).toBeVisible({ timeout: 15000 });
@@ -63,7 +63,7 @@ suite('cosmoz-image-viewer pdf', () => {
 			await page.locator('cosmoz-image-viewer').hover();
 			const popupPromise = page.waitForEvent('popup');
 			await page
-				.locator('button[title="Detach image to separate window"]')
+				.locator('cosmoz-button[title="Detach image to separate window"]')
 				.click();
 			const popup = await popupPromise;
 

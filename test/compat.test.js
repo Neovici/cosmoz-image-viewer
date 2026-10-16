@@ -50,7 +50,7 @@ suite('compat: .images prop', () => {
 			).toBeVisible();
 
 			await page.locator('cosmoz-image-viewer').hover();
-			await page.locator('button[name="next"]').click();
+			await page.locator('cosmoz-button[name="next"]').click();
 			await expect(
 				page.locator('img[src$="/stories/images/strasbourg.jpg"]'),
 			).toBeVisible();
@@ -58,7 +58,7 @@ suite('compat: .images prop', () => {
 			// wait for slider animation to settle
 			await expect(page.locator('img')).toHaveCount(1);
 
-			await page.locator('button[name="prev"]').click();
+			await page.locator('cosmoz-button[name="prev"]').click();
 			await expect(
 				page.locator('img[src$="/stories/images/stockholm.jpg"]'),
 			).toBeVisible();
