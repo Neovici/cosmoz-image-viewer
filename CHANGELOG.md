@@ -1,5 +1,12 @@
 ## [8.11.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.10.1...v8.11.0) (2026-05-08)
 
+## 8.12.0
+
+### Minor Changes
+
+- e61c06c: Use `cosmoz-button` for image navigation, zoom, detach, download, print and fullscreen controls. Preserve their circular overlay styling, hover visibility, accessible labels and disabled states.
+- b9d21a6: Allow `@neovici/cosmoz-tokens` ^3 || ^4 (light-dark() adoption)
+
 ## 8.11.2
 
 ### Patch Changes
