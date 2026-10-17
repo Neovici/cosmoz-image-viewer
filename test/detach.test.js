@@ -33,7 +33,7 @@ suite('cosmoz-image-viewer detach', () => {
 			await page.locator('cosmoz-image-viewer').hover();
 			const popupPromise = page.waitForEvent('popup');
 			await page
-				.locator('button[title="Detach image to separate window"]')
+				.locator('cosmoz-button[title="Detach image to separate window"]')
 				.click();
 			const popup = await popupPromise;
 
@@ -48,7 +48,7 @@ suite('cosmoz-image-viewer detach', () => {
 
 			// you can navigate the images in the popup
 			await popup.locator('cosmoz-image-viewer').hover();
-			await popup.locator('button[name="next"]').click();
+			await popup.locator('cosmoz-button[name="next"]').click();
 			await expect(
 				popup.locator('img[src$="/stories/images/strasbourg.jpg"]'),
 			).toBeVisible();
@@ -106,7 +106,9 @@ suite('cosmoz-image-viewer detach', () => {
 			await page.locator('#first').hover();
 			const popupPromise = page.waitForEvent('popup');
 			await page
-				.locator('#first button[title="Detach image to separate window"]')
+				.locator(
+					'#first cosmoz-button[title="Detach image to separate window"]',
+				)
 				.click();
 			const popup = await popupPromise;
 
@@ -127,7 +129,9 @@ suite('cosmoz-image-viewer detach', () => {
 			// the detach popup is shared by all instances
 			await page.locator('#second').hover();
 			await page
-				.locator('#second button[title="Detach image to separate window"]')
+				.locator(
+					'#second cosmoz-button[title="Detach image to separate window"]',
+				)
 				.click();
 			await expect(
 				popup.locator('img[src$="/stories/images/cosmos1.jpg"]'),
@@ -141,7 +145,7 @@ suite('cosmoz-image-viewer detach', () => {
 
 			// you can navigate the popup slideshow
 			await popup.locator('cosmoz-image-viewer').hover();
-			await popup.locator('button[name="next"]').click();
+			await popup.locator('cosmoz-button[name="next"]').click();
 			await expect(
 				popup.locator('img[src$="/stories/images/cosmos2.jpg"]'),
 			).toBeVisible();
@@ -184,7 +188,7 @@ suite('cosmoz-image-viewer detach', () => {
 		await perform(async ({ page, expect }) => {
 			// go fullscreen
 			await page.locator('cosmoz-image-viewer').hover();
-			await page.locator('button[title="Fullscreen image"]').click();
+			await page.locator('cosmoz-button[title="Fullscreen image"]').click();
 
 			await expect(page.locator('cosmoz-image-viewer')).toHaveCount(2);
 			await expect(
@@ -195,7 +199,9 @@ suite('cosmoz-image-viewer detach', () => {
 			await page.locator('[fullscreen]').hover();
 			const popupPromise = page.waitForEvent('popup');
 			await page
-				.locator('[fullscreen] button[title="Detach image to separate window"]')
+				.locator(
+					'[fullscreen] cosmoz-button[title="Detach image to separate window"]',
+				)
 				.click();
 			const popup = await popupPromise;
 
@@ -221,7 +227,7 @@ suite('cosmoz-image-viewer detach', () => {
 
 			// exit fullscreen
 			await page.locator('cosmoz-image-viewer[fullscreen]').hover();
-			await page.locator('button[title="Close fullscreen"]').click();
+			await page.locator('cosmoz-button[title="Close fullscreen"]').click();
 
 			// expect to see the image in normal mode
 			await expect(
@@ -284,7 +290,9 @@ suite('syncState', () => {
 		await perform(async ({ page }) => {
 			await page.locator('#first').hover();
 			await page
-				.locator('#first button[title="Detach image to separate window"]')
+				.locator(
+					'#first cosmoz-button[title="Detach image to separate window"]',
+				)
 				.click();
 		});
 

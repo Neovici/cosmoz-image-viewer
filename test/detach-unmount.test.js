@@ -41,7 +41,7 @@ suite('detached window slider navigation regression (FE-461)', () => {
 			const popupPromise = page.waitForEvent('popup');
 			await page
 				.locator(
-					'#slide-viewer-a button[title="Detach image to separate window"]',
+					'#slide-viewer-a cosmoz-button[title="Detach image to separate window"]',
 				)
 				.click();
 			const popup = await popupPromise;
