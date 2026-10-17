@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{g as t,h as n}from"./directive-helpers-pE8CwW2P.js";import{t as r}from"./cosmoz-image-viewer-C_U5wnz2.js";var i,a,o,s,c;function l(){return(l=e((()=>{t(),r(),i={title:`Pan Zoom`,component:`haunted-pan-zoom`},a=({disabled:e,height:t,zoomStiffness:r})=>n`
+import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{g as t,h as n}from"./directive-helpers-BJbJgf_T.js";import{t as r}from"./cosmoz-image-viewer-BqgzNH0z.js";var i,a,o,s,c;function l(){return(l=e((()=>{t(),r(),i={title:`Pan Zoom`,component:`haunted-pan-zoom`},a=({disabled:e,height:t,zoomStiffness:r})=>n`
     <haunted-pan-zoom
         src="stories/images/a_size.png"
         style="${t};"
