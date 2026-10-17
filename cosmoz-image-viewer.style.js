@@ -48,8 +48,7 @@ export const styleSheet = sheet`:host {
     fill: var(--cz-color-fg-white);
 }
 
-cosmoz-button.nav::part(button),
-	.nav:not(cosmoz-button) {
+cosmoz-button.nav::part(button) {
     z-index: 1;
     color: var(--cz-color-fg-white);
     background-color: rgba(0, 0, 0, 0.44);
@@ -64,28 +63,23 @@ cosmoz-button.nav::part(button),
 	cosmoz-button.nav::part(button) { margin: 0; }
 	cosmoz-button.nav { margin: 3px; width: 40px; height: 40px; }
 
-cosmoz-button.nav:not([disabled])::part(button),
-	.nav:not([disabled]):not(cosmoz-button) {
+cosmoz-button.nav:not([disabled])::part(button) {
     cursor: pointer;
 }
 
-cosmoz-button.nav[disabled]::part(button),
-	.nav[disabled]:not(cosmoz-button) {
+cosmoz-button.nav[disabled]::part(button) {
     opacity: 0.5;
 }
 
-cosmoz-button.nav:not([disabled])::part(button):active,
-	.nav:active:not([disabled]):not(cosmoz-button) {
+cosmoz-button.nav:not([disabled])::part(button):active {
     background-color: rgba(0, 0, 0, 0.60);
 }
 
-cosmoz-button.nav:not()::part(button):hover,
-	.nav:not(:hover):not(cosmoz-button) {
+cosmoz-button.nav:not(:hover)::part(button) {
     visibility: hidden;
 }
 
-:host(:hover) cosmoz-button.nav::part(button),
-	:host(:hover) .nav:not(cosmoz-button) {
+:host(:hover) cosmoz-button.nav::part(button) {
     visibility: visible;
 }
 
