@@ -1,5 +1,7 @@
-import { assert, waitUntil } from '@open-wc/testing';
+import { assert, fixture, html, waitUntil } from '@open-wc/testing';
+import { component } from '@pionjs/pion';
 import { createSandbox } from 'sinon';
+import { useContent } from '../lib/hooks/use-content.js';
 import { loadPdf, loadPdfThunks } from '../lib/pdf-loader.js';
 import { create } from '../lib/pdf.js';
 
@@ -114,6 +116,51 @@ suite('PDF resource bounds', () => {
 		await pdf.destroy();
 		await pdf.destroy();
 		assert.isTrue(task.destroy.calledOnce);
+	});
+
+	test('cleans up a page loaded after its render was cancelled', async () => {
+		const { task, page, getPage } = documentTask();
+		let resolvePage;
+		getPage.returns(
+			new Promise((resolve) => {
+				resolvePage = resolve;
+			}),
+		);
+		install(() => task);
+		const pdf = await loadPdf('cancelled-page.pdf');
+		const controller = new AbortController();
+		const pending = pdf
+			.getPageDataUrl(0, controller.signal)
+			.catch((error) => error);
+		controller.abort();
+		resolvePage(page);
+		assert.equal((await pending).name, 'AbortError');
+		assert.isFalse(page.render.called);
+		assert.isTrue(page.cleanup.calledOnce);
+		await pdf.destroy();
+	});
+
+	test('destroys the viewer document on source changes and unmount', async () => {
+		const { task } = documentTask();
+		const getDocument = sandbox.stub().returns(task);
+		install(getDocument);
+		customElements.define(
+			'pdf-content-test',
+			component((host) => {
+				useContent(host.file);
+				return html``;
+			}),
+		);
+		const el = await fixture(
+			html`<pdf-content-test .file=${{ pdf: 'one.pdf' }}></pdf-content-test>`,
+		);
+		await waitUntil(() => getDocument.calledOnce);
+		el.file = { images: ['image.png'] };
+		await waitUntil(() => task.destroy.calledOnce);
+		el.file = { pdf: 'two.pdf' };
+		await waitUntil(() => getDocument.calledTwice);
+		el.remove();
+		assert.isTrue(task.destroy.calledTwice);
 	});
 
 	test('does not start loading when already aborted', async () => {
