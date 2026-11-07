@@ -1,0 +1,1 @@
+import{n as e,t}from"./react-FRnORBv7.js";t();export{e as MDXProvider};
