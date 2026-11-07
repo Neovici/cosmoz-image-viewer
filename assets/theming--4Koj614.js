@@ -1,1 +1,0 @@
-import"./react-Q1GcV6wX.js";import{_ as e,c as t}from"./theming-DUt0tosi.js";t();export{e as color};
