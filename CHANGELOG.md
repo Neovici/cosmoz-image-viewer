@@ -1,5 +1,11 @@
 ## [8.11.0](https://github.com/Neovici/cosmoz-image-viewer/compare/v8.10.1...v8.11.0) (2026-05-08)
 
+## 8.13.0
+
+### Minor Changes
+
+- 1cd68be: Add abort signals and document disposal to the PDF loader, cancel page renders on demand, and release raster canvases after rendering. Build exported PDFs one image at a time to avoid fetching and retaining all source page buffers concurrently.
+
 ## 8.12.0
 
 ### Minor Changes
